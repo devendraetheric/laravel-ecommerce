@@ -15,4 +15,4 @@ Route::get('cache-clear', function () {
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');

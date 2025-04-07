@@ -12,5 +12,11 @@
         "laravel-vite-plugin": "^1.2.0",
         "tailwindcss": "^4.0.0",
         "vite": "^6.2.4"
+    },
+    "dependencies": {
+        "jquery": "^3.7.1",
+        "mixitup": "^3.3.2",
+        "select2": "^4.1.0-rc.0",
+        "swiper": "^6.5.0"
     }
 }
