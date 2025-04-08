@@ -26,6 +26,11 @@ class Product extends Model implements HasMedia
         'stock' => 'integer',
     ];
 
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
     public function scopeActive($query)
     {
         return $query->where('is_active', true);

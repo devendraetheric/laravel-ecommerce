@@ -14,6 +14,7 @@
         "vite": "^6.2.4"
     },
     "dependencies": {
+        "alpinejs": "^3.14.9",
         "jquery": "^3.7.1",
         "mixitup": "^3.3.2",
         "select2": "^4.1.0-rc.0",

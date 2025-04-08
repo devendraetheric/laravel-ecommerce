@@ -108,7 +108,8 @@
                                             <div class="flex items-center justify-between">
                                                 <div class="flex items-center gap-1">
                                                     <div>
-                                                        <img src="./assets/images/all-img/cart-01.png" alt="">
+                                                        <img src="{{ asset('assets/images/all-img/cart-01.png') }}"
+                                                            alt="">
                                                     </div>
                                                     <div class="px-2">
                                                         <h2 class="text-gray-black"><span>Isolate Sofa Chair</span>
@@ -134,7 +135,8 @@
                                             <div class="flex items-center justify-between">
                                                 <div class="flex items-center gap-1">
                                                     <div>
-                                                        <img src="./assets/images/all-img/cart-01.png" alt="">
+                                                        <img src="{{ asset('assets/images/all-img/cart-01.png') }}"
+                                                            alt="">
                                                     </div>
                                                     <div class="px-2">
                                                         <h2 class="text-gray-black"><span>Isolate Sofa Chair</span>
@@ -271,13 +273,10 @@
 
                     <ul class="lg:flex gap-8 items-center hidden main-menu">
                         <li>
-                            <a href="index.html">Home</a>
+                            <a href="{{ route('home') }}">Home</a>
                         </li>
                         <li>
-                            <a href="products.html">Shop</a>
-                        </li>
-                        <li>
-                            <a href="product-details.html">Product</a>
+                            <a href="{{ route('products.list') }}">Product</a>
                         </li>
                         <li class="relative">
                             <a href="javascript:void(0);" class="!inline-flex gap-2 items-center">Pages
@@ -331,7 +330,8 @@
                 </div>
                 <div>
                     <p class="text-grayscales-900 inline-flex gap-2 items-center text-sm font-display">
-                        <span>Contact:</span><span class="text-secondary font-medium">(808) 555-0111</span>
+                        <span>Contact:</span>
+                        <span class="text-secondary font-medium">(808) 555-0111</span>
                     </p>
                 </div>
             </div>
@@ -451,11 +451,11 @@
         <div>
             <nav class="tabs flex flex-row">
                 <button data-target="panel-1"
-                    class="tab rounded-none w-1/2 active text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none text-blue-500 border-b-2 font-medium border-blue-500">
+                    class="tab rounded-none w-1/2 active text-gray-600 py-4 px-6 block hover:text-primary-500 focus:outline-none text-primary-500 border-b-2 font-medium border-primary-500">
                     Menu
                 </button>
                 <button data-target="panel-2"
-                    class="tab rounded-none w-1/2 ext-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none border-b-2 font-medium border-blue-500">
+                    class="tab rounded-none w-1/2 ext-gray-600 py-4 px-6 block hover:text-primary-500 focus:outline-none border-b-2 font-medium border-primary-500">
                     Categories
                 </button>
             </nav>
@@ -465,35 +465,35 @@
             <div class="panel-1 tab-content active">
                 <ul class="flex flex-col items-center">
                     <li class="w-full block">
-                        <a href="" class="border-b border-[#029FAE] block px-3 py-2">Home</a>
+                        <a href="" class="border-b border-primary-600 block px-3 py-2">Home</a>
                     </li>
                     <li class="w-full block">
-                        <a href="" class="border-b border-[#029FAE] block px-3 py-2">Shop</a>
+                        <a href="" class="border-b border-primary-600 block px-3 py-2">Shop</a>
                     </li>
                     <li class="w-full block">
-                        <a href="" class="border-b border-[#029FAE] block px-3 py-2">Product</a>
+                        <a href="" class="border-b border-primary-600 block px-3 py-2">Product</a>
                     </li>
                     <li class="w-full block">
-                        <a href="" class="border-b border-[#029FAE] block px-3 py-2">Pages</a>
+                        <a href="" class="border-b border-primary-600 block px-3 py-2">Pages</a>
                     </li>
                     <li class="w-full block">
-                        <a href="" class="border-b border-[#029FAE] block px-3 py-2">About</a>
+                        <a href="" class="border-b border-primary-600 block px-3 py-2">About</a>
                     </li>
                 </ul>
             </div>
             <div class="panel-2 tab-content py-5">
                 <ul>
                     <li>
-                        <a href="#" class="border-b border-[#029FAE] block px-3 py-2">Wodden</a>
+                        <a href="#" class="border-b border-primary-600 block px-3 py-2">Wodden</a>
                     </li>
                     <li>
-                        <a href="#" class="border-b border-[#029FAE] block px-3 py-2">Partex</a>
+                        <a href="#" class="border-b border-primary-600 block px-3 py-2">Partex</a>
                     </li>
                     <li>
-                        <a href="#" class="border-b border-[#029FAE] block px-3 py-2">Plywood</a>
+                        <a href="#" class="border-b border-primary-600 block px-3 py-2">Plywood</a>
                     </li>
                     <li>
-                        <a href="#" class="border-b border-[#029FAE] block px-3 py-2">Segun</a>
+                        <a href="#" class="border-b border-primary-600 block px-3 py-2">Segun</a>
                     </li>
                 </ul>
             </div>

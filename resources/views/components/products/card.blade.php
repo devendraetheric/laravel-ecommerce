@@ -1,13 +1,13 @@
 <div class="product-card">
-    <a href="product-details.html">
+    <a href="{{ route('products.single', $product) }}">
         <div class="product-thumb">
-            <img src="./assets/images/all-img/f-product-01.png" alt="">
+            <img src="{{ $product->getMedia('product-images')->first()->getUrl() }}" alt="{{ $product?->name }}">
             {{--  <span class="badge new">New</span> --}}
         </div>
         <div class="product-info">
             <div>
-                <h2 class="product-name">Library Stool Chair</h2>
-                <h3 class="product-price">$20</h3>
+                <h2 class="product-name">{{ $product?->name }}</h2>
+                <h3 class="product-price">${{ $product?->regular_price }}</h3>
             </div>
             <div>
                 <button class="cart-icon">

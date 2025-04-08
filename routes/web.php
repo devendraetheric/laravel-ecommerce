@@ -1,18 +1,14 @@
 <?php
 
-use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\FrontController;
 use Illuminate\Support\Facades\Route;
 
 
-// CACHE CLEAR ROUTE
-Route::get('cache-clear', function () {
-    Artisan::call('optimize:clear');
-    request()->session()->flash('success', 'Successfully cache cleared.');
-    return redirect()->back();
-})->name('cache.clear');
+Route::get('/', [FrontController::class, 'home'])->name('home');
+Route::get('/products', [FrontController::class, 'products'])->name('products.list');
+Route::get('/product/{product}', [FrontController::class, 'productSingle'])->name('products.single');
 
 
-
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::prefix('admin')
+    ->as('admin.')
+    ->group(base_path('routes/admin.php'));
