@@ -41,7 +41,24 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name'              => ['required', 'string', 'max:255'],
+            'slug'              => ['required', 'string', 'max:255', 'unique:products,slug'],
+            'short_description' => ['nullable', 'string'],
+            'long_description'  => ['nullable', 'string'],
+            'regular_price'     => ['required', 'numeric', 'min:0'],
+            'selling_price'     => ['required', 'numeric', 'min:0'],
+            'is_active'         => ['boolean', 'default:0'],
+            'is_featured'       => ['boolean', 'default:0'],
+            'category_id'       => ['required', 'exists:categories,id'],
+            'brand_id'          => ['required', 'exists:brands,id'],
+        ]);
+
+        Product::create($validated);
+
+        return redirect()
+            ->route('admin.products.index')
+            ->with('success', 'Product created successfully.');
     }
 
     /**
@@ -68,7 +85,25 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $validated = $request->validate([
+            'name'              => ['required', 'string', 'max:255'],
+            'slug'              => ['required', 'string', 'max:255', 'unique:products,slug,' . $product->id],
+            'short_description' => ['nullable', 'string'],
+            'long_description'  => ['nullable', 'string'],
+            'regular_price'     => ['required', 'numeric', 'min:0'],
+            'selling_price'     => ['required', 'numeric', 'min:0'],
+            'is_active'         => ['boolean', 'default:0'],
+            'is_featured'       => ['boolean', 'default:0'],
+            'category_id'       => ['required', 'exists:categories,id'],
+            'brand_id'          => ['required', 'exists:brands,id'],
+        ]);
+
+        $product->fill($validated);
+        $product->save();
+
+        return redirect()
+            ->route('admin.products.index')
+            ->with('success', 'Product updated successfully.');
     }
 
     /**

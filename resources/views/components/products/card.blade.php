@@ -1,7 +1,7 @@
 <div class="product-card">
     <a href="{{ route('products.single', $product) }}">
         <div class="product-thumb">
-            <img src="{{ $product->getMedia('product-images')->first()->getUrl() }}" alt="{{ $product?->name }}">
+            <img src="{{ $product?->getMedia('product-images')->first()?->getUrl() }}" alt="{{ $product?->name }}">
             {{--  <span class="badge new">New</span> --}}
         </div>
         <div class="product-info">

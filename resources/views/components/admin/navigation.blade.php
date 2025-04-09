@@ -20,6 +20,11 @@
             'route' => route('admin.brands.index'),
             'active' => request()->routeIs('admin.brands.*'),
         ],
+        [
+            'name' => 'Orders',
+            'route' => route('admin.orders.index'),
+            'active' => request()->routeIs('admin.orders.*'),
+        ],
     ];
 @endphp
 
