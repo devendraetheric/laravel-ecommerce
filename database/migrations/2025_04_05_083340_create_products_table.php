@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('short_description')->nullable();
-            $table->text('long_description')->nullable();
+            $table->longText('long_description')->nullable();
             $table->decimal('regular_price', 10, 2)->default(0);
             $table->decimal('selling_price', 10, 2)->default(0);
             $table->boolean('is_active')->default(true);

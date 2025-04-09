@@ -13,6 +13,15 @@ class Category extends Model implements HasMedia
     use HasFactory;
     use InteractsWithMedia;
 
+    protected $fillable = [
+        'name',
+        'slug',
+        'parent_id',
+        'is_active',
+        'seo_title',
+        'seo_description',
+    ];
+
     protected $casts = [
         'is_active' => 'boolean',
     ];

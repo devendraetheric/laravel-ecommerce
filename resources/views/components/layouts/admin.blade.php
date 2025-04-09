@@ -16,6 +16,8 @@
 </head>
 
 <body class="h-full font-display">
+    <x-admin.alert />
+
     <div x-data="{ showSideNav: false }">
 
         <x-admin.sidenav />
@@ -23,11 +25,18 @@
         <div class="lg:pl-72">
             <x-admin.topnav />
 
-            <main class="py-10">
+            <main class="py-10 min-h-[calc(100vh-8rem)]">
                 <div class="px-4 sm:px-6 lg:px-8">
                     {{ $slot }}
                 </div>
             </main>
+            <footer>
+                <div class="px-4 sm:px-6 lg:px-8">
+                    <div class="border-t border-gray-200 py-4 text-center text-sm text-gray-500">
+                        &copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
 </body>

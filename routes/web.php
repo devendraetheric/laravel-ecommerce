@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FrontController::class, 'home'])->name('home');
 Route::get('/products', [FrontController::class, 'products'])->name('products.list');
-Route::get('/product/{product}', [FrontController::class, 'productSingle'])->name('products.single');
+Route::get('/product/{product:slug}', [FrontController::class, 'productSingle'])->name('products.single');
 
 
 Route::prefix('admin')

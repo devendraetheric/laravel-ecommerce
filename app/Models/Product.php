@@ -13,9 +13,19 @@ class Product extends Model implements HasMedia
     use HasFactory;
     use InteractsWithMedia;
 
-    protected $with = [
-        'category',
-        'brand',
+    protected $fillable = [
+        'name',
+        'slug',
+        'short_description',
+        'long_description',
+        'regular_price',
+        'selling_price',
+        'is_active',
+        'is_featured',
+        'category_id',
+        'brand_id',
+        'seo_title',
+        'seo_description',
     ];
 
     protected $casts = [
@@ -26,10 +36,10 @@ class Product extends Model implements HasMedia
         'stock' => 'integer',
     ];
 
-    public function getRouteKeyName(): string
+    /* public function getRouteKeyName(): string
     {
         return 'slug';
-    }
+    } */
 
     public function scopeActive($query)
     {

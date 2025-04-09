@@ -17,8 +17,8 @@
                                     d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
                                     clip-rule="evenodd" />
                             </svg>
-                            <a href="{{ route('admin.brands.index') }}"
-                                class="text-sm font-medium text-gray-500 hover:text-gray-700">Brands</a>
+                            <a href="{{ route('admin.categories.index') }}"
+                                class="text-sm font-medium text-gray-500 hover:text-gray-700">Categories</a>
                         </div>
                     </li>
                     <li>
@@ -37,10 +37,10 @@
 
             <div class="mt-2 md:flex md:items-center md:justify-between">
                 <div class="min-w-0 flex-1">
-                    <h2 class="page-title">Brands</h2>
+                    <h2 class="page-title">Categories</h2>
                 </div>
                 <div class="mt-4 flex shrink-0 md:ml-4 md:mt-0">
-                    <a href="{{ route('admin.brands.create') }}" class="btn-primary">Add New</a>
+                    <a href="{{ route('admin.categories.create') }}" class="btn-primary">Add New</a>
                 </div>
             </div>
         </div>
@@ -62,13 +62,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($brands as $brand)
+                                    @forelse ($categories as $category)
                                         <tr>
-                                            <td class="!font-semibold">{{ $brand->name }}</td>
-                                            <td>{{ $brand->slug }}</td>
+                                            <td class="!font-semibold">{{ $category->name }}</td>
+                                            <td>{{ $category->slug }}</td>
 
                                             <td class="relative text-right text-sm space-x-1 items-center">
-                                                <a href="{{ route('admin.brands.edit', $brand) }}"
+                                                <a href="{{ route('admin.categories.edit', $category) }}"
                                                     class="link-primary relative inline-flex">
                                                     <svg viewBox="0 0 20 20" fill="currentColor" class="size-5">
                                                         <path
@@ -77,7 +77,7 @@
                                                             d="M3.5 5.75c0-.69.56-1.25 1.25-1.25H10A.75.75 0 0 0 10 3H4.75A2.75 2.75 0 0 0 2 5.75v9.5A2.75 2.75 0 0 0 4.75 18h9.5A2.75 2.75 0 0 0 17 15.25V10a.75.75 0 0 0-1.5 0v5.25c0 .69-.56 1.25-1.25 1.25h-9.5c-.69 0-1.25-.56-1.25-1.25v-9.5Z" />
                                                     </svg>
                                                 </a>
-                                                <form action="{{ route('admin.brands.destroy', $brand) }}"
+                                                <form action="{{ route('admin.categories.destroy', $category) }}"
                                                     method="post" class="inline-flex"
                                                     onsubmit="return confirm('Are you sure want to delete?')">
                                                     @csrf
@@ -106,7 +106,7 @@
         </div>
 
         <div class="mt-3">
-            {!! $brands->links() !!}
+            {!! $categories->links() !!}
         </div>
     </div>
 </x-layouts.admin>

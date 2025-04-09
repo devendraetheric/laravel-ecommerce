@@ -3,21 +3,21 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Brand;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
-class BrandController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $brands = Brand::latest()
+        $categories = Category::latest()
             ->simplePaginate()
             ->withQueryString();
 
-        return view('admin.brands.index', compact('brands'));
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -25,9 +25,9 @@ class BrandController extends Controller
      */
     public function create()
     {
-        $brand = new Brand();
+        $category = new Category();
 
-        return view('admin.brands.form', compact('brand'));
+        return view('admin.categories.form', compact('category'));
     }
 
     /**
@@ -43,18 +43,17 @@ class BrandController extends Controller
             'seo_description'   => ['string', 'max:255'],
         ]);
 
-        $brand = Brand::create($validated);
-        $brand->save();
+        Category::create($validated);
 
         return redirect()
-            ->route('admin.brands.index')
-            ->with('success', 'Brand created successfully.');
+            ->route('admin.categories.index')
+            ->with('success', 'Category created successfully.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Brand $brand)
+    public function show(Category $category)
     {
         //
     }
@@ -62,15 +61,15 @@ class BrandController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Brand $brand)
+    public function edit(Category $category)
     {
-        return view('admin.brands.form', compact('brand'));
+        return view('admin.categories.form', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Brand $brand)
+    public function update(Request $request, Category $category)
     {
         $validated = $request->validate([
             'name'              => ['required', 'string', 'max:255'],
@@ -80,23 +79,23 @@ class BrandController extends Controller
             'seo_description'   => ['string', 'max:255'],
         ]);
 
-        $brand->fill($validated);
-        $brand->save();
+        $category->fill($validated);
+        $category->save();
 
         return redirect()
-            ->route('admin.brands.index')
-            ->with('success', 'Brand updated successfully.');
+            ->route('admin.categories.index')
+            ->with('success', 'Category updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Brand $brand)
+    public function destroy(Category $category)
     {
-        $brand->delete();
+        $category->delete();
 
         return redirect()
-            ->route('admin.brands.index')
-            ->with('success', 'Brand deleted successfully.');
+            ->route('admin.categories.index')
+            ->with('success', 'Category deleted successfully.');
     }
 }

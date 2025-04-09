@@ -10,9 +10,19 @@ class Brand extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'slug',
+        'is_active',
+        'seo_title',
+        'seo_description',
+    ];
+
     protected $casts = [
         'is_active' => 'boolean',
     ];
+
+    protected $perPage = 10;
 
     public function scopeActive($query)
     {

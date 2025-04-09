@@ -17,8 +17,8 @@
                                     d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
                                     clip-rule="evenodd" />
                             </svg>
-                            <a href="{{ route('admin.brands.index') }}"
-                                class="text-sm font-medium text-gray-500 hover:text-gray-700">Brands</a>
+                            <a href="{{ route('admin.categories.index') }}"
+                                class="text-sm font-medium text-gray-500 hover:text-gray-700">Categories</a>
                         </div>
                     </li>
                     <li>
@@ -30,7 +30,7 @@
                                     clip-rule="evenodd" />
                             </svg>
                             <span aria-current="page" class="text-sm font-medium text-gray-600">
-                                @isset($brand->id)
+                                @isset($category->id)
                                     Edit
                                 @else
                                     Create
@@ -43,10 +43,10 @@
             <div class="mt-2 md:flex md:items-center md:justify-between">
                 <div class="min-w-0 flex-1">
                     <h2 class="page-title">
-                        @isset($brand->id)
-                            Edit {{ $brand->name }}
+                        @isset($category->id)
+                            Edit {{ $category->name }}
                         @else
-                            Create Brand
+                            Create Category
                         @endisset
                     </h2>
                 </div>
@@ -55,10 +55,10 @@
 
 
         <form method="post"
-            action="{{ $brand->id ? route('admin.brands.update', $brand) : route('admin.brands.store') }}">
+            action="{{ $category->id ? route('admin.categories.update', $category) : route('admin.categories.store') }}">
             @csrf
 
-            @isset($brand->id)
+            @isset($category->id)
                 @method('put')
             @endisset
             <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
@@ -68,7 +68,7 @@
                             <label for="name" class="control-label sm:pt-1.5">Name</label>
                             <input type="text" name="name" id="name"
                                 class="form-control @error('name') is-invalid @enderror"
-                                value="{{ old('name', $brand->name) }}" />
+                                value="{{ old('name', $category->name) }}" />
                             @error('name')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -78,7 +78,7 @@
                             <label for="slug" class="control-label sm:pt-1.5">Slug</label>
                             <input type="text" name="slug" id="slug"
                                 class="form-control @error('slug') is-invalid @enderror"
-                                value="{{ old('slug', $brand->slug) }}" />
+                                value="{{ old('slug', $category->slug) }}" />
                             @error('slug')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -87,7 +87,7 @@
                         <div class="space-y-2 col-span-2">
                             <label for="description" class="control-label sm:pt-1.5">Description</label>
                             <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description"
-                                rows="3">{{ old('description', $brand->description) }}</textarea>
+                                rows="3">{{ old('description', $category->description) }}</textarea>
                             @error('description')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -105,7 +105,7 @@
                             <label for="seo_title" class="control-label sm:pt-1.5">SEO Title</label>
                             <input type="text" seo_title="seo_title" id="seo_title"
                                 class="form-control @error('seo_title') is-invalid @enderror"
-                                value="{{ old('seo_title', $brand->seo_title) }}" />
+                                value="{{ old('seo_title', $category->seo_title) }}" />
                             @error('seo_title')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -114,7 +114,7 @@
                         <div class="space-y-2">
                             <label for="seo_description" class="control-label sm:pt-1.5">SEO Description</label>
                             <textarea class="form-control @error('seo_description') is-invalid @enderror" id="seo_description"
-                                name="seo_description" rows="3">{{ old('seo_description', $brand->seo_description) }}</textarea>
+                                name="seo_description" rows="3">{{ old('seo_description', $category->seo_description) }}</textarea>
                             @error('seo_description')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -124,7 +124,7 @@
             </div>
             <div class="mt-6 space-x-2">
                 <button type="submit" class="btn btn-primary">Submit</button>
-                <a href="{{ route('admin.brands.index') }}" class="btn-secondary">Cancel</a>
+                <a href="{{ route('admin.categories.index') }}" class="btn-secondary">Cancel</a>
             </div>
         </form>
     </div>
