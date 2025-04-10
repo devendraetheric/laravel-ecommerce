@@ -40,7 +40,7 @@
                 @foreach ($navigation as $item)
                     <li>
                         <a href="{{ $item['route'] }}"
-                            class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold  hover:bg-gray-50 hover:text-primary-600 @if ($item['active']) bg-gray-50 text-primary-600 @else text-gray-700 @endif">
+                            class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold hover:bg-gray-50 hover:text-primary-600 @if ($item['active']) bg-gray-50 text-primary-600 @else text-gray-700 @endif">
                             <svg class="size-6 shrink-0  @if ($item['active']) text-primary-600 @else text-gray-400 @endif group-hover:text-primary-600"
                                 fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                 aria-hidden="true" data-slot="icon">

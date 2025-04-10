@@ -24,6 +24,14 @@
             </svg>
         </form>
         <div class="flex items-center gap-x-4 lg:gap-x-6">
+            <a href="{{ route('home') }}" target="_blank" class="-m-2.5 p-2.5 text-green-400 hover:text-green-500">
+                <span class="sr-only">Website Home</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+                </svg>
+            </a>
             <button type="button" class="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500">
                 <span class="sr-only">View notifications</span>
                 <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -44,11 +52,11 @@
 
                     <span class="inline-flex size-8 items-center justify-center rounded-full bg-gray-500">
                         <span
-                            class="text-xs font-medium text-white">{{ mb_substr(Auth::guard('admin')->name, 0, 1) }}</span>
+                            class="text-xs font-medium text-white">{{ mb_substr(auth('admin')->user()->name, 0, 1) }}</span>
                     </span>
                     <span class="hidden lg:flex lg:items-center">
                         <span class="ml-4 text-sm/6 font-semibold text-gray-900"
-                            aria-hidden="true">{{ Auth::guard('admin')->name }}</span>
+                            aria-hidden="true">{{ auth('admin')->user()->name }}</span>
                         <svg class="ml-2 size-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor"
                             aria-hidden="true" data-slot="icon">
                             <path fill-rule="evenodd"

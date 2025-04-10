@@ -53,8 +53,11 @@
                             <table class="record-table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Slug</th>
+                                        <th scope="col">Order #</th>
+                                        <th scope="col">Customer</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Grand Total</th>
+                                        <th scope="col">Order Date</th>
 
                                         <th scope="col" class="relative">
                                             <span class="sr-only">Actions</span>
@@ -64,8 +67,18 @@
                                 <tbody>
                                     @forelse ($orders as $order)
                                         <tr>
-                                            <td class="!font-semibold">{{ $order->name }}</td>
-                                            <td>{{ $order->slug }}</td>
+                                            <td class="!font-semibold">
+                                                <a class="link-primary"
+                                                    href="{{ route('admin.orders.show', $order) }}">{{ $order->order_number }}</a>
+                                            </td>
+                                            <td>{{ $order->user->name }}</td>
+                                            <td>{{ $order->status }}</td>
+                                            <td>{{ $order->grand_total }}</td>
+                                            <td>{{ $order->order_date->format('d M Y') }}</td>
+
+                                            {{-- Order Status --}}
+
+                                            {{-- Actions --}}
 
                                             <td class="relative text-right text-sm space-x-1 items-center">
                                                 <a href="{{ route('admin.orders.edit', $order) }}"

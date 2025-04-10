@@ -77,7 +77,7 @@
                     </div>
                     <div class="lg:block hidden">
                         <ul class="flex items-center gap-3">
-                            <li class="relative">
+                            <li>
                                 <a href="#" class="!inline-flex gap-2 bg-white rounded-lg p-[11px]"
                                     id="addToCart">
                                     <span><svg width="22" height="22" viewBox="0 0 22 22" fill="none"
@@ -102,72 +102,6 @@
                                     <span
                                         class="bg-primary-600 text-white rounded-full py-[3px] px-[9px] ml-1 inline-flex justify-center items-center text-[10px] leading-[100%]">2</span>
                                 </a>
-                                <div class="cart-content">
-                                    <ul class="!p-6 !space-y-4">
-                                        <li>
-                                            <div class="flex items-center justify-between">
-                                                <div class="flex items-center gap-1">
-                                                    <div>
-                                                        <img src="{{ asset('assets/images/all-img/cart-01.png') }}"
-                                                            alt="">
-                                                    </div>
-                                                    <div class="px-2">
-                                                        <h2 class="text-gray-black"><span>Isolate Sofa Chair</span>
-                                                            <span class="text-[#636270]">x5</span>
-                                                        </h2>
-                                                        <p class="text-gray-black font-semibold mb-0">$150.00</p>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <button
-                                                        class="hover:bg-[#F0F2F3] bg-transparent p-2 hover:text-gray-black rounded-full text-[#9A9CAA] transition-all duration-500">
-                                                        <svg width="28" height="28" viewBox="0 0 28 28"
-                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M10 10L14 14M14 14L18 10M14 14L10 18M14 14L18 18"
-                                                                stroke="currentColor" stroke-width="1.5"
-                                                                stroke-linecap="round" stroke-linejoin="round" />
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="flex items-center justify-between">
-                                                <div class="flex items-center gap-1">
-                                                    <div>
-                                                        <img src="{{ asset('assets/images/all-img/cart-01.png') }}"
-                                                            alt="">
-                                                    </div>
-                                                    <div class="px-2">
-                                                        <h2 class="text-gray-black"><span>Isolate Sofa Chair</span>
-                                                            <span class="text-[#636270]">x5</span>
-                                                        </h2>
-                                                        <p class="text-gray-black font-semibold mb-0">$150.00</p>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <button
-                                                        class="hover:bg-[#F0F2F3] bg-transparent p-2 hover:text-gray-black rounded-full text-[#9A9CAA] transition-all duration-500">
-                                                        <svg width="28" height="28" viewBox="0 0 28 28"
-                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M10 10L14 14M14 14L18 10M14 14L10 18M14 14L18 18"
-                                                                stroke="currentColor" stroke-width="1.5"
-                                                                stroke-linecap="round" stroke-linejoin="round" />
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <div class="flex justify-between items-center py-2 mb-4">
-                                            <p class="text-[#636270] text-lg">2 Products</p>
-                                            <p class="text-gray-black text-xl font-medium">$250.00</p>
-                                        </div>
-                                        <div class="flex justify-between items-center">
-                                            <a href="shopping-cart.html" class="btn-transparent">View Cart</a>
-                                            <a href="checkout-shopping.html" class="btn-primary">Checkout</a>
-                                        </div>
-                                    </ul>
-                                </div>
                             </li>
                             <li class="inline-flex items-center justify-center">
                                 <a href="#"
@@ -181,7 +115,7 @@
                                     </svg>
                                 </a>
                             </li>
-                            <li class="relative">
+                            <li>
                                 <button
                                     class="bg-white text-gray-black hover:text-primary-600 rounded-lg p-[11px] user-profile">
                                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
@@ -196,34 +130,6 @@
                                             stroke-linejoin="round" />
                                     </svg>
                                 </button>
-                                <div class="profile-content">
-                                    <ul class="p-3">
-
-                                        <li>
-                                            <a class="inline-block" href="sign-in.html">Sign In</a>
-                                        </li>
-                                        <li>
-                                            <a class="inline-block" href="sign-up.html">Create a Account</a>
-                                        </li>
-
-                                        <li>
-                                            <a class="inline-block" href="account-setting.html">Account
-                                                Settings</a>
-                                        </li>
-                                        <li>
-                                            <a class="inline-block" href="order-history.html">Order History</a>
-                                        </li>
-                                        <li>
-                                            <a class="inline-block" href="wishlist.html">Wishlist</a>
-                                        </li>
-                                        <li>
-                                            <a class="inline-block" href="shopping-cart.html">Shopping Cart</a>
-                                        </li>
-                                        <li>
-                                            <a class="inline-block" href="#">Logout</a>
-                                        </li>
-                                    </ul>
-                                </div>
                             </li>
                         </ul>
                     </div>
@@ -240,9 +146,10 @@
         <div class="container px-3 md:px-5 xl:px-0">
             <div class="py-3.5 flex justify-between items-center">
                 <div class="flex gap-8 items-center">
-                    <div class="relative">
-                        <button
-                            class="max-h-12 inline-flex items-center justify-center gap-4 py-3.5 px-5 border border-grayscales-700 rounded-md custom-dropdown text-gray-black text-sm leading-4 font-medium font-display">
+                    <div x-data="{ open: false }" class="relative">
+                        <!-- Button to toggle dropdown -->
+                        <button @click="open = !open"
+                            class="max-h-12 inline-flex items-center justify-center gap-4 py-3.5 px-5 border border-grayscales-700 rounded-md text-gray-black text-sm leading-4 font-medium font-display">
                             <span class="text-gray-black inline-flex">
                                 <svg width="18" height="14" viewBox="0 0 18 14" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -253,78 +160,50 @@
                             </span>
                             <span class="text-gray-black inline-flex">All Categories</span>
                         </button>
-                        <div class="dropdown-content">
+
+                        <!-- Dropdown content -->
+                        <div x-show="open" x-transition:enter="transition ease-out duration-300"
+                            x-transition:enter-start="opacity-0 transform scale-y-75"
+                            x-transition:enter-end="opacity-100 transform scale-y-100"
+                            x-transition:leave="transition ease-in duration-200"
+                            x-transition:leave-start="opacity-100 transform scale-y-100"
+                            x-transition:leave-end="opacity-0 transform scale-y-75"
+                            class=" absolute left-0 mt-2 w-52 bg-white border border-gray-200 rounded-md shadow-lg overflow-hidden"
+                            @click.outside="open = false" x-cloak>
                             <ul class="p-3">
                                 <li>
-                                    <a class="inline-block" href="#">Wodden</a>
+                                    <a class="inline-block py-3 px-4 w-full rounded-sm hover:bg-gray-100"
+                                        href="#">Wooden</a>
                                 </li>
                                 <li>
-                                    <a class="inline-block" href="#">Partex</a>
+                                    <a class="inline-block py-3 px-4 w-full rounded-sm hover:bg-gray-100"
+                                        href="#">Partex</a>
                                 </li>
                                 <li>
-                                    <a class="inline-block" href="#">Plywood</a>
+                                    <a class="inline-block py-3 px-4 w-full rounded-sm hover:bg-gray-100"
+                                        href="#">Plywood</a>
                                 </li>
                                 <li>
-                                    <a class="inline-block" href="#">Segun</a>
+                                    <a class="inline-block py-3 px-4 w-full rounded-sm hover:bg-gray-100"
+                                        href="#">Segun</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
 
-                    <ul class="lg:flex gap-8 items-center hidden main-menu">
+
+                    <ul class="lg:flex gap-8 items-center hidden">
                         <li>
-                            <a href="{{ route('home') }}">Home</a>
+                            <a class="nav-link" href="{{ route('home') }}">Home</a>
                         </li>
                         <li>
-                            <a href="{{ route('products.list') }}">Product</a>
-                        </li>
-                        <li class="relative">
-                            <a href="javascript:void(0);" class="!inline-flex gap-2 items-center">Pages
-                                <span>
-                                    <img src="./assets/images/all-img/select-arrow.png" alt="">
-                                </span>
-                            </a>
-                            <ul>
-                                <li>
-                                    <a href="404.html">404</a>
-                                </li>
-                                <li>
-                                    <a href="account-setting.html">Account Setting</a>
-                                </li>
-                                <li>
-                                    <a href="sign-in.html">Sign In</a>
-                                </li>
-                                <li>
-                                    <a href="sign-up.html">Sign Up</a>
-                                </li>
-                                <li>
-                                    <a href="forget-password.html">Forget Password</a>
-                                </li>
-                                <li>
-                                    <a href="change-password.html">Change Password</a>
-                                </li>
-                                <li>
-                                    <a href="products.html">Product List</a>
-                                </li>
-                                <li>
-                                    <a href="product-details.html">Product Details</a>
-                                </li>
-                                <li>
-                                    <a href="shopping-cart.html">Shopping Cart</a>
-                                </li>
-                                <li>
-                                    <a href="wishlist.html">Wishlist</a>
-                                </li>
-                                <li>
-                                    <a href="checkout-billing.html">Checkout Billing</a>
-                                </li>
-                                <li>
-                                    <a href="checkout-shopping.html">Checkout Shoping</a>
-                                </li>
-                            </ul>
+                            <a class="nav-link" href="{{ route('products.list') }}">Product</a>
                         </li>
                         <li>
-                            <a href="">About</a>
+                            <a class="nav-link" href="javascript:void(0);">Pages</a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="">About</a>
                         </li>
                     </ul>
                 </div>

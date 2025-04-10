@@ -29,25 +29,23 @@
                 @csrf
 
                 <div>
-                    <label for="email" class="block text-sm/6 font-medium text-gray-900">Email address</label>
+                    <label for="email" class="control-label sm:pt-1.5">Email address</label>
                     <div class="mt-2">
                         <input type="email" name="email" id="email" autocomplete="email" required
-                            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 sm:text-sm/6">
+                            class="form-control">
                     </div>
                 </div>
 
                 <div>
-                    <label for="password" class="block text-sm/6 font-medium text-gray-900">Password</label>
+                    <label for="password" class="control-label sm:pt-1.5">Password</label>
                     <div class="mt-2">
                         <input type="password" name="password" id="password" autocomplete="current-password" required
-                            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 sm:text-sm/6">
+                            class="form-control">
                     </div>
                 </div>
 
                 <div>
-                    <button type="submit"
-                        class="flex w-full cursor-pointer justify-center rounded-md bg-primary-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-primary-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600">Sign
-                        in</button>
+                    <button type="submit" class="flex w-full btn-primary justify-center">Sign in</button>
                 </div>
             </form>
         </div>

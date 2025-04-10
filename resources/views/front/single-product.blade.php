@@ -1,22 +1,16 @@
 <x-layouts.front>
-    <!-- Breadcrumb Start -->
-    <div class="breadcrumb">
-        <div class="container px-3 md:px-5 xl:px-0">
-            <div class="flex items-center gap-1 py-1">
-                <a href="{{ route('home') }}" class="font-medium leading-tight text-dark-gray">Home</a>
+    @php
+        $breadcrumbs = [
+            'links' => [
+                ['url' => route('home'), 'text' => 'Home'],
+                ['url' => route('products.list'), 'text' => 'Products'],
+                ['url' => '#', 'text' => $product->name],
+            ],
+            'title' => $product->name,
+        ];
+    @endphp
 
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M7.125 5.25L10.875 9L7.125 12.75" stroke="#636270" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                </svg>
-
-                <span class="font-medium leading-tight font-display text-gray-black inline-block">Products</span>
-            </div>
-
-            <h2 class="pt-[13.5px] text-2xl font-semibold text-gray-black font-display">Products</h2>
-        </div>
-    </div>
-    <!-- Breadcrumb End -->
+    @include('components.common.breadcrumb', $breadcrumbs)
 
     <!-- product details section start -->
     <div>
@@ -76,7 +70,7 @@
                 </div>
                 {{-- Right Side --}}
                 <div class="xl:px-8 px-0">
-                    <h2 class="text-gray-800 pro-title font-semibold mb-3 capitalize">{{ $product->name }}</h2>
+                    <h2 class="text-gray-800 text-3xl font-semibold mb-3 capitalize">{{ $product->name }}</h2>
                     <div class="flex items-center gap-2.5 mb-6">
                         <p class="flex gap-1.5 items-center">
                             <span class="text-gray-800 text-2xl">${{ $product->selling_price }}</span>
@@ -119,8 +113,8 @@
                                                 stroke-linejoin="round" />
                                             <path fill-rule="evenodd" clip-rule="evenodd"
                                                 d="M18.4351 20.203C18.5797 20.203 18.7183 20.2604 18.8205 20.3626C18.9227 20.4648 18.9801 20.6035 18.9801 20.748C18.9801 20.8925 18.9227 21.0312 18.8205 21.1334C18.7183 21.2356 18.5797 21.293 18.4351 21.293C18.2906 21.293 18.152 21.2356 18.0498 21.1334C17.9476 21.0312 17.8901 20.8925 17.8901 20.748C17.8901 20.6035 17.9476 20.4648 18.0498 20.3626C18.152 20.2604 18.2906 20.203 18.4351 20.203Z"
-                                                fill="white" stroke="white" stroke-width="1.5"
-                                                stroke-linecap="round" stroke-linejoin="round" />
+                                                fill="white" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                                stroke-linejoin="round" />
                                         </svg>
                                     </span>
                                     <span class="text-white text-base">Add To Cart</span>

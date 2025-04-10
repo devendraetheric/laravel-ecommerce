@@ -1,16 +1,19 @@
-<div class="product-card">
+<div class="group relative w-full transition-all duration-500 ease-out delay-0 inline-block">
     <a href="{{ route('products.single', $product) }}">
-        <div class="product-thumb">
-            <img src="{{ $product?->getMedia('product-images')->first()?->getUrl() }}" alt="{{ $product?->name }}">
-            {{--  <span class="badge new">New</span> --}}
+        <div class="overflow-hidden w-full mb-2 relative rounded-lg">
+            <img class="w-full object-cover rounded-xs transition-all duration-500 ease-out delay-0 group-hover:scale-110"
+                src="{{ $product?->getMedia('product-images')->first()?->getUrl() }}" alt="{{ $product?->name }}" />
         </div>
-        <div class="product-info">
+        <div class="flex justify-between items-center">
             <div>
-                <h2 class="product-name">{{ $product?->name }}</h2>
-                <h3 class="product-price">${{ $product?->regular_price }}</h3>
+                <h2
+                    class="font-normal leading-tight text-secondary mb-2.5 block overflow-hidden whitespace-nowrap max-w-[160px] transition-all duration-500 ease-out delay-0 group-hover:text-primary-600">
+                    {{ $product?->name }}</h2>
+                <h3 class="font-bold text-secondary text-lg leading-tight">${{ $product?->regular_price }}</h3>
             </div>
             <div>
-                <button class="cart-icon">
+                <button
+                    class="bg-off-white rounded-lg px-2.5 py-3 text-secondary transition-all duration-500 ease-out delay-0 group-hover:bg-primary-600 group-hover:text-white cursor-pointer">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -31,7 +34,8 @@
             </div>
         </div>
     </a>
-    <a href="wishlist.html" class="heart-icon">
+    <a href="wishlist.html"
+        class="absolute top-2 right-2 rounded-md p-2.5 opacity-0 transition-all duration-500 ease-out delay-0 bg-off-white group-hover:opacity-100">
         <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd"
                 d="M2.63268 10.6315C1.64909 7.56068 2.79768 4.05077 6.02251 3.01218C6.85874 2.74461 7.74682 2.68088 8.61268 2.8263C9.47855 2.97173 10.2971 3.3221 11 3.84818C12.3338 2.81693 14.2743 2.4686 15.9683 3.01218C19.1923 4.05077 20.3491 7.56068 19.3664 10.6315C17.8356 15.499 11 19.2482 11 19.2482C11 19.2482 4.21484 15.5558 2.63268 10.6315V10.6315Z"

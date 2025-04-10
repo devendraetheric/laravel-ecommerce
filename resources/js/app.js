@@ -1,53 +1,10 @@
 import './bootstrap';
 
+import Alpine from 'alpinejs'
 
-//password field show and hide
+window.Alpine = Alpine
 
-
-function currentPasswordIcon() {
-
-    var x = document.getElementById("CurrentPasswordInput");
-    if (x.type === "password") {
-        x.type = "text";
-        document.getElementById('current-icon-hide').style.display = "inline-block";
-        document.getElementById('current-icon-show').style.display = "none";
-
-    } else {
-        x.type = "password";
-        document.getElementById('current-icon-hide').style.display = "none";
-        document.getElementById('current-icon-show').style.display = "inline-block";
-    }
-}
-
-function PasswordIcon() {
-    var x = document.getElementById("myInput");
-    if (x.type === "password") {
-        x.type = "text";
-        document.getElementById('icon-hide').style.display = "inline-block";
-        document.getElementById('icon-show').style.display = "none";
-
-    } else {
-        x.type = "password";
-        document.getElementById('icon-hide').style.display = "none";
-        document.getElementById('icon-show').style.display = "inline-block";
-    }
-}
-
-
-
-function CreatePasswordIcon() {
-    var x = document.getElementById("CreatePasswordInput");
-    if (x.type === "password") {
-        x.type = "text";
-        document.getElementById('create-icon-hide').style.display = "inline-block";
-        document.getElementById('create-icon-show').style.display = "none";
-
-    } else {
-        x.type = "password";
-        document.getElementById('create-icon-hide').style.display = "none";
-        document.getElementById('create-icon-show').style.display = "inline-block";
-    }
-}
+Alpine.start()
 
 
 var swiper = new Swiper(".bannerSwiper", {
@@ -224,49 +181,15 @@ galleryThumbs.on('transitionStart', function () {
 
 
 //dropdown on  click //
-$(".custom-dropdown").on('click', function () {
-    $(".dropdown-content ul").slideToggle();
-});
 
 $("#addToCart").on('click', function () {
     $(".cart-content ul").slideToggle();
 });
 
-// $("#addToCart").on('mouseleave', function() {
-//     $(".cart-content ul").slideUp();
-// });
-
-// $("#addToCart").on('click', function() {
-//     $(".cart-content ul").slideUp();
-// });
-
-// $(".cart-content ul").on('mouseleave', function() {
-//     $(".cart-content ul").slideUp();
-// });
 
 $(".user-profile").on('click', function () {
     $(".profile-content ul").slideToggle();
 });
-
-// $(".profile-content").on('mouseleave', function() {
-//     $(".profile-content ul").slideUp();
-// });
-
-// $(".dropdown-content").on('mouseleave', function() {
-//     $(".dropdown-content ul").slideUp();
-// });
-
-
-
-$(".main-menu li").hover(function () {
-    var isHovered = $(this).is(":hover");
-    if (isHovered) {
-        $(this).children("ul").stop().slideDown(300);
-    } else {
-        $(this).children("ul").stop().slideUp(300);
-    }
-});
-
 
 $(window).on('scroll', function () {
     var scroll = $(window).scrollTop();
