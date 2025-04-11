@@ -11,7 +11,7 @@ class LocalImages
 
     public const SIZE_1280x720 = '1280x720';
 
-    public static function getRandomFile(?string $size = LocalImages::SIZE_200x200): SplFileInfo
+    public static function getRandomFile(?string $size = LocalImages::SIZE_1280x720): SplFileInfo
     {
         return collect(
             File::files(database_path('seeders/local_images/' . $size))

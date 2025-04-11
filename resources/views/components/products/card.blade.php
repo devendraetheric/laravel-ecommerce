@@ -2,7 +2,7 @@
     <a href="{{ route('products.single', $product) }}">
         <div class="overflow-hidden w-full mb-2 relative rounded-lg">
             <img class="w-full object-cover rounded-xs transition-all duration-500 ease-out delay-0 group-hover:scale-110"
-                src="{{ $product?->getMedia('product-images')->first()?->getUrl() }}" alt="{{ $product?->name }}" />
+                src="{{ $product->thumbnailURL() }}" alt="{{ $product?->name }}" />
         </div>
         <div class="flex justify-between items-center">
             <div>

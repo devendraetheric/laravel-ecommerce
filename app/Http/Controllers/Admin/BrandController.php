@@ -14,7 +14,7 @@ class BrandController extends Controller
     public function index()
     {
         $brands = Brand::latest()
-            ->simplePaginate()
+            ->paginate()
             ->withQueryString();
 
         return view('admin.brands.index', compact('brands'));
@@ -45,6 +45,15 @@ class BrandController extends Controller
 
         $brand = Brand::create($validated);
         $brand->save();
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $path = $file->store('uploads', 'public');
+
+            $brand->addMedia(storage_path("app/public/$path"))
+                ->preservingOriginal()
+                ->toMediaCollection();
+        }
 
         return redirect()
             ->route('admin.brands.index')
@@ -83,6 +92,17 @@ class BrandController extends Controller
         $brand->fill($validated);
         $brand->save();
 
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $path = $file->store('uploads', 'public');
+
+            $brand->clearMediaCollection();
+
+            $brand->addMedia(storage_path("app/public/$path"))
+                ->preservingOriginal()
+                ->toMediaCollection();
+        }
+
         return redirect()
             ->route('admin.brands.index')
             ->with('success', 'Brand updated successfully.');
@@ -93,6 +113,8 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
+        $brand->clearMediaCollection();
+
         $brand->delete();
 
         return redirect()

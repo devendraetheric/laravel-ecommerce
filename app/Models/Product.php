@@ -5,8 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Product extends Model implements HasMedia
 {
@@ -40,6 +42,19 @@ class Product extends Model implements HasMedia
     {
         return 'slug';
     } */
+
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        $this
+            ->addMediaConversion('thumb')
+            ->fit(Fit::Contain, 300, 300)
+            ->nonQueued();
+    }
+
+    public function thumbnailURL($size = 'thumb'): string|null
+    {
+        return $this?->getMedia('featured-image')->first()?->getUrl($size);
+    }
 
     public function scopeActive($query)
     {

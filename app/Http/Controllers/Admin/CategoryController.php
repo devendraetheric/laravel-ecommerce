@@ -14,7 +14,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::latest()
-            ->simplePaginate()
+            ->paginate()
             ->withQueryString();
 
         return view('admin.categories.index', compact('categories'));
@@ -43,7 +43,16 @@ class CategoryController extends Controller
             'seo_description'   => ['nullable', 'string'],
         ]);
 
-        Category::create($validated);
+        $category = Category::create($validated);
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $path = $file->store('uploads', 'public');
+
+            $category->addMedia(storage_path("app/public/$path"))
+                ->preservingOriginal()
+                ->toMediaCollection();
+        }
 
         return redirect()
             ->route('admin.categories.index')
@@ -82,6 +91,17 @@ class CategoryController extends Controller
         $category->fill($validated);
         $category->save();
 
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $path = $file->store('uploads', 'public');
+
+            $category->clearMediaCollection();
+
+            $category->addMedia(storage_path("app/public/$path"))
+                ->preservingOriginal()
+                ->toMediaCollection();
+        }
+
         return redirect()
             ->route('admin.categories.index')
             ->with('success', 'Category updated successfully.');
@@ -92,6 +112,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        $category->clearMediaCollection();
+
         $category->delete();
 
         return redirect()

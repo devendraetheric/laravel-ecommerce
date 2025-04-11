@@ -21,7 +21,8 @@
         <x-admin.breadcrumb :links=$breadcrumbLinks :title=$title :goBackAction="route('admin.categories.index')" />
 
         <form method="post"
-            action="{{ $category->id ? route('admin.categories.update', $category) : route('admin.categories.store') }}">
+            action="{{ $category->id ? route('admin.categories.update', $category) : route('admin.categories.store') }}"
+            enctype="multipart/form-data">
             @csrf
 
             @isset($category->id)
@@ -59,6 +60,12 @@
                             @error('description')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
+                        </div>
+
+                        <div class="space-y-2 col-span-2 md:col-span-1">
+                            <label for="image" class="block text-sm/6 font-medium text-gray-900">Featured
+                                Image</label>
+                            <input id="image" name="image" type="file" class="form-control">
                         </div>
                     </div>
                 </div>

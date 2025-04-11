@@ -15,7 +15,7 @@ class FrontController extends Controller
         $bestSellingProducts = Product::active()->take(8)->get();
 
         $topCategories = Category::withCount('products')
-            ->latest('products_count')
+            ->latest()
             ->take(8)
             ->get();
 

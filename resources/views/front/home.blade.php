@@ -331,7 +331,7 @@
                             <div class="product-card-02">
                                 <div class="product-thumb">
                                     <a href="products.html">
-                                        <img src="./assets/images/all-img/t-product-01.png" alt=""></a>
+                                        <img src="{{ $category?->thumbnailURL() }}" alt="{{ $category->name }}"></a>
                                 </div>
 
                                 <div class="product-info">

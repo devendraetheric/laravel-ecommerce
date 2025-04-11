@@ -17,7 +17,7 @@ class ProductController extends Controller
     {
         $products = Product::latest()
             ->with(['brand', 'category'])
-            ->simplePaginate()
+            ->paginate()
             ->withQueryString();
 
         return view('admin.products.index', compact('products'));
@@ -56,7 +56,16 @@ class ProductController extends Controller
             'seo_description'   => ['nullable', 'string'],
         ]);
 
-        Product::create($validated);
+        $product = Product::create($validated);
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $path = $file->store('uploads', 'public');
+
+            $product->addMedia(storage_path("app/public/$path"))
+                ->preservingOriginal()
+                ->toMediaCollection('featured-image');
+        }
 
         return redirect()
             ->route('admin.products.index')
@@ -105,6 +114,17 @@ class ProductController extends Controller
         $product->fill($validated);
         $product->save();
 
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $path = $file->store('uploads', 'public');
+
+            $product->clearMediaCollection('featured-image');
+
+            $product->addMedia(storage_path("app/public/$path"))
+                ->preservingOriginal()
+                ->toMediaCollection('featured-image');
+        }
+
         return redirect()
             ->route('admin.products.index')
             ->with('success', 'Product updated successfully.');
@@ -115,6 +135,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        $product->clearMediaCollection('featured-image');
+
         $product->delete();
 
         return redirect()

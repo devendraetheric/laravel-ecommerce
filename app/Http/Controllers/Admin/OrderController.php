@@ -17,7 +17,7 @@ class OrderController extends Controller
     {
         $orders = Order::latest()
             ->with(['user'])
-            ->simplePaginate()
+            ->paginate()
             ->withQueryString();
 
         return view('admin.orders.index', compact('orders'));
