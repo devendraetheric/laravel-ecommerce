@@ -24,8 +24,8 @@ Route::get('migrate', function () {
         ->with('success', 'Successfully migrated and seeded.');
 })->name('migrate');
 
-Route::get('migrate-refresh', function () {
-    Artisan::call('migrate:refresh --seed');
+Route::get('migrate-fresh', function () {
+    Artisan::call('migrate:fresh --seed');
 
     return redirect()->back()
         ->with('success', 'Successfully migrated and seeded.');

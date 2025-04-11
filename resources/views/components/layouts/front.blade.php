@@ -25,7 +25,7 @@
     <x-front.footer />
 
     <!-- script file here -->
-    @vite(['node_modules/jquery/dist/jquery.min.js', 'node_modules/swiper/swiper-bundle.min.js', 'node_modules/select2/dist/js/select2.full.min.js', 'node_modules/mixitup/dist/mixitup.min.js', 'resources/js/app.js'])
+    @vite(['resources/js/app.js'])
 </body>
 
 </html>

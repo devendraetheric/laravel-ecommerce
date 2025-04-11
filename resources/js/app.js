@@ -2,6 +2,8 @@ import './bootstrap';
 
 import Alpine from 'alpinejs'
 
+import Swiper from 'swiper';
+
 window.Alpine = Alpine
 
 Alpine.start()
@@ -235,15 +237,3 @@ function onTabClick(event) {
 for (let i = 0; i < tab.length; i++) {
     tab[i].addEventListener('click', onTabClick, false);
 }
-
-var containerEl = document.querySelector("#portfoliolist");
-
-var mixer = mixitup(containerEl, {
-    animation: {
-        animateResizeContainer: true,
-    },
-    load: {
-        filter: '.all'
-    }
-});
-
