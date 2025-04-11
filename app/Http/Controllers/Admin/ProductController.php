@@ -52,6 +52,8 @@ class ProductController extends Controller
             'is_featured'       => ['boolean', 'default:0'],
             'category_id'       => ['required', 'exists:categories,id'],
             'brand_id'          => ['required', 'exists:brands,id'],
+            'seo_title'         => ['nullable', 'string'],
+            'seo_description'   => ['nullable', 'string'],
         ]);
 
         Product::create($validated);
@@ -96,6 +98,8 @@ class ProductController extends Controller
             'is_featured'       => ['boolean', 'default:0'],
             'category_id'       => ['required', 'exists:categories,id'],
             'brand_id'          => ['required', 'exists:brands,id'],
+            'seo_title'         => ['nullable', 'string'],
+            'seo_description'   => ['nullable', 'string'],
         ]);
 
         $product->fill($validated);

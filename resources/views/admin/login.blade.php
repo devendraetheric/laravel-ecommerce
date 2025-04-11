@@ -13,11 +13,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    @vite('resources/css/admin.css')
+    @vite('resources/css/admin.css', ['resources/js/admin.js'])
 </head>
 
 <body class="h-full font-display">
-
+    <x-admin.alert />
     <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
             <img class="mx-auto h-10 w-auto" src="{{ asset('otc-logo.png') }}" alt="Your Company">
@@ -31,8 +31,11 @@
                 <div>
                     <label for="email" class="control-label sm:pt-1.5">Email address</label>
                     <div class="mt-2">
-                        <input type="email" name="email" id="email" autocomplete="email" required
-                            class="form-control">
+                        <input type="email" name="email" id="email" value="{{ old('email') }}"
+                            autocomplete="email" required class="form-control" />
+                        @error('email')
+                            <p class="text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
 

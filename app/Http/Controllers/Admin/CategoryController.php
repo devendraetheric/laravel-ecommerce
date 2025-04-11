@@ -36,11 +36,11 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name'              => ['required', 'string', 'max:255'],
-            'slug'              => ['required', 'string', 'max:255'],
+            'name'              => ['required', 'string', 'unique:' . Category::class],
+            'slug'              => ['required', 'string', 'unique:' . Category::class],
             'is_active'         => ['boolean', 'default(true)'],
-            'seo_title'         => ['string', 'max:255'],
-            'seo_description'   => ['string', 'max:255'],
+            'seo_title'         => ['nullable', 'string'],
+            'seo_description'   => ['nullable', 'string'],
         ]);
 
         Category::create($validated);
@@ -72,11 +72,11 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $validated = $request->validate([
-            'name'              => ['required', 'string', 'max:255'],
-            'slug'              => ['required', 'string', 'max:255'],
+            'name'              => ['required', 'string', 'unique:' . Category::class . ',name,' . $category->id],
+            'slug'              => ['required', 'string', 'unique:' . Category::class . ',slug,' . $category->id],
             'is_active'         => ['boolean', 'default(true)'],
-            'seo_title'         => ['string', 'max:255'],
-            'seo_description'   => ['string', 'max:255'],
+            'seo_title'         => ['nullable', 'string'],
+            'seo_description'   => ['nullable', 'string'],
         ]);
 
         $category->fill($validated);

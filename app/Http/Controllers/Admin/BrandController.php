@@ -36,11 +36,11 @@ class BrandController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name'              => ['required', 'string', 'max:255'],
-            'slug'              => ['required', 'string', 'max:255'],
+            'name'              => ['required', 'string', 'unique:' . Brand::class],
+            'slug'              => ['required', 'string', 'unique:' . Brand::class],
             'is_active'         => ['boolean', 'default(true)'],
-            'seo_title'         => ['string', 'max:255'],
-            'seo_description'   => ['string', 'max:255'],
+            'seo_title'         => ['nullable', 'string'],
+            'seo_description'   => ['nullable', 'string'],
         ]);
 
         $brand = Brand::create($validated);
@@ -73,11 +73,11 @@ class BrandController extends Controller
     public function update(Request $request, Brand $brand)
     {
         $validated = $request->validate([
-            'name'              => ['required', 'string', 'max:255'],
-            'slug'              => ['required', 'string', 'max:255'],
+            'name'              => ['required', 'string', 'unique:' . Brand::class . ',name,' . $brand->id],
+            'slug'              => ['required', 'string', 'unique:' . Brand::class . ',slug,' . $brand->id],
             'is_active'         => ['boolean', 'default(true)'],
-            'seo_title'         => ['string', 'max:255'],
-            'seo_description'   => ['string', 'max:255'],
+            'seo_title'         => ['nullable', 'string'],
+            'seo_description'   => ['nullable', 'string'],
         ]);
 
         $brand->fill($validated);

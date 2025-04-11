@@ -182,23 +182,6 @@ galleryThumbs.on('transitionStart', function () {
 
 //dropdown on  click //
 
-$("#addToCart").on('click', function () {
-    $(".cart-content ul").slideToggle();
-});
-
-
-$(".user-profile").on('click', function () {
-    $(".profile-content ul").slideToggle();
-});
-
-$(window).on('scroll', function () {
-    var scroll = $(window).scrollTop();
-    if (scroll < 500) {
-        $("#header-sticky").removeClass("header-sticky");
-    } else {
-        $("#header-sticky").addClass("header-sticky");
-    }
-});
 
 var menuBtn = document.getElementById('hamburger-btn');
 var menuBtnClose = document.getElementById('hamburger-btn-close');

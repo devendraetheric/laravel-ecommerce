@@ -1,57 +1,23 @@
 <x-layouts.admin>
     <div class="max-w-7xl mx-auto">
-        <div>
-            <nav aria-label="Breadcrumb">
-                <ol role="list" class="flex items-center space-x-1">
-                    <li>
-                        <div class="flex">
-                            <a href="{{ route('admin.dashboard') }}"
-                                class="text-sm font-medium text-gray-500 hover:text-gray-700">Dashboard</a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="flex items-center">
-                            <svg class="size-4 shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor"
-                                aria-hidden="true" data-slot="icon">
-                                <path fill-rule="evenodd"
-                                    d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            <a href="{{ route('admin.brands.index') }}"
-                                class="text-sm font-medium text-gray-500 hover:text-gray-700">Brands</a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="flex items-center">
-                            <svg class="size-4 shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor"
-                                aria-hidden="true" data-slot="icon">
-                                <path fill-rule="evenodd"
-                                    d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            <span aria-current="page" class="text-sm font-medium text-gray-600">
-                                @isset($brand->id)
-                                    Edit
-                                @else
-                                    Create
-                                @endisset
-                            </span>
-                        </div>
-                    </li>
-                </ol>
-            </nav>
-            <div class="mt-2 md:flex md:items-center md:justify-between">
-                <div class="min-w-0 flex-1">
-                    <h2 class="page-title">
-                        @isset($brand->id)
-                            Edit {{ $brand->name }}
-                        @else
-                            Create Brand
-                        @endisset
-                    </h2>
-                </div>
-            </div>
-        </div>
+        @php
+            $breadcrumbLinks = [
+                [
+                    'url' => route('admin.dashboard'),
+                    'text' => 'Dashboard',
+                ],
+                [
+                    'url' => route('admin.brands.index'),
+                    'text' => 'Brands',
+                ],
+                [
+                    'text' => $brand->id ? 'Edit' : 'Create',
+                ],
+            ];
+            $title = $brand->id ? 'Edit ' . $brand->name : 'Create Brand';
+        @endphp
+
+        <x-admin.breadcrumb :links=$breadcrumbLinks :title=$title :goBackAction="route('admin.brands.index')" />
 
 
         <form method="post"
@@ -63,12 +29,15 @@
             @endisset
             <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
                 <div class="p-6">
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="grid grid-cols-2 gap-4" x-data="{
+                        title: '{{ old('name', $brand->name) }}',
+                        slug: '{{ old('slug', $brand->slug) }}'
+                    }">
                         <div class="space-y-2 col-span-2 md:col-span-1">
                             <label for="name" class="control-label sm:pt-1.5">Name</label>
                             <input type="text" name="name" id="name"
-                                class="form-control @error('name') is-invalid @enderror"
-                                value="{{ old('name', $brand->name) }}" />
+                                class="form-control @error('name') is-invalid @enderror" x-model="title"
+                                @input="slug = slugify(title)" />
                             @error('name')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -77,8 +46,7 @@
                         <div class="space-y-2 col-span-2 md:col-span-1">
                             <label for="slug" class="control-label sm:pt-1.5">Slug</label>
                             <input type="text" name="slug" id="slug"
-                                class="form-control @error('slug') is-invalid @enderror"
-                                value="{{ old('slug', $brand->slug) }}" />
+                                class="form-control @error('slug') is-invalid @enderror" x-model="slug" readonly />
                             @error('slug')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -128,4 +96,15 @@
             </div>
         </form>
     </div>
+
+    <script>
+        function slugify(str) {
+            return str
+                .trim()
+                .toLowerCase()
+                .replace(/[^a-z0-9\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-');
+        }
+    </script>
 </x-layouts.admin>

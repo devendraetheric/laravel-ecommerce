@@ -1,49 +1,22 @@
 <x-layouts.admin>
     <div class="max-w-7xl mx-auto">
-        <div>
-            <nav aria-label="Breadcrumb">
-                <ol role="list" class="flex items-center space-x-1">
-                    <li>
-                        <div class="flex">
-                            <a href="{{ route('admin.dashboard') }}"
-                                class="text-sm font-medium text-gray-500 hover:text-gray-700">Dashboard</a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="flex items-center">
-                            <svg class="size-4 shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor"
-                                aria-hidden="true" data-slot="icon">
-                                <path fill-rule="evenodd"
-                                    d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            <a href="{{ route('admin.products.index') }}"
-                                class="text-sm font-medium text-gray-500 hover:text-gray-700">Products</a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="flex items-center">
-                            <svg class="size-4 shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor"
-                                aria-hidden="true" data-slot="icon">
-                                <path fill-rule="evenodd"
-                                    d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            <span aria-current="page" class="text-sm font-medium text-gray-600">List</span>
-                        </div>
-                    </li>
-                </ol>
-            </nav>
+        @php
+            $breadcrumbLinks = [
+                [
+                    'url' => route('admin.dashboard'),
+                    'text' => 'Dashboard',
+                ],
+                [
+                    'url' => route('admin.products.index'),
+                    'text' => 'Products',
+                ],
+                [
+                    'text' => 'List',
+                ],
+            ];
+        @endphp
 
-            <div class="mt-2 md:flex md:items-center md:justify-between">
-                <div class="min-w-0 flex-1">
-                    <h2 class="page-title">Products</h2>
-                </div>
-                <div class="mt-4 flex shrink-0 md:ml-4 md:mt-0">
-                    <a href="{{ route('admin.products.create') }}" class="btn-primary">Add New</a>
-                </div>
-            </div>
-        </div>
+        <x-admin.breadcrumb :links=$breadcrumbLinks title="Products" :addNewAction="route('admin.products.create')" />
 
         <div class="mt-8 flow-root">
             <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -54,7 +27,8 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">Name</th>
-                                        <th scope="col">Slug</th>
+                                        <th scope="col">Regular Price</th>
+                                        <th scope="col">Selling Price</th>
                                         <th scope="col">Category</th>
                                         <th scope="col">Brand</th>
 
@@ -66,8 +40,23 @@
                                 <tbody>
                                     @forelse ($products as $product)
                                         <tr>
-                                            <td class="!font-semibold">{{ $product->name }}</td>
-                                            <td>{{ $product->slug }}</td>
+                                            <td class="!font-semibold">
+                                                <div class="flex items-center">
+                                                    <div class="size-11 shrink-0">
+                                                        <img class="size-11 rounded-full"
+                                                            src="{{ $product?->getMedia('product-images')->first()?->getUrl() }}"
+                                                            alt="{{ $product->name }}">
+                                                    </div>
+                                                    <div class="ml-4">
+                                                        <div class="font-medium text-gray-900">{{ $product->name }}
+                                                        </div>
+                                                        <div class="mt-1 text-gray-500">{{ $product->slug }}</div>
+                                                    </div>
+                                                </div>
+
+                                            </td>
+                                            <td>${{ $product->regular_price }}</td>
+                                            <td>${{ $product->selling_price }}</td>
                                             <td>{{ $product->category?->name }}</td>
                                             <td>{{ $product->brand?->name }}</td>
 

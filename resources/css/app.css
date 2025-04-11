@@ -680,40 +680,6 @@ hr {
     height: 50px;
 }
 
-header {
-    -webkit-transition: all 0.5s ease-out 0s;
-    -moz-transition: all 0.5s ease-out 0s;
-    -ms-transition: all 0.5s ease-out 0s;
-    -o-transition: all 0.5s ease-out 0s;
-    transition: all 0.5s ease-out 0s;
-}
-
-.fadeInUp {
-    -webkit-transition: all 0.5s ease-out 0s;
-    -moz-transition: all 0.5s ease-out 0s;
-    -ms-transition: all 0.5s ease-out 0s;
-    -o-transition: all 0.5s ease-out 0s;
-    transition: all 0.5s ease-out 0s;
-    animation: 500ms ease 0s normal none 1 running fadeInUp;
-}
-
-.header-sticky {
-    position: fixed !important;
-    left: 0;
-    margin: auto;
-    top: 0;
-    opacity: 1;
-    width: 100%;
-    box-shadow: 0px 1px 0px #E1E3E6;
-    z-index: 99;
-    -webkit-transition: all 0.5s ease-out 0s;
-    -moz-transition: all 0.5s ease-out 0s;
-    -ms-transition: all 0.5s ease-out 0s;
-    -o-transition: all 0.5s ease-out 0s;
-    transition: all 0.5s ease-out 0s;
-    background: white;
-    animation: 500ms ease 0s normal none 1 running fadeInDown;
-}
 
 
 /* mobile menu css  */
@@ -962,10 +928,6 @@ header {
     display: block;
 }
 
-/* #addToCart:hover + .cart-content ul{
-      opacity: 1;
-      visibility: visible;
-    } */
 .red {
     display: none;
 }

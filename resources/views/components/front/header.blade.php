@@ -1,6 +1,6 @@
 <!-- header area start -->
 <header class="font-display">
-    <div id="header-sticky" class="">
+    <div>
         <div class="top-header bg-secondary">
             <div class="container px-3 md:px-5 xl:px-0">
                 <div class="py-3.5 flex justify-center sm:justify-between">
@@ -78,8 +78,7 @@
                     <div class="lg:block hidden">
                         <ul class="flex items-center gap-3">
                             <li>
-                                <a href="#" class="!inline-flex gap-2 bg-white rounded-lg p-[11px]"
-                                    id="addToCart">
+                                <a href="javascript:;" class="!inline-flex gap-2 bg-white rounded-lg p-[11px]">
                                     <span><svg width="22" height="22" viewBox="0 0 22 22" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -104,7 +103,7 @@
                                 </a>
                             </li>
                             <li class="inline-flex items-center justify-center">
-                                <a href="#"
+                                <a href="javascript:;"
                                     class="bg-white text-gray-black hover:text-primary-600 rounded-lg p-[11px]">
                                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -115,9 +114,9 @@
                                     </svg>
                                 </a>
                             </li>
-                            <li>
-                                <button
-                                    class="bg-white text-gray-black hover:text-primary-600 rounded-lg p-[11px] user-profile">
+                            <li class="inline-flex items-center justify-center">
+                                <a href="javascript:;"
+                                    class="bg-white text-gray-black hover:text-primary-600 rounded-lg p-[11px]">
                                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -129,7 +128,7 @@
                                             stroke="currentColor" stroke-width="1.429" stroke-linecap="round"
                                             stroke-linejoin="round" />
                                     </svg>
-                                </button>
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -220,13 +219,13 @@
     <div class="nav-menu" id="nav-menu">
         <div class="flex justify-between  items-center px-3 py-4 mb-4">
             <div>
-                <a href="#">
+                <a href="{{ route('home') }}">
                     <img src="./assets/images/all-img/logo-sm.png" alt="">
                 </a>
             </div>
             <ul class="flex items-center gap-3">
                 <li>
-                    <a href="#" class="inline-flex gap-2 bg-white rounded-lg p-[11px] relative">
+                    <a href="javascript:;" class="inline-flex gap-2 bg-white rounded-lg p-[11px] relative">
                         <span>
                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">

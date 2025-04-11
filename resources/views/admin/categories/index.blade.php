@@ -1,49 +1,23 @@
 <x-layouts.admin>
     <div class="max-w-7xl mx-auto">
-        <div>
-            <nav aria-label="Breadcrumb">
-                <ol role="list" class="flex items-center space-x-1">
-                    <li>
-                        <div class="flex">
-                            <a href="{{ route('admin.dashboard') }}"
-                                class="text-sm font-medium text-gray-500 hover:text-gray-700">Dashboard</a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="flex items-center">
-                            <svg class="size-4 shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor"
-                                aria-hidden="true" data-slot="icon">
-                                <path fill-rule="evenodd"
-                                    d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            <a href="{{ route('admin.categories.index') }}"
-                                class="text-sm font-medium text-gray-500 hover:text-gray-700">Categories</a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="flex items-center">
-                            <svg class="size-4 shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor"
-                                aria-hidden="true" data-slot="icon">
-                                <path fill-rule="evenodd"
-                                    d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            <span aria-current="page" class="text-sm font-medium text-gray-600">List</span>
-                        </div>
-                    </li>
-                </ol>
-            </nav>
 
-            <div class="mt-2 md:flex md:items-center md:justify-between">
-                <div class="min-w-0 flex-1">
-                    <h2 class="page-title">Categories</h2>
-                </div>
-                <div class="mt-4 flex shrink-0 md:ml-4 md:mt-0">
-                    <a href="{{ route('admin.categories.create') }}" class="btn-primary">Add New</a>
-                </div>
-            </div>
-        </div>
+        @php
+            $breadcrumbLinks = [
+                [
+                    'url' => route('admin.dashboard'),
+                    'text' => 'Dashboard',
+                ],
+                [
+                    'url' => route('admin.categories.index'),
+                    'text' => 'Categories',
+                ],
+                [
+                    'text' => 'List',
+                ],
+            ];
+        @endphp
+
+        <x-admin.breadcrumb :links=$breadcrumbLinks title="Categories" :addNewAction="route('admin.categories.create')" />
 
         <div class="mt-8 flow-root">
             <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
