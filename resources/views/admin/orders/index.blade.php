@@ -45,7 +45,10 @@
                                                     href="{{ route('admin.orders.show', $order) }}">{{ $order->order_number }}</a>
                                             </td>
                                             <td>{{ $order->user->name }}</td>
-                                            <td>{{ $order->status }}</td>
+                                            <td>
+                                                <span
+                                                    class="inline-flex items-center rounded-md bg-{{ $order->status->color() }}-50 px-2 py-1 text-xs font-medium text-{{ $order->status->color() }}-600 ring-1 ring-{{ $order->status->color() }}-500/10 ring-inset">{{ $order->status->label() }}</span>
+                                            </td>
                                             <td>{{ $order->grand_total }}</td>
                                             <td>{{ $order->order_date->format('d M Y') }}</td>
 

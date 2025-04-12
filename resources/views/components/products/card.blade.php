@@ -2,16 +2,23 @@
     <a href="{{ route('products.single', $product) }}">
         <div class="overflow-hidden w-full mb-2 relative rounded-lg">
             <img class="w-full object-cover rounded-xs transition-all duration-500 ease-out delay-0 group-hover:scale-110"
-                src="{{ $product->thumbnailURL() }}" alt="{{ $product?->name }}" />
+                src="{{ $product->thumbnailURL('thumb') }}" alt="{{ $product?->name }}" />
         </div>
-        <div class="flex justify-between items-center">
-            <div>
+    </a>
+    <div class="flex justify-between items-center">
+        <div>
+            <a href="{{ route('products.single', $product) }}">
                 <h2
                     class="font-normal leading-tight text-secondary mb-2.5 block overflow-hidden whitespace-nowrap max-w-[160px] transition-all duration-500 ease-out delay-0 group-hover:text-primary-600">
                     {{ $product?->name }}</h2>
-                <h3 class="font-bold text-secondary text-lg leading-tight">${{ $product?->regular_price }}</h3>
-            </div>
-            <div>
+            </a>
+            <h3 class="font-bold text-secondary text-lg leading-tight">${{ $product?->regular_price }}</h3>
+        </div>
+        <div>
+            <form action="{{ route('products.addToCart') }}" method="POST">
+                @csrf
+                <input type="hidden" name="quantity" value="1" />
+                <input type="hidden" name="product_id" value="{{ $product->id }}" />
                 <button
                     class="bg-off-white rounded-lg px-2.5 py-3 text-secondary transition-all duration-500 ease-out delay-0 group-hover:bg-primary-600 group-hover:text-white cursor-pointer">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
@@ -31,9 +38,10 @@
                             stroke-linejoin="round" />
                     </svg>
                 </button>
-            </div>
+            </form>
         </div>
-    </a>
+    </div>
+
     <a href="wishlist.html"
         class="absolute top-2 right-2 rounded-md p-2.5 opacity-0 transition-all duration-500 ease-out delay-0 bg-off-white group-hover:opacity-100">
         <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">

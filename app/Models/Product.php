@@ -38,6 +38,8 @@ class Product extends Model implements HasMedia
         'stock' => 'integer',
     ];
 
+    protected $perPage = 10;
+
     /* public function getRouteKeyName(): string
     {
         return 'slug';
@@ -51,7 +53,7 @@ class Product extends Model implements HasMedia
             ->nonQueued();
     }
 
-    public function thumbnailURL($size = 'thumb'): string|null
+    public function thumbnailURL($size = ''): string|null
     {
         return $this?->getMedia('featured-image')->first()?->getUrl($size);
     }

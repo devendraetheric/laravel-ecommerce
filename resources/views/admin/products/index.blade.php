@@ -44,7 +44,7 @@
                                                 <div class="flex items-center">
                                                     <div class="size-11 shrink-0">
                                                         <img class="size-11 rounded-full"
-                                                            src="{{ $product?->thumbnailURL() }}"
+                                                            src="{{ $product?->thumbnailURL('thumb') }}"
                                                             alt="{{ $product->name }}">
                                                     </div>
                                                     <div class="ml-4">

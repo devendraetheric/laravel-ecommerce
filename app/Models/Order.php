@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\OrderStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -17,12 +18,14 @@ class Order extends Model
         'grand_total',
         'payment_method',
         'payment_status',
+        'notes'
     ];
 
     protected $casts = [
-        'sub_total' => 'decimal:2',
-        'grand_total' => 'decimal:2',
-        'order_date' => 'date:Y-m-d'
+        'status'        => OrderStatus::class,
+        'sub_total'     => 'decimal:2',
+        'grand_total'   => 'decimal:2',
+        'order_date'    => 'date:Y-m-d'
     ];
 
     public static function generateOrderNumber(): string

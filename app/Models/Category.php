@@ -36,7 +36,7 @@ class Category extends Model implements HasMedia
             ->nonQueued();
     }
 
-    public function thumbnailURL($size = 'thumb'): string|null
+    public function thumbnailURL($size = ''): string|null
     {
         return $this?->getMedia()->first()?->getUrl($size);
     }

@@ -29,6 +29,9 @@
             @endisset
 
             <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
+                <div class="p-6 border-b border-gray-200">
+                    <h3 class="text-base font-semibold text-gray-800">Order Information</h3>
+                </div>
                 <div class="p-6">
                     <div class="grid grid-cols-3 gap-4">
                         <div class="space-y-2 col-span-3 md:col-span-1">
@@ -74,6 +77,31 @@
                                 </div>
                             </div>
                             @error('user_id')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="space-y-2 col-span-3 md:col-span-1">
+                            <label for="status" class="control-label sm:pt-1.5">Status</label>
+                            <div class="sm:grid sm:grid-cols-6 sm:items-start sm:gap-4">
+                                <div class="mt-2 sm:col-span-6 sm:mt-0 grid grid-cols-1">
+                                    <select name="status" id="status"
+                                        class="col-start-1 row-start-1 form-select @error('status') is-invalid @enderror">
+                                        <option value="">Select Status</option>
+                                        @foreach (\App\Enums\OrderStatus::cases() as $status)
+                                            <option value="{{ $status->value }}" @selected(old('status', $order->status->value ?? 'new') == $status->value)>
+                                                {{ $status->label() }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
+                                        viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+                                        <path fill-rule="evenodd"
+                                            d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                            </div>
+                            @error('status')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
@@ -188,6 +216,14 @@
                                 class="form-control @error('grand_total') is-invalid @enderror"
                                 :value="grandTotal.toFixed(2)" readonly />
                             @error('grand_total')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="space-y-2 col-span-2">
+                            <label for="notes" class="control-label sm:pt-1.5">Notes</label>
+                            <textarea class="form-control @error('notes') is-invalid @enderror" id="notes" name="notes" rows="2">{{ old('notes', $order->notes) }}</textarea>
+                            @error('notes')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>

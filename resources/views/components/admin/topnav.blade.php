@@ -12,17 +12,17 @@
     <div class="h-6 w-px bg-gray-200 lg:hidden" aria-hidden="true"></div>
 
     <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-        <form class="grid flex-1 grid-cols-1" action="#" method="GET">
-            <input type="search" name="search" aria-label="Search"
-                class="col-start-1 row-start-1 block size-full bg-white pl-8 text-base text-gray-900 outline-hidden placeholder:text-gray-400 sm:text-sm/6"
-                placeholder="Search">
-            <svg class="pointer-events-none col-start-1 row-start-1 size-5 self-center text-gray-400"
-                viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                <path fill-rule="evenodd"
-                    d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z"
-                    clip-rule="evenodd" />
-            </svg>
-        </form>
+        <div class="flex flex-1 items-center gap-x-4 lg:gap-x-6">
+            <a href="{{ route('admin.cache.clear') }}" class="btn-outline-danger gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
+                    <path fill-rule="evenodd"
+                        d="M10 1c3.866 0 7 1.79 7 4s-3.134 4-7 4-7-1.79-7-4 3.134-4 7-4Zm5.694 8.13c.464-.264.91-.583 1.306-.952V10c0 2.21-3.134 4-7 4s-7-1.79-7-4V8.178c.396.37.842.688 1.306.953C5.838 10.006 7.854 10.5 10 10.5s4.162-.494 5.694-1.37ZM3 13.179V15c0 2.21 3.134 4 7 4s7-1.79 7-4v-1.822c-.396.37-.842.688-1.306.953-1.532.875-3.548 1.369-5.694 1.369s-4.162-.494-5.694-1.37A7.009 7.009 0 0 1 3 13.179Z"
+                        clip-rule="evenodd" />
+                </svg>
+                <span class="hidden md:inline-flex">Cache Clear</span>
+            </a>
+        </div>
+
         <div class="flex items-center gap-x-4 lg:gap-x-6">
             <a href="{{ route('home') }}" target="_blank" class="-m-2.5 p-2.5 text-green-400 hover:text-green-500">
                 <span class="sr-only">Website Home</span>

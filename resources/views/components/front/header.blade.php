@@ -1,47 +1,32 @@
 <!-- header area start -->
-<header class="font-display">
+<header class="font-display" x-data="{ showMenu: false }">
     <div>
-        <div class="top-header bg-secondary">
+        <div class="top-header bg-slate-800">
             <div class="container px-3 md:px-5 xl:px-0">
                 <div class="py-3.5 flex justify-center sm:justify-between">
-                    <p class="sm:flex gap-2 items-center text-[13px] leading-[110%] text-white opacity-70 hidden">
-                        <span>
-                            <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path d="M13.3334 4.5L6.00002 11.8333L2.66669 8.5" stroke="white" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </span>
+                    <p class="sm:flex gap-2 items-center text-sm leading-tight text-white hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
+                            <path fill-rule="evenodd"
+                                d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                clip-rule="evenodd" />
+                        </svg>
                         <span>Free shipping on all orders over $50</span>
                     </p>
                     <div>
                         <ul class="flex gap-6 items-center">
                             <li class="inline-flex items-center justify-center">
                                 <a href="#"
-                                    class="inline-flex gap-2 items-center text-white opacity-70 text-[13px] leading-[130%]">Faqs</a>
+                                    class="inline-flex gap-2 items-center text-white text-sm leading-tight">Faqs</a>
                             </li>
                             <li class="inline-flex items-center justify-center">
                                 <a href="#"
-                                    class="!inline-flex gap-2 items-center text-white opacity-70 text-[13px] leading-[130%]">
-                                    <span>
-                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <g opacity="0.7" clip-path="url(#clip0_906_1673)">
-                                                <path
-                                                    d="M7.99992 14.6667C11.6818 14.6667 14.6666 11.6819 14.6666 8C14.6666 4.3181 11.6818 1.33333 7.99992 1.33333C4.31802 1.33333 1.33325 4.3181 1.33325 8C1.33325 11.6819 4.31802 14.6667 7.99992 14.6667Z"
-                                                    stroke="white" stroke-linecap="round" stroke-linejoin="round" />
-                                                <path d="M8 5.33333V8" stroke="white" stroke-linecap="round"
-                                                    stroke-linejoin="round" />
-                                                <path d="M8 10.6667H8.00615" stroke="white" stroke-linecap="round"
-                                                    stroke-linejoin="round" />
-                                            </g>
-                                            <defs>
-                                                <clipPath id="clip0_906_1673">
-                                                    <rect width="16" height="16" fill="white" />
-                                                </clipPath>
-                                            </defs>
-                                        </svg>
-                                    </span>
+                                    class="!inline-flex gap-2 items-center text-white text-sm leading-tight">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                        class="size-5">
+                                        <path fill-rule="evenodd"
+                                            d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-7-4a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM9 9a.75.75 0 0 0 0 1.5h.253a.25.25 0 0 1 .244.304l-.459 2.066A1.75 1.75 0 0 0 10.747 15H11a.75.75 0 0 0 0-1.5h-.253a.25.25 0 0 1-.244-.304l.459-2.066A1.75 1.75 0 0 0 9.253 9H9Z"
+                                            clip-rule="evenodd" />
+                                    </svg>
                                     <span>Need Help</span>
                                 </a>
                             </li>
@@ -50,114 +35,91 @@
                 </div>
             </div>
         </div>
-        <div class="main-header bg-grayscales-500 lg:border-none border-b border-grayscales-700">
+        <div class="bg-gray-200 lg:border-none border-b border-gray-300">
             <div class="container px-3 md:px-5 xl:px-0">
-                <div class="flex justify-between items-center py-5">
+                <div class="flex justify-between items-center gap-2 py-7">
                     <div>
                         <a href="{{ route('home') }}">
                             <img class="h-12" src="{{ asset('otc-logo.png') }}" alt="{{ config('app.name') }}" />
                         </a>
                     </div>
-                    <div class="lg:max-w-[413px] lg:block hidden w-full">
-                        <div class="relative">
-                            <input type="text" id="search" placeholder="search here..."
-                                class="block w-full bg-white focus:outline-none border-0 px-4 py-3 rounded-lg focus:ring-2 ring-primary-600">
-                            <label for="search" class="absolute right-4 top-3">
-                                <svg width="23" height="22" viewBox="0 0 23 22" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M10.5833 17.4167C14.6334 17.4167 17.9167 14.1334 17.9167 10.0833C17.9167 6.03325 14.6334 2.75 10.5833 2.75C6.53325 2.75 3.25 6.03325 3.25 10.0833C3.25 14.1334 6.53325 17.4167 10.5833 17.4167Z"
-                                        stroke="#272343" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                    <path d="M19.75 19.25L15.7625 15.2625" stroke="#272343" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </label>
+                    <div class="lg:max-w-128 lg:block hidden w-full">
+                        <div class="grid grid-cols-1">
+                            <input type="text" name="account-number" id="account-number"
+                                class="col-start-1 row-start-1 block w-full rounded-lg bg-white py-3 pr-10 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 sm:pr-9 sm:text-sm/6"
+                                placeholder="search here...">
+
+                            <svg viewBox="0 0 20 20" fill="currentColor"
+                                class="pointer-events-none col-start-1 row-start-1 mr-3 size-5 self-center justify-self-end text-gray-400 sm:size-4">
+                                <path fill-rule="evenodd"
+                                    d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z"
+                                    clip-rule="evenodd" />
+                            </svg>
                         </div>
                     </div>
                     <div class="lg:block hidden">
                         <ul class="flex items-center gap-3">
-                            <li>
-                                <a href="javascript:;" class="!inline-flex gap-2 bg-white rounded-lg p-[11px]">
-                                    <span><svg width="22" height="22" viewBox="0 0 22 22" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M2.52087 2.97916L4.42754 3.30916L5.31029 13.8261C5.3442 14.2399 5.5329 14.6258 5.83873 14.9066C6.14457 15.1875 6.54506 15.3427 6.96029 15.3413H16.9611C17.3587 15.3418 17.7431 15.1986 18.0436 14.9383C18.344 14.6779 18.5404 14.3178 18.5965 13.9242L19.4673 7.91266C19.4905 7.75279 19.482 7.58991 19.4422 7.43333C19.4024 7.27675 19.3322 7.12955 19.2354 7.00015C19.1387 6.87074 19.0175 6.76167 18.8786 6.67917C18.7397 6.59667 18.5859 6.54235 18.426 6.51933C18.3673 6.51291 4.73371 6.50833 4.73371 6.50833"
-                                                stroke="#272343" stroke-width="1.5" stroke-linecap="round"
-                                                stroke-linejoin="round" />
-                                            <path d="M12.948 9.89542H15.4899" stroke="#272343" stroke-width="1.5"
-                                                stroke-linecap="round" stroke-linejoin="round" />
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M6.55786 18.5194C6.62508 18.5165 6.69219 18.5273 6.75515 18.551C6.81811 18.5748 6.87562 18.611 6.9242 18.6575C6.97279 18.7041 7.01145 18.76 7.03787 18.8219C7.06428 18.8837 7.0779 18.9503 7.0779 19.0176C7.0779 19.0849 7.06428 19.1515 7.03787 19.2134C7.01145 19.2753 6.97279 19.3312 6.9242 19.3777C6.87562 19.4243 6.81811 19.4605 6.75515 19.4842C6.69219 19.508 6.62508 19.5187 6.55786 19.5158C6.42942 19.5103 6.30808 19.4554 6.21914 19.3626C6.13021 19.2698 6.08057 19.1462 6.08057 19.0176C6.08057 18.8891 6.13021 18.7655 6.21914 18.6726C6.30808 18.5798 6.42942 18.5249 6.55786 18.5194Z"
-                                                fill="#272343" stroke="#272343" stroke-width="1.5"
-                                                stroke-linecap="round" stroke-linejoin="round" />
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M16.8988 18.5194C17.0312 18.5194 17.1583 18.5721 17.252 18.6657C17.3457 18.7594 17.3983 18.8865 17.3983 19.019C17.3983 19.1515 17.3457 19.2786 17.252 19.3723C17.1583 19.4659 17.0312 19.5186 16.8988 19.5186C16.7663 19.5186 16.6392 19.4659 16.5455 19.3723C16.4518 19.2786 16.3992 19.1515 16.3992 19.019C16.3992 18.8865 16.4518 18.7594 16.5455 18.6657C16.6392 18.5721 16.7663 18.5194 16.8988 18.5194Z"
-                                                fill="#272343" stroke="#272343" stroke-width="1.5"
-                                                stroke-linecap="round" stroke-linejoin="round" />
-                                        </svg>
-                                    </span>
-                                    <span>Cart</span>
-                                    <span
-                                        class="bg-primary-600 text-white rounded-full py-[3px] px-[9px] ml-1 inline-flex justify-center items-center text-[10px] leading-[100%]">2</span>
-                                </a>
-                            </li>
                             <li class="inline-flex items-center justify-center">
                                 <a href="javascript:;"
-                                    class="bg-white text-gray-black hover:text-primary-600 rounded-lg p-[11px]">
-                                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M2.63262 10.6315C1.64903 7.56067 2.79762 4.05075 6.02245 3.01217C6.85867 2.74459 7.74676 2.68086 8.61262 2.82629C9.47849 2.97172 10.297 3.32208 10.9999 3.84817C12.3337 2.81692 14.2743 2.46858 15.9683 3.01217C19.1922 4.05075 20.349 7.56067 19.3664 10.6315C17.8355 15.499 10.9999 19.2482 10.9999 19.2482C10.9999 19.2482 4.21478 15.5558 2.63262 10.6315V10.6315Z"
-                                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                            stroke-linejoin="round" />
+                                    class="bg-white text-gray-black hover:text-primary-600 rounded-lg p-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
                                     </svg>
+                                    {{ collect(session('cart'))->count() }}
                                 </a>
                             </li>
                             <li class="inline-flex items-center justify-center">
                                 <a href="javascript:;"
-                                    class="bg-white text-gray-black hover:text-primary-600 rounded-lg p-[11px]">
-                                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M10.9862 14.0672C7.44053 14.0672 4.4137 14.6034 4.4137 16.7503C4.4137 18.8971 7.42128 19.4526 10.9862 19.4526C14.5309 19.4526 17.5587 18.9154 17.5587 16.7695C17.5587 14.6236 14.5502 14.0672 10.9862 14.0672V14.0672Z"
-                                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M10.9862 11.0055C11.8195 11.0055 12.634 10.7584 13.3268 10.2955C14.0197 9.83255 14.5597 9.17457 14.8785 8.40475C15.1974 7.63492 15.2808 6.78783 15.1183 5.97058C14.9557 5.15334 14.5545 4.40266 13.9653 3.81346C13.3761 3.22426 12.6254 2.82301 11.8081 2.66045C10.9909 2.49789 10.1438 2.58132 9.37397 2.9002C8.60415 3.21907 7.94617 3.75906 7.48324 4.45188C7.02031 5.14471 6.77322 5.95925 6.77322 6.7925C6.76932 7.90581 7.20779 8.97508 7.99218 9.76515C8.77657 10.5552 9.84266 11.0014 10.956 11.0055H10.9862Z"
-                                            stroke="currentColor" stroke-width="1.429" stroke-linecap="round"
-                                            stroke-linejoin="round" />
+                                    class="bg-white text-gray-black hover:text-primary-600 rounded-lg p-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                    </svg>
+
+                                </a>
+                            </li>
+                            <li class="inline-flex items-center justify-center">
+                                <a href="javascript:;"
+                                    class="bg-white text-gray-black hover:text-primary-600 rounded-lg p-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                                     </svg>
                                 </a>
                             </li>
                         </ul>
                     </div>
-                    <div class="lg:hidden inline-block hamburger-btn" id="hamburger-btn">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
+                    <button type="button"
+                        class="lg:hidden inline-block cursor-pointer text-gray-800 hover:text-primary-600"
+                        @click="showMenu=true">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="bottom-header bg-white shadow-[0px_1px_0px_#E1E3E6] relative z-30 hidden lg:block">
+    <div class="bottom-header bg-white shadow-xs relative z-30 hidden lg:block">
         <div class="container px-3 md:px-5 xl:px-0">
             <div class="py-3.5 flex justify-between items-center">
                 <div class="flex gap-8 items-center">
                     <div x-data="{ open: false }" class="relative">
                         <!-- Button to toggle dropdown -->
                         <button @click="open = !open"
-                            class="max-h-12 inline-flex items-center justify-center gap-4 py-3.5 px-5 border border-grayscales-700 rounded-md text-gray-black text-sm leading-4 font-medium font-display">
-                            <span class="text-gray-black inline-flex">
-                                <svg width="18" height="14" viewBox="0 0 18 14" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M18 2.5H0V0.5H18V2.5Z" fill="currentColor" />
-                                    <path d="M18 8.5H0V6.5H18V8.5Z" fill="currentColor" />
-                                    <path d="M18 14.5H0V12.5H18V14.5Z" fill="currentColor" />
-                                </svg>
-                            </span>
-                            <span class="text-gray-black inline-flex">All Categories</span>
+                            class="inline-flex items-center justify-center gap-2 py-3 px-4 border border-gray-600 rounded-md text-gray-800 text-sm leading-tight font-semibold cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="size-5">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                            </svg>
+                            <span>All Categories</span>
                         </button>
 
                         <!-- Dropdown content -->
@@ -193,191 +155,137 @@
 
                     <ul class="lg:flex gap-8 items-center hidden">
                         <li>
-                            <a class="nav-link" href="{{ route('home') }}">Home</a>
+                            <a class="relative transition-all duration-300 ease-in-out font-medium text-gray-800 leading-tight hover:text-primary-600"
+                                href="{{ route('home') }}">Home</a>
                         </li>
                         <li>
-                            <a class="nav-link" href="{{ route('products.list') }}">Product</a>
+                            <a class="relative transition-all duration-300 ease-in-out font-medium text-gray-800 leading-tight hover:text-primary-600"
+                                href="{{ route('products.list') }}">Product</a>
                         </li>
                         <li>
-                            <a class="nav-link" href="javascript:void(0);">Pages</a>
+                            <a class="relative transition-all duration-300 ease-in-out font-medium text-gray-800 leading-tight hover:text-primary-600"
+                                href="javascript:void(0);">Pages</a>
                         </li>
                         <li>
-                            <a class="nav-link" href="">About</a>
+                            <a class="relative transition-all duration-300 ease-in-out font-medium text-gray-800 leading-tight hover:text-primary-600"
+                                href="">About</a>
                         </li>
                     </ul>
                 </div>
                 <div>
-                    <p class="text-grayscales-900 inline-flex gap-2 items-center text-sm font-display">
+                    <p class="text-gray-900 inline-flex gap-2 items-center">
                         <span>Contact:</span>
-                        <span class="text-secondary font-medium">(808) 555-0111</span>
+                        <span>(808) 555-0111</span>
                     </p>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Mobile Menu Area Start -->
-    <div class="nav-menu" id="nav-menu">
-        <div class="flex justify-between  items-center px-3 py-4 mb-4">
-            <div>
-                <a href="{{ route('home') }}">
-                    <img src="./assets/images/all-img/logo-sm.png" alt="">
-                </a>
-            </div>
-            <ul class="flex items-center gap-3">
-                <li>
-                    <a href="javascript:;" class="inline-flex gap-2 bg-white rounded-lg p-[11px] relative">
-                        <span>
-                            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M2.52087 2.97916L4.42754 3.30916L5.31029 13.8261C5.3442 14.2399 5.5329 14.6258 5.83873 14.9066C6.14457 15.1875 6.54506 15.3427 6.96029 15.3413H16.9611C17.3587 15.3418 17.7431 15.1986 18.0436 14.9383C18.344 14.6779 18.5404 14.3178 18.5965 13.9242L19.4673 7.91266C19.4905 7.75279 19.482 7.58991 19.4422 7.43333C19.4024 7.27675 19.3322 7.12955 19.2354 7.00015C19.1387 6.87074 19.0175 6.76167 18.8786 6.67917C18.7397 6.59667 18.5859 6.54235 18.426 6.51933C18.3673 6.51291 4.73371 6.50833 4.73371 6.50833"
-                                    stroke="#272343" stroke-width="1.5" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                                <path d="M12.948 9.89542H15.4899" stroke="#272343" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M6.55786 18.5194C6.62508 18.5165 6.69219 18.5273 6.75515 18.551C6.81811 18.5748 6.87562 18.611 6.9242 18.6575C6.97279 18.7041 7.01145 18.76 7.03787 18.8219C7.06428 18.8837 7.0779 18.9503 7.0779 19.0176C7.0779 19.0849 7.06428 19.1515 7.03787 19.2134C7.01145 19.2753 6.97279 19.3312 6.9242 19.3777C6.87562 19.4243 6.81811 19.4605 6.75515 19.4842C6.69219 19.508 6.62508 19.5187 6.55786 19.5158C6.42942 19.5103 6.30808 19.4554 6.21914 19.3626C6.13021 19.2698 6.08057 19.1462 6.08057 19.0176C6.08057 18.8891 6.13021 18.7655 6.21914 18.6726C6.30808 18.5798 6.42942 18.5249 6.55786 18.5194Z"
-                                    fill="#272343" stroke="#272343" stroke-width="1.5" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M16.8988 18.5194C17.0312 18.5194 17.1583 18.5721 17.252 18.6657C17.3457 18.7594 17.3983 18.8865 17.3983 19.019C17.3983 19.1515 17.3457 19.2786 17.252 19.3723C17.1583 19.4659 17.0312 19.5186 16.8988 19.5186C16.7663 19.5186 16.6392 19.4659 16.5455 19.3723C16.4518 19.2786 16.3992 19.1515 16.3992 19.019C16.3992 18.8865 16.4518 18.7594 16.5455 18.6657C16.6392 18.5721 16.7663 18.5194 16.8988 18.5194Z"
-                                    fill="#272343" stroke="#272343" stroke-width="1.5" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                            </svg>
-                        </span>
-                        <span
-                            class="bg-dark-accents absolute -top-1 right-0 text-white rounded-full px-2 py-1.5 inline-flex justify-center items-center text-[10px] leading-[100%]">2</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="bg-white text-gray-black flex hover:text-[#007580] rounded-lg p-[11px]">
-                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M2.63262 10.6315C1.64903 7.56067 2.79762 4.05075 6.02245 3.01217C6.85867 2.74459 7.74676 2.68086 8.61262 2.82629C9.47849 2.97172 10.297 3.32208 10.9999 3.84817C12.3337 2.81692 14.2743 2.46858 15.9683 3.01217C19.1922 4.05075 20.349 7.56067 19.3664 10.6315C17.8355 15.499 10.9999 19.2482 10.9999 19.2482C10.9999 19.2482 4.21478 15.5558 2.63262 10.6315V10.6315Z"
-                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                        </svg>
-                    </a>
-                </li>
-                <li class="relative">
-                    <button class="bg-white text-gray-black hover:text-[#007580] rounded-lg p-[11px] user-profile">
-                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M10.9862 14.0672C7.44053 14.0672 4.4137 14.6034 4.4137 16.7503C4.4137 18.8971 7.42128 19.4526 10.9862 19.4526C14.5309 19.4526 17.5587 18.9154 17.5587 16.7695C17.5587 14.6236 14.5502 14.0672 10.9862 14.0672V14.0672Z"
-                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M10.9862 11.0055C11.8195 11.0055 12.634 10.7584 13.3268 10.2955C14.0197 9.83255 14.5597 9.17457 14.8785 8.40475C15.1974 7.63492 15.2808 6.78783 15.1183 5.97058C14.9557 5.15334 14.5545 4.40266 13.9653 3.81346C13.3761 3.22426 12.6254 2.82301 11.8081 2.66045C10.9909 2.49789 10.1438 2.58132 9.37397 2.9002C8.60415 3.21907 7.94617 3.75906 7.48324 4.45188C7.02031 5.14471 6.77322 5.95925 6.77322 6.7925C6.76932 7.90581 7.20779 8.97508 7.99218 9.76515C8.77657 10.5552 9.84266 11.0014 10.956 11.0055H10.9862Z"
-                                stroke="currentColor" stroke-width="1.429" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                        </svg>
-                    </button>
-                    <div class="profile-content">
-                        <ul>
-                            <li>
-                                <a href="#">Wodden</a>
-                            </li>
-                            <li>
-                                <a href="#">Partex</a>
-                            </li>
-                            <li>
-                                <a href="#">Plywood</a>
-                            </li>
-                            <li>
-                                <a href="#">Segun</a>
-                            </li>
-                        </ul>
+    <div class="relative z-500" aria-labelledby="slide-over-title" role="dialog" aria-modal="true"
+        x-show="showMenu" x-cloak>
+        <!-- Background backdrop, show/hide based on slide-over state. -->
+        <div class="fixed inset-0 bg-gray-900/80" aria-hidden="true"></div>
+
+        <div class="fixed inset-0 overflow-hidden">
+            <div class="absolute inset-0 overflow-hidden">
+                <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10"
+                    x-transition:enter="transition ease-in-out duration-700 transform"
+                    x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0"
+                    x-transition:leave="transition ease-in-out duration-700 transform"
+                    x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-full">
+
+                    <div class="pointer-events-auto w-screen max-w-md">
+                        <div class="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
+                            <div class="flex justify-between items-center px-3 py-4 mb-4">
+                                <a href="{{ route('home') }}">
+                                    <img src="{{ asset('otc-logo.png') }}" alt="{{ config('app.name') }}" />
+                                </a>
+                                <ul class="flex items-center gap-1">
+                                    <li>
+                                        <a href="javascript:;"
+                                            class="bg-white text-gray-black flex hover:text-primary-600 rounded-lg p-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                class="size-5">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                                            </svg>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;"
+                                            class="bg-white text-gray-black flex hover:text-primary-600 rounded-lg p-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                class="size-5">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                            </svg>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;"
+                                            class="bg-white text-gray-black flex hover:text-primary-600 rounded-lg p-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                class="size-5">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                                            </svg>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="javascript:;"
+                                            class="bg-white text-gray-black flex hover:text-red-600 focus:text-red-600 rounded-lg p-3 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:outline-hidden"
+                                            @click="showMenu = false">
+                                            <svg class="size-6" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" aria-hidden="true"
+                                                data-slot="icon">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M6 18 18 6M6 6l12 12" />
+                                            </svg>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="px-3 mb-4">
+                                <div class="max-w-128 w-full">
+                                    <div class="grid grid-cols-1">
+                                        <input type="text" name="account-number" id="account-number"
+                                            class="col-start-1 row-start-1 block w-full rounded-lg bg-white py-3 pr-10 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 sm:pr-9 sm:text-sm/6"
+                                            placeholder="search here...">
+
+                                        <svg viewBox="0 0 20 20" fill="currentColor"
+                                            class="pointer-events-none col-start-1 row-start-1 mr-3 size-5 self-center justify-self-end text-gray-400 sm:size-4">
+                                            <path fill-rule="evenodd"
+                                                d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <ul class="flex flex-col items-center px-3">
+                                <li class="w-full block">
+                                    <a href=""
+                                        class="block px-3 py-2 text-gray-800 hover:text-primary-600">Home</a>
+                                </li>
+                                <li class="w-full block">
+                                    <a href=""
+                                        class="block px-3 py-2 text-gray-800 hover:text-primary-600">Shop</a>
+                                </li>
+                                <li class="w-full block">
+                                    <a href=""
+                                        class="block px-3 py-2 text-gray-800 hover:text-primary-600">Product</a>
+                                </li>
+                            </ul>
+
+                        </div>
                     </div>
-                </li>
-                <li>
-                    <span
-                        class="hamburger-btn-close bg-[#F7F7F9] text-black w-[44px] h-[44px] rounded-full flex items-center justify-center"
-                        id="hamburger-btn-close">
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M11 1L1 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round"></path>
-                            <path d="M1 1L11 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round"></path>
-                        </svg>
-                    </span>
-                </li>
-            </ul>
-        </div>
-        <div class="px-3 mb-4">
-            <div class="lg:max-w-[413px] w-full">
-                <div class="relative">
-                    <input type="text" placeholder="search here..."
-                        class="block w-full bg-grayscales-500 focus:outline-none border-0 px-4 py-3 rounded-lg">
-                    <span class="absolute right-4 top-3">
-                        <svg width="23" height="22" viewBox="0 0 23 22" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M10.5833 17.4167C14.6334 17.4167 17.9167 14.1334 17.9167 10.0833C17.9167 6.03325 14.6334 2.75 10.5833 2.75C6.53325 2.75 3.25 6.03325 3.25 10.0833C3.25 14.1334 6.53325 17.4167 10.5833 17.4167Z"
-                                stroke="#272343" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                            <path d="M19.75 19.25L15.7625 15.2625" stroke="#272343" stroke-width="1.5"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </span>
                 </div>
             </div>
         </div>
-        <!-- menu -->
-        <div>
-            <nav class="tabs flex flex-row">
-                <button data-target="panel-1"
-                    class="tab rounded-none w-1/2 active text-gray-600 py-4 px-6 block hover:text-primary-500 focus:outline-none text-primary-500 border-b-2 font-medium border-primary-500">
-                    Menu
-                </button>
-                <button data-target="panel-2"
-                    class="tab rounded-none w-1/2 ext-gray-600 py-4 px-6 block hover:text-primary-500 focus:outline-none border-b-2 font-medium border-primary-500">
-                    Categories
-                </button>
-            </nav>
-        </div>
-
-        <div id="panels">
-            <div class="panel-1 tab-content active">
-                <ul class="flex flex-col items-center">
-                    <li class="w-full block">
-                        <a href="" class="border-b border-primary-600 block px-3 py-2">Home</a>
-                    </li>
-                    <li class="w-full block">
-                        <a href="" class="border-b border-primary-600 block px-3 py-2">Shop</a>
-                    </li>
-                    <li class="w-full block">
-                        <a href="" class="border-b border-primary-600 block px-3 py-2">Product</a>
-                    </li>
-                    <li class="w-full block">
-                        <a href="" class="border-b border-primary-600 block px-3 py-2">Pages</a>
-                    </li>
-                    <li class="w-full block">
-                        <a href="" class="border-b border-primary-600 block px-3 py-2">About</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="panel-2 tab-content py-5">
-                <ul>
-                    <li>
-                        <a href="#" class="border-b border-primary-600 block px-3 py-2">Wodden</a>
-                    </li>
-                    <li>
-                        <a href="#" class="border-b border-primary-600 block px-3 py-2">Partex</a>
-                    </li>
-                    <li>
-                        <a href="#" class="border-b border-primary-600 block px-3 py-2">Plywood</a>
-                    </li>
-                    <li>
-                        <a href="#" class="border-b border-primary-600 block px-3 py-2">Segun</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
     </div>
-    <!-- Mobile Menu Area End -->
-    <div class="overlay" id="overlay"></div>
 </header>
 <!-- header area end -->

@@ -11,13 +11,15 @@
     <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
 
     <!-- css link here  -->
-    @vite(['node_modules/swiper/swiper.min.css', 'node_modules/select2/dist/css/select2.min.css', 'resources/css/app.css', 'resources/css/responsive.css'])
+    @vite(['node_modules/swiper/swiper.min.css', 'resources/css/app.css'])
 </head>
 
-<body class="font-display">
+<body class="font-display bg-gray-50">
+    <x-admin.alert />
     <x-front.header />
 
     {{ $slot }}

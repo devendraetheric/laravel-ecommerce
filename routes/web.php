@@ -8,6 +8,8 @@ Route::get('/', [FrontController::class, 'home'])->name('home');
 Route::get('/products', [FrontController::class, 'products'])->name('products.list');
 Route::get('/product/{product:slug}', [FrontController::class, 'productSingle'])->name('products.single');
 
+Route::post('/product/addToCart', [FrontController::class, 'addToCart'])->name('products.addToCart');
+
 
 Route::prefix('admin')
     ->as('admin.')

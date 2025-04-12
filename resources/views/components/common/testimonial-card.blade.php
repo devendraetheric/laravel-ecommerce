@@ -1,8 +1,7 @@
 <!-- testimonials item start -->
-<div class="testimonial-card bg-white lg:p-10 sm:p-6 p-4 rounded-xl shadow-[0px_8px_40px_rgba(39,35,67,0.08)]">
+<div class="bg-white lg:p-10 sm:p-6 p-4 rounded-xl shadow-[0px_8px_40px_rgba(39,35,67,0.08)]">
     <div class="shadow-[inset_2px_0px_0px_#029FAE] pl-6">
-        <p
-            class="text-[#636270] font-display font-normal lg:text-[20px] lg:leading-[150%] sm:text-base text-sm capitalize">
+        <p class="text-gray-700 font-normal lg:text-lg lg:leading-normal sm:text-base text-sm">
             “Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet mi nec
             massa tincidunt blandit et eu sem. Maecenas laoreet ultrices diam dignissim posuere.
             Aenean ultrices dui at ipsum sagittis, pharetra lacinia dui faucibus. In ac bibendum
@@ -10,14 +9,13 @@
     </div>
     <div class="flex justify-between items-end">
         <div class="flex items-center flex-wrap gap-3">
-            <div class="lg:w-[60px] lg:h-[60px] sm:w-12 sm:h-12 w-8 h-8">
+            <div class="lg:w-15 lg:h-15 sm:w-12 sm:h-12 w-8 h-8">
                 <img src="./assets/images/all-img/testimonials.png" alt="" class="w-full h-full rounded-full">
             </div>
             <div>
-                <h4
-                    class="xl:text-[20px] xl:leading-[140%] text-sm md:text-base text-gray-black capitalize font-medium font-display">
+                <h4 class="xl:text-lg xl:leading-loose text-sm md:text-base text-gray-800 font-medium">
                     Kristin Watson</h4>
-                <p class="text-[#9A9CAA] lg:text-[16px] lg:leading-[140%] text-sm font-normal font-display">
+                <p class="text-gray-800 opacity-50 lg:text-base lg:leading-relaxed text-sm font-normal font-display">
                     Fashion Designer</p>
             </div>
         </div>

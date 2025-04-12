@@ -25,6 +25,6 @@
             @endforeach
         </div>
 
-        <h2 class="pt-4 text-2xl font-semibold text-gray-800 font-display">{{ $title }}</h2>
+        <h2 class="pt-4 text-2xl lg:text-4xl font-semibold text-gray-800 font-display">{{ $title }}</h2>
     </div>
 </div>
