@@ -46,7 +46,7 @@
                     <div class="lg:max-w-128 lg:block hidden w-full">
                         <div class="grid grid-cols-1">
                             <input type="text" name="account-number" id="account-number"
-                                class="col-start-1 row-start-1 block w-full rounded-lg bg-white py-3 pr-10 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 sm:pr-9 sm:text-sm/6"
+                                class="col-start-1 row-start-1 block w-full rounded-lg bg-white py-3 pr-10 pl-6 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 sm:pr-9 sm:text-sm/6"
                                 placeholder="search here...">
 
                             <svg viewBox="0 0 20 20" fill="currentColor"
@@ -82,10 +82,10 @@
                                 </a>
                             </li>
                             <li class="inline-flex items-center justify-center">
-                                <a href="javascript:;"
+                                <a href="{{ route('login') }}"
                                     class="bg-white text-gray-black hover:text-primary-600 rounded-lg p-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="size-5">
+                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                        class="size-5">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                                     </svg>

@@ -14,3 +14,6 @@ Route::post('/product/addToCart', [FrontController::class, 'addToCart'])->name('
 Route::prefix('admin')
     ->as('admin.')
     ->group(base_path('routes/admin.php'));
+
+Route::prefix('auth')
+    ->group(base_path('routes/auth.php'));

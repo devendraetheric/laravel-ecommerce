@@ -12,9 +12,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->redirectGuestsTo(fn(Request $request) => $request->routeIs('admin.*') ? route('admin.login') : '/');
+        $middleware->redirectGuestsTo(fn(Request $request) => $request->routeIs('admin.*') ? route('admin.login') : route('login'));
 
-        $middleware->redirectUsersTo(fn(Request $request) => $request->routeIs('admin.login') ? route('admin.dashboard') : '/');
+        $middleware->redirectUsersTo(fn(Request $request) => $request->routeIs('admin.login') ? route('admin.dashboard') : route('home'));
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
