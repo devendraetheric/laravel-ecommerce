@@ -71,7 +71,7 @@
                                 </a>
                             </li>
                             <li class="inline-flex items-center justify-center">
-                                <a href="javascript:;"
+                                <a href="{{ route('account.wishlist') }}"
                                     class="bg-white text-gray-black hover:text-primary-600 rounded-lg p-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-5">

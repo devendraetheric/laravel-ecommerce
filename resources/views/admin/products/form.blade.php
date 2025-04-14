@@ -195,14 +195,16 @@
         </form>
     </div>
 
-    <script>
-        function slugify(str) {
-            return str
-                .trim()
-                .toLowerCase()
-                .replace(/[^a-z0-9\s-]/g, '')
-                .replace(/\s+/g, '-')
-                .replace(/-+/g, '-');
-        }
-    </script>
+    @push('scripts')
+        <script>
+            function slugify(str) {
+                return str
+                    .trim()
+                    .toLowerCase()
+                    .replace(/[^a-z0-9\s-]/g, '')
+                    .replace(/\s+/g, '-')
+                    .replace(/-+/g, '-');
+            }
+        </script>
+    @endpush
 </x-layouts.admin>

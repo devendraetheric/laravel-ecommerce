@@ -17,18 +17,36 @@
             <form method="POST" action="{{ route('register') }}" class="space-y-6">
                 @csrf
 
-                <div>
-                    <input type="text" id="name" name="name" value="{{ old('name') }}" placeholder="Name"
-                        class="form-control" />
-                    @error('name')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-2 col-span-2 md:col-span-1">
+                        <input type="text" id="first_name" name="first_name" value="{{ old('first_name') }}"
+                            placeholder="First Name" class="form-control" />
+                        @error('first_name')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="space-y-2 col-span-2 md:col-span-1">
+                        <input type="text" id="last_name" name="last_name" value="{{ old('last_name') }}"
+                            placeholder="Last Name" class="form-control" />
+                        @error('last_name')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
                 </div>
 
                 <div>
                     <input type="text" id="email" name="email" value="{{ old('email') }}" placeholder="Email"
                         class="form-control" />
                     @error('email')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
+                    <input type="text" id="phone" name="phone" value="{{ old('phone') }}"
+                        placeholder="Phone Number" class="form-control" />
+                    @error('phone')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>

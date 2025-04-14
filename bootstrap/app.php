@@ -14,7 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->redirectGuestsTo(fn(Request $request) => $request->routeIs('admin.*') ? route('admin.login') : route('login'));
 
-        $middleware->redirectUsersTo(fn(Request $request) => $request->routeIs('admin.login') ? route('admin.dashboard') : route('home'));
+        $middleware->redirectUsersTo(fn(Request $request) => $request->routeIs('admin.login') ? route('admin.dashboard') : route('account.dashboard'));
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
