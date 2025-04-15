@@ -11,6 +11,9 @@ Route::get('/product/{product:slug}', [FrontController::class, 'productSingle'])
 
 Route::post('/product/addToCart', [FrontController::class, 'addToCart'])->name('products.addToCart');
 
+Route::get('/cart', [FrontController::class, 'cart'])->name('account.cart');
+Route::get('/removeFromCart/{product_id}', [FrontController::class, 'removeFromCart'])->name('account.removeFromCart');
+
 /**
  * After Login Pages
  */

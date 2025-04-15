@@ -18,10 +18,10 @@ Route::get('cache-clear', function () {
 
 
 Route::get('migrate', function () {
-    Artisan::call('migrate --seed');
+    Artisan::call('migrate');
 
     return redirect()->back()
-        ->with('success', 'Successfully migrated and seeded.');
+        ->with('success', 'Successfully migrated.');
 })->name('migrate');
 
 Route::get('migrate-fresh', function () {

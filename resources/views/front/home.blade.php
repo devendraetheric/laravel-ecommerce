@@ -99,7 +99,7 @@
             </div>
             <div class="absolute top-1/2 items-center gap-8 w-full px-3 flex justify-between">
                 <button
-                    class="swiper-button-prev group !p-2 flex justify-center items-center border border-solid border-primary-600 !w-12 !h-12 transition-all duration-500 rounded-full !top-2/4 !-translate-y-8 !left-5 hover:bg-primary-600">
+                    class="banner-prev group !p-2 flex justify-center items-center border border-solid border-primary-600 !w-12 !h-12 transition-all duration-500 rounded-full !top-2/4 !-translate-y-8 !left-5 hover:bg-primary-600 z-100">
                     <svg class="h-5 w-5 text-primary-600 group-hover:text-white" xmlns="http://www.w3.org/2000/svg"
                         width="16" height="16" viewBox="0 0 16 16" fill="none">
                         <path d="M10.0002 11.9999L6 7.99971L10.0025 3.99719" stroke="currentColor" stroke-width="1.6"
@@ -107,7 +107,7 @@
                     </svg>
                 </button>
                 <button
-                    class="swiper-button-next group !p-2 flex justify-center items-center border border-solid border-primary-600 !w-12 !h-12 transition-all duration-500 rounded-full !top-2/4 !-translate-y-8 !right-5 hover:bg-primary-600">
+                    class="banner-next group !p-2 flex justify-center items-center border border-solid border-primary-600 !w-12 !h-12 transition-all duration-500 rounded-full !top-2/4 !-translate-y-8 !right-5 hover:bg-primary-600 z-100">
                     <svg class="h-5 w-5 text-primary-600 group-hover:text-white" xmlns="http://www.w3.org/2000/svg"
                         width="16" height="16" viewBox="0 0 16 16" fill="none">
                         <path d="M5.99984 4.00012L10 8.00029L5.99748 12.0028" stroke="currentColor" stroke-width="1.6"
@@ -115,7 +115,6 @@
                     </svg>
                 </button>
             </div>
-            <div class="swiper-pagination"></div>
         </div>
     </section>
     <!-- banner section end -->
@@ -296,18 +295,17 @@
                     Top categories</h2>
                 <div class="flex gap-6">
                     <button class="categoriesSwiper-button-prev">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <rect width="24" height="24" transform="matrix(-1 0 0 1 24 0)" fill="none" />
-                            <path d="M8.5 7.5L4 12M4 12L8.5 16.5M4 12H20" stroke="currentColor" stroke-width="1.5"
-                                stroke-linecap="round" stroke-linejoin="round" />
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
                         </svg>
                     </button>
                     <button class="categoriesSwiper-button-next">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M15.5 7.5L20 12M20 12L15.5 16.5M20 12H4" stroke="currentColor" stroke-width="1.5"
-                                stroke-linecap="round" stroke-linejoin="round" />
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                         </svg>
                     </button>
                 </div>
@@ -364,24 +362,26 @@
                     What client says about us</h2>
                 <div class="flex gap-6">
                     <button class="testimonials-button-prev">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <rect width="24" height="24" transform="matrix(-1 0 0 1 24 0)" fill="none" />
-                            <path d="M8.5 7.5L4 12M4 12L8.5 16.5M4 12H20" stroke="currentColor" stroke-width="1.5"
-                                stroke-linecap="round" stroke-linejoin="round" />
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
                         </svg>
                     </button>
                     <button class="testimonials-button-next">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M15.5 7.5L20 12M20 12L15.5 16.5M20 12H4" stroke="currentColor" stroke-width="1.5"
-                                stroke-linecap="round" stroke-linejoin="round" />
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                         </svg>
                     </button>
                 </div>
             </div>
             <div class="swiper testimonialSwiper overflow-hidden">
                 <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <x-common.testimonial-card />
+                    </div>
                     <div class="swiper-slide">
                         <x-common.testimonial-card />
                     </div>
@@ -402,18 +402,17 @@
                     Recently Added</h2>
                 <div class="flex gap-6">
                     <button class="recentSwiper-button-prev">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <rect width="24" height="24" transform="matrix(-1 0 0 1 24 0)" fill="none" />
-                            <path d="M8.5 7.5L4 12M4 12L8.5 16.5M4 12H20" stroke="currentColor" stroke-width="1.5"
-                                stroke-linecap="round" stroke-linejoin="round" />
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
                         </svg>
                     </button>
                     <button class="recentSwiper-button-next">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M15.5 7.5L20 12M20 12L15.5 16.5M20 12H4" stroke="currentColor" stroke-width="1.5"
-                                stroke-linecap="round" stroke-linejoin="round" />
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                         </svg>
                     </button>
                 </div>
@@ -430,4 +429,113 @@
         </div>
     </section>
     <!-- recent products section end -->
+
+    @push('scripts')
+        <script>
+            new Swiper(".bannerSwiper", {
+                loop: true,
+                speed: 1000,
+                navigation: {
+                    nextEl: ".banner-next",
+                    prevEl: ".banner-prev",
+                },
+            });
+
+            new Swiper(".brandSwiper", {
+                slidesPerView: 2,
+                spaceBetween: 12,
+                loop: true,
+                mousewheel: true,
+                breakpoints: {
+                    375: {
+                        slidesPerView: 3,
+                        spaceBetween: 12,
+                    },
+                    640: {
+                        slidesPerView: 4,
+                        spaceBetween: 12,
+                    },
+                    768: {
+                        slidesPerView: 5,
+                        spaceBetween: 18,
+                    },
+                    1024: {
+                        slidesPerView: 6,
+                        spaceBetween: 24,
+                    },
+                    1500: {
+                        slidesPerView: 6,
+                        spaceBetween: 106,
+                    }
+                },
+            });
+
+            new Swiper(".topCategoriesSwiper", {
+                loop: true,
+                slidesPerView: 3,
+                spaceBetween: 12,
+                centeredSlides: true,
+                slideToClickedSlide: true,
+                loop: true,
+                navigation: {
+                    nextEl: ".categoriesSwiper-button-next",
+                    prevEl: ".categoriesSwiper-button-prev",
+                },
+                breakpoints: {
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 12,
+                    },
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 18,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 24,
+                    },
+                }
+            });
+
+            new Swiper(".recentSwiper", {
+                slidesPerView: 1,
+                spaceBetween: 24,
+                loop: true,
+                navigation: {
+                    nextEl: ".recentSwiper-button-next",
+                    prevEl: ".recentSwiper-button-prev",
+                },
+                breakpoints: {
+                    480: {
+                        slidesPerView: 2,
+                        spaceBetween: 12,
+                    },
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 18,
+                    },
+                    1024: {
+                        slidesPerView: 4,
+                        spaceBetween: 24,
+                    },
+                },
+            });
+
+            new Swiper(".testimonialSwiper", {
+                slidesPerView: 1,
+                spaceBetween: 0,
+                loop: true,
+                navigation: {
+                    nextEl: ".testimonials-button-next",
+                    prevEl: ".testimonials-button-prev",
+                },
+                breakpoints: {
+                    1024: {
+                        slidesPerView: 2,
+                        spaceBetween: 24,
+                    },
+                },
+            });
+        </script>
+    @endpush
 </x-layouts.front>

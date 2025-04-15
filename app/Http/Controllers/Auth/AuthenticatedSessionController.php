@@ -24,9 +24,29 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        print_r(session()->getId());
+
+        $oldCart = cart();
+
         $request->authenticate();
 
         $request->session()->regenerate();
+
+        $newCart = cart();
+
+        foreach ($oldCart->items as $item) {
+            $existingItem = $newCart->items()->where('product_id', $item->product_id)->first();
+
+            if ($existingItem) {
+                $existingItem->increment('quantity', $item->quantity);
+            } else {
+                // Add new items to logged-in user's cart
+                $newCart->items()->create([
+                    'product_id' => $item->product_id,
+                    'quantity' => $item->quantity,
+                ]);
+            }
+        }
 
         return redirect()->intended(route('home', absolute: false));
     }

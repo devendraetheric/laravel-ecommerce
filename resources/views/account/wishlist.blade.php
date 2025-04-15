@@ -1,7 +1,11 @@
 <x-layouts.front>
     @php
         $breadcrumbs = [
-            'links' => [['url' => route('home'), 'text' => 'Home'], ['url' => '#', 'text' => 'Your Wishlists']],
+            'links' => [
+                ['url' => route('home'), 'text' => 'Home'],
+                ['url' => route('account.dashboard'), 'text' => 'Account'],
+                ['url' => '#', 'text' => 'Your Wishlists'],
+            ],
             'title' => 'Your Wishlists',
         ];
     @endphp

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\View\View;
 
 class FrontController extends Controller
 {
@@ -41,19 +43,40 @@ class FrontController extends Controller
 
     public function addToCart(Request $request)
     {
-        $cart = session()->get('cart', []);
+        $cart = cart();
 
-        if (isset($cart[$request->product_id])) {
-            $cart[$request->product_id]['quantity'] += $request->quantity;
+        $product = $cart?->items()
+            ->where('product_id', $request->product_id)
+            ->first();
+
+        if ($product) {
+            $product->increment('quantity', $request->quantity);
         } else {
-            $cart[$request->product_id] =  [
-                'quantity' => $request->quantity
-            ];
+            $cart?->items()
+                ->create(
+                    [
+                        'product_id' => $request->product_id,
+                        'quantity' => $request->quantity,
+                    ]
+                );
         }
 
-        session()->put('cart', $cart);
+        return redirect()->back()
+            ->with('success', 'Product added to cart successfully!!!');
+    }
+
+    public function cart(): View
+    {
+        $cart = cart();
+
+        return view('front.cart', compact('cart'));
+    }
+
+    public function removeFromCart($product_id): RedirectResponse
+    {
+        cart()->items()->where('product_id', $product_id)->delete();
 
         return redirect()->back()
-            ->with('success', 'Product added to cart successfully');
+            ->with('success', 'Product removed from Wishlist!!!');
     }
 }
