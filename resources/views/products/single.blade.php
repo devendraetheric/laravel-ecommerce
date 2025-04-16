@@ -19,7 +19,7 @@
                 {{-- Left Side --}}
                 <div class="gallery-container overflow-hidden">
 
-                    <div class="md:grid md:grid-cols-5 gap-6">
+                    <div class="flex gap-6">
                         <div class="hidden md:flex md:flex-col overflow-y-hidden max-h-120">
                             <div class="swiper gallery-thumb">
                                 <div class="swiper-wrapper">
@@ -30,7 +30,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="md:col-span-4">
+                        <div class="overflow-hidden">
                             <!-- Main Gallery -->
                             <div class="swiper gallery-main">
                                 <div class="swiper-wrapper">

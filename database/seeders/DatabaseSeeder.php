@@ -30,12 +30,16 @@ class DatabaseSeeder extends Seeder
             'first_name'    => 'Test',
             'last_name'     => 'User',
             'email'         => 'test@example.com',
-            'phone'         => '9876543210'
+            'phone'         => '9876543210',
+            'password'      => Hash::make('123456'),
         ]);
 
         Brand::factory(14)->create();
         Category::factory(21)->create();
 
         Product::factory(150)->create();
+
+        $this->call(CountrySeeder::class);
+        $this->call(StateSeeder::class);
     }
 }

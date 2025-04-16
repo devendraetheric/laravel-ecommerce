@@ -6,6 +6,11 @@
             'active' => request()->routeIs('account.dashboard'),
         ],
         [
+            'title' => 'Your Addresses',
+            'link' => route('account.addresses.index'),
+            'active' => request()->routeIs('account.addresses.*'),
+        ],
+        [
             'title' => 'Wishlist',
             'link' => route('account.wishlist'),
             'active' => request()->routeIs('account.wishlist'),

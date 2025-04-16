@@ -33,12 +33,12 @@ class FrontController extends Controller
             ->paginate(12)
             ->withQueryString();
 
-        return view('front.products', compact('products'));
+        return view('products.list', compact('products'));
     }
 
     public function productSingle(Product $product)
     {
-        return view('front.single-product', compact('product'));
+        return view('products.single', compact('product'));
     }
 
     public function addToCart(Request $request)

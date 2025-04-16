@@ -197,6 +197,20 @@
 
     @push('scripts')
         <script>
+            new EasyMDE({
+                element: document.getElementById('short_description'),
+                toolbar: ["bold", "italic", "heading", "|", "quote", "unordered-list",
+                    "ordered-list", "|", "table", "link", "preview"
+                ],
+                minHeight: "150px",
+            });
+            new EasyMDE({
+                element: document.getElementById('long_description'),
+                toolbar: ["bold", "italic", "heading", "|", "quote", "unordered-list",
+                    "ordered-list", "|", "table", "link", "preview"
+                ]
+            });
+
             function slugify(str) {
                 return str
                     .trim()

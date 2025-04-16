@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\FrontController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/account/wishlist', [AccountController::class, 'wishlist'])->name('account.wishlist');
 
     Route::get('/account/dashboard', [AccountController::class, 'index'])->name('account.dashboard');
+
+    Route::resource('/account/addresses', AddressController::class)->except(['show'])->names('account.addresses');
 });
 
 
