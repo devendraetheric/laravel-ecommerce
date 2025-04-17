@@ -3,7 +3,18 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\FrontController;
+use App\Models\State;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+Route::post('/fetch-states', function (Request $request) {
+    $data = State::where('country_id', $request->country_id)
+        ->orderBy('name', 'ASC')
+        ->get(['name', 'id'])
+        ->pluck('id', 'name');
+
+    return response()->json($data);
+})->name('fetchState');
 
 
 Route::get('/', [FrontController::class, 'home'])->name('home');

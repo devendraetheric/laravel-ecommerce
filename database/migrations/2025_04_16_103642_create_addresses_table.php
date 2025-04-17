@@ -31,6 +31,7 @@ return new class extends Migration
             $table->foreignId('state_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('country_id')->constrained();
             $table->string('zip_code')->nullable();
+            $table->boolean('is_default')->default(false);
             $table->timestamps();
 
             $table->index(['addressable_id', 'addressable_type']);

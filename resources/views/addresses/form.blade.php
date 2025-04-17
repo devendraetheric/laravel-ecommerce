@@ -24,7 +24,7 @@
                 <div class="p-6 ">
                     <form
                         action="{{ $address->id ? route('account.addresses.update', $address) : route('account.addresses.store') }}"
-                        method="POST" class="space-y-6">
+                        method="POST" class="space-y-6" x-data="addressInfo()">
                         @csrf
 
                         @isset($address->id)
@@ -41,12 +41,27 @@
                                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
+
                             <div>
                                 <label for="country_id"
                                     class="block text-base/6 font-medium text-gray-600">Country</label>
-                                <input type="text" id="country_id" name="country_id"
-                                    value="{{ old('country_id', $address->country_id ?? 233) }}"
-                                    class="form-control mt-2" />
+                                <div class="mt-2 grid grid-cols-1">
+                                    <select id="country_id" name="country_id"
+                                        class="col-start-1 row-start-1 w-full appearance-none rounded-lg bg-gray-50 py-4 pr-10 pl-4 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 sm:text-sm/6"
+                                        x-model="country_id" x-init="countryChange()" @change="countryChange()">
+                                        <option value="">Select Country</option>
+                                        @foreach ($countries as $key => $country)
+                                            <option value="{{ $key }}" @selected(old('country_id', $address->country_id ?? 233) == $key)>
+                                                {{ $country }}</option>
+                                        @endforeach
+                                    </select>
+                                    <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
+                                        viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+                                        <path fill-rule="evenodd"
+                                            d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </div>
                                 @error('country_id')
                                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -87,6 +102,7 @@
                                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
+
                             <div>
                                 <label for="address_line_2" class="block text-base/6 font-medium text-gray-600">Address
                                     Line 2</label>
@@ -111,9 +127,21 @@
 
                             <div>
                                 <label for="state_id" class="block text-base/6 font-medium text-gray-600">State</label>
-                                <input type="text" id="state_id" name="state_id"
-                                    value="{{ old('state_id', $address->state_id ?? 1460) }}"
-                                    class="form-control mt-2" />
+                                <div class="mt-2 grid grid-cols-1">
+                                    <select x-model="state_id" id="state_id" name="state_id"
+                                        class="col-start-1 row-start-1 w-full appearance-none rounded-lg bg-gray-50 py-4 pr-10 pl-4 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 sm:text-sm/6">
+                                        <option value="">Select State</option>
+                                        <template x-for="(state,key) in states" :key="state">
+                                            <option :value="state" x-text="key"></option>
+                                        </template>
+                                    </select>
+                                    <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
+                                        viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+                                        <path fill-rule="evenodd"
+                                            d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </div>
                                 @error('state_id')
                                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -130,13 +158,46 @@
                             </div>
                         </div>
 
-                        <div class="flex space-x-6">
-                            <button type="submit" class="btn-primary">Save Address</button>
-                            <a class="btn-secondary" href="{{ route('account.addresses.index') }}">Cancel</a>
-                        </div>
+                        <button type="submit" class="btn-primary">Save Address</button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
+
+    @push('scripts')
+        <script>
+            var stateId = "{{ old('state_id', $address->state_id ?? 1460) }}";
+
+            function addressInfo() {
+                return {
+                    country_id: "{{ old('country_id', $address->country_id ?? 233) }}",
+                    state_id: "",
+                    states: [],
+
+                    async countryChange() {
+
+                        if (this.country_id) {
+                            try {
+                                const response = await axios.post("{{ route('fetchState') }}", {
+                                    country_id: this.country_id,
+                                    _token: document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                        'content')
+                                });
+
+                                this.states = response.data;
+
+                                if (stateId) {
+                                    this.state_id = stateId;
+                                }
+
+                            } catch (error) {
+                                console.error('Error fetching countries:', error);
+                            }
+                        }
+                    }
+                };
+            }
+        </script>
+    @endpush
 </x-layouts.front>

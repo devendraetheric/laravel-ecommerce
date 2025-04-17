@@ -136,7 +136,8 @@
                                                     <div class="mt-2 sm:col-span-6 sm:mt-0 grid grid-cols-1">
                                                         <select :name="'items[' + index + '][product_id]'"
                                                             x-model="item.product_id"
-                                                            class="col-start-1 row-start-1 form-select @error('user_id') is-invalid @enderror">
+                                                            class="col-start-1 row-start-1 form-select"
+                                                            :class="getValidationError(index, 'product_id') && 'is-invalid'">
                                                             <option value="">Select Product</option>
                                                             @foreach ($products as $product)
                                                                 <option value="{{ $product->id }}">
@@ -152,6 +153,9 @@
                                                         </svg>
                                                     </div>
                                                 </div>
+                                                <p class="text-sm text-red-600"
+                                                    x-text="getValidationError(index, 'product_id')">
+                                                </p>
                                             </td>
                                             <td>
                                                 <input type="number" name="quantity" id="quantity"
@@ -238,49 +242,65 @@
         </form>
     </div>
 
+    @push('scripts')
+        <script>
+            window.validationErrors = @json($errors->toArray());
 
-    <script>
-        function orderItems() {
-            // Initialize items with existing order items or an empty array
-
-            var formItems = @json(old('items', $order->items->toArray() ?? []));
-
-            if (formItems.length == 0) {
-                formItems.push({
-                    product_id: '',
-                    quantity: 1,
-                    price: 0,
-                    total: 0,
-                })
+            function getValidationError(index, field) {
+                const key = `items.${index}.${field}`;
+                return window.validationErrors && window.validationErrors[key] ?
+                    window.validationErrors[key][0] :
+                    '';
             }
 
-            return {
-                items: formItems, // Array to hold order items
+            function orderItems() {
+                // Initialize items with existing order items or an empty array
 
-                // Method to add a new item
-                addItem() {
-                    this.items.push({
+                @php
+                    $formItems = $order->items->map(function ($item) {
+                        return $item->only(['product_id', 'quantity', 'price', 'total']);
+                    });
+                @endphp
+
+                var formItems = @json(old('items', $formItems->toArray() ?? []));
+
+                if (formItems.length == 0) {
+                    formItems.push({
                         product_id: '',
                         quantity: 1,
                         price: 0,
                         total: 0,
-                    });
-                },
+                    })
+                }
 
-                // Method to remove an item
-                removeItem(index) {
-                    this.items.splice(index, 1);
-                },
+                return {
+                    items: formItems, // Array to hold order items
 
-                updateTotal(index) {
-                    const item = this.items[index];
-                    item.total = parseFloat(item.quantity * item.price).toFixed(2);
-                },
+                    // Method to add a new item
+                    addItem() {
+                        this.items.push({
+                            product_id: '',
+                            quantity: 1,
+                            price: 0,
+                            total: 0,
+                        });
+                    },
 
-                get grandTotal() {
-                    return this.items.reduce((sum, item) => sum + parseFloat(item.total), 0);
-                },
-            };
-        }
-    </script>
+                    // Method to remove an item
+                    removeItem(index) {
+                        this.items.splice(index, 1);
+                    },
+
+                    updateTotal(index) {
+                        const item = this.items[index];
+                        item.total = parseFloat(item.quantity * item.price).toFixed(2);
+                    },
+
+                    get grandTotal() {
+                        return this.items.reduce((sum, item) => sum + parseFloat(item.total), 0);
+                    },
+                };
+            }
+        </script>
+    @endpush
 </x-layouts.admin>

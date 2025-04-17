@@ -51,7 +51,7 @@ class OrderController extends Controller
             'user_id'           => ['required', 'exists:users,id'],
 
             // 'items' => ['required', 'array', 'min:1'],
-            'items.*.product_id' => ['nullable', 'exists:products,id'],
+            'items.*.product_id' => ['required', 'exists:products,id'],
             'items.*.quantity' => ['required', 'integer', 'min:1'],
             'items.*.price' => ['required', 'numeric', 'min:0'],
             'items.*.total' => ['required', 'numeric', 'min:0'],
@@ -102,7 +102,7 @@ class OrderController extends Controller
             'user_id'           => ['required', 'exists:users,id'],
 
             // 'items' => ['required', 'array', 'min:1'],
-            'items.*.product_id' => ['nullable', 'exists:products,id'],
+            'items.*.product_id' => ['required', 'exists:products,id'],
             'items.*.quantity'  => ['required', 'integer', 'min:1'],
             'items.*.price'     => ['required', 'numeric', 'min:0'],
             'items.*.total'     => ['required', 'numeric', 'min:0'],

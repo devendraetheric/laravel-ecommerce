@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
+use App\Models\Country;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -25,7 +26,10 @@ class AddressController extends Controller
     {
         $address = new Address();
 
-        return view('addresses.form', compact('address'));
+        $countries = Country::all('id', 'name')
+            ->pluck('name', 'id');
+
+        return view('addresses.form', compact('address', 'countries'));
     }
 
     /**
@@ -64,7 +68,16 @@ class AddressController extends Controller
      */
     public function edit(Address $address): View
     {
-        return view('addresses.form', compact('address'));
+        $daddress = auth()->user()->addresses()->where('id', $address->id)->first();
+
+        if (is_null($daddress)) {
+            abort(404);
+        }
+
+        $countries = Country::all('id', 'name')
+            ->pluck('name', 'id');
+
+        return view('addresses.form', compact('address', 'countries'));
     }
 
     /**
@@ -72,6 +85,12 @@ class AddressController extends Controller
      */
     public function update(Request $request, Address $address)
     {
+        $daddress = auth()->user()->addresses()->where('id', $address->id)->first();
+
+        if (is_null($daddress)) {
+            abort(404);
+        }
+
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:50'],
             'country_id' => ['required'],
@@ -95,6 +114,13 @@ class AddressController extends Controller
      */
     public function destroy(Address $address)
     {
+        $daddress = auth()->user()->addresses()->where('id', $address->id)->first();
+
+        if (is_null($daddress)) {
+            abort(404);
+        }
+
+
         $address->delete();
 
         return redirect()->route('account.addresses.index')
