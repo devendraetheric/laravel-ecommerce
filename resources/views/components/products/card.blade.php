@@ -1,5 +1,5 @@
 <div class="group relative w-full transition-all duration-500 ease-out delay-0 inline-block">
-    <a href="{{ route('products.single', $product) }}">
+    <a href="{{ route('products.show', $product) }}">
         <div class="overflow-hidden w-full mb-2 relative rounded-lg">
             <img class="w-full object-cover rounded-xs transition-all duration-500 ease-out delay-0 group-hover:scale-110"
                 src="{{ $product->thumbnailURL('thumb') }}" alt="{{ $product?->name }}" />
@@ -7,7 +7,7 @@
     </a>
     <div class="flex justify-between items-center">
         <div>
-            <a href="{{ route('products.single', $product) }}">
+            <a href="{{ route('products.show', $product) }}">
                 <h2
                     class="font-normal leading-tight text-secondary mb-2.5 block overflow-hidden whitespace-nowrap max-w-[160px] transition-all duration-500 ease-out delay-0 group-hover:text-primary-600">
                     {{ $product?->name }}</h2>

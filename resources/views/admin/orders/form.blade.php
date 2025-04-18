@@ -109,6 +109,10 @@
                 </div>
             </div>
 
+            @isset($order->id)
+                @include('admin.orders.address', ['address' => $order->address])
+            @endisset
+
             <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
                 <div class="p-6 border-b border-gray-200">
                     <h3 class="text-base font-semibold text-gray-800">Order Items</h3>
@@ -167,7 +171,7 @@
                                                 <input type="number" name="price" id="price"
                                                     class="form-control @error('price') is-invalid @enderror"
                                                     :name="'items[' + index + '][price]'" x-model="item.price"
-                                                    @input="updateTotal(index)" />
+                                                    @input="updateTotal(index)" step="any" />
 
                                             </td>
                                             <td>

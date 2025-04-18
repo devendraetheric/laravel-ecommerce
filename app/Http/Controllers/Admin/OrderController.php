@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Country;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
@@ -87,7 +88,10 @@ class OrderController extends Controller
 
         $products = Product::all(['id', 'name', 'regular_price']);
 
-        return view('admin.orders.form', compact('order', 'users', 'products'));
+        $countries = Country::all('id', 'name')
+            ->pluck('name', 'id');
+
+        return view('admin.orders.form', compact('order', 'users', 'products', 'countries'));
     }
 
     /**
@@ -117,6 +121,8 @@ class OrderController extends Controller
 
         $order->items()->delete();
         $order->items()->createMany($validated['items']);
+
+        $order->address()->update($request->address);
 
         return redirect()
             ->route('admin.orders.index')

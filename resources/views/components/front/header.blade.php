@@ -159,7 +159,7 @@
                         </li>
                         <li>
                             <a class="relative transition-all duration-300 ease-in-out font-medium text-gray-800 leading-tight hover:text-primary-600"
-                                href="{{ route('products.list') }}">Product</a>
+                                href="{{ route('products.index') }}">Product</a>
                         </li>
                         <li>
                             <a class="relative transition-all duration-300 ease-in-out font-medium text-gray-800 leading-tight hover:text-primary-600"

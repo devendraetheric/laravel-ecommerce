@@ -60,7 +60,7 @@
                                             <td>{{ $product->brand?->name }}</td>
 
                                             <td class="relative text-right text-sm space-x-1 items-center">
-                                                <a href="{{ route('products.single', $product->slug) }}"
+                                                <a href="{{ route('products.show', $product->slug) }}"
                                                     class="link-primary relative inline-flex" target="_blank">
                                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                                         fill="currentColor" class="size-5">

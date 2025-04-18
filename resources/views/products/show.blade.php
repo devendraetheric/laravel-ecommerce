@@ -3,7 +3,7 @@
         $breadcrumbs = [
             'links' => [
                 ['url' => route('home'), 'text' => 'Home'],
-                ['url' => route('products.list'), 'text' => 'Products'],
+                ['url' => route('products.index'), 'text' => 'Products'],
                 ['url' => '#', 'text' => $product->name],
             ],
             'title' => $product->name,

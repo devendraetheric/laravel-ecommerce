@@ -47,7 +47,12 @@ class AddressController extends Controller
             'city' => ['required', 'string', 'max:50'],
             'zip_code' => ['required', 'string', 'max:10'],
             'state_id' => ['required'],
+            'is_default' => ['required', 'boolean'],
         ]);
+
+        if ($validated['is_default']) {
+            auth()->user()->addresses()->update(['is_default' => false]);
+        }
 
         auth()->user()->addresses()->create($validated);
 
@@ -85,9 +90,9 @@ class AddressController extends Controller
      */
     public function update(Request $request, Address $address)
     {
-        $daddress = auth()->user()->addresses()->where('id', $address->id)->first();
+        $userAddress = auth()->user()->addresses()->where('id', $address->id)->first();
 
-        if (is_null($daddress)) {
+        if (is_null($userAddress)) {
             abort(404);
         }
 
@@ -101,9 +106,15 @@ class AddressController extends Controller
             'city' => ['required', 'string', 'max:50'],
             'zip_code' => ['required', 'string', 'max:10'],
             'state_id' => ['required'],
+            'is_default' => ['required', 'boolean'],
         ]);
 
-        auth()->user()->addresses()->update($validated);
+
+        if ($validated['is_default']) {
+            auth()->user()->addresses()->update(['is_default' => false]);
+        }
+
+        $address->update($validated);
 
         return redirect()->route('account.addresses.index')
             ->with('success', 'Address updated Successfully!!!');
@@ -114,16 +125,31 @@ class AddressController extends Controller
      */
     public function destroy(Address $address)
     {
-        $daddress = auth()->user()->addresses()->where('id', $address->id)->first();
+        $userAddress = auth()->user()->addresses()->where('id', $address->id)->first();
 
-        if (is_null($daddress)) {
+        if (is_null($userAddress)) {
             abort(404);
         }
-
 
         $address->delete();
 
         return redirect()->route('account.addresses.index')
             ->with('success', 'Address deleted Successfully!!!');
+    }
+
+    public function setDefault(Address $address)
+    {
+        $userAddress = auth()->user()->addresses()->where('id', $address->id)->first();
+
+        if (is_null($userAddress)) {
+            abort(404);
+        }
+
+        auth()->user()->addresses()->update(['is_default' => false]);
+
+        $address->update(['is_default' => true]);
+
+        return redirect()->route('account.addresses.index')
+            ->with('success', 'Address set as default Successfully!!!');
     }
 }

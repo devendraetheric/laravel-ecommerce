@@ -50,14 +50,14 @@
                                                         <div class="flex items-center">
                                                             <div class="shrink-0">
                                                                 <a
-                                                                    href="{{ route('products.single', $product->product) }}">
+                                                                    href="{{ route('products.show', $product->product) }}">
                                                                     <img class="h-18 w-auto rounded-lg"
                                                                         src="{{ $product->product?->thumbnailURL('thumb') }}"
                                                                         alt="{{ $product->product->name }}" />
                                                                 </a>
                                                             </div>
                                                             <div class="ml-4">
-                                                                <a href="{{ route('products.single', $product->product) }}"
+                                                                <a href="{{ route('products.show', $product->product) }}"
                                                                     class="font-medium text-base/6 text-gray-900">{{ $product->product->name }}
                                                                 </a>
                                                                 <div
@@ -100,7 +100,7 @@
                                 </div>
                             </dl>
 
-                            <a class="btn-primary mt-8">Proceed to Checkout</a>
+                            <a href="{{ route('account.checkout') }}" class="btn-primary mt-8">Proceed to Checkout</a>
                         </div>
                     </div>
                 </div>

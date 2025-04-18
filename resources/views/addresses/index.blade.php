@@ -36,12 +36,15 @@
                     <div class="col-span-1">
                         <div class="overflow-hidden rounded-xl bg-white shadow-sm">
                             <div class="p-6 border-b border-gray-200">
-                                <h3 class="text-xl/6 font-semibold text-gray-800">{{ $address?->name }}</h3>
+                                <h3 class="text-xl/6 font-semibold text-gray-800">{{ $address?->name }} @if ($address?->is_default)
+                                        <span class="text-primary-600">(Default)</span>
+                                    @endif
+                                </h3>
                             </div>
                             <div class="p-6">
                                 <p>
                                     {{ $address?->contact_name }}<br>
-                                    {{ $address?->address_line_1 }}<br>{{ $address?->address_line_2 }}
+                                    {{ $address?->address_line_1 }} , {{ $address?->address_line_2 }}
                                     {{ $address?->city }}
                                     <br>{{ $address?->state?->name }},
                                     {{ $address?->country?->iso2 }} -
@@ -60,6 +63,9 @@
                                         <button class="text-red-600 hover:text-red-700 cursor-pointer"
                                             href="{{ route('account.addresses.edit', $address) }}">Delete</button>
                                     </form>
+                                    <a class="text-gray-600 hover:text-gray-700"
+                                        href="{{ route('account.addresses.setDefault', $address) }}">Set as Default
+                                        Address</a>
                                 </div>
                             </div>
                         </div>

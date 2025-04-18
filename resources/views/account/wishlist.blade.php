@@ -50,14 +50,14 @@
                                             <td width="50%">
                                                 <div class="flex items-center">
                                                     <div class="shrink-0">
-                                                        <a href="{{ route('products.single', $product) }}">
+                                                        <a href="{{ route('products.show', $product) }}">
                                                             <img class="h-18 w-auto rounded-lg"
                                                                 src="{{ $product?->thumbnailURL('thumb') }}"
                                                                 alt="{{ $product->name }}" />
                                                         </a>
                                                     </div>
                                                     <div class="ml-4">
-                                                        <a href="{{ route('products.single', $product) }}"
+                                                        <a href="{{ route('products.show', $product) }}"
                                                             class="font-medium text-base/6 text-gray-900">{{ $product->name }}
                                                         </a>
                                                         <div class="mt-1 text-base/6 text-gray-500 whitespace-normal">
