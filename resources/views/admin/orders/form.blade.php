@@ -109,9 +109,7 @@
                 </div>
             </div>
 
-            @isset($order->id)
-                @include('admin.orders.address', ['address' => $order->address])
-            @endisset
+            @include('admin.orders.address', ['address' => $order?->address])
 
             <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
                 <div class="p-6 border-b border-gray-200">
@@ -195,6 +193,7 @@
                                 </tbody>
                             </table>
                         </div>
+
                         <div class="border-t border-gray-200 text-center">
                             <button type="button" @click="addItem()" class="btn-secondary my-4">Add Item</button>
                         </div>

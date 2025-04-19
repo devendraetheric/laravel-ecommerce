@@ -35,7 +35,10 @@ class OrderController extends Controller
 
         $products = Product::all(['id', 'name', 'regular_price']);
 
-        return view('admin.orders.form', compact('order', 'users', 'products'));
+        $countries = Country::all('id', 'name')
+            ->pluck('name', 'id');
+
+        return view('admin.orders.form', compact('order', 'users', 'products', 'countries'));
     }
 
     /**

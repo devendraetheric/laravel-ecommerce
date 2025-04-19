@@ -8,7 +8,7 @@
                 <label for="name" class="block text-base/6 font-medium text-gray-600">Address
                     Name</label>
                 <input type="text" id="name" name="address[name]"
-                    value="{{ old('address.name', $address->name) }}" class="form-control mt-2" />
+                    value="{{ old('address.name', $address?->name) }}" class="form-control mt-2" />
                 @error('address.name')
                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                 @enderror
@@ -43,7 +43,7 @@
                 <label for="contact_name" class="block text-base/6 font-medium text-gray-600">Full
                     Name</label>
                 <input type="text" id="contact_name" name="address[contact_name]"
-                    value="{{ old('address.contact_name', $address->contact_name) }}" class="form-control mt-2" />
+                    value="{{ old('address.contact_name', $address?->contact_name) }}" class="form-control mt-2" />
                 @error('address.contact_name')
                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                 @enderror
@@ -52,7 +52,7 @@
             <div>
                 <label for="phone" class="block text-base/6 font-medium text-gray-600">Phone</label>
                 <input type="text" id="phone" name="address[phone]"
-                    value="{{ old('address.phone', $address->phone) }}" class="form-control mt-2" />
+                    value="{{ old('address.phone', $address?->phone) }}" class="form-control mt-2" />
                 @error('address.phone')
                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                 @enderror
@@ -64,7 +64,7 @@
                 <label for="address_line_1" class="block text-base/6 font-medium text-gray-600">Address
                     Line 1</label>
                 <input type="text" id="address_line_1" name="address[address_line_1]"
-                    value="{{ old('address.address_line_1', $address->address_line_1) }}" class="form-control mt-2"
+                    value="{{ old('address.address_line_1', $address?->address_line_1) }}" class="form-control mt-2"
                     placeholder="Street address or P.O. Box" />
                 @error('address.address_line_1')
                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -75,7 +75,7 @@
                 <label for="address_line_2" class="block text-base/6 font-medium text-gray-600">Address
                     Line 2</label>
                 <input type="text" id="address_line_2" name="address[address_line_2]"
-                    value="{{ old('address.address_line_2', $address->address_line_2) }}" class="form-control mt-2"
+                    value="{{ old('address.address_line_2', $address?->address_line_2) }}" class="form-control mt-2"
                     placeholder="Apt,suite,unit,building,floor,etc." />
                 @error('address.address_line_2')
                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -87,7 +87,7 @@
             <div>
                 <label for="city" class="block text-base/6 font-medium text-gray-600">City</label>
                 <input type="text" id="city" name="address[city]"
-                    value="{{ old('address.city', $address->city) }}" class="form-control mt-2" />
+                    value="{{ old('address.city', $address?->city) }}" class="form-control mt-2" />
                 @error('address.city')
                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                 @enderror
@@ -119,7 +119,7 @@
                 <label for="zip_code" class="block text-base/6 font-medium text-gray-600">Zip
                     Code</label>
                 <input type="text" id="zip_code" name="address[zip_code]"
-                    value="{{ old('address.zip_code', $address->zip_code) }}" class="form-control mt-2" />
+                    value="{{ old('address.zip_code', $address?->zip_code) }}" class="form-control mt-2" />
                 @error('address.zip_code')
                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                 @enderror

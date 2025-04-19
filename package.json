@@ -15,6 +15,9 @@
         "vite": "^6.2.4"
     },
     "dependencies": {
+        "@tiptap/core": "^2.11.7",
+        "@tiptap/pm": "^2.11.7",
+        "@tiptap/starter-kit": "^2.11.7",
         "alpinejs": "^3.14.9",
         "swiper": "^6.5.0"
     }

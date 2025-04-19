@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-
+@plugin "@tailwindcss/typography";
 
 @theme {
     --font-display: 'Inter', sans-serif;
@@ -91,4 +91,11 @@
 
 .form-radio {
     @apply relative size-4 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white checked:border-primary-600 checked:bg-primary-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden [&:not(:checked)]:before:hidden;
+}
+
+
+/* Tiptap editor */
+
+.tiptap {
+    @apply px-4 py-2 outline outline-gray-100;
 }

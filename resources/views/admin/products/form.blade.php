@@ -106,24 +106,6 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2">
-                            <label for="short_description" class="control-label sm:pt-1.5">Short Description</label>
-                            <textarea class="form-control @error('short_description') is-invalid @enderror" id="short_description"
-                                name="short_description" rows="3">{{ old('short_description', $product->short_description) }}</textarea>
-                            @error('short_description')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="space-y-2 col-span-2">
-                            <label for="long_description" class="control-label sm:pt-1.5">Long Description</label>
-                            <textarea class="form-control @error('long_description') is-invalid @enderror" id="long_description"
-                                name="long_description" rows="3">{{ old('long_description', $product->long_description) }}</textarea>
-                            @error('long_description')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
                         <div class="space-y-2 col-span-2 md:col-span-1">
                             <label for="image" class="block text-sm/6 font-medium text-gray-900">Featured
                                 Image</label>
@@ -132,6 +114,10 @@
                     </div>
                 </div>
             </div>
+
+            <x-forms.rich-text-editor name="short_description">{!! old('short_description', $product->short_description) !!}</x-forms.rich-text-editor>
+
+            <x-forms.rich-text-editor name="long_description">{!! old('long_description', $product->long_description) !!}</x-forms.rich-text-editor>
 
             <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
                 <div class="p-6 border-b border-gray-200">
@@ -197,20 +183,6 @@
 
     @push('scripts')
         <script>
-            new EasyMDE({
-                element: document.getElementById('short_description'),
-                toolbar: ["bold", "italic", "heading", "|", "quote", "unordered-list",
-                    "ordered-list", "|", "table", "link", "preview"
-                ],
-                minHeight: "150px",
-            });
-            new EasyMDE({
-                element: document.getElementById('long_description'),
-                toolbar: ["bold", "italic", "heading", "|", "quote", "unordered-list",
-                    "ordered-list", "|", "table", "link", "preview"
-                ]
-            });
-
             function slugify(str) {
                 return str
                     .trim()
