@@ -19,6 +19,8 @@ return new class extends Migration
             $table->longText('long_description')->nullable();
             $table->decimal('regular_price', 10, 2)->default(0);
             $table->decimal('selling_price', 10, 2)->default(0);
+            $table->string('sku')->nullable();
+            $table->string('barcode')->nullable();
             $table->boolean('is_active')->default(true);
             $table->boolean('is_featured')->default(false);
             $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();

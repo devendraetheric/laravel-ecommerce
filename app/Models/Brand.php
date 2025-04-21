@@ -39,7 +39,7 @@ class Brand extends Model implements HasMedia
 
     public function thumbnailURL($size = ''): string|null
     {
-        return $this?->getMedia()->first()?->getUrl($size);
+        return $this?->getMedia()->first()?->getUrl($size) ?? asset('/placeholder.png');
     }
 
     public function scopeActive($query)

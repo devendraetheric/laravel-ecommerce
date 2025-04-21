@@ -22,6 +22,8 @@ class Product extends Model implements HasMedia
         'long_description',
         'regular_price',
         'selling_price',
+        'sku',
+        'barcode',
         'is_active',
         'is_featured',
         'category_id',
@@ -55,7 +57,7 @@ class Product extends Model implements HasMedia
 
     public function thumbnailURL($size = ''): string|null
     {
-        return $this?->getMedia('featured-image')->first()?->getUrl($size);
+        return $this?->getMedia('featured-image')->first()?->getUrl($size) ?? asset('/placeholder.png');
     }
 
     public function scopeActive($query)

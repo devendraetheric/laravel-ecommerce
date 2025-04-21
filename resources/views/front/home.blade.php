@@ -472,11 +472,10 @@
 
             new Swiper(".topCategoriesSwiper", {
                 loop: true,
-                slidesPerView: 3,
+                slidesPerView: 2,
                 spaceBetween: 12,
                 centeredSlides: true,
                 slideToClickedSlide: true,
-                loop: true,
                 navigation: {
                     nextEl: ".categoriesSwiper-button-next",
                     prevEl: ".categoriesSwiper-button-prev",

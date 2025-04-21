@@ -60,8 +60,6 @@
                                                         <a href="{{ route('products.show', $product) }}"
                                                             class="font-medium text-base/6 text-gray-900">{{ $product->name }}
                                                         </a>
-                                                        <div class="mt-1 text-base/6 text-gray-500 whitespace-normal">
-                                                            {{ str($product->short_description)->words(25) }}</div>
                                                     </div>
                                                 </div>
                                             </td>

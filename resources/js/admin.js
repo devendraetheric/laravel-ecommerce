@@ -37,6 +37,9 @@ document.addEventListener('alpine:init', () => {
             isActive(type, opts = {}) {
                 return editor.isActive(type, opts)
             },
+            setParagraph() {
+                editor.commands.setParagraph()
+            },
             toggleHeading(opts) {
                 editor.chain().toggleHeading(opts).focus().run()
             },
@@ -45,6 +48,18 @@ document.addEventListener('alpine:init', () => {
             },
             toggleItalic() {
                 editor.chain().toggleItalic().focus().run()
+            },
+            toggleUnderline() {
+                editor.chain().focus().toggleUnderline().run()
+            },
+            toggleCode() {
+                editor.chain().focus().toggleCode().run()
+            },
+            toggleBulletList() {
+                editor.chain().focus().toggleBulletList().run()
+            },
+            toggleOrderedList() {
+                editor.chain().focus().toggleOrderedList().run()
             },
         }
     })

@@ -29,6 +29,8 @@ class ProductFactory extends Factory
             'long_description' => $this->faker->paragraph(10),
             'regular_price' => $this->faker->randomFloat(2, 10, 1000),
             'selling_price' => $this->faker->randomFloat(2, 10, 1000),
+            'sku' => $this->faker->unique()->numerify('##########'),
+            'barcode' => $this->faker->unique()->ean13(),
             'is_featured' => $this->faker->boolean(15),
             'category_id' => Category::all()->random()->id,
             'brand_id' => Brand::all()->random()->id,

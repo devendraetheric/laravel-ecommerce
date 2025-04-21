@@ -58,12 +58,8 @@
                                                             </div>
                                                             <div class="ml-4">
                                                                 <a href="{{ route('products.show', $product->product) }}"
-                                                                    class="font-medium text-base/6 text-gray-900">{{ $product->product->name }}
+                                                                    class="font-medium text-base/6 text-gray-900 wrap-normal">{{ $product->product->name }}
                                                                 </a>
-                                                                <div
-                                                                    class="mt-1 text-base/6 text-gray-500 whitespace-normal">
-                                                                    {{ str($product->product->short_description)->words(10) }}
-                                                                </div>
                                                             </div>
                                                         </div>
                                                     </td>

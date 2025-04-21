@@ -121,4 +121,18 @@ class BrandController extends Controller
             ->route('admin.brands.index')
             ->with('success', 'Brand deleted successfully.');
     }
+
+    /**
+     * Search Brand by name
+     */
+    public function search(Request $request)
+    {
+        $brands = Brand::where('name', 'like', '%' . $request->q . '%')
+            ->select(['id', 'name'])
+            ->latest()
+            ->take(10)
+            ->get();
+
+        return response()->json($brands);
+    }
 }

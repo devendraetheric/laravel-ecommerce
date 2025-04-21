@@ -43,6 +43,8 @@ Route::get('/', function () {
 Route::group(['middleware' => 'auth:admin'], function () {
 
     Route::resource('brands', BrandController::class)->except(['show']);
+    Route::get('brands/search', [BrandController::class, 'search'])->name('brands.search');
+
     Route::resource('categories', CategoryController::class)->except(['show']);
     Route::resource('products', ProductController::class)->except(['show']);
 

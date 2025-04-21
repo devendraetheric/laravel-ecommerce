@@ -46,7 +46,7 @@
 
                 {{-- Right Side --}}
                 <div class="mt-6 md:mt-0">
-                    <h2 class="text-gray-800 text-3xl font-semibold mb-3 capitalize">{{ $product->name }}</h2>
+                    <h2 class="text-gray-800 text-3xl font-semibold mb-3">{{ $product->name }}</h2>
                     <div class="flex items-center gap-2.5 mb-6">
                         <p class="flex gap-4 items-center">
                             <span class="text-gray-800 text-3xl">${{ $product->selling_price }}</span>
@@ -57,7 +57,7 @@
                     </div>
 
                     <div class="mb-6 prose max-w-none">
-                        {!! str($product->short_description)->markdown() !!}
+                        {!! $product->short_description !!}
                     </div>
                     <form action="{{ route('products.addToCart') }}" method="POST">
                         @csrf
@@ -97,7 +97,7 @@
             <div class="my-10">
                 <h2 class="pt-3 text-2xl font-semibold text-gray-black font-display">Product Details</h2>
                 <div class="mt-4 prose max-w-none">
-                    {!! str($product->long_description)->markdown() !!}
+                    {!! $product->long_description !!}
                 </div>
             </div>
         </div>
