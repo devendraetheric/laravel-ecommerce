@@ -15,6 +15,8 @@ class OrderItem extends Model
         'total',
     ];
 
+    protected $with=['product'];
+
     protected $casts = [
         'quantity' => 'integer',
         'price' => 'decimal:2',

@@ -50,6 +50,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::get('categories/search', [CategoryController::class, 'search'])->name('categories.search');
 
     Route::resource('products', ProductController::class)->except(['show']);
+    Route::get('products/search', [ProductController::class, 'search'])->name('products.search');
 
     Route::resource('orders', OrderController::class);
 

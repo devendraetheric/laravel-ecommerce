@@ -147,4 +147,19 @@ class ProductController extends Controller
             ->route('admin.products.index')
             ->with('success', 'Product deleted successfully.');
     }
+
+
+    /**
+     * Search Product by name
+     */
+    public function search(Request $request)
+    {
+        $products = Product::where('name', 'like', '%' . $request->q . '%')
+            ->select(['id', 'name'])
+            ->latest()
+            ->take(10)
+            ->get();
+
+        return response()->json($products);
+    }
 }
