@@ -1,3 +1,4 @@
+@inject('settings', 'App\Settings\GeneralSetting')
 <!-- footer area start -->
 <footer class="bg-white">
     <div class="xl:py-20 py-6 sm:py-8 md:py-12">
@@ -6,7 +7,7 @@
                 <div class="max-w-128">
                     <div class="lg:mb-6 mb-4">
                         <a href="{{ route('home') }}">
-                            <img src="{{ asset('otc-logo.png') }}" alt="{{ config('app.name') }}" class="h-12" />
+                            <img src="{{ asset('otc-logo.png') }}" alt="{{ $settings->app_name }}" class="h-12" />
                         </a>
                     </div>
                     <p class="lg:mb-6 mb-4 text-gray-600 text-base">Vivamus tristique odio sit amet velit
@@ -95,8 +96,8 @@
     <div class="footer-bottom border-t border-gray-100 py-6">
         <div class="container px-3 md:px-5 xl:px-0">
             <div class="flex flex-wrap sm:justify-between sm:flex-nowrap justify-center items-center gap-y-6">
-                <p class="text-center text-gray-500">&copy; {{ date('Y') }} - {{ config('app.name') }} - Designed &
-                    Develop by
+                <p class="text-center text-gray-500">
+                    &copy; {{ date('Y') }} - {{ $settings->app_name }} - Designed & Developed by
                     <a href="https://ethericsolution.com/" target="_blank">
                         <b>Etheric Solution</b></a>
                 </p>

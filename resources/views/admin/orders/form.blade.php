@@ -28,7 +28,7 @@
                 @method('put')
             @endisset
 
-            <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
+            <div class="mt-6 rounded-xl bg-white shadow-sm">
                 <div class="p-6 border-b border-gray-200">
                     <h3 class="text-base font-semibold text-gray-800">Order Information</h3>
                 </div>
@@ -61,10 +61,10 @@
                                 <input x-model="query" @input="searchUsers" @focus="open = !open"
                                     @keydown.arrow-down.prevent="highlightNext()"
                                     @keydown.arrow-up.prevent="highlightPrev()"
-                                    @keydown.enter.prevent="selectHighlighted()" id="user_combobox"
-                                    type="text" name="user_name" id="user_name"
-                                    class="form-control @error('user_id') is-invalid @enderror"
-                                    role="combobox" :aria-expanded="open" autocomplete="off">
+                                    @keydown.enter.prevent="selectHighlighted()" id="user_combobox" type="text"
+                                    name="user_name" id="user_name"
+                                    class="form-control @error('user_id') is-invalid @enderror" role="combobox"
+                                    :aria-expanded="open" autocomplete="off">
                                 <input type="hidden" name="user_id" id="user_id" x-model="selectedId" />
                                 <button type="button"
                                     class="absolute inset-y-0 right-0 flex items-center rounded-r-lg px-2 focus:outline-hidden"
@@ -78,8 +78,7 @@
                                 </button>
 
                                 <ul class="absolute z-100 mt-1 max-h-60 w-full overflow-auto rounded-lg bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-hidden sm:text-sm"
-                                    role="listbox" x-show="open && results.length"
-                                    @click.away="open = !open">
+                                    role="listbox" x-show="open && results.length" @click.away="open = !open">
                                     <template x-for="(item, i) in results" :key="item.id">
                                         <li class="relative cursor-default py-2 pr-9 pl-3 text-gray-900 select-none"
                                             id="option-0" role="option" tabindex="-1"
@@ -183,8 +182,8 @@
                                                             @endforeach
                                                         </select>
                                                         <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-                                                            viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"
-                                                            data-slot="icon">
+                                                            viewBox="0 0 16 16" fill="currentColor"
+                                                            aria-hidden="true" data-slot="icon">
                                                             <path fill-rule="evenodd"
                                                                 d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
                                                                 clip-rule="evenodd" />

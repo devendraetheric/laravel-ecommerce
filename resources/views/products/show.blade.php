@@ -13,13 +13,13 @@
     @include('components.common.breadcrumb', $breadcrumbs)
 
     <!-- product details section start -->
-    <div>
+    <section>
         <div class="container px-3 md:px-5 xl:px-0">
             <div class="md:grid md:grid-cols-2 gap-6 pt-10">
                 {{-- Left Side --}}
                 <div class="gallery-container overflow-hidden">
 
-                    <div class="flex gap-6">
+                    <div class="flex gap-2">
                         <div class="hidden md:flex md:flex-col overflow-y-hidden max-h-120">
                             <div class="swiper gallery-thumb">
                                 <div class="swiper-wrapper">
@@ -101,9 +101,50 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
     <!-- product details section end -->
+
+    <!-- recent products section start -->
+    <section class="lg:py-20 py-6 sm:py-12">
+        <div class="container px-3 md:px-5 xl:px-0">
+            <div class="flex justify-between items-center mb-10">
+                <h2 class="text-gray-800 xl:text-4xl xl:leading-tight text-xl md:text-2xl font-bold">
+                    Related Products</h2>
+                <div class="flex gap-6">
+                    <button class="recentSwiper-button-prev">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                        </svg>
+                    </button>
+                    <button class="recentSwiper-button-next">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="swiper recentSwiper overflow-hidden">
+                <div class="swiper-wrapper">
+                    @foreach ($product->relatedProducts(8) as $item)
+                        <div class="swiper-slide">
+                            <x-products.card :product="$item" />
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- recent products section end -->
+    @push('styles')
+        <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet" />
+    @endpush
+
     @push('scripts')
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script>
             const thumbSwiper = new Swiper('.gallery-thumb', {
                 spaceBetween: 20,
@@ -115,6 +156,30 @@
                 spaceBetween: 10,
                 thumbs: {
                     swiper: thumbSwiper,
+                },
+            });
+
+            new Swiper(".recentSwiper", {
+                slidesPerView: 1,
+                spaceBetween: 24,
+                loop: true,
+                navigation: {
+                    nextEl: ".recentSwiper-button-next",
+                    prevEl: ".recentSwiper-button-prev",
+                },
+                breakpoints: {
+                    480: {
+                        slidesPerView: 2,
+                        spaceBetween: 12,
+                    },
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 18,
+                    },
+                    1024: {
+                        slidesPerView: 4,
+                        spaceBetween: 24,
+                    },
                 },
             });
         </script>

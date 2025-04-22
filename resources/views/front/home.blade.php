@@ -1,4 +1,8 @@
 <x-layouts.front>
+    @push('styles')
+        <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet" />
+    @endpush
+
     <!-- banner section start -->
     <section class="container px-3 md:px-5 xl:px-0 my-6 bg-gray-200 rounded-xl relative z-10">
         <div class="swiper bannerSwiper relative z-50">
@@ -431,6 +435,8 @@
     <!-- recent products section end -->
 
     @push('scripts')
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
         <script>
             new Swiper(".bannerSwiper", {
                 loop: true,

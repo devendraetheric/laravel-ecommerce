@@ -52,7 +52,11 @@
                                                 </svg>
                                             </label>
                                         @empty
-                                            <p class="text-gray-500">No saved addresses found.</p>
+                                            <div>
+                                                <p class="text-gray-500">No saved addresses found.</p>
+                                                <a href="{{ route('account.addresses.create') }}"
+                                                    class="btn-primary mt-4">Add Address</a>
+                                            </div>
                                         @endforelse
                                     </div>
                                 </fieldset>
