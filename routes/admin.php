@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -46,7 +47,11 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::get('brands/search', [BrandController::class, 'search'])->name('brands.search');
 
     Route::resource('categories', CategoryController::class)->except(['show']);
+    Route::get('categories/search', [CategoryController::class, 'search'])->name('categories.search');
+
     Route::resource('products', ProductController::class)->except(['show']);
 
     Route::resource('orders', OrderController::class);
+
+    Route::get('users/search', [UserController::class, 'search'])->name('users.search');
 });
