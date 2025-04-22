@@ -55,31 +55,67 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-3 md:col-span-1">
-                            <label for="user_id" class="control-label sm:pt-1.5">User</label>
-                            <div class="sm:grid sm:grid-cols-6 sm:items-start sm:gap-4">
-                                <div class="mt-2 sm:col-span-6 sm:mt-0 grid grid-cols-1">
-                                    <select name="user_id" id="user_id"
-                                        class="col-start-1 row-start-1 form-select @error('user_id') is-invalid @enderror">
-                                        <option value="">Select User</option>
-                                        @foreach ($users as $key => $user)
-                                            <option value="{{ $key }}" @selected(old('user_id', $order->user_id) == $key)>
-                                                {{ $user }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-                                        viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <div class="space-y-2">
+                            <label for="user_name" class="control-label sm:pt-1.5">User</label>
+                            <div class="relative" x-data="userCombobox()">
+                                <input x-model="query" @input="searchUsers" @focus="open = !open"
+                                    @keydown.arrow-down.prevent="highlightNext()"
+                                    @keydown.arrow-up.prevent="highlightPrev()"
+                                    @keydown.enter.prevent="selectHighlighted()" id="user_combobox"
+                                    type="text" name="user_name" id="user_name"
+                                    class="form-control @error('user_id') is-invalid @enderror"
+                                    role="combobox" :aria-expanded="open" autocomplete="off">
+                                <input type="hidden" name="user_id" id="user_id" x-model="selectedId" />
+                                <button type="button"
+                                    class="absolute inset-y-0 right-0 flex items-center rounded-r-lg px-2 focus:outline-hidden"
+                                    @click="open = !open">
+                                    <svg class="size-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor"
+                                        aria-hidden="true" data-slot="icon">
                                         <path fill-rule="evenodd"
-                                            d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
+                                            d="M10.53 3.47a.75.75 0 0 0-1.06 0L6.22 6.72a.75.75 0 0 0 1.06 1.06L10 5.06l2.72 2.72a.75.75 0 1 0 1.06-1.06l-3.25-3.25Zm-4.31 9.81 3.25 3.25a.75.75 0 0 0 1.06 0l3.25-3.25a.75.75 0 1 0-1.06-1.06L10 14.94l-2.72-2.72a.75.75 0 0 0-1.06 1.06Z"
                                             clip-rule="evenodd" />
                                     </svg>
-                                </div>
+                                </button>
+
+                                <ul class="absolute z-100 mt-1 max-h-60 w-full overflow-auto rounded-lg bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-hidden sm:text-sm"
+                                    role="listbox" x-show="open && results.length"
+                                    @click.away="open = !open">
+                                    <template x-for="(item, i) in results" :key="item.id">
+                                        <li class="relative cursor-default py-2 pr-9 pl-3 text-gray-900 select-none"
+                                            id="option-0" role="option" tabindex="-1"
+                                            :class="{
+                                                'text-white bg-primary-600 outline-hidden': selectedId == item
+                                                    .id,
+                                                'text-white bg-primary-600 outline-hidden': highlighted == i,
+                                            }"
+                                            @click="selectUser(item)" @mouseenter="highlighted = i">
+                                            <span class="block truncate"
+                                                :class="{
+                                                    'font-semibold': selectedId == item.id
+                                                }"
+                                                x-text="item.name"></span>
+                                            <span
+                                                class="absolute inset-y-0 right-0 flex items-center pr-4 text-primary-600"
+                                                :class="{
+                                                    'text-white': selectedId == item.id,
+                                                    'text-white': highlighted == i,
+                                                }">
+                                                <svg class="size-5" viewBox="0 0 20 20" fill="currentColor"
+                                                    aria-hidden="true" data-slot="icon">
+                                                    <path fill-rule="evenodd"
+                                                        d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                                        clip-rule="evenodd" />
+                                                </svg>
+                                            </span>
+                                        </li>
+                                    </template>
+                                </ul>
                             </div>
                             @error('user_id')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
+
                         <div class="space-y-2 col-span-3 md:col-span-1">
                             <label for="status" class="control-label sm:pt-1.5">Status</label>
                             <div class="sm:grid sm:grid-cols-6 sm:items-start sm:gap-4">
@@ -303,6 +339,47 @@
                         return this.items.reduce((sum, item) => sum + parseFloat(item.total), 0);
                     },
                 };
+            }
+
+            function userCombobox() {
+                return {
+                    open: false,
+                    query: "{{ old('user_name', $order->user->name ?? '') }}",
+                    results: [],
+                    highlighted: -1,
+                    selectedId: "{{ old('user_id', $order->user_id) }}",
+                    searchUsers() {
+                        if (this.query.length < 1) {
+                            this.results = [];
+                            return;
+                        }
+                        fetch(`{{ route('admin.users.search') }}?q=${encodeURIComponent(this.query)}`)
+                            .then(res => res.json())
+                            .then(data => {
+                                this.results = data;
+                                this.highlighted = -1;
+                                this.selectedId = "";
+                            });
+                    },
+                    highlightNext() {
+                        if (this.results.length === 0) return;
+                        this.highlighted = (this.highlighted + 1) % this.results.length;
+                    },
+                    highlightPrev() {
+                        if (this.results.length === 0) return;
+                        this.highlighted = (this.highlighted - 1 + this.results.length) % this.results.length;
+                    },
+                    selectHighlighted() {
+                        if (this.highlighted >= 0 && this.results[this.highlighted]) {
+                            this.selectUser(this.results[this.highlighted]);
+                        }
+                    },
+                    selectUser(item) {
+                        this.query = item.name;
+                        this.selectedId = item.id;
+                        this.open = false;
+                    }
+                }
             }
         </script>
     @endpush
