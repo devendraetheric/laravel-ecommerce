@@ -124,17 +124,19 @@
     <!-- banner section end -->
 
     <!-- feature and brand area start -->
-    <section class="container px-3 md:px-5 xl:px-0">
-        <div class="swiper brandSwiper overflow-hidden mb-6">
-            <div class="swiper-wrapper items-center">
-                @foreach ($brands as $brand)
-                    <div class="swiper-slide inline-flex items-center justify-center">
-                        <a href="{{ route('products.byBrand', $brand) }}">
-                            <img class="rounded-lg" src="{{ $brand->thumbnailURL('thumb') }}"
-                                alt="{{ $brand->name }}">
-                        </a>
-                    </div>
-                @endforeach
+    <section class="xl:pb-20 pb-8 md:pb-12">
+        <div class="container px-3 md:px-5 xl:px-0">
+            <div class="swiper brandSwiper overflow-hidden mb-6">
+                <div class="swiper-wrapper items-center">
+                    @foreach ($brands as $brand)
+                        <div class="swiper-slide inline-flex items-center justify-center">
+                            <a href="{{ route('products.byBrand', $brand) }}">
+                                <img class="rounded-lg" src="{{ $brand->thumbnailURL('thumb') }}"
+                                    alt="{{ $brand->name }}">
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
     </section>
@@ -143,8 +145,15 @@
     <!-- feature products section start -->
     <section class="xl:pb-20 pb-8 md:pb-12">
         <div class="container px-3 md:px-5 xl:px-0">
-            <h2 class="text-gray-800 xl:text-4xl xl:leading-tight text-xl md:text-2xl font-bold mb-10">
-                Featured Products</h2>
+            <div class="flex justify-between items-center mb-10">
+                <h2 class="text-gray-800 xl:text-4xl xl:leading-tight text-xl md:text-2xl font-bold">
+                    Featured Products</h2>
+                <div>
+                    <a href="{{ route('products.index') }}"
+                        class="text-base/6 text-primary-600 hover:text-primary-700">View
+                        All</a>
+                </div>
+            </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-center mx-auto gap-6">
                 @foreach ($featuredProducts as $product)
@@ -212,8 +221,15 @@
     <!-- Our Product section start  -->
     <section class="xl:pb-20 pb-8 md:pb-12">
         <div class="container px-3 md:px-5 xl:px-0">
-            <h2 class="text-gray-800 xl:text-4xl xl:leading-tight text-xl md:text-2xl font-bold mb-10">
-                Our Products</h2>
+            <div class="flex justify-between items-center mb-10">
+                <h2 class="text-gray-800 xl:text-4xl xl:leading-tight text-xl md:text-2xl font-bold">
+                    Our Products</h2>
+                <div>
+                    <a href="{{ route('products.index') }}"
+                        class="text-base/6 text-primary-600 hover:text-primary-700">View
+                        All</a>
+                </div>
+            </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-center mx-auto gap-6">
                 @foreach ($latestProducts as $product)

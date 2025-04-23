@@ -81,10 +81,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-
-        $userOrdersCount  = Order::where('user_id',$order->user_id)->count();
-
-        return view('admin.orders.show', compact('order','userOrdersCount'));
+        return view('admin.orders.show', compact('order'));
     }
 
     /**
