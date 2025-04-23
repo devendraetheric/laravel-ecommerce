@@ -67,6 +67,8 @@ class OrderController extends Controller
 
         $order = Order::create($validated);
 
+        $order->address()->create($request->address);
+
         $order->items()->createMany($validated['items']);
 
         return redirect()
@@ -121,6 +123,8 @@ class OrderController extends Controller
 
         $order->fill($validated);
         $order->save();
+
+        $order->address()->update($request->address);
 
         $order->items()->delete();
         $order->items()->createMany($validated['items']);
