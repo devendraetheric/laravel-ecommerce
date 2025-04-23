@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 
@@ -18,6 +19,11 @@ class FrontController extends Controller
             ->take(8)
             ->get();
 
-        return view('front.home', compact('featuredProducts', 'latestProducts', 'bestSellingProducts', 'topCategories'));
+        $brands = Brand::withCount('products')
+            ->latest()
+            ->take(12)
+            ->get();
+
+        return view('front.home', compact('featuredProducts', 'latestProducts', 'bestSellingProducts', 'topCategories', 'brands'));
     }
 }

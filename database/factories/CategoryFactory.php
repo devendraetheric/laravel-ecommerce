@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\Category;
-use Database\Seeders\LocalImages;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\UnreachableUrl;
@@ -38,7 +37,9 @@ class CategoryFactory extends Factory
         return $this->afterCreating(function (Category $category) {
             try {
                 $category
-                    ->addMedia(LocalImages::getRandomFile())
+                    ->addMediaFromUrl('https://picsum.photos/480/320')
+                    ->usingName(Str::uuid())
+                    ->usingFileName(Str::uuid() . '.jpg')
                     ->preservingOriginal()
                     ->toMediaCollection();
             } catch (UnreachableUrl $exception) {

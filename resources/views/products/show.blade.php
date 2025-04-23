@@ -23,9 +23,9 @@
                         <div class="hidden md:flex md:flex-col overflow-y-hidden max-h-120">
                             <div class="swiper gallery-thumb">
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide !w-auto">
+                                    <div class="swiper-slide !h-auto">
                                         <img src="{{ $product->thumbnailURL('thumb') }}" alt="{{ $product?->name }}"
-                                            class="w-20 rounded-md" />
+                                            class="block w-20 rounded-md" />
                                     </div>
                                 </div>
                             </div>

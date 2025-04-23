@@ -28,6 +28,8 @@ Route::get('/import-products', [FrontController::class, 'importProducts'])->name
  */
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/product/{product:slug}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/category/{category:slug}', [ProductController::class, 'byCategory'])->name('products.byCategory');
+Route::get('/brand/{brand:slug}', [ProductController::class, 'byBrand'])->name('products.byBrand');
 
 /**
  * Cart Routes

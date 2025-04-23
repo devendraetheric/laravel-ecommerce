@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\Brand;
-use Database\Seeders\LocalImages;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\UnreachableUrl;
@@ -37,7 +36,9 @@ class BrandFactory extends Factory
         return $this->afterCreating(function (Brand $brand) {
             try {
                 $brand
-                    ->addMedia(LocalImages::getRandomFile())
+                    ->addMediaFromUrl('https://picsum.photos/360/120?grayscale')
+                    ->usingName(Str::uuid())
+                    ->usingFileName(Str::uuid() . '.jpg')
                     ->preservingOriginal()
                     ->toMediaCollection();
             } catch (UnreachableUrl $exception) {

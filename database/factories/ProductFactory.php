@@ -5,7 +5,6 @@ namespace Database\Factories;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
-use Database\Seeders\LocalImages;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\UnreachableUrl;
@@ -47,7 +46,9 @@ class ProductFactory extends Factory
         return $this->afterCreating(function (Product $product) {
             try {
                 $product
-                    ->addMedia(LocalImages::getRandomFile())
+                    ->addMediaFromUrl('https://picsum.photos/1200/1200')
+                    ->usingName(Str::uuid())
+                    ->usingFileName(Str::uuid() . '.jpg')
                     ->preservingOriginal()
                     ->toMediaCollection('featured-image');
             } catch (UnreachableUrl $exception) {
