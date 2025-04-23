@@ -79,4 +79,15 @@ class Product extends Model implements HasMedia
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function scopeRelatedProducts($query, $limit = 8)
+    {
+        return $query->where('category_id', $this->category_id)
+            ->orWhere('brand_id', $this->brand_id)
+            ->where('id', '!=', $this->id)
+            ->inRandomOrder()
+            ->active()
+            ->take($limit)
+            ->get();
+    }
 }

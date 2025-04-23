@@ -16,6 +16,9 @@
                     <x-products.card :product="$product" />
                 @endforeach
             </div>
+
+            {{ $products->onEachSide(1)->links('pagination::front') }}
+
         </div>
     </section>
 </x-layouts.front>

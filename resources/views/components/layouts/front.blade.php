@@ -17,7 +17,6 @@
 
     <!-- css link here  -->
     @vite('resources/css/app.css')
-    <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet" />
 
     @stack('styles')
 </head>
@@ -32,7 +31,6 @@
 
     <!-- script file here -->
     @vite(['resources/js/app.js'])
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     @stack('scripts')
 
 </body>

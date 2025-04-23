@@ -196,6 +196,7 @@
                                             class="form-control @error('brand_id') is-invalid @enderror"
                                             role="combobox" :aria-expanded="open" autocomplete="off">
                                         <input type="hidden" name="brand_id" id="brand_id" x-model="selectedId" />
+
                                         <button type="button"
                                             class="absolute inset-y-0 right-0 flex items-center rounded-r-lg px-2 focus:outline-hidden"
                                             @click="open = !open">
@@ -256,7 +257,8 @@
                                             type="text" name="category_name" id="category_name"
                                             class="form-control @error('category_id') is-invalid @enderror"
                                             role="combobox" :aria-expanded="open" autocomplete="off">
-                                        <input type="hidden" name="category_id" id="category_id" x-model="selectedId" />
+                                        <input type="hidden" name="category_id" id="category_id"
+                                            x-model="selectedId" />
                                         <button type="button"
                                             class="absolute inset-y-0 right-0 flex items-center rounded-r-lg px-2 focus:outline-hidden"
                                             @click="open = !open">

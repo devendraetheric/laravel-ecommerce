@@ -26,7 +26,7 @@ class ProductFactory extends Factory
             'name' => $name = $this->faker->unique()->catchPhrase(),
             'slug' => Str::slug($name),
             'short_description' => $this->faker->paragraph(),
-            'long_description' => $this->faker->paragraph(10),
+            'long_description' => $this->faker->paragraph(20),
             'regular_price' => $this->faker->randomFloat(2, 10, 1000),
             'selling_price' => $this->faker->randomFloat(2, 10, 1000),
             'sku' => $this->faker->unique()->numerify('##########'),

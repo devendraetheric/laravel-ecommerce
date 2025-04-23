@@ -28,7 +28,7 @@
                 @method('put')
             @endisset
 
-            <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
+            <div class="mt-6 rounded-xl bg-white shadow-sm">
                 <div class="p-6 border-b border-gray-200">
                     <h3 class="text-base font-semibold text-gray-800">Order Information</h3>
                 </div>
@@ -171,6 +171,7 @@
                                             <td width="50%">
                                                 <div class="sm:grid sm:grid-cols-6 sm:items-start sm:gap-4">
                                                     <div class="mt-2 sm:col-span-6 sm:mt-0 grid grid-cols-1">
+
                                                         <div class="relative" x-data="productCombobox(index)">
                                                             <input x-model="query" @input="searchProducts"
                                                                 @focus="open = !open"
@@ -241,6 +242,7 @@
                                                         @error('product_id')
                                                             <p class="text-sm text-red-600">{{ $message }}</p>
                                                         @enderror
+
                                                     </div>
                                                 </div>
                                                 <p class="text-sm text-red-600"

@@ -1,3 +1,4 @@
+@inject('settings', 'App\Settings\GeneralSetting')
 <!DOCTYPE html>
 <html lang="en" class="h-full bg-gray-50">
 
@@ -35,7 +36,7 @@
             <footer>
                 <div class="px-4 sm:px-6 lg:px-8">
                     <div class="border-t border-gray-200 py-4 text-center text-sm text-gray-500">
-                        &copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
+                        &copy; {{ date('Y') }} {{ $settings->app_name }}. All rights reserved.
                     </div>
                 </div>
             </footer>
