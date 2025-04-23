@@ -35,7 +35,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @forelse ($cart->items as $product)
+                                            @forelse (cart()->items as $product)
                                                 <tr>
                                                     <td width="1%">
                                                         <a href="{{ route('account.removeFromCart', $product->product_id) }}"

@@ -38,7 +38,11 @@
                                     <tbody>
                                         @forelse ($orders as $order)
                                             <tr>
-                                                <td>{{ $order->order_number }}</td>
+                                                <td class="!font-semibold">
+                                                    <a class="link-primary"
+                                                        href="{{ route('account.show', $order->id) }}">{{ $order->order_number }}</a>
+                                                </td>
+
                                                 <td>{{ $order->order_date->format('Y-m-d') }}</td>
                                                 <td class="!whitespace-normal !break-words">
                                                     {{ $order->items()->count() }}
