@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -55,4 +56,12 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::resource('orders', OrderController::class);
 
     Route::get('users/search', [UserController::class, 'search'])->name('users.search');
+
+
+    Route::get('settings/general', [SettingController::class, 'general'])->name('settings.general');
+    Route::post('settings/general', [SettingController::class, 'saveGeneralSettings'])->name('settings.saveGeneralSettings');
+
+    Route::get('settings/prefix', [SettingController::class, 'prefix'])->name('settings.prefix');
+    Route::post('settings/prefix', [SettingController::class, 'savePrefixSettings'])->name('settings.savePrefixSettings');
+
 });

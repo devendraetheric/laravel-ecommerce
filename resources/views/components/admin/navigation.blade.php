@@ -25,6 +25,11 @@
             'route' => route('admin.orders.index'),
             'active' => request()->routeIs('admin.orders.*'),
         ],
+        [
+            'name' => 'Settings',
+            'route' => route('admin.settings.general'),
+            'active' => request()->routeIs('admin.settings.general'),
+        ],
     ];
 @endphp
 
