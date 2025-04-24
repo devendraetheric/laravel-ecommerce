@@ -61,12 +61,24 @@
                     </div>
                     <form action="{{ route('products.addToCart') }}" method="POST">
                         @csrf
+
+                        <div x-data="{ count: 1 }" class="flex items-center my-6 text-gray-700">
+                            <button type="button"
+                                class="w-12 h-12 border border-gray-300 flex items-center justify-center text-2xl bg-white hover:bg-gray-100 transition rounded-l-lg"
+                                :disabled="count <= 1" @click="if(count > 1) count--">-</button>
+                            <div
+                                class="w-12 h-12 border-t border-b border-gray-300 flex items-center justify-center text-xl bg-white">
+                                <span x-text="count"></span>
+                                <input type="hidden" name="quantity" :value="count" />
+                            </div>
+                            <button type="button" @click="count++"
+                                class="w-12 h-12 border border-gray-300 flex items-center justify-center text-2xl bg-white hover:bg-gray-100 transition rounded-r-lg">+</button>
+                        </div>
+
                         <div class="flex flex-wrap lg:flex-nowrap items-center gap-3 mb-6">
 
                             <input type="hidden" name="product_id" value="{{ $product->id }}" />
-                            <input type="number" name="quantity" id="quantity"
-                                class="block w-24 rounded-md bg-white px-3 py-3.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 sm:text-sm/6"
-                                value="1" min="1" required />
+
                             <button
                                 class="inline-flex items-center gap-2 bg-primary-600 border rounded-md leading-tight text-white font-bold px-4 py-3.5 hover:bg-primary-500 outline-none cursor-pointer">
                                 <span class="text-white text-base">
@@ -87,7 +99,7 @@
                                         d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                                 </svg>
 
-                                <span class="hidden md:inline-flex">Add to Wishlist</span>
+                                <span>Add to Wishlist</span>
                             </a>
                         </div>
                     </form>

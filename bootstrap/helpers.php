@@ -17,3 +17,10 @@ if (!function_exists('cart')) {
         return $cart;
     }
 }
+
+if (!function_exists('cartCount')) {
+    function cartCount(): int
+    {
+        return cart()->items->count();
+    }
+}

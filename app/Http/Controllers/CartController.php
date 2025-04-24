@@ -46,4 +46,18 @@ class CartController extends Controller
         return redirect()->back()
             ->with('success', 'Product removed from Wishlist!!!');
     }
+
+    public function updateCart(Request $request): RedirectResponse
+    {
+        $cart = cart();
+
+        foreach ($request->quantity as $product_id => $quantity) {
+            $cart?->items()
+                ->where('product_id', $product_id)
+                ->update(['quantity' => $quantity]);
+        }
+
+        return redirect()->back()
+            ->with('success', 'Cart updated successfully!!!');
+    }
 }

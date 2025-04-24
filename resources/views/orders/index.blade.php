@@ -40,7 +40,7 @@
                                             <tr>
                                                 <td class="!font-semibold">
                                                     <a class="link-primary"
-                                                        href="{{ route('account.show', $order->id) }}">{{ $order->order_number }}</a>
+                                                        href="{{ route('account.orders.show', $order) }}">{{ $order->order_number }}</a>
                                                 </td>
 
                                                 <td>{{ $order->order_date->format('Y-m-d') }}</td>

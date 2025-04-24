@@ -73,9 +73,9 @@ class AddressController extends Controller
      */
     public function edit(Address $address): View
     {
-        $daddress = auth()->user()->addresses()->where('id', $address->id)->first();
+        $userAddress = auth()->user()->addresses()->where('id', $address->id)->first();
 
-        if (is_null($daddress)) {
+        if (is_null($userAddress)) {
             abort(404);
         }
 

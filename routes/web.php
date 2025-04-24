@@ -21,7 +21,6 @@ Route::post('/fetch-states', function (Request $request) {
 
 
 Route::get('/', [FrontController::class, 'home'])->name('home');
-Route::get('/import-products', [FrontController::class, 'importProducts'])->name('importProducts');
 
 /**
  * Product Routes
@@ -37,11 +36,12 @@ Route::get('/brand/{brand:slug}', [ProductController::class, 'byBrand'])->name('
 Route::get('/cart', [CartController::class, 'index'])->name('account.cart');
 Route::post('/cart/addToCart', [CartController::class, 'addToCart'])->name('products.addToCart');
 Route::get('/cart/removeFromCart/{product_id}', [CartController::class, 'removeFromCart'])->name('account.removeFromCart');
+Route::post('/cart/updateCart', [CartController::class, 'updateCart'])->name('account.updateCart');
 
 /**
  * After Login Pages
  */
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/account/dashboard', [AccountController::class, 'index'])->name('account.dashboard');
 
     /**
@@ -63,7 +63,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/account/orders', OrderController::class)->except(['store'])->names('account.orders');
     Route::get('/account/checkout', [OrderController::class, 'checkout'])->name('account.checkout');
     Route::post('/account/checkout/store', [OrderController::class, 'store'])->name('account.checkout.store');
-    Route::get('/account/show/{order}', [OrderController::class, 'show'])->name('account.show');
+    Route::get('/account/orders/{order:order_number}', [OrderController::class, 'show'])->name('account.orders.show');
 });
 
 /**

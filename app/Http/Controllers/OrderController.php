@@ -65,6 +65,12 @@ class OrderController extends Controller
 
     public function show(Order $order): View
     {
+        $userOrder = auth()->user()->orders()->where('id', $order->id)->first();
+
+        if (is_null($userOrder)) {
+            abort(404);
+        }
+
         return view('orders.show', compact('order'));
     }
 }

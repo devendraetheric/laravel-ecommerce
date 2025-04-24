@@ -4,106 +4,21 @@
     @endpush
 
     <!-- banner section start -->
-    <section class="container px-3 md:px-5 xl:px-0 my-6 bg-gray-200 rounded-xl relative z-10">
+    <section class="container px-3 md:px-5 xl:px-0 mt-6 mb-10 bg-gray-200 rounded-xl relative z-10">
         <div class="swiper bannerSwiper relative z-50">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                    <div class="flex flex-col md:flex-row items-center p-6">
-                        <div class="md:w-1/2 w-full">
-                            <p class="text-gray-800 text-sm tracking-widest mb-2">Welcome to Comforty</p>
-                            <h1
-                                class="xl:text-7xl text-xl md:text-3xl xl:leading-tight text-gray-700 font-semibold mb-6">
-                                Best Furniture Collection for your interior.</h1>
-                            <div>
-                                <a href="#"
-                                    class="inline-flex items-center gap-2 bg-primary-600 border rounded-md leading-tight text-white font-bold px-4 py-2.5 hover:bg-primary-500 outline-none">
-                                    <span>Shop Now</span>
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="size-5">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
-                                        </svg>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="md:w-1/2 w-full flex justify-center items-center py-6 relative">
-                            <img src="./assets/images/all-img/chair.png" alt="">
-                            <div class="inline-block absolute top-0 right-0">
-                                <img src="./assets/images/all-img/discount.png" alt="Discount Cloud">
-                                <p class="absolute top-8 text-red-400 text-4xl font-bold right-9">15%</p>
-                                <p class="absolute font-semibold top-18 right-10">Discount</p>
-                            </div>
-                        </div>
-                    </div>
+                    <img class="w-full object-cover rounded-xl" src="{{ asset('assets/images/Banner 1.jpg') }}"
+                        alt="Banner 1">
                 </div>
                 <div class="swiper-slide">
-                    <div class="flex flex-col md:flex-row items-center p-6">
-                        <div class="md:w-1/2 w-full">
-                            <p class="text-gray-800 text-sm tracking-widest mb-2">Welcome to Comforty</p>
-                            <h1
-                                class="xl:text-7xl text-xl md:text-3xl xl:leading-tight text-gray-700 font-semibold mb-6">
-                                Best Furniture Collection for your interior. 2</h1>
-                            <div>
-                                <a href="#"
-                                    class="inline-flex items-center gap-2 bg-primary-600 border rounded-md leading-tight text-white font-bold px-4 py-2.5 hover:bg-primary-500 outline-none">
-                                    <span>Shop Now</span>
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="size-5">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
-                                        </svg>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="md:w-1/2 w-full flex justify-center items-center py-6 relative">
-                            <img src="./assets/images/all-img/chair.png" alt="">
-                            <div class="inline-block absolute top-0 right-0">
-                                <img src="./assets/images/all-img/discount.png" alt="Discount Cloud">
-                                <p class="absolute top-8 text-red-400 text-4xl font-bold right-9">15%</p>
-                                <p class="absolute font-semibold top-18 right-10">Discount</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="flex flex-col md:flex-row items-center p-6">
-                        <div class="md:w-1/2 w-full">
-                            <p class="text-gray-800 text-sm tracking-widest mb-2">Welcome to Comforty</p>
-                            <h1
-                                class="xl:text-7xl text-xl md:text-3xl xl:leading-tight text-gray-700 font-semibold mb-6">
-                                Best Furniture Collection for your interior. 3</h1>
-                            <div>
-                                <a href="#"
-                                    class="inline-flex items-center gap-2 bg-primary-600 border rounded-md leading-tight text-white font-bold px-4 py-2.5 hover:bg-primary-500 outline-none">
-                                    <span>Shop Now</span>
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="size-5">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
-                                        </svg>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="md:w-1/2 w-full flex justify-center items-center py-6 relative">
-                            <img src="./assets/images/all-img/chair.png" alt="">
-                            <div class="inline-block absolute top-0 right-0">
-                                <img src="./assets/images/all-img/discount.png" alt="Discount Cloud">
-                                <p class="absolute top-8 text-red-400 text-4xl font-bold right-9">15%</p>
-                                <p class="absolute font-semibold top-18 right-10">Discount</p>
-                            </div>
-                        </div>
-                    </div>
+                    <img class="w-full object-cover rounded-xl" src="{{ asset('assets/images/Banner 2.jpg') }}"
+                        alt="Banner 2">
                 </div>
             </div>
             <div class="absolute top-1/2 items-center gap-8 w-full px-3 flex justify-between">
                 <button
-                    class="banner-prev group !p-2 flex justify-center items-center border border-solid border-primary-600 !w-12 !h-12 transition-all duration-500 rounded-full !top-2/4 !-translate-y-8 !left-5 hover:bg-primary-600 z-100">
+                    class="banner-prev cursor-pointer group !p-2 flex justify-center items-center border border-solid border-primary-600 !w-12 !h-12 transition-all duration-500 rounded-full !top-2/4 !-translate-y-8 !left-5 hover:bg-primary-600 z-100">
                     <svg class="h-5 w-5 text-primary-600 group-hover:text-white" xmlns="http://www.w3.org/2000/svg"
                         width="16" height="16" viewBox="0 0 16 16" fill="none">
                         <path d="M10.0002 11.9999L6 7.99971L10.0025 3.99719" stroke="currentColor" stroke-width="1.6"
@@ -111,7 +26,7 @@
                     </svg>
                 </button>
                 <button
-                    class="banner-next group !p-2 flex justify-center items-center border border-solid border-primary-600 !w-12 !h-12 transition-all duration-500 rounded-full !top-2/4 !-translate-y-8 !right-5 hover:bg-primary-600 z-100">
+                    class="banner-next cursor-pointer group !p-2 flex justify-center items-center border border-solid border-primary-600 !w-12 !h-12 transition-all duration-500 rounded-full !top-2/4 !-translate-y-8 !right-5 hover:bg-primary-600 z-100">
                     <svg class="h-5 w-5 text-primary-600 group-hover:text-white" xmlns="http://www.w3.org/2000/svg"
                         width="16" height="16" viewBox="0 0 16 16" fill="none">
                         <path d="M5.99984 4.00012L10 8.00029L5.99748 12.0028" stroke="currentColor" stroke-width="1.6"
@@ -119,6 +34,7 @@
                     </svg>
                 </button>
             </div>
+            <div class="banner-pagination absolute -bottom-3 flex justify-center z-20"></div>
         </div>
     </section>
     <!-- banner section end -->
@@ -126,6 +42,8 @@
     <!-- feature and brand area start -->
     <section class="xl:pb-20 pb-8 md:pb-12">
         <div class="container px-3 md:px-5 xl:px-0">
+            <h2 class="text-gray-800 xl:text-4xl xl:leading-tight text-xl md:text-2xl font-bold mb-10">
+                Shop By Brand</h2>
             <div class="swiper brandSwiper overflow-hidden mb-6">
                 <div class="swiper-wrapper items-center">
                     @foreach ($brands as $brand)
@@ -172,15 +90,15 @@
                     Top categories</h2>
                 <div class="flex gap-6">
                     <button class="categoriesSwiper-button-prev">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
                         </svg>
                     </button>
                     <button class="categoriesSwiper-button-next">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                         </svg>
@@ -447,6 +365,14 @@
             new Swiper(".bannerSwiper", {
                 loop: true,
                 speed: 1000,
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: ".banner-pagination",
+                    clickable: true,
+                },
                 navigation: {
                     nextEl: ".banner-next",
                     prevEl: ".banner-prev",

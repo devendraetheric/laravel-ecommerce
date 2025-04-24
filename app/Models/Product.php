@@ -82,10 +82,12 @@ class Product extends Model implements HasMedia
 
     public function scopeRelatedProducts($query, $limit = 8)
     {
-        return $query->where('category_id', $this->category_id)
-            ->orWhere('brand_id', $this->brand_id)
-            ->where('id', '!=', $this->id)
-            ->inRandomOrder()
+        return
+            $query->where('id', '!=', $this->id)
+            ->when($this->category_id || $this->brand_id, function ($query) {
+                return $query->where('category_id', $this->category_id)
+                    ->orWhere('brand_id', $this->brand_id);
+            })
             ->active()
             ->take($limit)
             ->get();
