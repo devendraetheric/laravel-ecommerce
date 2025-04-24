@@ -19,14 +19,15 @@
 
                 <div>
                     <input type="text" id="email" name="email" value="{{ old('email') }}" placeholder="Email"
-                        class="form-control" />
+                        class="form-control @error('password_confirmation') is-invalid @enderror" />
                     @error('email')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <div>
-                    <input type="password" id="password" name="password" placeholder="Password" class="form-control" />
+                    <input type="password" id="password" name="password" placeholder="Password"
+                        class="form-control @error('password_confirmation') is-invalid @enderror" />
                 </div>
                 <div class="flex justify-between items-center">
                     <div class="flex gap-3 items-center">

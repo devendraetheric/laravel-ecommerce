@@ -1,4 +1,5 @@
 <x-layouts.front>
+    @inject('settings', 'App\Settings\GeneralSetting')
     @php
         $breadcrumbs = [
             'links' => [
@@ -43,7 +44,10 @@
                                                         href="{{ route('account.orders.show', $order) }}">{{ $order->order_number }}</a>
                                                 </td>
 
-                                                <td>{{ $order->order_date->format('Y-m-d') }}</td>
+                                                <td>
+                                                    {{ $order->order_date->format($settings->date_format) }}
+                                                </td>
+
                                                 <td class="!whitespace-normal !break-words">
                                                     {{ $order->items()->count() }}
                                                     {{ $order->items->pluck('product.name')->implode(',') }}

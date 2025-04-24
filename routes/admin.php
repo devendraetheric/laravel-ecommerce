@@ -61,7 +61,6 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::get('settings/general', [SettingController::class, 'general'])->name('settings.general');
     Route::post('settings/general', [SettingController::class, 'saveGeneralSettings'])->name('settings.saveGeneralSettings');
 
-    Route::get('settings/prefix', [SettingController::class, 'prefix'])->name('settings.prefix');
-    Route::post('settings/prefix', [SettingController::class, 'savePrefixSettings'])->name('settings.savePrefixSettings');
+
 
 });

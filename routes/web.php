@@ -6,6 +6,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProfileController;
 use App\Models\State;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -51,11 +52,30 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/removeFromWishlist/{product_id}', [AccountController::class, 'removeFromWishlist'])->name('account.removeFromWishlist');
     Route::get('/account/wishlist', [AccountController::class, 'wishlist'])->name('account.wishlist');
 
+
+    /**
+     * Account Details
+     */
+
+    Route::get('/account/password', [ProfileController::class, 'password'])->name('account.password');
+
+    /**
+     * Profile Routes
+     */
+    Route::get('/account/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/account/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    Route::get('/account/profile/password', [ProfileController::class, 'password'])->name('profile.password');
+
+
+
     /**
      * Address Routes
      */
     Route::resource('/account/addresses', AddressController::class)->except(['show'])->names('account.addresses');
     Route::get('/account/addresses/set-default/{address}', [AddressController::class, 'setDefault'])->name('account.addresses.setDefault');
+
+
 
     /**
      * Order Routes
