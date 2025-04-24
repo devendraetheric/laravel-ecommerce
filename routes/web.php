@@ -63,6 +63,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/account/orders', OrderController::class)->except(['store'])->names('account.orders');
     Route::get('/account/checkout', [OrderController::class, 'checkout'])->name('account.checkout');
     Route::post('/account/checkout/store', [OrderController::class, 'store'])->name('account.checkout.store');
+    Route::get('/account/show/{order}', [OrderController::class, 'show'])->name('account.show');
 });
 
 /**
