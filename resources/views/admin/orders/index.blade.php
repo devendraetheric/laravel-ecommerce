@@ -1,4 +1,5 @@
 <x-layouts.admin>
+    @inject('settings', 'App\Settings\GeneralSetting')
     <div class="max-w-7xl mx-auto">
         @php
             $breadcrumbLinks = [
@@ -50,7 +51,7 @@
                                                     class="inline-flex items-center rounded-md bg-{{ $order->status->color() }}-50 px-2 py-1 text-xs font-medium text-{{ $order->status->color() }}-600 ring-1 ring-{{ $order->status->color() }}-500/10 ring-inset">{{ $order->status->label() }}</span>
                                             </td>
                                             <td>{{ $order->grand_total }}</td>
-                                            <td>{{ $order->order_date->format('d M Y') }}</td>
+                                            <td>{{ $order->order_date->format($settings->date_format) }}</td>
 
                                             {{-- Order Status --}}
 

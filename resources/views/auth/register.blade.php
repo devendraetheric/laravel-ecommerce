@@ -20,7 +20,7 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div class="space-y-2 col-span-2 md:col-span-1">
                         <input type="text" id="first_name" name="first_name" value="{{ old('first_name') }}"
-                            placeholder="First Name" class="form-control" />
+                            placeholder="First Name" class="form-control @error('first_name') is-invalid @enderror" />
                         @error('first_name')
                             <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -28,7 +28,7 @@
 
                     <div class="space-y-2 col-span-2 md:col-span-1">
                         <input type="text" id="last_name" name="last_name" value="{{ old('last_name') }}"
-                            placeholder="Last Name" class="form-control" />
+                            placeholder="Last Name" class="form-control @error('last_name') is-invalid @enderror" />
                         @error('last_name')
                             <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -37,7 +37,7 @@
 
                 <div>
                     <input type="text" id="email" name="email" value="{{ old('email') }}" placeholder="Email"
-                        class="form-control" />
+                        class="form-control @error('email') is-invalid @enderror" />
                     @error('email')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -45,14 +45,15 @@
 
                 <div>
                     <input type="text" id="phone" name="phone" value="{{ old('phone') }}"
-                        placeholder="Phone Number" class="form-control" />
+                        placeholder="Phone Number" class="form-control @error('phone') is-invalid @enderror" />
                     @error('phone')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <div>
-                    <input type="password" id="password" name="password" placeholder="Password" class="form-control" />
+                    <input type="password" id="password" name="password" placeholder="Password"
+                        class="form-control @error('password') is-invalid @enderror" />
                     @error('password')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -60,7 +61,7 @@
 
                 <div>
                     <input type="password" id="password_confirmation" name="password_confirmation"
-                        placeholder="Confirm Password" class="form-control" />
+                        placeholder="Confirm Password" class="form-control @error('password_confirmation') is-invalid @enderror" />
                     @error('password_confirmation')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                     @enderror

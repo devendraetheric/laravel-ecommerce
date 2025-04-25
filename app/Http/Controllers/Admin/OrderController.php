@@ -54,6 +54,16 @@ class OrderController extends Controller
             'payment_method'    => ['nullable', 'string', 'default:cash'],
             'user_id'           => ['required', 'exists:users,id'],
 
+            'address.name' => ['required', 'string', 'max:50'],
+            'address.country_id' => ['required'],
+            'address.contact_name' => ['required', 'string', 'max:60'],
+            'address.phone' => ['required'],
+            'address.address_line_1' => ['required', 'string', 'max:50'],
+            'address.address_line_2' => ['nullable', 'string', 'max:50'],
+            'address.city' => ['required', 'string', 'max:50'],
+            'address.zip_code' => ['required', 'string', 'max:10'],
+            'address.state_id' => ['required'],
+
             // 'items' => ['required', 'array', 'min:1'],
             'items.*.product_id' => ['required', 'exists:products,id'],
             'items.*.quantity' => ['required', 'integer', 'min:1'],
@@ -67,7 +77,7 @@ class OrderController extends Controller
 
         $order = Order::create($validated);
 
-        $order->address()->create($request->address);
+        $order->address()->create($validated['address']);
 
         $order->items()->createMany($validated['items']);
 
@@ -110,6 +120,16 @@ class OrderController extends Controller
             'status'            => ['nullable', 'string'],
             'user_id'           => ['required', 'exists:users,id'],
 
+            'address.name' => ['required', 'string', 'max:50'],
+            'address.country_id' => ['required'],
+            'address.contact_name' => ['required', 'string', 'max:60'],
+            'address.phone' => ['required'],
+            'address.address_line_1' => ['required', 'string', 'max:50'],
+            'address.address_line_2' => ['nullable', 'string', 'max:50'],
+            'address.city' => ['required', 'string', 'max:50'],
+            'address.zip_code' => ['required', 'string', 'max:10'],
+            'address.state_id' => ['required'],
+
             // 'items' => ['required', 'array', 'min:1'],
             'items.*.product_id' => ['required', 'exists:products,id'],
             'items.*.quantity'  => ['required', 'integer', 'min:1'],
@@ -124,12 +144,10 @@ class OrderController extends Controller
         $order->fill($validated);
         $order->save();
 
-        $order->address()->update($request->address);
+        $order->address()->update($validated['address']);
 
         $order->items()->delete();
         $order->items()->createMany($validated['items']);
-
-        $order->address()->update($request->address);
 
         return redirect()
             ->route('admin.orders.index')

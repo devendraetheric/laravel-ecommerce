@@ -32,79 +32,111 @@
                         <div class="space-y-2 col-span-2 md:col-span-1">
                             <label for="app_name" class="control-label sm:pt-1.5">App Name</label>
                             <input type="text" name="app_name" id="app_name"
-                                class="form-control @error('app_name') is-invalid @enderror" />
+                                class="form-control @error('app_name') is-invalid @enderror"
+                                value="{{ old('app_name', $settings->app_name) }}" />
                             @error('app_name')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
 
+
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="tax_rate" class="control-label sm:pt-1.5">Tax Rate</label>
-                            <input type="text" name="tax_rate" id="tax_rate"
-                                class="form-control @error('tax_rate') is-invalid @enderror" />
-                            @error('tax_rate')
+                            <label for="site_name" class="control-label sm:pt-1.5">Site Name</label>
+                            <input type="text" name="site_name" id="site_name"
+                                class="form-control @error('site_name') is-invalid @enderror"
+                                value="{{ old('site_name', $settings->site_name) }}" />
+                            @error('site_name')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="date_format" class="control-label sm:pt-1.5">Date Format</label>
-                            <select class="form-select @error('date_format') is-invalid @enderror" id="date_format"
-                                name="date_format" tabindex="3">
-                                @foreach ($dateFormats as $key => $dateFormat)
-                                    <option value="{{ $key }}" @selected(old('date_format', $settings->date_format) == $key)>
-                                        ({{ $key }})
-                                        {{ $dateFormat }}
-                                    </option>
-                                @endforeach
-                            </select>
+
+                        <div class="space-y-2 col-span-2">
+                            <label for="site_description" class="control-label sm:pt-1.5">Site Description</label>
+                            <textarea class="form-control @error('site_description') is-invalid @enderror" id="site_description"
+                                name="site_description" rows="2">{{ old('site_description', $settings->site_description) }}</textarea>
+                            @error('site_description')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+
+                        <div>
+                            <label for="date_format" class="block text-base/6 font-medium text-gray-600">Date
+                                Format</label>
+                            <div class="mt-2 grid grid-cols-1">
+                                <select id="date_format" name="date_format" class="col-start-1 row-start-1 form-select">
+                                    <option value="">Select Date Format</option>
+                                    @foreach ($dateFormats as $key => $dateFormat)
+                                        <option value="{{ $key }}" @selected(old('date_format', $settings->date_format) == $key)>
+                                            ({{ $key }})
+                                            {{ $dateFormat }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
+                                    viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+                                    <path fill-rule="evenodd"
+                                        d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
                             @error('date_format')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="time_format" class="control-label sm:pt-1.5">Time Format</label>
-                            <select class="form-select @error('time_format') is-invalid @enderror" id="time_format"
-                                name="time_format" tabindex="4">
-                                @foreach ($timeFormats as $key => $timeFormat)
-                                    <option value="{{ $key }}" @selected(old('time_format', $settings->time_format) == $key)>
-                                        {{ $timeFormat }}
-                                    </option>
-                                @endforeach
-                            </select>
+
+                        <div>
+                            <label for="time_format" class="block text-base/6 font-medium text-gray-600">Time
+                                Format</label>
+                            <div class="mt-2 grid grid-cols-1">
+                                <select id="time_format" name="time_format" class="col-start-1 row-start-1 form-select">
+                                    <option value="">Select Time Format</option>
+                                    @foreach ($timeFormats as $key => $timeFormat)
+                                        <option value="{{ $key }}" @selected(old('time_format', $settings->time_format) == $key)>
+                                            ({{ $key }})
+                                            {{ $timeFormat }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
+                                    viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+                                    <path fill-rule="evenodd"
+                                        d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
                             @error('time_format')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="from_email" class="control-label sm:pt-1.5">From Email</label>
-                            <input class="form-control @error('from_email') is-invalid @enderror" type="text"
-                                id="from_email" name="from_email"
-                                value="{{ old('from_email', $settings->from_email ?? '') }}" autofocus
-                                tabindex="1" />
-                            @error('from_email')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
+
+                        <div>
+                            <label for="timezone" class="block text-base/6 font-medium text-gray-600">Time Zone</label>
+                            <div class="mt-2 grid grid-cols-1">
+                                <select id="timezone" name="timezone" class="col-start-1 row-start-1 form-select">
+                                    <option value="">Select Time Zone</option>
+                                    @foreach ($timezones as $key => $timezone)
+                                        <option value="{{ $timezone }}" @selected(old('timezone', $settings->timezone) == $timezone)>
+                                            {{ $timezone }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
+                                    viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+                                    <path fill-rule="evenodd"
+                                        d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            @error('timezone')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
-
-                        <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="from_name" class="control-label sm:pt-1.5">From Email</label>
-                            <input class="form-control @error('from_name') is-invalid @enderror" type="text"
-                                id="from_name" name="from_name"
-                                value="{{ old('from_name', $settings->from_name ?? '') }}" autofocus tabindex="1" />
-                            @error('from_name')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
 
                     </div>
-
-
-
-
                 </div>
             </div>
 

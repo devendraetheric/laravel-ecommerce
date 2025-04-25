@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 
-use App\Http\Requests\Settings\GeneralRequest as SettingsGeneralRequest;
-use App\Http\Requests\Settings\PrefixRequest as SettingsPrefixRequest;
 use App\Settings\GeneralSetting;
-use App\Settings\PrefixSettings;
+use DateTimeZone;
 use Illuminate\Http\Request;
 
 class SettingController extends Controller
@@ -27,12 +25,38 @@ class SettingController extends Controller
         ];
 
         $timeFormats = [
-            'H:i' => date('H:i'),
+            'H:i'   => date('H:i'),
             'H:i:s' => date('H:i:s'),
             'g:i A' => date('g:i A'),
             'g:i a' => date('g:i a'),
         ];
 
-        return view('admin.settings.general', compact('settings', 'dateFormats', 'timeFormats'));
+        $timezones =  DateTimeZone::listIdentifiers(DateTimeZone::ALL);
+
+
+        return view('admin.settings.general', compact('settings', 'dateFormats', 'timeFormats', 'timezones'));
+    }
+
+
+    public function saveGeneralSettings(Request $request)
+    {
+
+        $validated = $request->validate([
+            'app_name'          => ['required', 'string', 'max:255'],
+            'site_name'         => ['required', 'string', 'max:255'],
+            'site_description'  => ['required', 'string', 'max:255'],
+            'date_format'       => ['required', 'string'],
+            'time_format'       => ['required', 'string'],
+            'timezone'         => ['required', 'string'],
+        ]);
+
+        $settings = new GeneralSetting();
+
+        $settings->fill($validated);
+
+        $settings->save();
+
+        return redirect()->back()
+            ->with('success', 'General settings saved successfully!');
     }
 }
