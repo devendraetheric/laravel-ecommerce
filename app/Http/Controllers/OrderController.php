@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Notifications\OrderPlaced;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -27,7 +28,7 @@ class OrderController extends Controller
 
         $order = Order::create([
             'order_number' => Order::generateOrderNumber(),
-            'order_date' => now(),
+            'order_date' => now()->format('Y-m-d'),
             'user_id' => auth()->id(),
             'payment_method' => $validated['payment_method'],
             'sub_total' => $cart->total,
@@ -51,7 +52,9 @@ class OrderController extends Controller
         $cart->items()->delete();
         $cart->delete();
 
-        return redirect()->route('account.dashboard')
+        auth()->user()->notify(new OrderPlaced($order));
+
+        return redirect()->route('account.orders.show', $order)
             ->with('success', 'Order placed successfully.');
     }
 

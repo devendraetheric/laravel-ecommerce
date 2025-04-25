@@ -1,4 +1,12 @@
+@inject('settings', 'App\Settings\GeneralSetting')
 <x-layouts.front>
+    <x-slot name="title">
+        {{ $settings->site_name }} - {{ $settings->site_description }}
+    </x-slot>
+    <x-slot name="description">
+        {{ $settings->site_description }}
+    </x-slot>
+
     @push('styles')
         <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet" />
     @endpush
@@ -120,10 +128,10 @@
 
                                 <div
                                     class="bg-gray-900 opacity-70 p-5 absolute bottom-0 w-full rounded-b-lg text-white">
-                                    <h2 class="font-normal text-2xl leading-tight mb-2">
+                                    <h3 class="font-normal text-2xl leading-tight mb-2">
                                         <a
                                             href="{{ route('products.byCategory', $category) }}">{{ $category->name }}</a>
-                                    </h2>
+                                    </h3>
                                     <p class="text-sm leading-tight">{{ $category->products_count }} Products</p>
                                 </div>
                             </div>
@@ -260,7 +268,7 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="text-lg leading-tight text-gray-800 mb-1.5 font-medium">Discount</h3>
+                        <h4 class="text-lg leading-tight text-gray-800 mb-1.5 font-medium">Discount</h4>
                         <p class="text-gray-600 opacity-60 text-base leading-tight">Every week new sales</p>
                     </div>
                 </div>
@@ -283,7 +291,7 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="text-lg leading-tight text-gray-800 mb-1.5 font-medium">Free Delivary</h3>
+                        <h4 class="text-lg leading-tight text-gray-800 mb-1.5 font-medium">Free Delivary</h4>
                         <p class="text-gray-600 opacity-60 text-base leading-tight">100% Free for all orders</p>
                     </div>
                 </div>
@@ -325,8 +333,8 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="text-lg leading-tight text-gray-800 mb-1.5 font-medium">Great Support 24/7
-                        </h3>
+                        <h4 class="text-lg leading-tight text-gray-800 mb-1.5 font-medium">Great Support 24/7
+                        </h4>
                         <p class="text-gray-600 opacity-60 text-base leading-tight">We care your experiences</p>
                     </div>
                 </div>
@@ -350,7 +358,7 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="text-lg leading-tight text-gray-800 mb-1.5 font-medium">secure Payment</h3>
+                        <h4 class="text-lg leading-tight text-gray-800 mb-1.5 font-medium">secure Payment</h4>
                         <p class="text-gray-600 opacity-60 text-base leading-tight">100% Secure Payment</p>
                     </div>
                 </div>
@@ -468,7 +476,7 @@
                 },
                 breakpoints: {
                     1024: {
-                        slidesPerView: 2,
+                        slidesPerView: 3,
                         spaceBetween: 24,
                     },
                 },

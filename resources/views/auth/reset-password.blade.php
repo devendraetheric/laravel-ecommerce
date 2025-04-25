@@ -21,14 +21,15 @@
 
                 <div>
                     <input type="text" id="email" name="email" value="{{ old('email', $request->email) }}"
-                        placeholder="Email" class="form-control" />
+                        placeholder="Email" class="form-control @error('email') is-invalid @enderror" />
                     @error('email')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <div>
-                    <input type="password" id="password" name="password" placeholder="Password" class="form-control" />
+                    <input type="password" id="password" name="password" placeholder="Password"
+                        class="form-control @error('password') is-invalid @enderror" />
                     @error('password')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -36,7 +37,8 @@
 
                 <div>
                     <input type="password" id="password_confirmation" name="password_confirmation"
-                        placeholder="Confirm Password" class="form-control" />
+                        placeholder="Confirm Password"
+                        class="form-control @error('password_confirmation') is-invalid @enderror" />
                     @error('password_confirmation')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                     @enderror

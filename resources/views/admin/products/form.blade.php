@@ -134,7 +134,7 @@
                             <div class="grid gap-4">
                                 <div class="space-y-2">
                                     <label for="seo_title" class="control-label sm:pt-1.5">SEO Title</label>
-                                    <input type="text" seo_title="seo_title" id="seo_title"
+                                    <input type="text" name="seo_title" id="seo_title"
                                         class="form-control @error('seo_title') is-invalid @enderror"
                                         value="{{ old('seo_title', $product->seo_title) }}" />
                                     @error('seo_title')

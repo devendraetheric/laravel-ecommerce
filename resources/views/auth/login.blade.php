@@ -29,6 +29,7 @@
                     <input type="password" id="password" name="password" placeholder="Password"
                         class="form-control @error('password_confirmation') is-invalid @enderror" />
                 </div>
+
                 <div class="flex justify-between items-center">
                     <div class="flex gap-3 items-center">
                         <div class="flex h-5 shrink-0 items-center">

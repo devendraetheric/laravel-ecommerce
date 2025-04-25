@@ -61,8 +61,7 @@
                     <div class="lg:max-w-128 lg:block hidden w-full">
                         <div class="grid grid-cols-1">
                             <input type="text" name="account-number" id="account-number"
-                                class="col-start-1 row-start-1 block w-full rounded-lg bg-gray-50 py-3 pr-10 pl-6 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 sm:pr-9 sm:text-sm/6"
-                                placeholder="search here...">
+                                class="col-start-1 row-start-1 form-control" placeholder="search here...">
 
                             <svg viewBox="0 0 20 20" fill="currentColor"
                                 class="pointer-events-none col-start-1 row-start-1 mr-3 size-5 self-center justify-self-end text-gray-400 sm:size-4">
@@ -138,15 +137,15 @@
                     </li>
                     <li>
                         <a class="relative transition-all duration-300 ease-in-out font-medium text-gray-800 leading-tight hover:text-primary-600"
-                            href="{{ route('products.index') }}">Product</a>
+                            href="{{ route('products.index') }}">Products</a>
                     </li>
                     <li>
                         <a class="relative transition-all duration-300 ease-in-out font-medium text-gray-800 leading-tight hover:text-primary-600"
-                            href="javascript:void(0);">Pages</a>
+                            href="">About Us</a>
                     </li>
                     <li>
                         <a class="relative transition-all duration-300 ease-in-out font-medium text-gray-800 leading-tight hover:text-primary-600"
-                            href="">About</a>
+                            href="">Contact Us</a>
                     </li>
                 </ul>
             </div>
@@ -160,10 +159,11 @@
         <div class="fixed inset-0 overflow-hidden">
             <div class="absolute inset-0 overflow-hidden">
                 <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10"
-                    x-transition:enter="transition ease-in-out duration-700 transform"
-                    x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0"
-                    x-transition:leave="transition ease-in-out duration-700 transform"
-                    x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-full">
+                    x-transition:enter="transform transition ease-in-out duration-500 sm:duration-700"
+                    x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
+                    x-transition:leave="transform transition ease-in-out duration-500 sm:duration-700"
+                    x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full"
+                    x-show="showMenu" x-cloak>
 
                     <div class="pointer-events-auto w-screen max-w-md">
                         <div class="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
@@ -171,61 +171,44 @@
                                 <a href="{{ route('home') }}">
                                     <img src="{{ asset('otc-logo.png') }}" alt="{{ config('app.name') }}" />
                                 </a>
-                                <ul class="flex items-center gap-1">
-                                    <li>
-                                        <a href="javascript:;"
-                                            class="bg-white text-gray-black flex hover:text-primary-600 rounded-lg p-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                class="size-5">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-                                            </svg>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;"
-                                            class="bg-white text-gray-black flex hover:text-primary-600 rounded-lg p-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                class="size-5">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                                            </svg>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;"
-                                            class="bg-white text-gray-black flex hover:text-primary-600 rounded-lg p-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                class="size-5">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-                                            </svg>
-                                        </a>
-                                    </li>
+                                <div class="flex items-center gap-x-4 lg:gap-x-6">
 
-                                    <li>
-                                        <a href="javascript:;"
-                                            class="bg-white text-gray-black flex hover:text-red-600 focus:text-red-600 rounded-lg p-3 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:outline-hidden"
-                                            @click="showMenu = false">
-                                            <svg class="size-6" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" aria-hidden="true"
-                                                data-slot="icon">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M6 18 18 6M6 6l12 12" />
-                                            </svg>
-                                        </a>
-                                    </li>
-                                </ul>
+                                    <a href="{{ route('account.cart') }}" class="relative text-gray-700">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="size-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                                        </svg>
+                                        <span
+                                            class="absolute -top-2 -right-3 bg-red-400 text-white text-xs rounded-full px-1.5 py-0.5">
+                                            {{ cartCount() }}
+                                        </span>
+                                    </a>
+
+                                    <a href="{{ route('account.wishlist') }}" class="text-gray-700">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="size-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                        </svg>
+                                    </a>
+
+                                    <button
+                                        class="bg-white text-gray-black flex hover:text-orange-600 focus:text-orange-600 rounded-lg p-2 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:outline-hidden"
+                                        @click="showMenu = false">
+                                        <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                            stroke="currentColor" aria-hidden="true" data-slot="icon">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M6 18 18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
                             <div class="px-3 mb-4">
                                 <div class="max-w-128 w-full">
                                     <div class="grid grid-cols-1">
                                         <input type="text" name="account-number" id="account-number"
-                                            class="col-start-1 row-start-1 block w-full rounded-lg bg-white py-3 pr-10 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 sm:pr-9 sm:text-sm/6"
-                                            placeholder="search here...">
+                                            class="col-start-1 row-start-1 form-control" placeholder="search here...">
 
                                         <svg viewBox="0 0 20 20" fill="currentColor"
                                             class="pointer-events-none col-start-1 row-start-1 mr-3 size-5 self-center justify-self-end text-gray-400 sm:size-4">
@@ -239,19 +222,24 @@
 
                             <ul class="flex flex-col items-center px-3">
                                 <li class="w-full block">
-                                    <a href=""
-                                        class="block px-3 py-2 text-gray-800 hover:text-primary-600">Home</a>
+                                    <a href="{{ route('home') }}"
+                                        class="block px-3 py-2 rounded-md text-gray-800 hover:text-primary-600 hover:bg-gray-50">Home</a>
+                                </li>
+                                <li class="w-full block">
+                                    <a href="{{ route('products.index') }}"
+                                        class="block px-3 py-2 rounded-md text-gray-800 hover:text-primary-600 hover:bg-gray-50">Products</a>
                                 </li>
                                 <li class="w-full block">
                                     <a href=""
-                                        class="block px-3 py-2 text-gray-800 hover:text-primary-600">Shop</a>
+                                        class="block px-3 py-2 rounded-md text-gray-800 hover:text-primary-600 hover:bg-gray-50">About
+                                        Us</a>
                                 </li>
                                 <li class="w-full block">
                                     <a href=""
-                                        class="block px-3 py-2 text-gray-800 hover:text-primary-600">Product</a>
+                                        class="block px-3 py-2 rounded-md text-gray-800 hover:text-primary-600 hover:bg-gray-50">Contact
+                                        Us</a>
                                 </li>
                             </ul>
-
                         </div>
                     </div>
                 </div>

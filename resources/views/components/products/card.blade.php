@@ -7,8 +7,8 @@
     </a>
     <div>
         <a href="{{ route('products.show', $product) }}">
-            <h2 class="text-base/6 text-gray-700 mb-2.5">
-                {{ $product?->name }}</h2>
+            <h3 class="text-base/6 text-gray-700 mb-2.5">
+                {{ $product?->name }}</h3>
         </a>
         {{-- <h3 class="font-bold text-gray-800 text-lg/6 ">${{ $product?->regular_price }}</h3> --}}
         <p class="flex gap-2 items-center">

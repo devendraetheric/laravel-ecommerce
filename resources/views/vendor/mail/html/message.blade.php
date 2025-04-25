@@ -1,0 +1,28 @@
+<x-mail::layout>
+    {{-- Header --}}
+    <x-slot:header>
+        <x-mail::header :url="config('app.url')">
+            <img src="{{ asset('otc-logo.png') }}" alt="{{ config('app.name') }}" class="logo" />
+        </x-mail::header>
+    </x-slot:header>
+
+    {{-- Body --}}
+    {{ $slot }}
+
+    {{-- Subcopy --}}
+    @isset($subcopy)
+        <x-slot:subcopy>
+            <x-mail::subcopy>
+                {{ $subcopy }}
+            </x-mail::subcopy>
+        </x-slot:subcopy>
+    @endisset
+
+    @inject('settings', 'App\Settings\GeneralSetting')
+    {{-- Footer --}}
+    <x-slot:footer>
+        <x-mail::footer>
+            © {{ date('Y') }} {{ $settings->app_name }}. {{ __('All rights reserved.') }}
+        </x-mail::footer>
+    </x-slot:footer>
+</x-mail::layout>

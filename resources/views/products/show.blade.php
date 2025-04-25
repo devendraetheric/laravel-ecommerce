@@ -1,4 +1,12 @@
+@inject('settings', 'App\Settings\GeneralSetting')
 <x-layouts.front>
+    <x-slot name="title">
+        {{ $product->seo_title ?? $product->name . ' - ' . $settings->site_name }}
+    </x-slot>
+    <x-slot name="description">
+        {{ $product->seo_description }}
+    </x-slot>
+
     @php
         $breadcrumbs = [
             'links' => [
@@ -107,7 +115,7 @@
             </div>
 
             <div class="my-10">
-                <h2 class="pt-3 text-2xl font-semibold text-gray-black font-display">Product Details</h2>
+                <h3 class="pt-3 text-2xl font-semibold text-gray-black font-display">Product Details</h3>
                 <div class="mt-4 prose max-w-none">
                     {!! $product->long_description !!}
                 </div>

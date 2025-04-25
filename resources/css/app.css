@@ -81,3 +81,7 @@
 .record-table td {
     @apply whitespace-nowrap px-3 py-4 text-base text-gray-600;
 }
+
+.swiper-pagination-bullet {
+    @apply !bg-primary-600;
+}
