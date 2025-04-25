@@ -12,7 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/fetch-states', function (Request $request) {
-    $data = State::where('country_id', $request->country_id)
+
+    $data = State::where('country_id', $request->country)
         ->orderBy('name', 'ASC')
         ->get(['name', 'id'])
         ->pluck('id', 'name');
