@@ -26,12 +26,33 @@
             'active' => request()->routeIs('admin.orders.*'),
         ],
         [
+            'name' => 'Banners',
+            'route' => route('admin.banners.index'),
+            'active' => request()->routeIs('admin.banners.*'),
+        ],
+        [
             'name' => 'Settings',
             'route' => route('admin.settings.general'),
             'active' => request()->routeIs('admin.settings.general'),
         ],
+        [
+            'name' => 'Social Media Settings',
+            'route' => route('admin.settings.socialMedia'),
+            'active' => request()->routeIs('admin.settings.socialMedia'),
+        ],
+        [
+            'name' => 'Company Settings',
+            'route' => route('admin.settings.company'),
+            'active' => request()->routeIs('admin.settings.company'),
+        ],
+        [
+            'name' => 'Prefix Settings',
+            'route' => route('admin.settings.prefix'),
+            'active' => request()->routeIs('admin.settings.prefix'),
+        ],
     ];
 @endphp
+
 
 <div class="flex h-16 shrink-0 items-center">
     <a href="{{ route('admin.dashboard') }}">

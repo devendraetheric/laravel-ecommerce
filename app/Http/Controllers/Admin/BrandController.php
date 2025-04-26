@@ -44,7 +44,6 @@ class BrandController extends Controller
         ]);
 
         $brand = Brand::create($validated);
-        $brand->save();
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');

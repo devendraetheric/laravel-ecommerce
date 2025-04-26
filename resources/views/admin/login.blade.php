@@ -35,7 +35,7 @@
                     <label for="email" class="control-label sm:pt-1.5">Email address</label>
                     <div class="mt-2">
                         <input type="email" name="email" id="email" value="{{ old('email') }}"
-                            autocomplete="email" required class="form-control" />
+                            autocomplete="email"  class="form-control @error('email') is-invalid @enderror" />
                         @error('email')
                             <p class="text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -45,8 +45,8 @@
                 <div>
                     <label for="password" class="control-label sm:pt-1.5">Password</label>
                     <div class="mt-2">
-                        <input type="password" name="password" id="password" autocomplete="current-password" required
-                            class="form-control">
+                        <input type="password" name="password" id="password" autocomplete="current-password"
+                            class="form-control @error('password') is-invalid @enderror">
                     </div>
                 </div>
 

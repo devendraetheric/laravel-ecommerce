@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\LoginController;
@@ -61,6 +62,27 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::get('users/search', [UserController::class, 'search'])->name('users.search');
 
 
+
+    /**
+     * Banner Route
+     */
+    Route::resource('banners', BannerController::class)->except(['show']);
+
+
+    /**
+     * Settings
+     */
     Route::get('settings/general', [SettingController::class, 'general'])->name('settings.general');
     Route::post('settings/general', [SettingController::class, 'saveGeneralSettings'])->name('settings.saveGeneralSettings');
+
+
+    Route::get('settings/socialMedia', [SettingController::class, 'socialMedia'])->name('settings.socialMedia');
+    Route::post('settings/socialMedia', [SettingController::class, 'saveSocialMedia'])->name('settings.saveSocialMedia');
+
+    Route::get('settings/company', [SettingController::class, 'company'])->name('settings.company');
+    Route::post('settings/company', [SettingController::class, 'saveCompany'])->name('settings.saveCompany');
+
+    Route::get('settings/prefix', [SettingController::class, 'prefix'])->name('settings.prefix');
+    Route::post('settings/prefix', [SettingController::class, 'savePrefix'])->name('settings.savePrefix');
+
 });
