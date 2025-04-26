@@ -22,6 +22,7 @@ Route::post('/fetch-states', function (Request $request) {
 
 
 Route::get('/', [FrontController::class, 'home'])->name('home');
+Route::get('/import', [FrontController::class, 'import'])->name('import');
 
 /**
  * Product Routes

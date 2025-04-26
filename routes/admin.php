@@ -53,6 +53,9 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::resource('products', ProductController::class)->except(['show']);
     Route::get('products/search', [ProductController::class, 'search'])->name('products.search');
 
+    Route::get('products/import', [ProductController::class, 'import'])->name('products.import');
+    Route::post('products/import', [ProductController::class, 'importStore'])->name('products.import.store');
+
     Route::resource('orders', OrderController::class);
 
     Route::get('users/search', [UserController::class, 'search'])->name('users.search');
@@ -60,7 +63,4 @@ Route::group(['middleware' => 'auth:admin'], function () {
 
     Route::get('settings/general', [SettingController::class, 'general'])->name('settings.general');
     Route::post('settings/general', [SettingController::class, 'saveGeneralSettings'])->name('settings.saveGeneralSettings');
-
-
-
 });

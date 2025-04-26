@@ -28,12 +28,12 @@
                 <div class="gallery-container overflow-hidden">
 
                     <div class="flex gap-2">
-                        <div class="hidden md:flex md:flex-col overflow-y-hidden max-h-120">
+                        <div class="hidden md:flex md:flex-col overflow-hidden max-h-120">
                             <div class="swiper gallery-thumb">
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide !h-auto">
+                                    <div class="swiper-slide !w-20 !h-auto !overflow-hidden !aspect-square">
                                         <img src="{{ $product->thumbnailURL('thumb') }}" alt="{{ $product?->name }}"
-                                            class="block w-20 rounded-md" />
+                                            class="block object-cover w-18 rounded-md" />
                                     </div>
                                 </div>
                             </div>
@@ -42,9 +42,9 @@
                             <!-- Main Gallery -->
                             <div class="swiper gallery-main">
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
+                                    <div class="swiper-slide !aspect-square">
                                         <img src="{{ $product->thumbnailURL() }}" alt="{{ $product?->name }}"
-                                            class="w-full rounded-md" />
+                                            class="w-full rounded-md object-contain aspect-square" />
                                     </div>
                                 </div>
                             </div>

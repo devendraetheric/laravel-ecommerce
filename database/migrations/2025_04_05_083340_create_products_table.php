@@ -25,8 +25,8 @@ return new class extends Migration
             $table->boolean('is_featured')->default(false);
             $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('brand_id')->nullable()->constrained()->nullOnDelete();
-            $table->string('seo_title', 60)->nullable();
-            $table->string('seo_description', 160)->nullable();
+            $table->string('seo_title')->nullable();
+            $table->string('seo_description')->nullable();
             $table->timestamps();
         });
     }

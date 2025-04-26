@@ -1,7 +1,7 @@
 <div class="relative w-full inline-block">
     <a href="{{ route('products.show', $product) }}">
-        <div class="overflow-hidden w-full mb-2 relative rounded-lg">
-            <img class="w-full object-cover rounded-xs group-hover:scale-110" src="{{ $product->thumbnailURL('thumb') }}"
+        <div class="overflow-hidden aspect-square mb-2 relative rounded-lg">
+            <img class="w-full object-cover rounded-xs" src="{{ $product->thumbnailURL('thumb') }}"
                 alt="{{ $product?->name }}" />
         </div>
     </a>

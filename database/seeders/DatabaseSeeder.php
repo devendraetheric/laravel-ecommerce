@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('123456'),
         ]);
 
-        User::factory(10)->create();
+        // User::factory(10)->create();
 
         User::factory()->create([
             'first_name'    => 'Test',
@@ -39,10 +39,10 @@ class DatabaseSeeder extends Seeder
         \File::deleteDirectory(public_path('media'));
 
 
-        Brand::factory(14)->create();
-        Category::factory(21)->create();
+        // Brand::factory(14)->create();
+        // Category::factory(21)->create();
 
-        Product::factory(150)->create();
+        // Product::factory(150)->create();
 
         $this->call(CountrySeeder::class);
         $this->call(StateSeeder::class);
