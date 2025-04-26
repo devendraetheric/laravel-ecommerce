@@ -154,7 +154,12 @@
                                     'content')
                             });
 
+                            console.log(response);
+
+
                             this.states = response.data;
+                            /* console.log(this.states); */
+
 
                             if (stateId) {
                                 this.state_id = stateId;

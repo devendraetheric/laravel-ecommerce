@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/fetch-states', function (Request $request) {
 
-    $data = State::where('country_id', $request->country)
+    $data = State::where('country_id', $request->country_id)
         ->orderBy('name', 'ASC')
         ->get(['name', 'id'])
         ->pluck('id', 'name');
