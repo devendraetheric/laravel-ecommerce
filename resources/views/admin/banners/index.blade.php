@@ -29,6 +29,8 @@
                                         <th scope="col">Name</th>
                                         <th scope="col">Link</th>
                                         <th scope="col">Location</th>
+                                        <th scope="col"  class="!text-center">Click Count</th>
+                                        <th scope="col"  class="!text-center">View Count</th>
 
                                         <th scope="col" class="relative">
                                             <span class="sr-only">Actions</span>
@@ -41,8 +43,8 @@
                                             <td class="!font-semibold">
                                                 <div class="flex items-center">
                                                     <div class="size-11 shrink-0">
-                                                        <img class="size-11 rounded-full"
-                                                            src="{{ $banner?->thumbnailURL('thumb') }}"
+                                                        <img class="size-11 rounded-md"
+                                                            src="{{ $banner?->thumbnailURL() }}"
                                                             alt="{{ $banner->name }}">
                                                     </div>
                                                     <div class="ml-4">
@@ -55,6 +57,8 @@
 
                                             <td>{{ $banner->link }}</td>
                                             <td>{{ $banner->location }}</td>
+                                            <td class="text-center">{{ $banner->click_count }}</td>
+                                            <td class="text-center">{{ $banner->view_count }}</td>
 
                                             <td class="relative text-right text-sm space-x-1 items-center">
                                                 <a href="{{ route('admin.banners.edit', $banner) }}"

@@ -32,14 +32,6 @@ class Banner extends Model implements HasMedia
 
     protected $perPage = 10;
 
-    public function registerMediaConversions(?Media $media = null): void
-    {
-        $this
-            ->addMediaConversion('thumb')
-            ->fit(Fit::Contain, 300, 300)
-            ->nonQueued();
-    }
-
     public function thumbnailURL($size = ''): string|null
     {
         return $this?->getMedia()->first()?->getUrl($size) ?? asset('/placeholder.png');

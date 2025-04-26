@@ -18,13 +18,13 @@ class SettingController extends Controller
         $settings = new GeneralSetting();
 
         $dateFormats = [
-            'Y-m-d' => date('Y-m-d'),
-            'm/d/Y' => date('m/d/Y'),
-            'd/m/Y' => date('d/m/Y'),
-            'd-m-Y' => date('d-m-Y'),
-            'm-d-Y' => date('m-d-Y'),
+            'Y-m-d'  => date('Y-m-d'),
+            'm/d/Y'  => date('m/d/Y'),
+            'd/m/Y'  => date('d/m/Y'),
+            'd-m-Y'  => date('d-m-Y'),
+            'm-d-Y'  => date('m-d-Y'),
             'F j, Y' => date('F j, Y'),
-            'j M Y' => date('j M Y'),
+            'j M Y'  => date('j M Y'),
         ];
 
         $timeFormats = [
@@ -78,10 +78,10 @@ class SettingController extends Controller
     public function saveSocialMedia(Request $request)
     {
         $validated = $request->validate([
-            'facebook'  => ['required', 'string', 'max:255'],
-            'instagram' => ['required', 'string', 'max:255'],
-            'youtube'   => ['required', 'string', 'max:255'],
-            'twitter'   => ['required', 'string', 'max:255'],
+            'facebook'  => ['nullable', 'url', 'max:255'],
+            'instagram' => ['nullable', 'url', 'max:255'],
+            'youtube'   => ['nullable', 'url', 'max:255'],
+            'twitter'   => ['nullable', 'url', 'max:255'],
         ]);
 
         $settings = new SocialMediaSetting();
@@ -113,7 +113,7 @@ class SettingController extends Controller
             'name'      => ['required', 'string', 'max:255'],
             'email'     => ['required', 'email'],
             'phone'     => ['required', 'string', 'max:20'],
-            'website'   => ['required', 'string', 'max:255'],
+            'website'   => ['required', 'url', 'max:255'],
             'address'   => ['required', 'string', 'max:255'],
             'country'   => ['required'],
             'state'     => ['required'],

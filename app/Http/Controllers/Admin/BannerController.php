@@ -38,7 +38,7 @@ class BannerController extends Controller
 
         $validated = $request->validate([
             'name'          => ['required', 'string', 'max:255'],
-            'link'          => ['required', 'string', 'max:255'],
+            'link'          => ['nullable', 'url', 'max:255'],
             'location'      => ['required', 'string', 'max:255'],
             'is_active'     => ['required'],
             'is_new_tab'    => ['required'],
@@ -83,7 +83,7 @@ class BannerController extends Controller
     {
         $validated = $request->validate([
             'name'          => ['required', 'string', 'max:255'],
-            'link'          => ['required', 'string', 'max:255'],
+            'link'          => ['nullable', 'url', 'max:255'],
             'location'      => ['required', 'string', 'max:255'],
             'is_active'     => ['required'],
             'is_new_tab'    => ['required'],

@@ -63,7 +63,10 @@
                             <label for="location" class="control-label sm:pt-1.5">Location</label>
                             <input type="text" name="location" id="location"
                                 class="form-control @error('location') is-invalid @enderror"
-                                value="{{ old('location', $banner->location) }}" />
+                                value="{{ old('location', $banner->location ?? 'slider') }}" list="locationOption" />
+                            <datalist id="locationOption">
+                                <option value="slider">
+                            </datalist>
                             @error('location')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
