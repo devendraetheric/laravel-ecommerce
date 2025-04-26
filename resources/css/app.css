@@ -85,3 +85,22 @@
 .swiper-pagination-bullet {
     @apply !bg-primary-600;
 }
+
+.gallery-thumb {
+    .swiper-wrapper {
+        @apply !block mx-2 px-2;
+
+        .swiper-slide {
+            @apply opacity-50 !inline-block !w-20 m-1 p-1 mx-auto rounded-md !aspect-square;
+
+            img {
+                @apply block object-contain w-18 rounded-md;
+            }
+        }
+
+        .swiper-slide-thumb-active {
+            @apply opacity-100 ring-2 ring-primary-600;
+
+        }
+    }
+}

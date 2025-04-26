@@ -27,17 +27,7 @@
                 {{-- Left Side --}}
                 <div class="gallery-container overflow-hidden">
 
-                    <div class="flex gap-2">
-                        <div class="hidden md:flex md:flex-col overflow-hidden max-h-120">
-                            <div class="swiper gallery-thumb">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide !w-20 !h-auto !overflow-hidden !aspect-square">
-                                        <img src="{{ $product->thumbnailURL('thumb') }}" alt="{{ $product?->name }}"
-                                            class="block object-cover w-18 rounded-md" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="space-y-2">
                         <div class="overflow-hidden">
                             <!-- Main Gallery -->
                             <div class="swiper gallery-main">
@@ -46,6 +36,26 @@
                                         <img src="{{ $product->thumbnailURL() }}" alt="{{ $product?->name }}"
                                             class="w-full rounded-md object-contain aspect-square" />
                                     </div>
+                                    @foreach ($product?->getMedia('product-images') as $image)
+                                        <div class="swiper-slide !aspect-square">
+                                            <img src="{{ $image->getUrl() }}" alt="{{ $product?->name }}"
+                                                class="w-full rounded-md object-contain aspect-square" />
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden md:flex md:flex-col">
+                            <div class="swiper gallery-thumb">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <img src="{{ $product->thumbnailURL('thumb') }}" alt="{{ $product?->name }}" />
+                                    </div>
+                                    @foreach ($product?->getMedia('product-images') as $image)
+                                        <div class="swiper-slide">
+                                            <img src="{{ $image->getUrl('thumb') }}" alt="{{ $product?->name }}" />
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -167,21 +177,19 @@
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script>
             const thumbSwiper = new Swiper('.gallery-thumb', {
-                spaceBetween: 20,
                 slidesPerView: 5,
-                direction: 'vertical'
             });
 
             const mainSwiper = new Swiper('.gallery-main', {
-                spaceBetween: 10,
                 thumbs: {
                     swiper: thumbSwiper,
                 },
+                loop: true,
             });
 
             new Swiper(".recentSwiper", {
                 slidesPerView: 1,
-                spaceBetween: 24,
+                // spaceBetween: 24,
                 loop: true,
                 navigation: {
                     nextEl: ".recentSwiper-button-next",
