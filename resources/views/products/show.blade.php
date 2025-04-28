@@ -64,7 +64,7 @@
 
                 {{-- Right Side --}}
                 <div class="mt-6 md:mt-0">
-                    <h2 class="text-gray-800 text-3xl font-semibold mb-3">{{ $product->name }}</h2>
+                    <h2 class="text-gray-800 text-2xl font-semibold mb-3">{{ $product->name }}</h2>
                     <div class="flex items-center gap-2.5 mb-6">
                         <p class="flex gap-4 items-center">
                             <span class="text-gray-800 text-3xl">${{ $product->selling_price }}</span>
@@ -185,6 +185,7 @@
                     swiper: thumbSwiper,
                 },
                 loop: true,
+                mousewheel: true,
             });
 
             new Swiper(".recentSwiper", {

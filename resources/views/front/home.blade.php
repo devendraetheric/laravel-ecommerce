@@ -11,41 +11,49 @@
         <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet" />
     @endpush
 
-    <!-- banner section start -->
-    <section class="container px-3 md:px-5 xl:px-0 mt-6 mb-10 bg-gray-200 rounded-xl relative z-10">
-        <div class="swiper bannerSwiper relative z-50">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <img class="w-full object-cover rounded-xl" src="{{ asset('assets/images/Banner 1.jpg') }}"
-                        alt="Banner 1">
+    @if ($banners)
+        <!-- banner section start -->
+        <section class="container px-3 md:px-5 xl:px-0 mt-6 mb-10 bg-gray-200 rounded-xl relative z-10">
+            <div class="swiper bannerSwiper relative z-50">
+                <div class="swiper-wrapper">
+                    @foreach ($banners as $banner)
+                        <div class="swiper-slide">
+
+                            @if ($banner->link)
+                                <a href="{{ $banner->link }}" @if ($banner->is_new_tab) target="_bank" @endif>
+                            @endif
+                            <img class="w-full object-cover rounded-xl"
+                                src="{{ $banner?->getMedia($banner->location)->first()?->getUrl() }}"
+                                alt="{{ $banner->name }}" />
+                            @if ($banner->link)
+                                </a>
+                            @endif
+                        </div>
+                    @endforeach
                 </div>
-                <div class="swiper-slide">
-                    <img class="w-full object-cover rounded-xl" src="{{ asset('assets/images/Banner 2.jpg') }}"
-                        alt="Banner 2">
+                <div class="absolute top-1/2 items-center gap-8 w-full px-3 flex justify-between">
+                    <button
+                        class="banner-prev cursor-pointer group !p-2 flex justify-center items-center border border-solid border-primary-600 !w-12 !h-12 transition-all duration-500 rounded-full !top-2/4 !-translate-y-8 !left-5 hover:bg-primary-600 z-100">
+                        <svg class="h-5 w-5 text-primary-600 group-hover:text-white" xmlns="http://www.w3.org/2000/svg"
+                            width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M10.0002 11.9999L6 7.99971L10.0025 3.99719" stroke="currentColor"
+                                stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <button
+                        class="banner-next cursor-pointer group !p-2 flex justify-center items-center border border-solid border-primary-600 !w-12 !h-12 transition-all duration-500 rounded-full !top-2/4 !-translate-y-8 !right-5 hover:bg-primary-600 z-100">
+                        <svg class="h-5 w-5 text-primary-600 group-hover:text-white" xmlns="http://www.w3.org/2000/svg"
+                            width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M5.99984 4.00012L10 8.00029L5.99748 12.0028" stroke="currentColor"
+                                stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
                 </div>
+                <div class="banner-pagination absolute -bottom-3 flex justify-center z-20"></div>
             </div>
-            <div class="absolute top-1/2 items-center gap-8 w-full px-3 flex justify-between">
-                <button
-                    class="banner-prev cursor-pointer group !p-2 flex justify-center items-center border border-solid border-primary-600 !w-12 !h-12 transition-all duration-500 rounded-full !top-2/4 !-translate-y-8 !left-5 hover:bg-primary-600 z-100">
-                    <svg class="h-5 w-5 text-primary-600 group-hover:text-white" xmlns="http://www.w3.org/2000/svg"
-                        width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M10.0002 11.9999L6 7.99971L10.0025 3.99719" stroke="currentColor" stroke-width="1.6"
-                            stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                </button>
-                <button
-                    class="banner-next cursor-pointer group !p-2 flex justify-center items-center border border-solid border-primary-600 !w-12 !h-12 transition-all duration-500 rounded-full !top-2/4 !-translate-y-8 !right-5 hover:bg-primary-600 z-100">
-                    <svg class="h-5 w-5 text-primary-600 group-hover:text-white" xmlns="http://www.w3.org/2000/svg"
-                        width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M5.99984 4.00012L10 8.00029L5.99748 12.0028" stroke="currentColor" stroke-width="1.6"
-                            stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                </button>
-            </div>
-            <div class="banner-pagination absolute -bottom-3 flex justify-center z-20"></div>
-        </div>
-    </section>
-    <!-- banner section end -->
+        </section>
+        <!-- banner section end -->
+    @endif
 
     <!-- feature and brand area start -->
     <section class="xl:pb-20 pb-8 md:pb-12">

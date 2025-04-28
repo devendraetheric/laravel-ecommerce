@@ -20,9 +20,9 @@ class GeneralSetting extends Settings
 
     public bool $is_captcha;
 
-    public string $captcha_secret_key;
+    public ?string $captcha_secret_key;
 
-    public string $captcha_site_key;
+    public ?string $captcha_site_key;
 
     public static function group(): string
     {
