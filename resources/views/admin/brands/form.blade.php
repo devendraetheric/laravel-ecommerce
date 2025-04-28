@@ -31,7 +31,7 @@
             <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
                 <div class="p-6">
                     <div class="grid grid-cols-2 gap-4" x-data="{
-                        title: '{{ old('name', $brand->name) }}',
+                        title: '{{ addslashes(old('name', $brand->name)) }}',
                         slug: '{{ old('slug', $brand->slug) }}'
                     }">
                         <div class="space-y-2 col-span-2 md:col-span-1">

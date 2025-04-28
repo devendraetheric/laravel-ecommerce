@@ -30,7 +30,7 @@
             @endisset
             <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
                 <div class="p-6" x-data="{
-                    title: '{{ old('name', $category->name) }}',
+                    title: '{{ addslashes(old('name', $category->name)) }}',
                     slug: '{{ old('slug', $category->slug) }}'
                 }">
                     <div class="grid grid-cols-2 gap-4">

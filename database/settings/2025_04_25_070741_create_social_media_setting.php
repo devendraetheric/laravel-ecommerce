@@ -7,10 +7,9 @@ return new class extends SettingsMigration
     public function up(): void
     {
 
-        $this->migrator->add('social_media.facebook', config('app.name'));
-        $this->migrator->add('social_media.instagram', config('app.name'));
-        $this->migrator->add('social_media.youtube', config('app.name'));
-        $this->migrator->add('social_media.twitter', config('app.name'));
-
+        $this->migrator->add('social_media.facebook', 'https://www.facebook.com/');
+        $this->migrator->add('social_media.instagram', 'https://www.instagram.com/');
+        $this->migrator->add('social_media.youtube', 'https://www.youtube.com/');
+        $this->migrator->add('social_media.twitter', 'https://www.twitter.com/');
     }
 };

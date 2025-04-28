@@ -10,7 +10,7 @@ return new class extends SettingsMigration
         $this->migrator->add('general.site_name', config('app.name'));
         $this->migrator->add('general.site_description', config('app.name'));
 
-        $this->migrator->add('general.date_format', 'd/m/Y');
+        $this->migrator->add('general.date_format', 'Y-m-d');
         $this->migrator->add('general.time_format', 'H:i');
         $this->migrator->add('general.timezone', 'UTC');
     }

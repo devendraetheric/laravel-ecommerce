@@ -33,7 +33,7 @@
                 <div class="col-span-12 lg:col-span-8">
                     <div class="mt-6 rounded-xl bg-white shadow-sm">
                         <div class="p-6" x-data="{
-                            title: '{{ old('name', $product->name) }}',
+                            title: '{{ addslashes(old('name', $product->name)) }}',
                             slug: '{{ old('slug', $product->slug) }}'
                         }">
                             <div class="space-y-2 col-span-2 md:col-span-1">

@@ -3,9 +3,13 @@
 namespace App\Jobs;
 
 use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\UnreachableUrl;
+
+use function Illuminate\Log\log;
 
 class ImportProduct implements ShouldQueue
 {
@@ -31,7 +35,15 @@ class ImportProduct implements ShouldQueue
         while (($data = fgetcsv($file)) !== false) {
             if (!$firstLine) {
 
-                if ($data[3] != 1) {
+
+                // product barcode match 
+                $product = Product::where('barcode', $data[1])->first();
+
+                if ($product) {
+                    continue;
+                }
+
+                if ($data[3] != 1 || $data[1] == null) {
                     continue;
                 }
 
@@ -51,7 +63,7 @@ class ImportProduct implements ShouldQueue
 
                         $brandSlugCount = Brand::where('slug', $brandSlug)->count();
                         if ($brandSlugCount > 0) {
-                            $brandSlug = $brandSlug . '-' . ($brandSlugCount + 1);
+                            $brandSlug = $brandSlug . '-' . $brandSlugCount;
                         }
 
                         $brand = new Brand();
@@ -61,8 +73,41 @@ class ImportProduct implements ShouldQueue
                     }
                 }
 
-                // product barcode match 
-                $product = Product::where('barcode', $data[1])->first();
+                /**
+                 * For Category
+                 */
+                $category_id = null;
+                $parent_id = null;
+                $categories = explode(', ', $data[8]);
+                foreach ($categories as $path) {
+                    $parts = explode('>', $path);
+
+                    foreach ($parts as $key => $categoryName) {
+
+                        $category = Category::where('name', $categoryName)->first();
+                        if (!$category) {
+
+                            // if slug exists then add slug -1
+                            $categorySlug = str($categoryName)->slug();
+
+                            $categorySlugCount = Category::where('slug', $categorySlug)->count();
+                            if ($categorySlugCount > 0) {
+                                $categorySlug = $categorySlug . '-' . $categorySlugCount;
+                            }
+
+                            $category = new Category();
+                            $category->parent_id = $parent_id ?? null;
+                            $category->name = $categoryName;
+                            $category->slug = $categorySlug;
+                            $category->save();
+                        }
+
+                        $parent_id = $category->parent_id;
+                    }
+
+                    $category_id = $category->id;
+                }
+
 
                 if (!$product) {
                     $product = new Product();
@@ -74,19 +119,21 @@ class ImportProduct implements ShouldQueue
 
 
                 // selling price null than regular price
-                $sellingPrice = $data[6];
-                if (!$sellingPrice) {
-                    $sellingPrice = $data[7];
-                }
+
+                log($data[7] . ' - ' . $data[2]);
+
+                $regularPrice = $data[7] ?? 0;
+                $sellingPrice = $regularPrice;
 
                 $product->brand_id = $brand->id ?? null;
+                $product->category_id = $category_id ?? null;
                 $product->name = $data[2];
                 $product->slug = str($data[2] . '-' . $data[1])->slug();
                 $product->sku = $data[0];
                 $product->barcode = $data[1];
-                $product->regular_price = $data[7];
+                $product->regular_price = $regularPrice;
                 $product->selling_price = $sellingPrice ?? 0;
-                $product->short_description = $data[5];
+                $product->short_description = str_replace('\n', '', $data[5]);
                 $product->long_description = $cleanHtml;
 
                 $product->seo_title = $data[2];
@@ -103,16 +150,27 @@ class ImportProduct implements ShouldQueue
                     if ($key == 0) {
                         continue;
                     }
-                    $product
-                        ->addMediaFromUrl($image)
-                        ->preservingOriginal()
-                        ->toMediaCollection('product-images');
+                    try {
+                        $product
+                            ->addMediaFromUrl($image)
+                            ->preservingOriginal()
+                            ->toMediaCollection('product-images');
+                    } catch (UnreachableUrl $exception) {
+                        log('Unreachable URL: ' . $image);
+                        log($data[2]);
+                        continue;
+                    }
                 }
 
-                $product
-                    ->addMediaFromUrl($images[0])
-                    ->preservingOriginal()
-                    ->toMediaCollection('featured-image');
+                try {
+                    $product
+                        ->addMediaFromUrl($images[0])
+                        ->preservingOriginal()
+                        ->toMediaCollection('featured-image');
+                } catch (UnreachableUrl $exception) {
+                    log('Unreachable URL: ' . $images[0]);
+                    log($data[2]);
+                }
             }
 
             $firstLine = false;

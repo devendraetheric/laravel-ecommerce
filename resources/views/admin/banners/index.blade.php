@@ -29,8 +29,8 @@
                                         <th scope="col">Name</th>
                                         <th scope="col">Link</th>
                                         <th scope="col">Location</th>
-                                        <th scope="col"  class="!text-center">Click Count</th>
-                                        <th scope="col"  class="!text-center">View Count</th>
+                                        <th scope="col" class="!text-center">Click Count</th>
+                                        <th scope="col" class="!text-center">View Count</th>
 
                                         <th scope="col" class="relative">
                                             <span class="sr-only">Actions</span>
@@ -44,8 +44,8 @@
                                                 <div class="flex items-center">
                                                     <div class="size-11 shrink-0">
                                                         <img class="size-11 rounded-md"
-                                                            src="{{ $banner?->thumbnailURL() }}"
-                                                            alt="{{ $banner->name }}">
+                                                            src="{{ $banner?->getMedia($banner->location)->first()?->getUrl() }}"
+                                                            alt="{{ $banner->name }}" />
                                                     </div>
                                                     <div class="ml-4">
                                                         <div class="font-medium text-gray-900">{{ $banner->name }}
