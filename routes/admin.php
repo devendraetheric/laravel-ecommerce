@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserController;
@@ -59,6 +60,12 @@ Route::group(['middleware' => 'auth:admin'], function () {
 
     Route::resource('orders', OrderController::class);
 
+
+    /*  Route::resource('payments',PaymentController::class)->except('show'); */
+
+    Route::post('payments/store/{order}', [PaymentController::class, 'store'])->name('payments.store');
+
+
     Route::get('users/search', [UserController::class, 'search'])->name('users.search');
 
 
@@ -67,6 +74,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
      * Banner Route
      */
     Route::resource('banners', BannerController::class)->except(['show']);
+
 
 
     /**

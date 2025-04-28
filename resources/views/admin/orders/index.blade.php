@@ -29,9 +29,11 @@
                                     <tr>
                                         <th scope="col">Order #</th>
                                         <th scope="col">Customer</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Grand Total</th>
                                         <th scope="col">Order Date</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col" class="!text-center">Payment Status</th>
+                                        <th scope="col">Grand Total</th>
+
 
                                         <th scope="col" class="relative">
                                             <span class="sr-only">Actions</span>
@@ -42,16 +44,25 @@
                                     @forelse ($orders as $order)
                                         <tr>
                                             <td class="!font-semibold">
-                                                <a class="link-primary"
-                                                    href="{{ route('admin.orders.show', $order) }}">{{ $order->order_number }}</a>
+                                                <a class="link-primary" href="{{ route('admin.orders.show', $order) }}">
+                                                    {{ $order->order_number }}
+                                                </a>
                                             </td>
                                             <td>{{ $order->user->name }}</td>
+                                            <td>{{ $order->order_date->format($settings->date_format) }}</td>
                                             <td>
                                                 <span
-                                                    class="inline-flex items-center rounded-md bg-{{ $order->status->color() }}-50 px-2 py-1 text-xs font-medium text-{{ $order->status->color() }}-600 ring-1 ring-{{ $order->status->color() }}-500/10 ring-inset">{{ $order->status->label() }}</span>
+                                                    class="inline-flex items-center rounded-md bg-{{ $order->status->color() }}-50 px-2 py-1 text-xs font-medium text-{{ $order->status->color() }}-600 ring-1 ring-{{ $order->status->color() }}-500/10 ring-inset">
+                                                    {{ $order->status->label() }}
+                                                </span>
+                                            </td>
+                                            <td class="text-center">
+                                                <span
+                                                    class="inline-flex items-center rounded-md bg-{{ $order->payment_status->color() }}-50 px-2 py-1 text-xs font-medium text-{{ $order->payment_status->color() }}-600 ring-1 ring-{{ $order->payment_status->color() }}-500/10 ring-inset">
+                                                    {{ $order->payment_status->label() }}
+                                                </span>
                                             </td>
                                             <td>{{ $order->grand_total }}</td>
-                                            <td>{{ $order->order_date->format($settings->date_format) }}</td>
 
                                             {{-- Order Status --}}
 

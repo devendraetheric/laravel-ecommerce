@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\OrderStatus;
+use App\Enums\PaymentStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -23,10 +24,11 @@ class Order extends Model
     ];
 
     protected $casts = [
-        'status'        => OrderStatus::class,
-        'sub_total'     => 'decimal:2',
-        'grand_total'   => 'decimal:2',
-        'order_date'    => 'date:Y-m-d'
+        'status'         => OrderStatus::class,
+        'payment_status' => PaymentStatus::class,
+        'sub_total'      => 'decimal:2',
+        'grand_total'    => 'decimal:2',
+        'order_date'     => 'date:Y-m-d'
     ];
 
     protected $perPage = 10;
@@ -49,5 +51,10 @@ class Order extends Model
     public function address(): MorphOne
     {
         return $this->morphOne(Address::class, "addressable");
+    }
+
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class);
     }
 }

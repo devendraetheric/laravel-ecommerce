@@ -170,7 +170,7 @@
                         if (this.country) {
                             try {
                                 const response = await axios.post("{{ route('fetchState') }}", {
-                                    country: this.country,
+                                    country_id: this.country,
                                     _token: document.querySelector('meta[name="csrf-token"]').getAttribute(
                                         'content')
                                 });
