@@ -59,6 +59,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::post('products/import', [ProductController::class, 'importStore'])->name('products.import.store');
 
     Route::resource('orders', OrderController::class);
+    Route::get('orders/generate-pdf/{order}',[OrderController::class,'generatePDF'])->name('generate-pdf');
 
 
     /*  Route::resource('payments',PaymentController::class)->except('show'); */

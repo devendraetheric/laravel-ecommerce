@@ -25,8 +25,13 @@
         <div class="lg:grid lg:grid-cols-3 content-center gap-6">
             <div class="lg:col-span-2">
                 <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
-                    <div class="p-6 border-b border-gray-200">
+
+                    <div class="p-6 border-b border-gray-200 flex justify-between items-center w-full">
                         <h3 class="text-base font-semibold text-gray-800">Order Detail</h3>
+
+                        <a href="{{ route('admin.generate-pdf', $order) }}" class="btn-primary gap-1 flex item-center">
+                            <span>Generate PDF</span>
+                        </a>
                     </div>
                     <div class="p-6">
                         <div class="-mx-6 -my-6 overflow-x-auto">
