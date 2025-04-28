@@ -50,7 +50,7 @@
 
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="link" class="control-label sm:pt-1.5">Link</label>
+                            <label for="link" class="control-label sm:pt-1.5">Destination Link</label>
                             <input type="text" name="link" id="link"
                                 class="form-control @error('link') is-invalid @enderror"
                                 value="{{ old('link', $banner->link) }}" />
@@ -70,28 +70,6 @@
                             @error('location')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
-                        </div>
-
-                        <div class="space-y-2 col-span-2 md:col-span-1">
-                            <script>
-                                var is_active = '{{ old('is_active', $banner->is_active) }}';
-                            </script>
-                            <div class="flex items-center" x-data="{
-                                isActive: is_active == 1 ? true : false,
-                            }">
-                                <button type="button" :class="isActive ? 'bg-primary-600' : 'bg-gray-200'"
-                                    class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 focus:outline-hidden"
-                                    role="switch" :aria-checked="isActive" aria-labelledby="annual-billing-label"
-                                    @click="isActive = !isActive">
-                                    <span aria-hidden="true" :class="isActive ? 'translate-x-5' : 'translate-x-0'"
-                                        class="pointer-events-none inline-block size-5 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out"></span>
-                                </button>
-                                <span class="ml-3 text-sm" id="annual-billing-label">
-                                    <span class="font-medium text-gray-900">Is Active</span>
-                                </span>
-                                <!-- Hidden input for form submission -->
-                                <input type="hidden" name="is_active" :value="isActive ? 1 : 0" />
-                            </div>
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
@@ -116,12 +94,34 @@
                             </div>
                         </div>
 
+                        <div class="space-y-2 col-span-2 md:col-span-1">
+                            <script>
+                                var is_active = '{{ old('is_active', $banner->is_active) }}';
+                            </script>
+                            <div class="flex items-center" x-data="{
+                                isActive: is_active == 1 ? true : false,
+                            }">
+                                <button type="button" :class="isActive ? 'bg-primary-600' : 'bg-gray-200'"
+                                    class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 focus:outline-hidden"
+                                    role="switch" :aria-checked="isActive" aria-labelledby="annual-billing-label"
+                                    @click="isActive = !isActive">
+                                    <span aria-hidden="true" :class="isActive ? 'translate-x-5' : 'translate-x-0'"
+                                        class="pointer-events-none inline-block size-5 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out"></span>
+                                </button>
+                                <span class="ml-3 text-sm" id="annual-billing-label">
+                                    <span class="font-medium text-gray-900">Is Active</span>
+                                </span>
+                                <!-- Hidden input for form submission -->
+                                <input type="hidden" name="is_active" :value="isActive ? 1 : 0" />
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
 
             <div class="mt-6 space-x-2">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn-primary">Submit</button>
                 <a href="{{ route('admin.banners.index') }}" class="btn-secondary">Cancel</a>
             </div>
         </form>

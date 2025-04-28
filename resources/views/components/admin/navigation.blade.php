@@ -36,7 +36,7 @@
             'active' => request()->routeIs('admin.settings.general'),
         ],
         [
-            'name' => 'Social Media Settings',
+            'name' => 'Social Media Links',
             'route' => route('admin.settings.socialMedia'),
             'active' => request()->routeIs('admin.settings.socialMedia'),
         ],
