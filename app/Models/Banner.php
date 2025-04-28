@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Banner extends Model implements HasMedia
 {
@@ -16,7 +15,6 @@ class Banner extends Model implements HasMedia
 
     protected $fillable = [
         'name',
-        'image',
         'link',
         'is_new_tab',
         'is_active',
@@ -32,10 +30,8 @@ class Banner extends Model implements HasMedia
 
     protected $perPage = 10;
 
-    public function thumbnailURL($size = ''): string|null
+    public function scopeActive($query)
     {
-        return $this?->getMedia()->first()?->getUrl($size) ?? asset('/placeholder.png');
+        return $query->where('is_active', true);
     }
-
-
 }

@@ -52,7 +52,7 @@ class BannerController extends Controller
 
             $banner->addMedia(storage_path("app/public/$path"))
                 ->preservingOriginal()
-                ->toMediaCollection();
+                ->toMediaCollection($banner->location);
         }
 
         return redirect()
@@ -96,11 +96,11 @@ class BannerController extends Controller
             $file = $request->file('image');
             $path = $file->store('uploads', 'public');
 
-            $banner->clearMediaCollection();
+            $banner->clearMediaCollection($banner->location);
 
             $banner->addMedia(storage_path("app/public/$path"))
                 ->preservingOriginal()
-                ->toMediaCollection();
+                ->toMediaCollection($banner->location);
         }
 
         return redirect()
@@ -113,7 +113,7 @@ class BannerController extends Controller
      */
     public function destroy(Banner $banner)
     {
-        $banner->clearMediaCollection();
+        $banner->clearMediaCollection($banner->location);
 
         $banner->delete();
 
