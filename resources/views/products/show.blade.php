@@ -34,12 +34,12 @@
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide !aspect-square">
                                         <img src="{{ $product->thumbnailURL() }}" alt="{{ $product?->name }}"
-                                            class="w-full rounded-md object-contain aspect-square" />
+                                            class="w-full rounded-md object-contain aspect-square" loading="lazy" />
                                     </div>
                                     @foreach ($product?->getMedia('product-images') as $image)
                                         <div class="swiper-slide !aspect-square">
                                             <img src="{{ $image->getUrl() }}" alt="{{ $product?->name }}"
-                                                class="w-full rounded-md object-contain aspect-square" />
+                                                class="w-full rounded-md object-contain aspect-square" loading="lazy" />
                                         </div>
                                     @endforeach
                                 </div>
@@ -53,7 +53,8 @@
                                     </div>
                                     @foreach ($product?->getMedia('product-images') as $image)
                                         <div class="swiper-slide">
-                                            <img src="{{ $image->getUrl('thumb') }}" alt="{{ $product?->name }}" />
+                                            <img src="{{ $image->getUrl('thumb') }}" alt="{{ $product?->name }}"
+                                                loading="lazy" />
                                         </div>
                                     @endforeach
                                 </div>

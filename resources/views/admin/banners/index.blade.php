@@ -45,7 +45,7 @@
                                                     <div class="size-11 shrink-0">
                                                         <img class="size-11 rounded-md"
                                                             src="{{ $banner?->getMedia($banner->location)->first()?->getUrl() }}"
-                                                            alt="{{ $banner->name }}" />
+                                                            alt="{{ $banner->name }}" loading="lazy" />
                                                     </div>
                                                     <div class="ml-4">
                                                         <div class="font-medium text-gray-900">{{ $banner->name }}

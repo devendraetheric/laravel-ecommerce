@@ -24,7 +24,7 @@
                             @endif
                             <img class="w-full object-cover rounded-xl"
                                 src="{{ $banner?->getMedia($banner->location)->first()?->getUrl() }}"
-                                alt="{{ $banner->name }}" />
+                                alt="{{ $banner->name }}" loading="lazy" />
                             @if ($banner->link)
                                 </a>
                             @endif
@@ -66,7 +66,7 @@
                         <div class="swiper-slide inline-flex items-center justify-center">
                             <a href="{{ route('products.byBrand', $brand) }}">
                                 <img class="rounded-lg" src="{{ $brand->thumbnailURL('thumb') }}"
-                                    alt="{{ $brand->name }}">
+                                    alt="{{ $brand->name }}" loading="lazy" />
                             </a>
                         </div>
                     @endforeach
@@ -130,7 +130,8 @@
                                 <div class="w-full">
                                     <a href="{{ route('products.byCategory', $category) }}">
                                         <img class="w-full object-cover transition duration-500 ease-out delay-0 group-hover:scale-110"
-                                            src="{{ $category?->thumbnailURL() }}" alt="{{ $category->name }}" />
+                                            src="{{ $category?->thumbnailURL() }}" alt="{{ $category->name }}"
+                                            loading="lazy" />
                                     </a>
                                 </div>
 

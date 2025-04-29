@@ -99,7 +99,7 @@
                                             <div class="min-w-32">
                                                 <img class="w-30 rounded-md"
                                                     src="{{ $product->product->thumbnailURL('thumb') }}"
-                                                    alt="{{ $product->product->name }}" />
+                                                    alt="{{ $product->product->name }}" loading="lazy" />
                                             </div>
                                             <div class="inline-block w-full">
                                                 <a class="text-gray-700 text-base"

@@ -55,7 +55,8 @@
                 <div class="flex justify-between items-center gap-2 py-4">
                     <div>
                         <a href="{{ route('home') }}">
-                            <img class="h-12" src="{{ asset('otc-logo.png') }}" alt="{{ config('app.name') }}" />
+                            <img class="h-12" src="{{ asset('otc-logo.png') }}" alt="{{ config('app.name') }}"
+                                loading="lazy" />
                         </a>
                     </div>
                     <div class="lg:max-w-128 lg:block hidden w-full">
@@ -169,7 +170,8 @@
                         <div class="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
                             <div class="flex justify-between items-center px-3 py-4 mb-4">
                                 <a href="{{ route('home') }}">
-                                    <img src="{{ asset('otc-logo.png') }}" alt="{{ config('app.name') }}" />
+                                    <img src="{{ asset('otc-logo.png') }}" alt="{{ config('app.name') }}"
+                                        loading="lazy" />
                                 </a>
                                 <div class="flex items-center gap-x-4 lg:gap-x-6">
 

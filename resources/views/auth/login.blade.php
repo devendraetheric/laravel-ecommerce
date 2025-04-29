@@ -28,6 +28,9 @@
                 <div>
                     <input type="password" id="password" name="password" placeholder="Password"
                         class="form-control @error('password') is-invalid @enderror" />
+                    @error('password')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="flex justify-between items-center">
@@ -35,7 +38,7 @@
                         <div class="flex h-5 shrink-0 items-center">
                             <div class="group grid size-5 grid-cols-1">
                                 <input id="remember-me" name="remember" type="checkbox"
-                                    class="col-start-1 row-start-1 form-checkbox">
+                                    class="col-start-1 row-start-1 form-checkbox" />
                                 <svg class="pointer-events-none col-start-1 row-start-1 size-5 self-center justify-self-center stroke-white group-has-disabled:stroke-gray-950/25"
                                     viewBox="0 0 14 14" fill="none">
                                     <path class="opacity-0 group-has-checked:opacity-100" d="M3 8L6 11L11 3.5"
@@ -57,19 +60,19 @@
                 </div>
 
                 <button type="submit" class="btn-primary w-full gap-x-2">
-                    Sign in
+                    Sign In
                     <svg width="25" height="24" viewBox="0 0 25 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path d="M16 7.5L20.5 12M20.5 12L16 16.5M20.5 12H4.5" stroke="white" stroke-width="1.5"
                             stroke-linecap="round" stroke-linejoin="round" />
-                    </svg></button>
-
+                    </svg>
+                </button>
             </form>
 
             @if (Route::has('register'))
-                <p class="font-normal text-base leading-tight text-gray-800 mt-6 text-center">
+                <p class="font-normal text-base/tight text-gray-800 mt-6 text-center">
                     Don't have account?
-                    <a href="{{ route('register') }}" class="text-primary-600 font-medium text-base leading-tight">
+                    <a href="{{ route('register') }}" class="text-primary-600 font-medium text-base/tight">
                         Sign Up</a>
                 </p>
             @endif

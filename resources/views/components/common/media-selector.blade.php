@@ -26,7 +26,7 @@
                                 <div class="relative group cursor-pointer" @click="selectMedia(item)">
                                     <div class="aspect-w-1 aspect-h-1 overflow-hidden bg-gray-200 rounded-lg">
                                         <img :src="item.thumbnail" :alt="item.name"
-                                            class="object-cover w-full h-full">
+                                            class="object-cover w-full h-full" loading="lazy" />
                                     </div>
                                     <div x-show="selectedMedia && selectedMedia.id === item.id"
                                         class="absolute inset-0 bg-primary-500 bg-opacity-40 flex items-center justify-center">

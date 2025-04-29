@@ -23,7 +23,7 @@
     <x-admin.alert />
     <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-            <img class="mx-auto h-10 w-auto" src="{{ asset('otc-logo.png') }}" alt="Your Company">
+            <img class="mx-auto h-10 w-auto" src="{{ asset('otc-logo.png') }}" alt="Your Company" loading="lazy" />
             <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Sign in to your account</h2>
         </div>
 
@@ -35,7 +35,7 @@
                     <label for="email" class="control-label sm:pt-1.5">Email address</label>
                     <div class="mt-2">
                         <input type="email" name="email" id="email" value="{{ old('email') }}"
-                            autocomplete="email"  class="form-control @error('email') is-invalid @enderror" />
+                            autocomplete="email" class="form-control @error('email') is-invalid @enderror" />
                         @error('email')
                             <p class="text-sm text-red-600">{{ $message }}</p>
                         @enderror

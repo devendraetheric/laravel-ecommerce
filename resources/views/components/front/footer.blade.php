@@ -9,7 +9,8 @@
                 <div class="lg:col-span-2 col-span-1">
                     <div class="lg:mb-6 mb-4">
                         <a href="{{ route('home') }}" class="inline-block">
-                            <img src="{{ asset('otc-logo.png') }}" alt="{{ $settings->app_name }}" class="h-20" />
+                            <img src="{{ asset('otc-logo.png') }}" alt="{{ $settings->app_name }}" class="h-20"
+                                loading="lazy" />
                         </a>
                     </div>
                     <p class="lg:mb-6 mb-4 text-gray-600 text-base/relaxed">Trusted OTC products delivered nationwide
@@ -156,7 +157,8 @@
                         <b>Etheric Solution</b></a>
                 </p>
                 <div class="inline-flex justify-center h-6">
-                    <img src="{{ asset('assets/images/all-img/payments.png') }}" alt="Payment Method" />
+                    <img src="{{ asset('assets/images/all-img/payments.png') }}" alt="Payment Method"
+                        loading="lazy" />
                 </div>
             </div>
         </div>

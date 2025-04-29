@@ -59,7 +59,8 @@
                                                                         href="{{ route('products.show', $product->product) }}">
                                                                         <img class="h-18 w-auto rounded-lg"
                                                                             src="{{ $product->product?->thumbnailURL('thumb') }}"
-                                                                            alt="{{ $product->product->name }}" />
+                                                                            alt="{{ $product->product->name }}"
+                                                                            loading="lazy" />
                                                                     </a>
                                                                 </div>
                                                                 <div class="ml-4">
