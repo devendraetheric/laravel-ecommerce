@@ -12,7 +12,10 @@ class FrontController extends Controller
 {
     public function home()
     {
-        $data['banners'] = Banner::active()->latest()->get();
+        $data['sliders'] = Banner::active()
+            ->where('location', 'slider')
+            ->latest()
+            ->get();
 
         $data['featuredProducts'] = Product::featured()->take(8)->get();
         $data['latestProducts'] = Product::latest()->take(8)->get();
@@ -34,7 +37,8 @@ class FrontController extends Controller
     // Import From csv
     public function import()
     {
-        dispatch(new ImportProduct());
+        ImportProduct::dispatch()
+            ->onQueue('import-product');
 
         return redirect()->route('home')
             ->with('success', 'Product Import Started Successfully!');

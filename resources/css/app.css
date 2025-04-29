@@ -91,7 +91,7 @@
         @apply !block mx-2 px-2;
 
         .swiper-slide {
-            @apply opacity-50 !inline-block !w-20 m-1 p-1 mx-auto rounded-md !aspect-square;
+            @apply opacity-50 !inline-block !w-20 m-1 p-1 mx-auto rounded-md !aspect-square overflow-hidden;
 
             img {
                 @apply block object-contain w-18 rounded-md;

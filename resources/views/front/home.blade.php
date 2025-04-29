@@ -11,21 +11,21 @@
         <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet" />
     @endpush
 
-    @if ($banners)
+    @if ($sliders->isNotEmpty())
         <!-- banner section start -->
         <section class="container px-3 md:px-5 xl:px-0 mt-6 mb-10 bg-gray-200 rounded-xl relative z-10">
             <div class="swiper bannerSwiper relative z-50">
                 <div class="swiper-wrapper">
-                    @foreach ($banners as $banner)
+                    @foreach ($sliders as $slider)
                         <div class="swiper-slide">
 
-                            @if ($banner->link)
-                                <a href="{{ $banner->link }}" @if ($banner->is_new_tab) target="_bank" @endif>
+                            @if ($slider->link)
+                                <a href="{{ $slider->link }}" @if ($slider->is_new_tab) target="_bank" @endif>
                             @endif
                             <img class="w-full object-cover rounded-xl"
-                                src="{{ $banner?->getMedia($banner->location)->first()?->getUrl() }}"
-                                alt="{{ $banner->name }}" loading="lazy" />
-                            @if ($banner->link)
+                                src="{{ $slider?->getMedia($slider->location)->first()?->getUrl() }}"
+                                alt="{{ $slider->name }}" loading="lazy" />
+                            @if ($slider->link)
                                 </a>
                             @endif
                         </div>

@@ -75,7 +75,7 @@
                                             d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
                                     </svg>
                                 </dt>
-                                <dd class="text-gray-600 text-base/relaxed">4740 W Mockingbird Ln #100B, Dallas, TX
+                                <dd class="text-gray-600 text-base/relaxed">4740 W Mockingbird Ln #100B, Dallas, <br>TX
                                     75209,
                                     <br>United States
                                 </dd>
@@ -112,7 +112,7 @@
                                             d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
                                     </svg>
                                 </dt>
-                                <dd class="text-gray-600 text-base/relaxed">12333 Bear Plaza Ste. #100, Burleson, TX
+                                <dd class="text-gray-600 text-base/relaxed">12333 Bear Plaza Ste. #100, Burleson, <br>TX
                                     76028, <br>United States</dd>
                             </div>
 

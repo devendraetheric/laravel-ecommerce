@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
@@ -10,20 +11,19 @@ use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\DomCrawler\Crawler;
 
-use function Illuminate\Log\log;
-
-class ImportProduct implements ShouldQueue
+class CrawlUrlJob implements ShouldQueue
 {
     use Queueable;
 
-    public $tries = 25;
+    public $tries = 5;
 
     /**
      * Create a new job instance.
      */
-    public function __construct()
-    {
-        $this->onQueue('import-product');
+    public function __construct(
+        public array $data
+    ) {
+        //
     }
 
     public function backoff()
@@ -36,35 +36,14 @@ class ImportProduct implements ShouldQueue
      */
     public function handle(): void
     {
-        $file = fopen(public_path('product-list.csv'), 'r');
+        $data = $this->data;
 
-        $firstLine = true;
-
-        while (($data = fgetcsv($file)) !== false) {
-            if (!$firstLine) {
-
-                // CrawlUrlJob::dispatch($data)
-                //     ->onQueue('import-product');
-
-                // check product exists or not
-                $product = Product::where('barcode', $data[1])->first();
-                if ($product) {
-                    log('Product Already Exists: ' . $product->name);
-                    continue;
-                }
-
-                $product = $this->saveProduct($data);
-                if ($product) {
-                    log('Product Imported: ' . $product->name);
-                } else {
-                    log('Product Import Failed: ' . $data[0]);
-                }
-            }
-
-            $firstLine = false;
+        $product = $this->saveProduct($data);
+        if ($product) {
+            log('Product Imported: ' . $product->name);
+        } else {
+            log('Product Import Failed: ' . $data[0]);
         }
-
-        fclose($file);
     }
 
     public function saveProduct($data): Product
@@ -77,7 +56,9 @@ class ImportProduct implements ShouldQueue
 
         // Fetch the HTML content
         $response = Http::get($url);
-
+        if ($response->failed()) {
+            throw new \Exception("Failed to crawl {$url}");
+        }
 
         $html = $response->body();
 
