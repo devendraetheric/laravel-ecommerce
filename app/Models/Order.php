@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\OrderStatus;
 use App\Enums\PaymentStatus;
+use App\Settings\PrefixSetting;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -28,6 +29,7 @@ class Order extends Model
         'payment_status' => PaymentStatus::class,
         'sub_total'      => 'decimal:2',
         'grand_total'    => 'decimal:2',
+        'paid_amount'    => 'decimal:2',
         'order_date'     => 'date:Y-m-d'
     ];
 
@@ -35,7 +37,11 @@ class Order extends Model
 
     public static function generateOrderNumber(): string
     {
-        return 'ORD-' . strtoupper(random_int(10000, 99999));
+        /*  return 'ORD-' . strtoupper(random_int(10000, 99999)); */
+
+        $settings = app(PrefixSetting::class);
+
+        return $settings->order_prefix . str_pad($settings->order_sequence, $settings->order_digit_length, '0', STR_PAD_LEFT);
     }
 
     public function user(): BelongsTo

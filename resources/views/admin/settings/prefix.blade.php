@@ -23,9 +23,9 @@
 
             @csrf
 
-            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div class="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
 
-                <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
+                <div class=" overflow-hidden rounded-xl bg-white shadow-sm">
                     <div class="p-6 border-b border-gray-200">
                         <h3 class="text-base font-semibold text-gray-800">Order Prefix</h3>
                     </div>
@@ -65,7 +65,7 @@
                     </div>
                 </div>
 
-                <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
+                <div class="overflow-hidden rounded-xl bg-white shadow-sm">
                     <div class="p-6 border-b border-gray-200">
                         <h3 class="text-base font-semibold text-gray-800">Payment Prefix</h3>
                     </div>
@@ -108,7 +108,7 @@
             </div>
 
             <div class="mt-6 space-x-2">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn-primary">Submit</button>
                 <a href="{{ route('admin.settings.socialMedia') }}" class="btn-secondary">Cancel</a>
             </div>
         </form>

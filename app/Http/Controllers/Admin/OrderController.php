@@ -8,6 +8,8 @@ use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Product;
 use App\Models\User;
+use PDF;
+
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -168,5 +170,24 @@ class OrderController extends Controller
         return redirect()
             ->route('admin.orders.index')
             ->with('success', __('Order deleted successfully.'));
+    }
+
+
+    /**
+     * generate PDF
+     */
+    public function generatePdf(Request $request, Order $order)
+    {
+
+        /* $users = User::get(); */
+
+        $data = [
+            'title' => 'Techsolutionstuff',
+
+        ];
+
+        $pdf = PDF::loadView('admin.orders.invoice', $data);
+
+        return $pdf->download('techsolutionstuff.pdf');
     }
 }

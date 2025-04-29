@@ -60,7 +60,7 @@
                     </svg>',
         ],
         [
-            'name' => 'Social Media Settings',
+            'name' => 'Social Media Links',
             'route' => route('admin.settings.socialMedia'),
             'active' => request()->routeIs('admin.settings.socialMedia'),
             'icon' => '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -59,7 +59,7 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary mt-6">Submit</button>
+            <button type="submit" class="btn-primary mt-6">Submit</button>
         </form>
     </div>
 

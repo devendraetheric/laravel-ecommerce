@@ -10,11 +10,11 @@
                 ],
                 [
                     'url' => route('admin.settings.general'),
-                    'text' => 'Social Media Settings',
+                    'text' => 'Social Media Links',
                 ],
             ];
 
-            $title = 'Social Media Settings';
+            $title = 'Social Media Links';
 
         @endphp
 
@@ -74,7 +74,7 @@
             </div>
 
             <div class="mt-6 space-x-2">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn-primary">Submit</button>
                 <a href="{{ route('admin.settings.socialMedia') }}" class="btn-secondary">Cancel</a>
             </div>
         </form>

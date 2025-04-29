@@ -25,8 +25,13 @@
         <div class="lg:grid lg:grid-cols-3 content-center gap-6">
             <div class="lg:col-span-2">
                 <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
-                    <div class="p-6 border-b border-gray-200">
+
+                    <div class="p-6 border-b border-gray-200 flex justify-between items-center w-full">
                         <h3 class="text-base font-semibold text-gray-800">Order Detail</h3>
+
+                        <a href="{{ route('admin.generate-pdf', $order) }}" class="btn-primary gap-1 flex item-center">
+                            <span>Generate PDF</span>
+                        </a>
                     </div>
                     <div class="p-6">
                         <div class="-mx-6 -my-6 overflow-x-auto">
@@ -69,41 +74,45 @@
                 </div>
 
                 <!-------- payment table ----------->
-                <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
-                    <div class="p-6 border-b border-gray-200">
-                        <h3 class="text-base font-semibold text-gray-800">Payments Detail</h3>
-                    </div>
-                    <div class="p-6">
-                        <div class="-mx-6 -my-6 overflow-x-auto">
-                            <div class="inline-block min-w-full align-middle">
-                                <table class="record-table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Payment #</th>
-                                            <th scope="col">Reference</th>
-                                            <th scope="col">Method</th>
-                                            <th scope="col" class="!text-right">Amount</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($order->payments as $paymentObj)
+
+                @if ($order->payments->count() > 0)
+                    <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
+                        <div class="p-6 border-b border-gray-200">
+                            <h3 class="text-base font-semibold text-gray-800">Payment Log</h3>
+                        </div>
+                        <div class="p-6">
+                            <div class="-mx-6 -my-6 overflow-x-auto">
+                                <div class="inline-block min-w-full align-middle">
+                                    <table class="record-table">
+                                        <thead>
                                             <tr>
-                                                <td class="!font-semibold">{{ $paymentObj->payment_number }}</td>
-                                                <td>{{ $paymentObj->reference }}</td>
-                                                <td>{{ $paymentObj->method }}</td>
-                                                <td class="text-right">${{ $paymentObj->amount }}</td>
+                                                <th scope="col">Payment #</th>
+                                                <th scope="col">Reference</th>
+                                                <th scope="col">Method</th>
+                                                <th scope="col" class="!text-right">Amount</th>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($order->payments as $paymentObj)
+                                                <tr>
+                                                    <td class="!font-semibold">{{ $paymentObj->payment_number }}</td>
+                                                    <td>{{ $paymentObj->reference }}</td>
+                                                    <td>{{ $paymentObj->method }}</td>
+                                                    <td class="text-right">${{ $paymentObj->amount }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
+                @endif
                 <!-------- payment form ----------->
 
-                @includeUnless($order->payment_status === \App\Enums\PaymentStatus::PAID, 'admin.orders.payment_form')
+                @includeUnless(
+                    $order->payment_status === \App\Enums\PaymentStatus::PAID,
+                    'admin.orders.payment_form')
 
             </div>
 

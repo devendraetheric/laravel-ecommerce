@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Order;
+use App\Models\Payment;
+use App\Observers\OrderObserver;
+use App\Observers\PaymentObserver;
 use App\Settings\GeneralSetting;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -37,5 +41,10 @@ class AppServiceProvider extends ServiceProvider
                 ->line('If you did not create an account, no further action is required.')
                 ->salutation("Best Regards, \n $settings->app_name");
         });
+
+
+        Order::observe(OrderObserver::class);
+        Payment::observe(PaymentObserver::class);
+
     }
 }

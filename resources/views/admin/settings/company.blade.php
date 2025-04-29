@@ -148,7 +148,7 @@
             </div>
 
             <div class="mt-6 space-x-2">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn-primary">Submit</button>
                 <a href="{{ route('admin.settings.company') }}" class="btn-secondary">Cancel</a>
             </div>
         </form>
