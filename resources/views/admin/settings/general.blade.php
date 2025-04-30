@@ -192,6 +192,40 @@
                 </div>
             </div>
 
+            <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
+                <div class="p-6">
+                    <div class="grid grid-cols-2 gap-4">
+
+                        <!----- Logo And Favicon -------------->
+                        <div>
+                            <label for="logo" class="block text-base/6 font-medium text-gray-600">
+                                Logo
+                            </label>
+                            <div class="mt-2 grid grid-cols-1">
+                                <input type="file" id="logo" name="logo" class="form-control">
+
+                            </div>
+                            @error('logo')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="favicon" class="block text-base/6 font-medium text-gray-600">
+                                Favicon
+                            </label>
+                            <div class="mt-2 grid grid-cols-1">
+                                <input type="file" id="favicon" name="favicon" class="form-control">
+
+                            </div>
+                            @error('favicon')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="mt-6 space-x-2">
                 <button type="submit" class="btn-primary">Submit</button>
                 <a href="{{ route('admin.settings.general') }}" class="btn-secondary">Cancel</a>

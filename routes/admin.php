@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PaymentController;
@@ -75,6 +76,11 @@ Route::group(['middleware' => 'auth:admin'], function () {
      * Banner Route
      */
     Route::resource('banners', BannerController::class)->except(['show']);
+
+    /**
+     * Coupon Route
+     */
+    Route::resource('coupons', CouponController::class)->except(['show']);
 
 
 

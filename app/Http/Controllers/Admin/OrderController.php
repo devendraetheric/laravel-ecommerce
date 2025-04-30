@@ -8,8 +8,7 @@ use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Product;
 use App\Models\User;
-use PDF;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -179,15 +178,15 @@ class OrderController extends Controller
     public function generatePdf(Request $request, Order $order)
     {
 
-        /* $users = User::get(); */
-
         $data = [
             'title' => 'Techsolutionstuff',
 
         ];
 
-        $pdf = PDF::loadView('admin.orders.invoice', $data);
+        // return view('admin.orders.invoice', $data);
 
-        return $pdf->download('techsolutionstuff.pdf');
+        $pdf = Pdf::loadView('admin.orders.invoice', $data);
+
+        return $pdf->stream('techsolutionstuff.pdf');
     }
 }

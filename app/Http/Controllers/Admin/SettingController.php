@@ -10,6 +10,7 @@ use App\Settings\PrefixSetting;
 use App\Settings\SocialMediaSetting;
 use DateTimeZone;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller
 {
@@ -54,9 +55,46 @@ class SettingController extends Controller
             'is_captcha'         => ['required'],
             'captcha_secret_key' => ['required', 'string'],
             'captcha_site_key'   => ['required', 'string'],
+
+            'logo'               => ['nullable', 'image', 'max:2000'],
+            'favicon'            => ['nullable', 'image', 'mimes:png'],
+
         ]);
 
         $settings = new GeneralSetting();
+
+        /**
+         * Logo Upload
+         */
+        if ($request->hasFile('logo')) {
+
+            if ($settings->logo && Storage::disk('public')->exists($settings->logo)) {
+                Storage::disk('public')->delete($settings->logo);
+            }
+
+            $fileLogo = $request->file('logo');
+            $logoFileName = $request->logo->getClientOriginalName();
+
+            $validated['logo'] = $fileLogo->store('uploads', 'public');
+        } else {
+            $validated['logo'] = $settings->logo;
+        }
+
+        /**
+         * Favicon Upload
+         */
+        if ($request->hasFile('favicon')) {
+
+            if ($settings->favicon && Storage::disk('public')->exists($settings->favicon)) {
+                Storage::disk('public')->delete($settings->favicon);
+            }
+
+            $fileFavicon = $request->file('favicon');
+            $faviconFileName = $request->favicon->getClientOriginalName();
+            $validated['favicon'] = $fileFavicon->store('uploads', 'public');
+        } else {
+            $validated['favicon'] = $settings->favicon;
+        }
 
         $settings->fill($validated);
 
