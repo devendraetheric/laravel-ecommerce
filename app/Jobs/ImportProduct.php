@@ -49,7 +49,7 @@ class ImportProduct implements ShouldQueue
                 // check product exists or not
                 $product = Product::where('barcode', $data[1])->first();
                 if ($product) {
-                    log('Product Already Exists: ' . $product->name);
+                    log('Product Already Exists: ' . $product->slug);
                     continue;
                 }
 
@@ -59,6 +59,8 @@ class ImportProduct implements ShouldQueue
                 } else {
                     log('Product Import Failed: ' . $data[0]);
                 }
+
+                sleep(120);
             }
 
             $firstLine = false;
