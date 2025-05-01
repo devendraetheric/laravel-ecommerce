@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 // CACHE CLEAR ROUTE
 Route::get('cache-clear', function () {
     Artisan::call('optimize:clear');
+    Artisan::call('cache:clear');
+    Artisan::call('debugbar:clear');
 
     return redirect()->back()
         ->with('success', 'Successfully cache cleared.');
@@ -59,7 +61,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::post('products/import', [ProductController::class, 'importStore'])->name('products.import.store');
 
     Route::resource('orders', OrderController::class);
-    Route::get('orders/generate-pdf/{order}',[OrderController::class,'generatePDF'])->name('generate-pdf');
+    Route::get('orders/generate-pdf/{order}', [OrderController::class, 'generatePDF'])->name('generate-pdf');
 
 
     /*  Route::resource('payments',PaymentController::class)->except('show'); */
@@ -93,5 +95,4 @@ Route::group(['middleware' => 'auth:admin'], function () {
 
     Route::get('settings/prefix', [SettingController::class, 'prefix'])->name('settings.prefix');
     Route::post('settings/prefix', [SettingController::class, 'savePrefix'])->name('settings.savePrefix');
-
 });

@@ -32,7 +32,7 @@
                             <!-- Main Gallery -->
                             <div class="swiper gallery-main">
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide !aspect-square">
+                                    <div class="swiper-slide !aspect-square bg-white rounded-md">
                                         <img src="{{ $product->thumbnailURL() }}" alt="{{ $product?->name }}"
                                             class="w-full rounded-md object-contain aspect-square" loading="lazy" />
                                     </div>
