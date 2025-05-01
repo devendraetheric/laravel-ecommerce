@@ -1,0 +1,28 @@
+@font-face {
+
+    font-family: 'Croissant One';
+
+    font-weight: normal;
+
+    font-style: normal;
+
+    font-variant: normal;
+
+    src: url("fonts/Croissant_One/CroissantOne-Regular.ttf") format('truetype');
+
+}
+
+body {
+    /* font-family: 'Inter', sans-serif; */
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+}
+
+
+table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}

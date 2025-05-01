@@ -179,8 +179,7 @@ class OrderController extends Controller
     {
 
         $data = [
-            'title' => 'Techsolutionstuff',
-
+            'order' => $order,
         ];
 
         // return view('admin.orders.invoice', $data);
