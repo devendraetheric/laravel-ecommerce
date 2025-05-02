@@ -60,7 +60,7 @@
                                                                     alt="{{ $product->name }}" loading="lazy" />
                                                             </a>
                                                         </div>
-                                                        <div class="ml-4">
+                                                        <div class="ml-4 max-w-112 line-clamp-2 truncate">
                                                             <a href="{{ route('products.show', $product) }}"
                                                                 class="font-medium text-base/6 text-gray-900">{{ $product->name }}
                                                             </a>

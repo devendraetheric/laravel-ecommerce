@@ -63,9 +63,9 @@
                                                                             loading="lazy" />
                                                                     </a>
                                                                 </div>
-                                                                <div class="ml-4">
+                                                                <div class="ml-4 max-w-104 line-clamp-2 truncate">
                                                                     <a href="{{ route('products.show', $product->product) }}"
-                                                                        class="font-medium text-base/6 text-gray-900 wrap-normal">{{ $product->product->name }}
+                                                                        class="font-medium text-base/6 text-gray-900">{{ $product->product->name }}
                                                                     </a>
                                                                 </div>
                                                             </div>
