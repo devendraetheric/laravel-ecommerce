@@ -73,7 +73,7 @@ class ImportProduct implements ShouldQueue
     {
         $barcode = $data[1];
         $sku = $data[0];
-        $price = $data[2];
+        $price = $data[3];
 
         $url = "https://go-upc.com/search?q={$barcode}";
 
