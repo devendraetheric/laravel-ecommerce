@@ -24,7 +24,7 @@
     <link rel="canonical" href="{{ request()->url() }}" />
 
     {{-- favicon --}}
-    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" />
+    <link rel="icon" type="image/png" href="{{ asset('storage/' . $settings->favicon) }}" />
 
     {{-- Open Graph --}}
 

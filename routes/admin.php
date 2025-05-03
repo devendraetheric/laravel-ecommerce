@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PaymentController;
@@ -61,31 +62,28 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::post('products/import', [ProductController::class, 'importStore'])->name('products.import.store');
 
     Route::resource('orders', OrderController::class);
-    Route::get('orders/generate-pdf/{order}', [OrderController::class, 'generatePDF'])->name('generate-pdf');
-
 
     /*  Route::resource('payments',PaymentController::class)->except('show'); */
 
     Route::post('payments/store/{order}', [PaymentController::class, 'store'])->name('payments.store');
 
-
     Route::get('users/search', [UserController::class, 'search'])->name('users.search');
-
-
 
     /**
      * Banner Route
      */
     Route::resource('banners', BannerController::class)->except(['show']);
 
-
+    /**
+     * Coupon Route
+     */
+    Route::resource('coupons', CouponController::class)->except(['show']);
 
     /**
      * Settings
      */
     Route::get('settings/general', [SettingController::class, 'general'])->name('settings.general');
     Route::post('settings/general', [SettingController::class, 'saveGeneralSettings'])->name('settings.saveGeneralSettings');
-
 
     Route::get('settings/socialMedia', [SettingController::class, 'socialMedia'])->name('settings.socialMedia');
     Route::post('settings/socialMedia', [SettingController::class, 'saveSocialMedia'])->name('settings.saveSocialMedia');
@@ -96,3 +94,5 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::get('settings/prefix', [SettingController::class, 'prefix'])->name('settings.prefix');
     Route::post('settings/prefix', [SettingController::class, 'savePrefix'])->name('settings.savePrefix');
 });
+
+Route::get('orders/generate-pdf/{order}', [OrderController::class, 'generatePDF'])->name('generate-pdf');

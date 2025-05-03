@@ -39,18 +39,6 @@
                     @enderror
                 </div>
 
-                {{-- <div class="space-y-2 col-span-2 md:col-span-1">
-                    <label for="method" class="control-label sm:pt-1.5">Method</label>
-
-
-                    <input type="text" name="method" id="method"
-                        class="form-control @error('method') is-invalid @enderror" value="{{ old('method') }}" />
-                    @error('method')
-                        <p class="text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div> --}}
-
-
                 <div class="space-y-2 col-span-3 md:col-span-1">
                     <label for="method" class="control-label sm:pt-1.5">Method</label>
                     <div class="sm:grid sm:grid-cols-6 sm:items-start sm:gap-4">
@@ -76,8 +64,6 @@
                         <p class="text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
-
-
 
                 <div class="space-y-2 col-span-2 md:col-span-2">
                     <label for="notes" class="control-label sm:pt-1.5">Note</label>

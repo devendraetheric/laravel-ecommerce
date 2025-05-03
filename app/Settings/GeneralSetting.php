@@ -24,6 +24,10 @@ class GeneralSetting extends Settings
 
     public ?string $captcha_site_key;
 
+    public ?string $logo;
+
+    public ?string $favicon;
+
     public static function group(): string
     {
         return 'general';
