@@ -82,7 +82,6 @@ Route::group(['middleware' => 'auth:admin'], function () {
      */
     Route::resource('coupons', CouponController::class)->except(['show']);
 
-
     /**
      * Routes For Blog Categories
      */

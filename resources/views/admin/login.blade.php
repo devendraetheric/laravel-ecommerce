@@ -25,7 +25,8 @@
     <x-admin.alert />
     <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-            <img class="mx-auto h-10 w-auto" src="{{ websiteLogo() }}" alt="{{ asset('otc-logo.png') }}" loading="lazy" />
+            <img class="mx-auto h-10 w-auto" src="{{ websiteLogo() }}" alt="{{ asset('otc-logo.png') }}"
+                loading="lazy" />
             <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Sign in to your account</h2>
         </div>
 
@@ -50,6 +51,23 @@
                         <input type="password" name="password" id="password" autocomplete="current-password"
                             class="form-control @error('password') is-invalid @enderror">
                     </div>
+                </div>
+
+                <div class="flex gap-3 items-center">
+                    <div class="flex h-4 shrink-0 items-center">
+                        <div class="group grid size-4 grid-cols-1">
+                            <input id="remember-me" name="remember" type="checkbox"
+                                class="col-start-1 row-start-1 form-checkbox" />
+                            <svg class="pointer-events-none col-start-1 row-start-1 size-4 self-center justify-self-center stroke-white group-has-disabled:stroke-gray-950/25"
+                                viewBox="0 0 14 14" fill="none">
+                                <path class="opacity-0 group-has-checked:opacity-100" d="M3 8L6 11L11 3.5"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path class="opacity-0 group-has-indeterminate:opacity-100" d="M3 7H11" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                    </div>
+                    <label for="remember-me" class="block text-sm/tight text-gray-900">Remember me</label>
                 </div>
 
                 <div>
