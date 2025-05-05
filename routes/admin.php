@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\Blog\CategoryController as BlogCategoryController;
+use App\Http\Controllers\Admin\Blog\PostController as BlogPostController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CouponController;
@@ -83,9 +84,15 @@ Route::group(['middleware' => 'auth:admin'], function () {
 
 
     /**
-     * Routes For Blog Group
+     * Routes For Blog Categories
      */
     Route::resource('blog_categories', BlogCategoryController::class)->except(['show']);
+    Route::get('blog_categories/search', [BlogCategoryController::class, 'search'])->name('blog_categories.search');
+
+    /**
+     * Routes For Blog Categories
+     */
+    Route::resource('blog_posts', BlogPostController::class)->except(['show']);
 
 
 

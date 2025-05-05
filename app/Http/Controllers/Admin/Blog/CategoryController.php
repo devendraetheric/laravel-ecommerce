@@ -125,4 +125,18 @@ class CategoryController extends Controller
             ->route('admin.blog_categories.index')
             ->with('success', 'Blog Category deleted successfully.');
     }
+
+    /**
+     * Search Blog Category by name
+     */
+    public function search(Request $request)
+    {
+        $blog_categories = BlogCategory::where('name', 'like', '%' . $request->q . '%')
+            ->select(['id', 'name'])
+            ->latest()
+            ->take(10)
+            ->get();
+
+        return response()->json($blog_categories);
+    }
 }
