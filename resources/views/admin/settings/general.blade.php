@@ -27,9 +27,9 @@
 
             <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
                 <div class="p-6">
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="grid grid-cols-3 gap-4">
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2 col-span-1 md:col-span-1">
                             <label for="app_name" class="control-label sm:pt-1.5">App Name</label>
                             <input type="text" name="app_name" id="app_name"
                                 class="form-control @error('app_name') is-invalid @enderror"
@@ -39,7 +39,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2 col-span-1 md:col-span-1">
                             <label for="site_name" class="control-label sm:pt-1.5">Site Name</label>
                             <input type="text" name="site_name" id="site_name"
                                 class="form-control @error('site_name') is-invalid @enderror"
@@ -49,7 +49,17 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2">
+                        <div class="space-y-2 col-span-1 md:col-span-1">
+                            <label for="tagline" class="control-label sm:pt-1.5">Tagline</label>
+                            <input type="text" name="tagline" id="tagline"
+                                class="form-control @error('tagline') is-invalid @enderror"
+                                value="{{ old('tagline', $settings->tagline) }}" />
+                            @error('tagline')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="space-y-2 col-span-3">
                             <label for="site_description" class="control-label sm:pt-1.5">Site Description</label>
                             <textarea class="form-control @error('site_description') is-invalid @enderror" id="site_description"
                                 name="site_description" rows="2">{{ old('site_description', $settings->site_description) }}</textarea>

@@ -38,6 +38,7 @@ class CategoryController extends Controller
         $validated = $request->validate([
             'name'              => ['required', 'string', 'unique:' . Category::class],
             'slug'              => ['required', 'string', 'unique:' . Category::class],
+            'description'       => ['nullable', 'string'],
             'is_active'         => ['boolean', 'default(true)'],
             'seo_title'         => ['nullable', 'string'],
             'seo_description'   => ['nullable', 'string'],
@@ -83,6 +84,7 @@ class CategoryController extends Controller
         $validated = $request->validate([
             'name'              => ['required', 'string', 'unique:' . Category::class . ',name,' . $category->id],
             'slug'              => ['required', 'string', 'unique:' . Category::class . ',slug,' . $category->id],
+            'description'       => ['nullable', 'string'],
             'is_active'         => ['boolean', 'default(true)'],
             'seo_title'         => ['nullable', 'string'],
             'seo_description'   => ['nullable', 'string'],

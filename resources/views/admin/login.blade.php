@@ -14,7 +14,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     {{-- favicon --}}
-    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" />
+    {{-- <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" /> --}}
+
+    <link rel="icon" type="image/png" href="{{ websiteFavicon() }}" />
 
     @vite(['resources/css/admin.css', 'resources/js/admin.js'])
 </head>
@@ -23,7 +25,7 @@
     <x-admin.alert />
     <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-            <img class="mx-auto h-10 w-auto" src="{{ asset('otc-logo.png') }}" alt="Your Company" loading="lazy" />
+            <img class="mx-auto h-10 w-auto" src="{{ websiteLogo() }}" alt="{{ asset('otc-logo.png') }}" loading="lazy" />
             <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Sign in to your account</h2>
         </div>
 

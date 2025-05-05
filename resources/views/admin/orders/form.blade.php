@@ -188,6 +188,9 @@
                                                                 :name="'items[' + index + '][product_id]'"
                                                                 id="product_id" x-model="selectedId" />
 
+                                                            <input type="hidden" :name="'items[' + index + '][name]'"
+                                                                x-model="query" />
+
                                                             <button type="button"
                                                                 class="absolute inset-y-0 right-0 flex items-center rounded-r-lg px-2 focus:outline-hidden"
                                                                 @click="open = !open">
@@ -444,9 +447,8 @@
                     results: [],
                     highlighted: -1,
                     selectedId: formItems[index]['product_id'] ?? '',
-                    searchProducts() {
 
-                        console.log(formItems);
+                    searchProducts() {
 
                         if (this.query.length < 1) {
                             this.results = [];
@@ -460,6 +462,8 @@
                                 this.selectedId = "";
                             });
                     },
+
+
                     highlightNext() {
                         if (this.results.length === 0) return;
                         this.highlighted = (this.highlighted + 1) % this.results.length;

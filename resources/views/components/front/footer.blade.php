@@ -9,7 +9,7 @@
                 <div class="lg:col-span-2 col-span-1">
                     <div class="lg:mb-6 mb-4">
                         <a href="{{ route('home') }}" class="inline-block">
-                            <img src="{{ asset('otc-logo.png') }}" alt="{{ $settings->app_name }}" class="h-20"
+                            <img src="{{ websiteLogo() }}" alt="{{ asset('otc-logo.png') }}" class="h-20"
                                 loading="lazy" />
                         </a>
                     </div>

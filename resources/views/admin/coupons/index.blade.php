@@ -1,5 +1,5 @@
 <x-layouts.admin>
-    @inject('settings', 'App\Settings\GeneralSetting')
+
     <div class="max-w-7xl mx-auto">
         @php
             $breadcrumbLinks = [
@@ -44,8 +44,8 @@
                                             <td class="!font-semibold">{{ $coupon->code }}</td>
                                             <td>{{ $coupon->type }}</td>
                                             <td>{{ $coupon->value }}</td>
-                                            <td>{{ $coupon->start_date->format($settings->date_format) }}</td>
-                                            <td>{{ $coupon->end_date->format($settings->date_format) }}</td>
+                                            <td>{{ $coupon->start_date->format(dateFormat()) }}</td>
+                                            <td>{{ $coupon->end_date->format(dateFormat()) }}</td>
 
                                             <td class="relative text-right text-sm space-x-1 items-center">
                                                 <a href="{{ route('admin.coupons.edit', $coupon) }}"

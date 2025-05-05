@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Blog;
 
 use App\Http\Controllers\Controller;
-use App\Models\Brand;
+use App\Models\Blog\Category as BlogCategory;
 use Illuminate\Http\Request;
 
-class BrandController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $brands = Brand::latest()
+        $blog_categories = BlogCategory::latest()
             ->paginate()
             ->withQueryString();
 
-        return view('admin.brands.index', compact('brands'));
+        return view('admin.blogs.categories.index', compact('blog_categories'));
     }
 
     /**
@@ -25,9 +25,9 @@ class BrandController extends Controller
      */
     public function create()
     {
-        $brand = new Brand();
+        $blog_category = new BlogCategory();
 
-        return view('admin.brands.form', compact('brand'));
+        return view('admin.blogs.categories.form', compact('blog_category'));
     }
 
     /**
@@ -36,34 +36,34 @@ class BrandController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name'              => ['required', 'string', 'unique:' . Brand::class],
-            'slug'              => ['required', 'string', 'unique:' . Brand::class],
+            'name'              => ['required', 'string', 'unique:' . BlogCategory::class],
+            'slug'              => ['required', 'string', 'unique:' . BlogCategory::class],
             'description'       => ['nullable', 'string'],
             'is_active'         => ['boolean', 'default(true)'],
             'seo_title'         => ['nullable', 'string'],
             'seo_description'   => ['nullable', 'string'],
         ]);
 
-        $brand = Brand::create($validated);
+        $blog_category = BlogCategory::create($validated);
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $path = $file->store('uploads', 'public');
 
-            $brand->addMedia(storage_path("app/public/$path"))
+            $blog_category->addMedia(storage_path("app/public/$path"))
                 ->preservingOriginal()
                 ->toMediaCollection();
         }
 
         return redirect()
-            ->route('admin.brands.index')
-            ->with('success', 'Brand created successfully.');
+            ->route('admin.blog_categories.index')
+            ->with('success', 'Blog Category created successfully.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Brand $brand)
+    public function show(string $id)
     {
         //
     }
@@ -71,69 +71,58 @@ class BrandController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Brand $brand)
+    public function edit(BlogCategory $blog_category)
     {
-        return view('admin.brands.form', compact('brand'));
+
+        return view('admin.blogs.categories.form', compact('blog_category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Brand $brand)
+    public function update(Request $request, BlogCategory $blog_category)
     {
+        /* dd($request->all()); */
+
         $validated = $request->validate([
-            'name'              => ['required', 'string', 'unique:' . Brand::class . ',name,' . $brand->id],
-            'slug'              => ['required', 'string', 'unique:' . Brand::class . ',slug,' . $brand->id],
+            'name'              => ['required', 'string', 'unique:' . BlogCategory::class],
+            'slug'              => ['required', 'string', 'unique:' . BlogCategory::class],
             'description'       => ['nullable', 'string'],
             'is_active'         => ['boolean', 'default(true)'],
             'seo_title'         => ['nullable', 'string'],
             'seo_description'   => ['nullable', 'string'],
         ]);
 
-        $brand->fill($validated);
-        $brand->save();
+        $blog_category->fill($validated);
+        $blog_category->save();
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $path = $file->store('uploads', 'public');
 
-            $brand->clearMediaCollection();
+            $blog_category->clearMediaCollection();
 
-            $brand->addMedia(storage_path("app/public/$path"))
+            $blog_category->addMedia(storage_path("app/public/$path"))
                 ->preservingOriginal()
                 ->toMediaCollection();
         }
 
         return redirect()
-            ->route('admin.brands.index')
-            ->with('success', 'Brand updated successfully.');
+            ->route('admin.blog_categories.index')
+            ->with('success', 'Blog Category updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Brand $brand)
+    public function destroy(BlogCategory $blog_category)
     {
-        $brand->clearMediaCollection();
+        $blog_category->clearMediaCollection();
 
-        $brand->delete();
+        $blog_category->delete();
 
         return redirect()
-            ->route('admin.brands.index')
-            ->with('success', 'Brand deleted successfully.');
-    }
-
-    /**
-     * Search Brand by name
-     */
-    public function search(Request $request)
-    {
-        $brands = Brand::where('name', 'like', '%' . $request->q . '%')
-            ->select(['id', 'name'])
-            ->latest()
-            ->take(10)
-            ->get();
-
-        return response()->json($brands);
+            ->route('admin.blog_categories.index')
+            ->with('success', 'Blog Category deleted successfully.');
     }
 }

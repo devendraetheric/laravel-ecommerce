@@ -48,6 +48,7 @@ class SettingController extends Controller
         $validated = $request->validate([
             'app_name'           => ['required', 'string', 'max:255'],
             'site_name'          => ['required', 'string', 'max:255'],
+            'tagline'            => ['required', 'string', 'max:255'],
             'site_description'   => ['required', 'string', 'max:255'],
             'date_format'        => ['required', 'string'],
             'time_format'        => ['required', 'string'],
