@@ -7,8 +7,11 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
+use App\Jobs\Demo;
+use App\Mail\JobFailedMail;
 use App\Models\State;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/fetch-states', function (Request $request) {
@@ -20,6 +23,11 @@ Route::post('/fetch-states', function (Request $request) {
 
     return response()->json($data);
 })->name('fetchState');
+
+
+/* Route::get('/demo', function () {
+    Demo::dispatch();
+}); */
 
 
 Route::get('/', [FrontController::class, 'home'])->name('home');

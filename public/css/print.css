@@ -1,6 +1,6 @@
 @font-face {
 
-    font-family: 'Croissant One';
+    font-family: 'Inter';
 
     font-weight: normal;
 
@@ -8,21 +8,58 @@
 
     font-variant: normal;
 
-    src: url("fonts/Croissant_One/CroissantOne-Regular.ttf") format('truetype');
+    src: url("https://fonts.gstatic.com/s/inter/v18/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1pL7SUc.woff2") format('truetype');
 
 }
 
+/* @media print {
+    @page {
+        size: landscape;
+        margin-top: 25px;
+        margin-bottom: 25px;
+    }
+} */
+
+
+@page {
+    size: letter;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
 body {
-    /* font-family: 'Inter', sans-serif; */
+    font-family: 'Inter', sans-serif;
     font-size: 14px;
     margin: 0;
     padding: 0;
 }
 
 
-table,
-th,
-td {
-    border: 1px solid black;
+table {
+    width: 100%;
     border-collapse: collapse;
+}
+
+.table-bordered>thead>tr>th,
+.table-bordered>tbody>tr>td {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.tfoot-bordered>tr>th,
+.tfoot-bordered>tr>td {
+    border: 1px solid #ccc;
+}
+
+
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
 }

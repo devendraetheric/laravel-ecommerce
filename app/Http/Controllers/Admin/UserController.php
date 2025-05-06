@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
@@ -13,7 +14,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::latest()
+            ->paginate()
+            ->withQueryString();
+
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -21,7 +26,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $user = new User();
+
+        return view('admin.users.form', compact('user'));
     }
 
     /**
@@ -29,7 +36,19 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name'  => ['required', 'string', 'max:255'],
+            'email'      => ['required', 'email', 'string', 'unique:users', 'max:255'],
+            'phone'      => ['required', 'string', 'max:20'],
+            'password'   => ['required'],
+        ]);
+
+        $user = User::create($validated);
+
+        return redirect()
+            ->route('admin.users.index')
+            ->with('success', 'User created successfully.');
     }
 
     /**
@@ -43,25 +62,41 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(User $user)
     {
-        //
+        return view('admin.users.form', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $validated = $request->validate([
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name'  => ['required', 'string', 'max:255'],
+            'email'      => ['required', 'email', 'string', 'unique:users', 'max:255'],
+            'phone'      => ['required', 'string', 'max:20'],
+        ]);
+
+        $user->fill($validated);
+        $user->save();
+
+        return redirect()
+            ->route('admin.users.index')
+            ->with('success', 'User updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return redirect()
+            ->route('admin.users.index')
+            ->with('success', __('User deleted successfully.'));
     }
 
 
@@ -72,16 +107,16 @@ class UserController extends Controller
     {
 
         $users = User::where('first_name', 'like', '%' . $request->q . '%')
-        ->orWhere('last_name', 'like', '%' . $request->q . '%')
-        ->latest()
-        ->take(10)
-        ->get()
-        ->map(function ($user) {
-            return [
-                'id' => $user->id,
-                'name' => $user->name,
-            ];
-        });
+            ->orWhere('last_name', 'like', '%' . $request->q . '%')
+            ->latest()
+            ->take(10)
+            ->get()
+            ->map(function ($user) {
+                return [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                ];
+            });
 
         return response()->json($users);
     }

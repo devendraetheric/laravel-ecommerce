@@ -1,4 +1,5 @@
 <x-layouts.admin>
+
     <div class="max-w-7xl mx-auto">
         @php
             $breadcrumbLinks = [
@@ -7,8 +8,8 @@
                     'text' => 'Dashboard',
                 ],
                 [
-                    'url' => route('admin.orders.index'),
-                    'text' => 'Orders',
+                    'url' => route('admin.users.index'),
+                    'text' => 'Users',
                 ],
                 [
                     'text' => 'List',
@@ -16,7 +17,7 @@
             ];
         @endphp
 
-        <x-admin.breadcrumb :links=$breadcrumbLinks title="Orders" :addNewAction="route('admin.orders.create')" />
+        <x-admin.breadcrumb :links=$breadcrumbLinks title="Users" :addNewAction="route('admin.users.create')" />
 
         <div class="mt-8 flow-root">
             <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -26,13 +27,9 @@
                             <table class="record-table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Order #</th>
-                                        <th scope="col">Customer</th>
-                                        <th scope="col">Order Date</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col" class="!text-center">Payment Status</th>
-                                        <th scope="col">Grand Total</th>
-
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Phone</th>
 
                                         <th scope="col" class="relative">
                                             <span class="sr-only">Actions</span>
@@ -40,35 +37,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($orders as $order)
+                                    @forelse ($users as $user)
                                         <tr>
-                                            <td class="!font-semibold">
-                                                <a class="link-primary" href="{{ route('admin.orders.show', $order) }}">
-                                                    {{ $order->order_number }}
-                                                </a>
-                                            </td>
-                                            <td>{{ $order->user->name }}</td>
-                                            <td>{{  $order->order_date->format(dateFormat()) }}</td>
-                                            <td>
-                                                <span
-                                                    class="inline-flex items-center rounded-md bg-{{ $order->status->color() }}-50 px-2 py-1 text-xs font-medium text-{{ $order->status->color() }}-600 ring-1 ring-{{ $order->status->color() }}-500/10 ring-inset">
-                                                    {{ $order->status->label() }}
-                                                </span>
-                                            </td>
-                                            <td class="text-center">
-                                                <span
-                                                    class="inline-flex items-center rounded-md bg-{{ $order->payment_status->color() }}-50 px-2 py-1 text-xs font-medium text-{{ $order->payment_status->color() }}-600 ring-1 ring-{{ $order->payment_status->color() }}-500/10 ring-inset">
-                                                    {{ $order->payment_status->label() }}
-                                                </span>
-                                            </td>
-                                            <td>{{ $order->grand_total }}</td>
-
-                                            {{-- Order Status --}}
-
-                                            {{-- Actions --}}
+                                            <td class="!font-semibold">{{ $user->name }}</td>
+                                            <td>{{ $user->email }}</td>
+                                            <td>{{ $user->phone }}</td>
 
                                             <td class="relative text-right text-sm space-x-1 items-center">
-                                                <a href="{{ route('admin.orders.edit', $order) }}"
+                                                <a href="{{ route('admin.users.edit', $user) }}"
                                                     class="link-primary relative inline-flex">
                                                     <svg viewBox="0 0 20 20" fill="currentColor" class="size-5">
                                                         <path
@@ -77,8 +53,9 @@
                                                             d="M3.5 5.75c0-.69.56-1.25 1.25-1.25H10A.75.75 0 0 0 10 3H4.75A2.75 2.75 0 0 0 2 5.75v9.5A2.75 2.75 0 0 0 4.75 18h9.5A2.75 2.75 0 0 0 17 15.25V10a.75.75 0 0 0-1.5 0v5.25c0 .69-.56 1.25-1.25 1.25h-9.5c-.69 0-1.25-.56-1.25-1.25v-9.5Z" />
                                                     </svg>
                                                 </a>
-                                                <form action="{{ route('admin.orders.destroy', $order) }}"
-                                                    method="post" class="inline-flex"
+
+                                                <form action="{{ route('admin.users.destroy', $user) }}" method="post"
+                                                    class="inline-flex"
                                                     onsubmit="return confirm('Are you sure want to delete?')">
                                                     @csrf
                                                     @method('DELETE')
@@ -94,7 +71,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="7" class="text-center">No Records found</td>
+                                            <td colspan="6" class="text-center">No Records found</td>
                                         </tr>
                                     @endforelse
                                 </tbody>
@@ -106,7 +83,7 @@
         </div>
 
         <div class="mt-3">
-            {!! $orders->links() !!}
+            {!! $users->links() !!}
         </div>
     </div>
 </x-layouts.admin>

@@ -48,7 +48,7 @@
                                                 </td>
 
                                                 <td>
-                                                    {{ $order->order_date->format($settings->date_format) }}
+                                                    {{ $order->order_date->format(dateFormat()) }}
                                                 </td>
 
                                                 <td class="!whitespace-normal !break-words">

@@ -16,12 +16,14 @@ class LoginController extends Controller
     {
         $request->validate([
             'email' => ['required', 'email'],
-            'password' => ['required']
+            'password' => ['required'],
         ]);
+
+        $remember = $request->filled('remember');
 
         $credentials = $request->only('email', 'password');
 
-        if (auth('admin')->attempt($credentials)) {
+        if (auth('admin')->attempt($credentials, $remember)) {
 
             $request->session()->regenerate();
 

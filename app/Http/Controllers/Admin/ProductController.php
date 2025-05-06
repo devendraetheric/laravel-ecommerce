@@ -237,7 +237,7 @@ class ProductController extends Controller
         // $additionalAttributes is in , seperated with each and after that separated with :
         // so we need to split it into array
         // $additionalAttributesArr = explode(',', $additionalAttributes);
-        // now convert into ul and li 
+        // now convert into ul and li
         $additionalAttributesStr = '<ul>';
         foreach ($additionalAttributesArr as $key => $value) {
             $value = explode(':', $value);

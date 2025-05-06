@@ -7,7 +7,12 @@ use App\Models\Country;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Product;
+use App\Models\State;
 use App\Models\User;
+use App\Settings\CompanySetting;
+use App\Settings\GeneralSetting;
+use App\Settings\PrefixSetting;
+use App\Settings\SocialMediaSetting;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
@@ -18,12 +23,14 @@ class OrderController extends Controller
      */
     public function index()
     {
+        $generalSetting = new GeneralSetting();
+
         $orders = Order::latest()
             ->with(['user'])
             ->paginate()
             ->withQueryString();
 
-        return view('admin.orders.index', compact('orders'));
+        return view('admin.orders.index', compact('orders', 'generalSetting'));
     }
 
     /**
@@ -93,10 +100,11 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
+        $generalSetting = new GeneralSetting();
 
         $payment = new Payment();
 
-        return view('admin.orders.show', compact('order', 'payment'));
+        return view('admin.orders.show', compact('order', 'generalSetting', 'payment'));
     }
 
     /**
@@ -177,15 +185,31 @@ class OrderController extends Controller
      */
     public function generatePdf(Request $request, Order $order)
     {
+        $generalSetting = new GeneralSetting();
+        $companySetting = new CompanySetting();
+        $prefix         = new PrefixSetting();
+        $socialMedia    = new SocialMediaSetting();
+
+        $country = Country::find($companySetting->country)->name;
+
+        $state = State::find($companySetting->state)->name;
 
         $data = [
-            'order' => $order,
+            'order'          => $order,
+            'generalSetting' => $generalSetting,
+            'companySetting' => $companySetting,
+            'prefix'         => $prefix,
+            'socialMedia'    => $socialMedia,
+            'country'        => $country,
+            'state'          => $state
+
+
         ];
 
         // return view('admin.orders.invoice', $data);
 
         $pdf = Pdf::loadView('admin.orders.invoice', $data);
 
-        return $pdf->stream('techsolutionstuff.pdf');
+        return $pdf->stream('my-invoice.pdf');
     }
 }

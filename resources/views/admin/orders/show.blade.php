@@ -1,5 +1,5 @@
 <x-layouts.admin>
-    @inject('settings', 'App\Settings\GeneralSetting')
+
     <div class="max-w-7xl mx-auto">
         @php
             $breadcrumbLinks = [
@@ -164,8 +164,9 @@
                                     </svg>
                                 </dt>
                                 <dd class="text-sm/6 text-gray-900">
+
                                     <time
-                                        datetime="2023-01-31">{{ $order->order_date->format($settings->date_format) }}</time>
+                                        datetime="2023-01-31">{{ $order->order_date->format(dateFormat()) }}</time>
                                 </dd>
                             </div>
                         </dl>

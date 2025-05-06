@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\Blog\CategoryController as BlogCategoryController;
+use App\Http\Controllers\Admin\Blog\PostController as BlogPostController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CouponController;
@@ -67,6 +69,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
 
     Route::post('payments/store/{order}', [PaymentController::class, 'store'])->name('payments.store');
 
+    Route::resource('users', UserController::class)->except(['show']);
     Route::get('users/search', [UserController::class, 'search'])->name('users.search');
 
     /**
@@ -78,6 +81,19 @@ Route::group(['middleware' => 'auth:admin'], function () {
      * Coupon Route
      */
     Route::resource('coupons', CouponController::class)->except(['show']);
+
+    /**
+     * Routes For Blog Categories
+     */
+    Route::resource('blog_categories', BlogCategoryController::class)->except(['show']);
+    Route::get('blog_categories/search', [BlogCategoryController::class, 'search'])->name('blog_categories.search');
+
+    /**
+     * Routes For Blog Categories
+     */
+    Route::resource('blog_posts', BlogPostController::class)->except(['show']);
+
+
 
     /**
      * Settings
