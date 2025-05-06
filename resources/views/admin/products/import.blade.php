@@ -30,7 +30,7 @@
                 <div class="p-6">
                     <div class="grid grid-cols-3 gap-4">
                         <div class="space-y-2">
-                            <label for="sku" class="control-label sm:pt-1.5">SKU</label>
+                            <label for="sku" class="control-label">SKU</label>
                             <input type="text" name="sku" id="sku"
                                 class="form-control @error('sku') is-invalid @enderror" value="{{ old('sku') }}"
                                 required />
@@ -39,7 +39,7 @@
                             @enderror
                         </div>
                         <div class="space-y-2">
-                            <label for="barcode" class="control-label sm:pt-1.5">Barcode</label>
+                            <label for="barcode" class="control-label">Barcode</label>
                             <input type="text" name="barcode" id="barcode"
                                 class="form-control @error('barcode') is-invalid @enderror" value="{{ old('barcode') }}"
                                 required />
@@ -48,7 +48,7 @@
                             @enderror
                         </div>
                         <div class="space-y-2">
-                            <label for="price" class="control-label sm:pt-1.5">Price</label>
+                            <label for="price" class="control-label">Price</label>
                             <input type="text" name="price" id="price"
                                 class="form-control @error('price') is-invalid @enderror" value="{{ old('price') }}"
                                 required />

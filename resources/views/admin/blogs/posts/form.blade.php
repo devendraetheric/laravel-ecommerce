@@ -38,7 +38,7 @@
                             slug: '{{ old('slug', $blog_post->slug) }}'
                         }">
                             <div class="space-y-2 col-span-2 md:col-span-1">
-                                <label for="title" class="control-label sm:pt-1.5">Title</label>
+                                <label for="title" class="control-label">Title</label>
                                 <input type="text" name="title" id="title"
                                     class="form-control @error('title') is-invalid @enderror" x-model="title"
                                     @input="slug = slugify(title)" />
@@ -67,7 +67,7 @@
                         <div class="p-6">
                             <div class="grid gap-4">
                                 <div class="space-y-2">
-                                    <label for="seo_title" class="control-label sm:pt-1.5">SEO Title</label>
+                                    <label for="seo_title" class="control-label">SEO Title</label>
                                     <input type="text" name="seo_title" id="seo_title"
                                         class="form-control @error('seo_title') is-invalid @enderror"
                                         value="{{ old('seo_title', $blog_post->seo_title) }}" />
@@ -77,7 +77,7 @@
                                 </div>
 
                                 <div class="space-y-2">
-                                    <label for="seo_description" class="control-label sm:pt-1.5">SEO
+                                    <label for="seo_description" class="control-label">SEO
                                         Description</label>
                                     <textarea class="form-control @error('seo_description') is-invalid @enderror" id="seo_description"
                                         name="seo_description" rows="3">{{ old('seo_description', $blog_post->seo_description) }}</textarea>
@@ -125,7 +125,7 @@
                             <div class="space-y-4">
 
                                 <div class="space-y-2">
-                                    <label for="category_name" class="control-label sm:pt-1.5">Category</label>
+                                    <label for="category_name" class="control-label">Category</label>
                                     <div class="relative" x-data="categoryCombobox()">
                                         <input x-model="query" @input="searchCategories" @focus="open = !open"
                                             @keydown.arrow-down.prevent="highlightNext()"
@@ -187,13 +187,13 @@
                                 </div>
 
                                 <div class="space-y-2">
-                                    <label for="image" class="control-label sm:pt-1.5">Featured
+                                    <label for="image" class="control-label">Featured
                                         Image</label>
                                     <input id="image" name="image" type="file" class="form-control">
                                 </div>
 
                                 <div class="space-y-2">
-                                    <label for="published_at" class="control-label sm:pt-1.5">Published At</label>
+                                    <label for="published_at" class="control-label">Published At</label>
                                     <input type="date" name="published_at" id="published_at"
                                         class="form-control @error('published_at') is-invalid @enderror"
                                         value="{{ old('published_at', $blog_post->published_at?->format('Y-m-d') ?? now()->format('Y-m-d')) }}" />

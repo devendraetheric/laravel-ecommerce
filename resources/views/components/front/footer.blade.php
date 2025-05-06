@@ -1,5 +1,3 @@
-@inject('settings', 'App\Settings\GeneralSetting')
-
 @inject('socialMedia', 'App\Settings\SocialMediaSetting')
 <!-- footer area start -->
 <footer class="bg-white">
@@ -9,7 +7,7 @@
                 <div class="lg:col-span-2 col-span-1">
                     <div class="lg:mb-6 mb-4">
                         <a href="{{ route('home') }}" class="inline-block">
-                            <img src="{{ websiteLogo() }}" alt="{{ asset('otc-logo.png') }}" class="h-20"
+                            <img src="{{ getLogoURL() }}" alt="{{ setting('general.app_name') }}" class="h-20"
                                 loading="lazy" />
                         </a>
                     </div>
@@ -17,8 +15,8 @@
                         with care
                         and convenience. <br>Your one-stop online store for all over-the-counter health essentials.</p>
                     <div class="flex gap-x-6">
-                        @if ($socialMedia->facebook)
-                            <a href="{{ $socialMedia->facebook }}" class="text-gray-600 hover:text-gray-800">
+                        @if (setting('social.facebook'))
+                            <a href="{{ setting('social.facebook') }}" class="text-gray-600 hover:text-gray-800">
                                 <span class="sr-only">Facebook</span>
                                 <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                     <path fill-rule="evenodd"
@@ -27,8 +25,8 @@
                                 </svg>
                             </a>
                         @endif
-                        @if ($socialMedia->instagram)
-                            <a href="{{ $socialMedia->instagram }}" class="text-gray-600 hover:text-gray-800">
+                        @if (setting('social.instagram'))
+                            <a href="{{ setting('social.instagram') }}" class="text-gray-600 hover:text-gray-800">
                                 <span class="sr-only">Instagram</span>
                                 <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                     <path fill-rule="evenodd"
@@ -37,8 +35,8 @@
                                 </svg>
                             </a>
                         @endif
-                        @if ($socialMedia->twitter)
-                            <a href="{{ $socialMedia->twitter }}" class="text-gray-600 hover:text-gray-800">
+                        @if (setting('social.twitter'))
+                            <a href="{{ setting('social.twitter') }}" class="text-gray-600 hover:text-gray-800">
                                 <span class="sr-only">X</span>
                                 <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                     <path
@@ -46,8 +44,8 @@
                                 </svg>
                             </a>
                         @endif
-                        @if ($socialMedia->youtube)
-                            <a href="{{ $socialMedia->youtube }}" class="text-gray-600 hover:text-gray-800">
+                        @if (setting('social.youtube'))
+                            <a href="{{ setting('social.youtube') }}" class="text-gray-600 hover:text-gray-800">
                                 <span class="sr-only">YouTube</span>
                                 <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                     <path fill-rule="evenodd"
@@ -152,7 +150,7 @@
         <div class="container px-3 md:px-5 xl:px-0">
             <div class="flex flex-wrap sm:justify-between sm:flex-nowrap justify-center items-center gap-y-6">
                 <p class="text-center text-gray-500">
-                    &copy; {{ date('Y') }} - {{ $settings->app_name }} - Designed & Developed by
+                    &copy; {{ date('Y') }} - {{ setting('general.app_name') }} - Designed & Developed by
                     <a href="https://ethericsolution.com/" target="_blank">
                         <b>Etheric Solution</b></a>
                 </p>

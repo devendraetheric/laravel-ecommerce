@@ -16,7 +16,7 @@
     {{-- favicon --}}
     {{-- <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" /> --}}
 
-    <link rel="icon" type="image/png" href="{{ websiteFavicon() }}" />
+    <link rel="icon" type="image/png" href="{{ getFaviconURL() }}" />
 
     @vite(['resources/css/admin.css', 'resources/js/admin.js'])
 </head>
@@ -25,7 +25,7 @@
     <x-admin.alert />
     <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-            <img class="mx-auto h-10 w-auto" src="{{ websiteLogo() }}" alt="{{ asset('otc-logo.png') }}"
+            <img class="mx-auto h-10 w-auto" src="{{ getLogoURL() }}" alt="{{ asset('otc-logo.png') }}"
                 loading="lazy" />
             <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Sign in to your account</h2>
         </div>
@@ -35,7 +35,7 @@
                 @csrf
 
                 <div>
-                    <label for="email" class="control-label sm:pt-1.5">Email address</label>
+                    <label for="email" class="control-label">Email address</label>
                     <div class="mt-2">
                         <input type="email" name="email" id="email" value="{{ old('email') }}"
                             autocomplete="email" class="form-control @error('email') is-invalid @enderror" />
@@ -46,7 +46,7 @@
                 </div>
 
                 <div>
-                    <label for="password" class="control-label sm:pt-1.5">Password</label>
+                    <label for="password" class="control-label">Password</label>
                     <div class="mt-2">
                         <input type="password" name="password" id="password" autocomplete="current-password"
                             class="form-control @error('password') is-invalid @enderror">

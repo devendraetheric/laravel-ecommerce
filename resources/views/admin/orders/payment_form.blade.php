@@ -10,7 +10,7 @@
             <div class="grid grid-cols-2 gap-4">
 
                 <div class="space-y-2 col-span-2 md:col-span-1">
-                    <label for="payment_number" class="control-label sm:pt-1.5">Payment Number</label>
+                    <label for="payment_number" class="control-label">Payment Number</label>
                     <input type="text" name="payment_number" id="payment_number"
                         class="form-control @error('payment_number') is-invalid @enderror"
                         value="{{ old('payment_number', $payment->payment_number ?? $payment->generatePaymentNumber()) }}"
@@ -21,7 +21,7 @@
                 </div>
 
                 <div class="space-y-2 col-span-2 md:col-span-1">
-                    <label for="reference" class="control-label sm:pt-1.5">Reference</label>
+                    <label for="reference" class="control-label">Reference</label>
                     <input type="text" name="reference" id="reference"
                         class="form-control @error('reference') is-invalid @enderror" value="{{ old('reference') }}" />
                     @error('reference')
@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="space-y-2 col-span-2 md:col-span-1">
-                    <label for="amount" class="control-label sm:pt-1.5">Amount</label>
+                    <label for="amount" class="control-label">Amount</label>
                     <input type="text" name="amount" id="amount"
                         class="form-control @error('amount') is-invalid @enderror"
                         value="{{ old('amount', $order->grand_total - $order->paid_amount) }}" />
@@ -40,7 +40,7 @@
                 </div>
 
                 <div class="space-y-2 col-span-3 md:col-span-1">
-                    <label for="method" class="control-label sm:pt-1.5">Method</label>
+                    <label for="method" class="control-label">Method</label>
                     <div class="sm:grid sm:grid-cols-6 sm:items-start sm:gap-4">
                         <div class="mt-2 sm:col-span-6 sm:mt-0 grid grid-cols-1">
                             <select name="method" id="method"
@@ -66,7 +66,7 @@
                 </div>
 
                 <div class="space-y-2 col-span-2 md:col-span-2">
-                    <label for="notes" class="control-label sm:pt-1.5">Note</label>
+                    <label for="notes" class="control-label">Note</label>
                     <textarea class="form-control @error('notes') is-invalid @enderror" id="notes" name="notes" rows="2">{{ old('notes', $order->notes) }}</textarea>
                     @error('notes')
                         <p class="text-sm text-red-600">{{ $message }}</p>

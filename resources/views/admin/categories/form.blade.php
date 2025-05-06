@@ -35,7 +35,7 @@
                 }">
                     <div class="grid grid-cols-2 gap-4">
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="name" class="control-label sm:pt-1.5">Name</label>
+                            <label for="name" class="control-label">Name</label>
                             <input type="text" name="name" id="name"
                                 class="form-control @error('name') is-invalid @enderror" x-model="title"
                                 @input="slug = slugify(title)" />
@@ -45,7 +45,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="slug" class="control-label sm:pt-1.5">Slug</label>
+                            <label for="slug" class="control-label">Slug</label>
                             <input type="text" name="slug" id="slug"
                                 class="form-control @error('slug') is-invalid @enderror" x-model="slug" readonly />
                             @error('slug')
@@ -54,7 +54,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-2">
-                            <label for="description" class="control-label sm:pt-1.5">Description</label>
+                            <label for="description" class="control-label">Description</label>
                             <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description"
                                 rows="3">{{ old('description', $category->description) }}</textarea>
                             @error('description')
@@ -77,7 +77,7 @@
                 <div class="p-6">
                     <div class="grid gap-4">
                         <div class="space-y-2">
-                            <label for="seo_title" class="control-label sm:pt-1.5">SEO Title</label>
+                            <label for="seo_title" class="control-label">SEO Title</label>
                             <input type="text" seo_title="seo_title" id="seo_title"
                                 class="form-control @error('seo_title') is-invalid @enderror"
                                 value="{{ old('seo_title', $category->seo_title) }}" />
@@ -87,7 +87,7 @@
                         </div>
 
                         <div class="space-y-2">
-                            <label for="seo_description" class="control-label sm:pt-1.5">SEO Description</label>
+                            <label for="seo_description" class="control-label">SEO Description</label>
                             <textarea class="form-control @error('seo_description') is-invalid @enderror" id="seo_description"
                                 name="seo_description" rows="3">{{ old('seo_description', $category->seo_description) }}</textarea>
                             @error('seo_description')

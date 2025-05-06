@@ -30,8 +30,6 @@ class AppServiceProvider extends ServiceProvider
 
         VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
 
-            $settings = new GeneralSetting();
-
             return (new MailMessage)
                 ->subject('Verify Email Address')
                 ->greeting("Hello {$notifiable->first_name}!")
@@ -39,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
                 ->line('Please click the button below to verify your email address.')
                 ->action('Verify Email Address', $url)
                 ->line('If you did not create an account, no further action is required.')
-                ->salutation("Best Regards, \n $settings->app_name");
+                ->salutation("Best Regards, \n " . setting('general.app_name'));
         });
 
 
