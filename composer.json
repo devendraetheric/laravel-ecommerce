@@ -1,11 +1,17 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/laravel",
+    "name": "ethericsolution/laravel-ecommerce",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
+    "description": "Complete E-commerce Solution using Laravel.",
     "keywords": [
         "laravel",
-        "framework"
+        "framework",
+        "ecommerce",
+        "shop",
+        "cart",
+        "checkout",
+        "payment",
+        "order"
     ],
     "license": "MIT",
     "require": {
