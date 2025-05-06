@@ -44,8 +44,8 @@
                                             <td class="!font-semibold">{{ $coupon->code }}</td>
                                             <td>{{ $coupon->type }}</td>
                                             <td>{{ $coupon->value }}</td>
-                                            <td>{{ $coupon->start_date->format(dateFormat()) }}</td>
-                                            <td>{{ $coupon->end_date->format(dateFormat()) }}</td>
+                                            <td>{{ $coupon->start_date->format(setting('general.date_format')) }}</td>
+                                            <td>{{ $coupon->end_date->format(setting('general.date_format')) }}</td>
 
                                             <td class="relative text-right text-sm space-x-1 items-center">
                                                 <a href="{{ route('admin.coupons.edit', $coupon) }}"

@@ -30,17 +30,22 @@
                     <div class="grid grid-cols-3 gap-4">
 
                         <div class="space-y-2 col-span-1 md:col-span-1">
-                            <label for="app_name" class="control-label sm:pt-1.5">App Name</label>
+                            <div class="flex justify-between">
+                                <label for="app_name" class="control-label">App Name</label>
+                                <span class="text-sm/6 text-gray-500"
+                                    id="app-name-optional">setting('general.app_name')</span>
+                            </div>
                             <input type="text" name="app_name" id="app_name"
                                 class="form-control @error('app_name') is-invalid @enderror"
-                                value="{{ old('app_name', $settings->app_name) }}" />
+                                value="{{ old('app_name', $settings->app_name) }}"
+                                aria-describedby="app-name-optional" />
                             @error('app_name')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
 
                         <div class="space-y-2 col-span-1 md:col-span-1">
-                            <label for="site_name" class="control-label sm:pt-1.5">Site Name</label>
+                            <label for="site_name" class="control-label">Site Name</label>
                             <input type="text" name="site_name" id="site_name"
                                 class="form-control @error('site_name') is-invalid @enderror"
                                 value="{{ old('site_name', $settings->site_name) }}" />
@@ -50,7 +55,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-1 md:col-span-1">
-                            <label for="tagline" class="control-label sm:pt-1.5">Tagline</label>
+                            <label for="tagline" class="control-label">Tagline</label>
                             <input type="text" name="tagline" id="tagline"
                                 class="form-control @error('tagline') is-invalid @enderror"
                                 value="{{ old('tagline', $settings->tagline) }}" />
@@ -60,7 +65,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-3">
-                            <label for="site_description" class="control-label sm:pt-1.5">Site Description</label>
+                            <label for="site_description" class="control-label">Site Description</label>
                             <textarea class="form-control @error('site_description') is-invalid @enderror" id="site_description"
                                 name="site_description" rows="2">{{ old('site_description', $settings->site_description) }}</textarea>
                             @error('site_description')
@@ -155,7 +160,8 @@
                                 Is Captcha
                             </label>
                             <div class="mt-2 grid grid-cols-1">
-                                <select id="is_captcha" name="is_captcha" class="col-start-1 row-start-1 form-select">
+                                <select id="is_captcha" name="is_captcha"
+                                    class="col-start-1 row-start-1 form-select">
                                     <option value="0" @selected(old('is_captcha', $settings->is_captcha) == '0')>Deactive</option>
                                     <option value="1" @selected(old('is_captcha', $settings->is_captcha) == '1')>Active</option>
                                 </select>

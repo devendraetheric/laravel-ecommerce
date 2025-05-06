@@ -2,7 +2,7 @@
     {{-- Header --}}
     <x-slot:header>
         <x-mail::header :url="config('app.url')">
-            <img src="{{ websiteLogo() }}" alt="{{ asset('otc-logo.png') }}" class="logo" />
+            <img src="{{ getLogoURL() }}" alt="{{ asset('otc-logo.png') }}" class="logo" />
         </x-mail::header>
     </x-slot:header>
 
@@ -18,11 +18,10 @@
         </x-slot:subcopy>
     @endisset
 
-    @inject('settings', 'App\Settings\GeneralSetting')
     {{-- Footer --}}
     <x-slot:footer>
         <x-mail::footer>
-            © {{ date('Y') }} {{ $settings->app_name }}. {{ __('All rights reserved.') }}
+            © {{ date('Y') }} {{ setting('general.app_name') }}. {{ __('All rights reserved.') }}
         </x-mail::footer>
     </x-slot:footer>
 </x-mail::layout>

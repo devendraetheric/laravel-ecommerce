@@ -25,7 +25,7 @@
             <tr>
                 <td width="50%">
 
-                    {{-- <img src="{{ websiteLogo() }}" alt="{{ config('app.name') }}" height="50px;" width="150px;" /> --}}
+                    {{-- <img src="{{ getLogoURL() }}" alt="{{ config('app.name') }}" height="50px;" width="150px;" /> --}}
 
                     <img src="{{ public_path('storage/' . $generalSetting->logo) }}" alt="{{ config('app.name') }}"
                         height="50px;" width="150px;" />
@@ -33,7 +33,7 @@
                 <td width="50%">
                     <b>Order Number :</b> {{ $order->order_number }} <br>
                     <b>Order Date :</b>
-                    {{ $order->order_date->format(dateFormat()) }}
+                    {{ $order->order_date->format(setting('general.date_format')) }}
                 </td>
             </tr>
             <tr>

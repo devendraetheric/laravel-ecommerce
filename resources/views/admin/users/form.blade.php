@@ -31,7 +31,7 @@
                     <div class="grid grid-cols-2 gap-4">
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="first_name" class="control-label sm:pt-1.5">First Name</label>
+                            <label for="first_name" class="control-label">First Name</label>
                             <input type="text" name="first_name" id="first_name"
                                 class="form-control @error('first_name') is-invalid @enderror"
                                 value="{{ old('first_name', $user->first_name) }}" />
@@ -41,7 +41,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="last_name" class="control-label sm:pt-1.5">Last Name</label>
+                            <label for="last_name" class="control-label">Last Name</label>
                             <input type="text" name="last_name" id="last_name"
                                 class="form-control @error('last_name') is-invalid @enderror"
                                 value="{{ old('last_name', $user->last_name) }}" />
@@ -51,7 +51,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="email" class="control-label sm:pt-1.5">Email</label>
+                            <label for="email" class="control-label">Email</label>
                             <input type="text" name="email" id="email"
                                 class="form-control @error('email') is-invalid @enderror"
                                 value="{{ old('email', $user->email) }}" />
@@ -61,7 +61,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="phone" class="control-label sm:pt-1.5">Phone</label>
+                            <label for="phone" class="control-label">Phone</label>
                             <input type="text" name="phone" id="phone"
                                 class="form-control @error('phone') is-invalid @enderror"
                                 value="{{ old('phone', $user->phone) }}" />
@@ -73,7 +73,7 @@
 
                         <!---  passsword------->
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="password" class="control-label sm:pt-1.5">Password</label>
+                            <label for="password" class="control-label">Password</label>
                             <input type="password" name="password" id="password"
                                 class="form-control @error('password') is-invalid @enderror" />
                             @error('password')

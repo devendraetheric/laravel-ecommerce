@@ -35,7 +35,7 @@
                 <div class="p-6">
                     <div class="grid grid-cols-3 gap-4">
                         <div class="space-y-2 col-span-3 md:col-span-1">
-                            <label for="order_number" class="control-label sm:pt-1.5">Order #</label>
+                            <label for="order_number" class="control-label">Order #</label>
                             <input type="text" name="order_number" id="order_number"
                                 class="form-control @error('order_number') is-invalid @enderror"
                                 value="{{ old('order_number', $order->order_number ?? $order->generateOrderNumber()) }}"
@@ -46,7 +46,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-3 md:col-span-1">
-                            <label for="order_date" class="control-label sm:pt-1.5">Order Date</label>
+                            <label for="order_date" class="control-label">Order Date</label>
                             <input type="date" name="order_date" id="order_date"
                                 class="form-control @error('order_date') is-invalid @enderror"
                                 value="{{ old('order_date', $order->order_date?->format('Y-m-d') ?? now()->format('Y-m-d')) }}" />
@@ -56,7 +56,7 @@
                         </div>
 
                         <div class="space-y-2">
-                            <label for="user_name" class="control-label sm:pt-1.5">User</label>
+                            <label for="user_name" class="control-label">User</label>
                             <div class="relative" x-data="userCombobox()">
                                 <input x-model="query" @input="searchUsers" @focus="open = !open"
                                     @keydown.arrow-down.prevent="highlightNext()"
@@ -116,7 +116,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-3 md:col-span-1">
-                            <label for="status" class="control-label sm:pt-1.5">Status</label>
+                            <label for="status" class="control-label">Status</label>
                             <div class="sm:grid sm:grid-cols-6 sm:items-start sm:gap-4">
                                 <div class="mt-2 sm:col-span-6 sm:mt-0 grid grid-cols-1">
                                     <select name="status" id="status"
@@ -298,7 +298,7 @@
                 <div class="p-6">
                     <div class="grid grid-cols-2 gap-4">
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="sub_total" class="control-label sm:pt-1.5">Sub Total</label>
+                            <label for="sub_total" class="control-label">Sub Total</label>
                             <input type="text" name="sub_total" id="sub_total"
                                 class="form-control @error('sub_total') is-invalid @enderror"
                                 :value="grandTotal.toFixed(2)" readonly />
@@ -308,7 +308,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="grand_total" class="control-label sm:pt-1.5">Grand Total</label>
+                            <label for="grand_total" class="control-label">Grand Total</label>
                             <input type="text" name="grand_total" id="grand_total"
                                 class="form-control @error('grand_total') is-invalid @enderror"
                                 :value="grandTotal.toFixed(2)" readonly />
@@ -318,7 +318,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-2">
-                            <label for="notes" class="control-label sm:pt-1.5">Notes</label>
+                            <label for="notes" class="control-label">Notes</label>
                             <textarea class="form-control @error('notes') is-invalid @enderror" id="notes" name="notes" rows="2">{{ old('notes', $order->notes) }}</textarea>
                             @error('notes')
                                 <p class="text-sm text-red-600">{{ $message }}</p>

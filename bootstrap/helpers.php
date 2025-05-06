@@ -2,17 +2,21 @@
 
 use App\Models\Cart;
 use App\Settings\GeneralSetting;
+use Illuminate\Support\Facades\Auth;
 
 if (!function_exists('cart')) {
     function cart(): Cart
     {
         // Session ID
         // dd(session()->getId());
+        static $cart = null;
 
-        if (auth()->check()) {
-            $cart = Cart::FirstOrCreate(['user_id' => auth()->id()]);
-        } else {
-            $cart = Cart::FirstOrCreate(['session_id' => session()->getId()]);
+        if ($cart === null) {
+            if (Auth::check()) {
+                $cart = Cart::FirstOrCreate(['user_id' => auth()->id()]);
+            } else {
+                $cart = Cart::FirstOrCreate(['session_id' => session()->getId()]);
+            }
         }
 
         return $cart;
@@ -26,13 +30,44 @@ if (!function_exists('cartCount')) {
     }
 }
 
+function setting(string $classOrKey)
+{
+    // If full class name is passed
+    if (class_exists($classOrKey)) {
+        return app($classOrKey);
+    }
+
+    // If dot notation is passed, e.g., "general.site_name"
+    if (str_contains($classOrKey, '.')) {
+        [$section, $key] = explode('.', $classOrKey, 2);
+
+        // Map section to class (adjust these according to your setup)
+        $map = [
+            'general'   => \App\Settings\GeneralSetting::class,
+            'prefix'    => \App\Settings\PrefixSetting::class,
+            'company'   => \App\Settings\CompanySetting::class,
+            'social'    => \App\Settings\SocialMediaSetting::class,
+        ];
+
+        $class = $map[$section] ?? null;
+
+        if (! $class) {
+            throw new \Exception("Unknown settings section [$section]");
+        }
+
+        return app($class)->$key;
+    }
+
+    throw new \Exception("Invalid setting call: [$classOrKey]");
+}
+
 
 if (! function_exists('getGeneralSettings')) {
     function getGeneralSettings(): GeneralSetting
     {
         static $settings;
 
-        if (! $settings) {
+        if ($settings === null) {
             $settings = app(GeneralSetting::class);
         }
 
@@ -40,23 +75,16 @@ if (! function_exists('getGeneralSettings')) {
     }
 }
 
-if (! function_exists('websiteLogo')) {
-    function websiteLogo(): string
+if (! function_exists('getLogoURL')) {
+    function getLogoURL(): string
     {
-        return asset('storage/' . getGeneralSettings()->logo);
+        return setting('general.logo') ? asset('storage/' . setting('general.logo')) : asset('otc-logo.png');
     }
 }
 
-if (! function_exists('websiteFavicon')) {
-    function websiteFavicon(): string
+if (! function_exists('getFaviconURL')) {
+    function getFaviconURL(): string
     {
-        return asset('storage/' . getGeneralSettings()->favicon);
-    }
-}
-
-if (! function_exists('dateFormat')) {
-    function dateFormat(): string
-    {
-        return getGeneralSettings()->date_format ?? 'd-m-Y';
+        return setting('general.favicon') ? asset('storage/' . setting('general.favicon')) : asset('favicon.png');
     }
 }

@@ -30,7 +30,7 @@
                     <div class="grid grid-cols-2 gap-4">
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="facebook" class="control-label sm:pt-1.5">Facebool</label>
+                            <label for="facebook" class="control-label">Facebool</label>
                             <input type="text" name="facebook" id="facebook"
                                 class="form-control @error('facebook') is-invalid @enderror"
                                 value="{{ old('facebook', $settings->facebook) }}" />
@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="instagram" class="control-label sm:pt-1.5">Instagram</label>
+                            <label for="instagram" class="control-label">Instagram</label>
                             <input type="text" name="instagram" id="instagram"
                                 class="form-control @error('instagram') is-invalid @enderror"
                                 value="{{ old('instagram', $settings->instagram) }}" />
@@ -50,7 +50,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="youtube" class="control-label sm:pt-1.5">YouTube</label>
+                            <label for="youtube" class="control-label">YouTube</label>
                             <input type="text" name="youtube" id="youtube"
                                 class="form-control @error('youtube') is-invalid @enderror"
                                 value="{{ old('youtube', $settings->youtube) }}" />
@@ -60,7 +60,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="twitter" class="control-label sm:pt-1.5">Twitter</label>
+                            <label for="twitter" class="control-label">Twitter</label>
                             <input type="text" name="twitter" id="twitter"
                                 class="form-control @error('twitter') is-invalid @enderror"
                                 value="{{ old('twitter', $settings->twitter) }}" />

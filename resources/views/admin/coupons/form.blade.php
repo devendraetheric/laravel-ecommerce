@@ -31,7 +31,7 @@
                     <div class="grid grid-cols-2 gap-4">
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="code" class="control-label sm:pt-1.5">Code</label>
+                            <label for="code" class="control-label">Code</label>
                             <input type="text" name="code" id="code"
                                 class="form-control @error('code') is-invalid @enderror"
                                 value="{{ old('code', $coupon->code) }}" />
@@ -41,7 +41,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="total_quantity" class="control-label sm:pt-1.5">Total Quantity</label>
+                            <label for="total_quantity" class="control-label">Total Quantity</label>
                             <input type="text" name="total_quantity" id="total_quantity"
                                 class="form-control @error('total_quantity') is-invalid @enderror"
                                 value="{{ old('total_quantity', $coupon->total_quantity) }}" />
@@ -54,7 +54,7 @@
 
 
                         <div class="space-y-2 col-span-2">
-                            <label for="description" class="control-label sm:pt-1.5">Description</label>
+                            <label for="description" class="control-label">Description</label>
                             <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description"
                                 rows="3">{{ old('description', $coupon->description) }}</textarea>
                             @error('description')
@@ -63,7 +63,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="start_date" class="control-label sm:pt-1.5">Start Date</label>
+                            <label for="start_date" class="control-label">Start Date</label>
                             <input type="date" name="start_date" id="start_date"
                                 class="form-control @error('start_date') is-invalid @enderror"
                                 value="{{ old('start_date', $coupon->start_date?->format('Y-m-d') ?? now()->format('Y-m-d')) }}" />
@@ -73,7 +73,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="end_date" class="control-label sm:pt-1.5">End Date</label>
+                            <label for="end_date" class="control-label">End Date</label>
                             <input type="date" name="end_date" id="end_date"
                                 class="form-control @error('end_date') is-invalid @enderror"
                                 value="{{ old('end_date', $coupon->end_date?->format('Y-m-d') ?? now()->format('Y-m-d')) }}" />
@@ -83,7 +83,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="type" class="control-label sm:pt-1.5">Type</label>
+                            <label for="type" class="control-label">Type</label>
                             <div class="sm:grid sm:grid-cols-6 sm:items-start sm:gap-4">
                                 <div class="mt-2 sm:col-span-6 sm:mt-0 grid grid-cols-1">
                                     <select name="type" id="type"
@@ -105,7 +105,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="value" class="control-label sm:pt-1.5">Value</label>
+                            <label for="value" class="control-label">Value</label>
                             <input type="text" name="value" id="value"
                                 class="form-control @error('value') is-invalid @enderror"
                                 value="{{ old('value', $coupon->value) }}" />
@@ -115,7 +115,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="total_quantity" class="control-label sm:pt-1.5">Total Quantity</label>
+                            <label for="total_quantity" class="control-label">Total Quantity</label>
                             <input type="text" name="total_quantity" id="total_quantity"
                                 class="form-control @error('total_quantity') is-invalid @enderror"
                                 value="{{ old('total_quantity', $coupon->total_quantity) }}" />
@@ -125,7 +125,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="use_per_user" class="control-label sm:pt-1.5">Use Per User</label>
+                            <label for="use_per_user" class="control-label">Use Per User</label>
                             <input type="text" name="use_per_user" id="use_per_user"
                                 class="form-control @error('use_per_user') is-invalid @enderror"
                                 value="{{ old('use_per_user', $coupon->use_per_user) }}" />
@@ -135,7 +135,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="used_quantity" class="control-label sm:pt-1.5">Used Quantity</label>
+                            <label for="used_quantity" class="control-label">Used Quantity</label>
                             <input type="text" name="used_quantity" id="used_quantity"
                                 class="form-control @error('used_quantity') is-invalid @enderror"
                                 value="{{ old('used_quantity', $coupon->used_quantity) }}" />
@@ -145,7 +145,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="max_discount_value" class="control-label sm:pt-1.5">Max Discount Value</label>
+                            <label for="max_discount_value" class="control-label">Max Discount Value</label>
                             <input type="text" name="max_discount_value" id="max_discount_value"
                                 class="form-control @error('max_discount_value') is-invalid @enderror"
                                 value="{{ old('max_discount_value', $coupon->max_discount_value) }}" />
@@ -155,7 +155,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="min_cart_value" class="control-label sm:pt-1.5">Min Cart Value</label>
+                            <label for="min_cart_value" class="control-label">Min Cart Value</label>
                             <input type="text" name="min_cart_value" id="min_cart_value"
                                 class="form-control @error('min_cart_value') is-invalid @enderror"
                                 value="{{ old('min_cart_value', $coupon->min_cart_value) }}" />
@@ -165,7 +165,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="max_cart_value" class="control-label sm:pt-1.5">Max Cart Value</label>
+                            <label for="max_cart_value" class="control-label">Max Cart Value</label>
                             <input type="text" name="max_cart_value" id="max_cart_value"
                                 class="form-control @error('max_cart_value') is-invalid @enderror"
                                 value="{{ old('max_cart_value', $coupon->max_cart_value) }}" />
@@ -175,7 +175,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="is_for_new_user" class="control-label sm:pt-1.5">Is For New User</label>
+                            <label for="is_for_new_user" class="control-label">Is For New User</label>
                             <input type="text" name="is_for_new_user" id="is_for_new_user"
                                 class="form-control @error('is_for_new_user') is-invalid @enderror"
                                 value="{{ old('is_for_new_user', $coupon->is_for_new_user) }}" />

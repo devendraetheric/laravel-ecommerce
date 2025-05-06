@@ -25,7 +25,7 @@
 
     {{-- favicon --}}
     {{-- <link rel="icon" type="image/png" href="{{ asset('storage/' . $settings->favicon) }}" /> --}}
-    <link rel="icon" type="image/png" href="{{ websiteFavicon() }}" />
+    <link rel="icon" type="image/png" href="{{ getFaviconURL() }}" />
 
     {{-- Open Graph --}}
 

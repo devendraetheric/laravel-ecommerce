@@ -50,7 +50,7 @@
                             slug: '{{ old('slug', $product->slug) }}'
                         }">
                             <div class="space-y-2 col-span-2 md:col-span-1">
-                                <label for="name" class="control-label sm:pt-1.5">Name</label>
+                                <label for="name" class="control-label">Name</label>
                                 <input type="text" name="name" id="name"
                                     class="form-control @error('name') is-invalid @enderror" x-model="title"
                                     @input="slug = slugify(title)" />
@@ -86,7 +86,7 @@
                         <div class="p-6">
                             <div class="grid grid-cols-2 gap-4">
                                 <div class="space-y-2 col-span-2 md:col-span-1">
-                                    <label for="regular_price" class="control-label sm:pt-1.5">Regular Price</label>
+                                    <label for="regular_price" class="control-label">Regular Price</label>
                                     <input type="text" name="regular_price" id="regular_price"
                                         class="form-control @error('regular_price') is-invalid @enderror"
                                         value="{{ old('regular_price', $product->regular_price) }}" />
@@ -96,7 +96,7 @@
                                 </div>
 
                                 <div class="space-y-2 col-span-2 md:col-span-1">
-                                    <label for="selling_price" class="control-label sm:pt-1.5">Selling Price</label>
+                                    <label for="selling_price" class="control-label">Selling Price</label>
                                     <input type="text" name="selling_price" id="selling_price"
                                         class="form-control @error('selling_price') is-invalid @enderror"
                                         value="{{ old('selling_price', $product->selling_price) }}" />
@@ -115,7 +115,7 @@
                         <div class="p-6">
                             <div class="grid grid-cols-2 gap-4">
                                 <div class="space-y-2 col-span-2 md:col-span-1">
-                                    <label for="sku" class="control-label sm:pt-1.5">SKU (Stock Keeping
+                                    <label for="sku" class="control-label">SKU (Stock Keeping
                                         Unit)</label>
                                     <input type="text" name="sku" id="sku"
                                         class="form-control @error('sku') is-invalid @enderror"
@@ -126,7 +126,7 @@
                                 </div>
 
                                 <div class="space-y-2 col-span-2 md:col-span-1">
-                                    <label for="barcode" class="control-label sm:pt-1.5">Barcode (ISBN, UPC, GTIN,
+                                    <label for="barcode" class="control-label">Barcode (ISBN, UPC, GTIN,
                                         etc.)</label>
                                     <input type="text" name="barcode" id="barcode"
                                         class="form-control @error('barcode') is-invalid @enderror"
@@ -146,7 +146,7 @@
                         <div class="p-6">
                             <div class="grid gap-4">
                                 <div class="space-y-2">
-                                    <label for="seo_title" class="control-label sm:pt-1.5">SEO Title</label>
+                                    <label for="seo_title" class="control-label">SEO Title</label>
                                     <input type="text" name="seo_title" id="seo_title"
                                         class="form-control @error('seo_title') is-invalid @enderror"
                                         value="{{ old('seo_title', $product->seo_title) }}" />
@@ -156,7 +156,7 @@
                                 </div>
 
                                 <div class="space-y-2">
-                                    <label for="seo_description" class="control-label sm:pt-1.5">SEO
+                                    <label for="seo_description" class="control-label">SEO
                                         Description</label>
                                     <textarea class="form-control @error('seo_description') is-invalid @enderror" id="seo_description"
                                         name="seo_description" rows="3">{{ old('seo_description', $product->seo_description) }}</textarea>
@@ -202,7 +202,7 @@
                         <div class="p-6">
                             <div class="space-y-4">
                                 <div class="space-y-2">
-                                    <label for="brand_name" class="control-label sm:pt-1.5">Brand</label>
+                                    <label for="brand_name" class="control-label">Brand</label>
                                     <div class="relative" x-data="brandCombobox()">
                                         <input x-model="query" @input="searchBrands" @focus="open = !open"
                                             @keydown.arrow-down.prevent="highlightNext()"
@@ -264,7 +264,7 @@
                                 </div>
 
                                 <div class="space-y-2">
-                                    <label for="category_name" class="control-label sm:pt-1.5">Category</label>
+                                    <label for="category_name" class="control-label">Category</label>
                                     <div class="relative" x-data="categoryCombobox()">
                                         <input x-model="query" @input="searchCategories" @focus="open = !open"
                                             @keydown.arrow-down.prevent="highlightNext()"

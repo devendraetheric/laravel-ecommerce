@@ -55,7 +55,7 @@
                 <div class="flex justify-between items-center gap-2 py-4">
                     <div>
                         <a href="{{ route('home') }}">
-                            <img class="h-12" src="{{ websiteLogo() }}" alt="{{ asset('otc-logo.png') }}"
+                            <img class="h-12" src="{{ getLogoURL() }}" alt="{{ setting('general.app_name') }}"
                                 loading="lazy" />
                         </a>
                     </div>
@@ -170,7 +170,7 @@
                         <div class="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
                             <div class="flex justify-between items-center px-3 py-4 mb-4">
                                 <a href="{{ route('home') }}">
-                                    <img src="{{ websiteLogo() }}" alt="{{ asset('otc-logo.png') }}"
+                                    <img src="{{ getLogoURL() }}" alt="{{ asset('otc-logo.png') }}"
                                         loading="lazy" />
                                 </a>
                                 <div class="flex items-center gap-x-4 lg:gap-x-6">

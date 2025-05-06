@@ -34,7 +34,7 @@
                     <div class="grid grid-cols-2 gap-4">
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="name" class="control-label sm:pt-1.5">Name</label>
+                            <label for="name" class="control-label">Name</label>
                             <input type="text" name="name" id="name"
                                 class="form-control @error('name') is-invalid @enderror"
                                 value="{{ old('name', $banner->name) }}" />
@@ -44,13 +44,13 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="image" class="control-label sm:pt-1.5">Image</label>
+                            <label for="image" class="control-label">Image</label>
                             <input id="image" name="image" type="file" class="form-control">
                         </div>
 
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="link" class="control-label sm:pt-1.5">Destination Link</label>
+                            <label for="link" class="control-label">Destination Link</label>
                             <input type="text" name="link" id="link"
                                 class="form-control @error('link') is-invalid @enderror"
                                 value="{{ old('link', $banner->link) }}" />
@@ -60,7 +60,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="location" class="control-label sm:pt-1.5">Location</label>
+                            <label for="location" class="control-label">Location</label>
                             <input type="text" name="location" id="location"
                                 class="form-control @error('location') is-invalid @enderror"
                                 value="{{ old('location', $banner->location ?? 'slider') }}" list="locationOption" />

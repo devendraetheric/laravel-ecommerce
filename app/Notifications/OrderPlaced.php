@@ -37,8 +37,6 @@ class OrderPlaced extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        $settings = new GeneralSetting();
-
         return (new MailMessage)
             ->subject('Order Confirmation')
             ->greeting('Hello ' . $this->order->user->name . '!')
@@ -47,7 +45,7 @@ class OrderPlaced extends Notification
             ->line('Total: $' . $this->order->grand_total)
             ->action('View Order', route('account.orders.show', $this->order))
             ->line('Thank you for shopping with us!')
-            ->salutation("Best Regards, \n $settings->app_name");
+            ->salutation("Best Regards, \n " . setting('general.app_name'));
     }
 
     /**

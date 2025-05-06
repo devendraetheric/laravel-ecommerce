@@ -30,7 +30,7 @@
                     <div class="grid grid-cols-2 gap-4">
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="name" class="control-label sm:pt-1.5">Name</label>
+                            <label for="name" class="control-label">Name</label>
                             <input type="text" name="name" id="name"
                                 class="form-control @error('name') is-invalid @enderror"
                                 value="{{ old('name', $settings->name) }}" />
@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="email" class="control-label sm:pt-1.5">Email</label>
+                            <label for="email" class="control-label">Email</label>
                             <input type="text" name="email" id="email"
                                 class="form-control @error('email') is-invalid @enderror"
                                 value="{{ old('email', $settings->email) }}" />
@@ -50,7 +50,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="phone" class="control-label sm:pt-1.5">Phone</label>
+                            <label for="phone" class="control-label">Phone</label>
                             <input type="text" name="phone" id="phone"
                                 class="form-control @error('phone') is-invalid @enderror"
                                 value="{{ old('phone', $settings->phone) }}" />
@@ -60,7 +60,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="website" class="control-label sm:pt-1.5">Website</label>
+                            <label for="website" class="control-label">Website</label>
                             <input type="text" name="website" id="website"
                                 class="form-control @error('website') is-invalid @enderror"
                                 value="{{ old('website', $settings->website) }}" />
@@ -70,7 +70,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-2">
-                            <label for="address" class="control-label sm:pt-1.5">Address</label>
+                            <label for="address" class="control-label">Address</label>
                             <textarea class="form-control @error('address') is-invalid @enderror" id="address" name="address" rows="2">{{ old('address', $settings->address) }}</textarea>
                             @error('address')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
@@ -78,7 +78,7 @@
                         </div>
 
                         <div>
-                            <label for="country" class="control-label sm:pt-1.5">Country</label>
+                            <label for="country" class="control-label">Country</label>
                             <div class="mt-2 grid grid-cols-1">
                                 <select id="country" name="country" class="col-start-1 row-start-1 form-select"
                                     x-model="country" x-init="countryChange()" @change="countryChange()">
@@ -101,7 +101,7 @@
                         </div>
 
                         <div>
-                            <label for="state" class="control-label sm:pt-1.5">State</label>
+                            <label for="state" class="control-label">State</label>
                             <div class="mt-2 grid grid-cols-1">
                                 <select id="state" name="state" class="col-start-1 row-start-1 form-select">
                                     <option value="">Select State</option>
@@ -123,7 +123,7 @@
 
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="city" class="control-label sm:pt-1.5">City</label>
+                            <label for="city" class="control-label">City</label>
                             <input type="text" name="city" id="city"
                                 class="form-control @error('city') is-invalid @enderror"
                                 value="{{ old('city', $settings->city) }}" />
@@ -133,7 +133,7 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="zipcode" class="control-label sm:pt-1.5">Zipcode</label>
+                            <label for="zipcode" class="control-label">Zipcode</label>
                             <input type="text" name="zipcode" id="zipcode"
                                 class="form-control @error('zipcode') is-invalid @enderror"
                                 value="{{ old('zipcode', $settings->zipcode) }}" />
