@@ -121,8 +121,9 @@
 
 <div class="flex h-16 shrink-0 items-center">
     <a href="{{ route('admin.dashboard') }}">
-        <img class="h-12 w-auto" src="{{ asset('storage/' . $settings->logo) }}" alt="{{ config('app.name') }}"
-            loading="lazy" />
+        <img class="h-12 w-auto"
+            src="https://my.vitalpetessentials.com/uploads/W0Zvjtdut837SvuQyia9v7exTjo2g4kSPVGD6UiT.png"
+            alt="{{ $settings->app_name }}" loading="lazy" />
     </a>
 </div>
 <nav class="flex flex-1 flex-col">

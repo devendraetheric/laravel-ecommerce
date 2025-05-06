@@ -28,8 +28,6 @@ class Category extends Model implements HasMedia
         'is_active' => 'boolean',
     ];
 
-    protected $perPage = 10;
-
     public function registerMediaConversions(?Media $media = null): void
     {
         $this

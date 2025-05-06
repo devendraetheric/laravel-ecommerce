@@ -20,6 +20,7 @@ class ProductController extends Controller
         ];
 
         $products = Product::active()
+            ->with('media')
             ->latest()
             ->paginate(12)
             ->withQueryString();
@@ -40,6 +41,7 @@ class ProductController extends Controller
 
         $products = Product::active()
             ->where('category_id', $category->id)
+            ->with('media')
             ->latest()
             ->paginate(12)
             ->withQueryString();
@@ -60,6 +62,7 @@ class ProductController extends Controller
 
         $products = Product::active()
             ->where('brand_id', $brand->id)
+            ->with('media')
             ->latest()
             ->paginate(12)
             ->withQueryString();
@@ -69,6 +72,8 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
+        $product->with('media');
+
         return view('products.show', compact('product'));
     }
 }

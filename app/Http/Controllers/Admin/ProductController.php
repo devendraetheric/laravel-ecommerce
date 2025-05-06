@@ -18,7 +18,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::latest()
-            ->with(['brand', 'category'])
+            ->with(['brand', 'category', 'media'])
             ->paginate()
             ->withQueryString();
 
@@ -58,17 +58,25 @@ class ProductController extends Controller
             'brand_id'          => ['nullable', 'exists:brands,id'],
             'seo_title'         => ['nullable', 'string'],
             'seo_description'   => ['nullable', 'string'],
+            'featured-image'    => ['nullable', 'image', 'max:1024'],
+            'product-images'    => ['nullable', 'array'],
+            'product-images.*'  => ['image', 'max:1024'],
         ]);
 
         $product = Product::create($validated);
 
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $path = $file->store('uploads', 'public');
-
-            $product->addMedia(storage_path("app/public/$path"))
+        if ($request->hasFile('featured-image')) {
+            $product->addMediaFromRequest('featured-image')
                 ->preservingOriginal()
                 ->toMediaCollection('featured-image');
+        }
+        if ($request->hasFile('product-images')) {
+
+            foreach ($request->file('product-images') as $image) {
+                $product->addMedia($image)
+                    ->preservingOriginal()
+                    ->toMediaCollection('product-images');
+            }
         }
 
         return redirect()
@@ -115,20 +123,28 @@ class ProductController extends Controller
             'brand_id'          => ['nullable', 'exists:brands,id'],
             'seo_title'         => ['nullable', 'string'],
             'seo_description'   => ['nullable', 'string'],
+            'featured-image'    => ['nullable', 'image', 'max:1024'],
+            'product-images'    => ['nullable', 'array'],
+            'product-images.*'  => ['image', 'max:1024'],
         ]);
 
         $product->fill($validated);
         $product->save();
 
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $path = $file->store('uploads', 'public');
-
+        if ($request->hasFile('featured-image')) {
             $product->clearMediaCollection('featured-image');
-
-            $product->addMedia(storage_path("app/public/$path"))
+            $product->addMediaFromRequest('featured-image')
                 ->preservingOriginal()
                 ->toMediaCollection('featured-image');
+        }
+
+        if ($request->hasFile('product-images')) {
+            $product->clearMediaCollection('product-images');
+            foreach ($request->file('product-images') as $image) {
+                $product->addMedia($image)
+                    ->preservingOriginal()
+                    ->toMediaCollection('product-images');
+            }
         }
 
         return redirect()

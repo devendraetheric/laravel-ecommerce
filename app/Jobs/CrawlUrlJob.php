@@ -9,6 +9,7 @@ use App\Models\Product;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\DomCrawler\Crawler;
 
 class CrawlUrlJob implements ShouldQueue
@@ -40,9 +41,9 @@ class CrawlUrlJob implements ShouldQueue
 
         $product = $this->saveProduct($data);
         if ($product) {
-            log('Product Imported: ' . $product->name);
+            Log::info('Product Imported: ' . $product->name);
         } else {
-            log('Product Import Failed: ' . $data[0]);
+            Log::info('Product Import Failed: ' . $data[0]);
         }
     }
 
