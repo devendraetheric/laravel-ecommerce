@@ -61,11 +61,14 @@
 
                 <div>
                     <input type="password" id="password_confirmation" name="password_confirmation"
-                        placeholder="Confirm Password" class="form-control @error('password_confirmation') is-invalid @enderror" />
+                        placeholder="Confirm Password"
+                        class="form-control @error('password_confirmation') is-invalid @enderror" />
                     @error('password_confirmation')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
+
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAABZpN4J3QuMhFBMz"></div>
 
                 <button type="submit" class="btn-primary w-full gap-x-2">
                     Sign Up

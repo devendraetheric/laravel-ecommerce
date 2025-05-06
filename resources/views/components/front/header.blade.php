@@ -86,7 +86,7 @@
                                 </span>
                             </a>
 
-                            <a href="{{ route('account.wishlist') }}" class="text-gray-700">
+                            <a href="{{ route('account.wishlist') }}" class="text-gray-700" aria-label="Wishlist">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="size-6">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -94,7 +94,7 @@
                                 </svg>
                             </a>
                             @auth
-                                <a href="{{ route('account.dashboard') }}" class="text-gray-700">
+                                <a href="{{ route('account.dashboard') }}" class="text-gray-700" aria-label="Your Account">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-6">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -117,7 +117,7 @@
                     </div>
                     <button type="button"
                         class="lg:hidden inline-block cursor-pointer text-gray-800 hover:text-primary-600"
-                        @click="showMenu=true">
+                        @click="showMenu=true" aria-label="Show Menu">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-5">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -187,7 +187,8 @@
                                         </span>
                                     </a>
 
-                                    <a href="{{ route('account.wishlist') }}" class="text-gray-700">
+                                    <a href="{{ route('account.wishlist') }}" class="text-gray-700"
+                                        aria-label="Wishlist">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="size-6">
                                             <path stroke-linecap="round" stroke-linejoin="round"

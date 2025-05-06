@@ -37,7 +37,7 @@
                                             class="w-full rounded-md object-contain aspect-square" loading="lazy" />
                                     </div>
                                     @foreach ($product?->getMedia('product-images') as $image)
-                                        <div class="swiper-slide !aspect-square">
+                                        <div class="swiper-slide !aspect-square bg-white rounded-md">
                                             <img src="{{ $image->getUrl() }}" alt="{{ $product?->name }}"
                                                 class="w-full rounded-md object-contain aspect-square" loading="lazy" />
                                         </div>

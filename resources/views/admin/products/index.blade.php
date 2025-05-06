@@ -44,7 +44,7 @@
                                                 <div class="size-11 shrink-0">
                                                     <img class="size-11 rounded-full"
                                                         src="{{ $product?->thumbnailURL('thumb') }}"
-                                                        alt="{{ $product->name }}" loading="lazy" />
+                                                        alt="{{ $product->name }}" loading="lazy" fetchpriority="low" />
                                                 </div>
                                                 <div class="ml-4 max-w-lg">
                                                     <div class="font-medium text-gray-900 truncate">

@@ -1,8 +1,8 @@
 <div class="relative w-full inline-block">
     <a href="{{ route('products.show', $product) }}">
-        <div class="overflow-hidden aspect-square mb-2 relative rounded-lg">
+        <div class="overflow-hidden aspect-square bg-white mb-2 relative rounded-lg">
             <img class="w-full object-cover rounded-xs" src="{{ $product->thumbnailURL() }}" alt="{{ $product?->name }}"
-                loading="lazy" />
+                loading="lazy" fetchpriority="low" />
         </div>
     </a>
     <div>
@@ -12,7 +12,7 @@
         </a>
         <p class="flex gap-2 items-center">
             <span class="text-gray-800 text-lg">${{ $product->selling_price }}</span>
-            <span class="text-red-600 opacity-70 text-lg line-through">${{ $product->regular_price }}</span>
+            {{-- <span class="text-red-600 opacity-70 text-lg line-through">${{ $product->regular_price }}</span> --}}
         </p>
     </div>
     <div class="mt-2 flex w-full items-center gap-2">
@@ -41,7 +41,8 @@
             </button>
         </form>
         <a href="{{ route('account.addToWishlist', $product->id) }}"
-            class="rounded-md bg-white px-3 py-3 text-sm font-bold text-primary-600 border border-primary-300 hover:bg-primary-50">
+            class="rounded-md bg-white px-3 py-3 text-sm font-bold text-primary-600 border border-primary-300 hover:bg-primary-50"
+            data-product-name="{{ $product->name }}" aria-label="Add {{ $product->name }} to wishlist">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="size-5">
                 <path stroke-linecap="round" stroke-linejoin="round"

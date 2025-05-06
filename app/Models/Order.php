@@ -33,8 +33,6 @@ class Order extends Model
         'order_date'     => 'date:Y-m-d'
     ];
 
-    protected $perPage = 10;
-
     public static function generateOrderNumber(): string
     {
         /*  return 'ORD-' . strtoupper(random_int(10000, 99999)); */

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ImportOldProduct;
 use App\Jobs\ImportProduct;
 use App\Models\Banner;
 use App\Models\Brand;
@@ -14,19 +15,22 @@ class FrontController extends Controller
     {
         $data['sliders'] = Banner::active()
             ->where('location', 'slider')
+            ->with('media')
             ->latest()
             ->get();
 
-        $data['featuredProducts'] = Product::featured()->take(8)->get();
-        $data['latestProducts'] = Product::latest()->take(8)->get();
-        $data['bestSellingProducts'] = Product::active()->take(8)->get();
+        $data['featuredProducts'] = Product::featured()->with('media')->take(8)->get();
+        $data['latestProducts'] = Product::latest()->with('media')->take(8)->get();
+        $data['bestSellingProducts'] = Product::active()->with('media')->take(8)->get();
 
         $data['topCategories'] = Category::withCount('products')
+            ->with('media')
             ->latest()
             ->take(8)
             ->get();
 
         $data['brands'] = Brand::withCount('products')
+            ->with('media')
             ->latest()
             ->take(12)
             ->get();
@@ -37,6 +41,9 @@ class FrontController extends Controller
     // Import From csv
     public function import()
     {
+        /* ImportOldProduct::dispatch()
+            ->onQueue('import-product'); */
+
         ImportProduct::dispatch()
             ->onQueue('import-product');
 

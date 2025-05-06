@@ -40,8 +40,6 @@ class Product extends Model implements HasMedia
         'stock' => 'integer',
     ];
 
-    protected $perPage = 10;
-
     /* public function getRouteKeyName(): string
     {
         return 'slug';
@@ -84,10 +82,11 @@ class Product extends Model implements HasMedia
     {
         return
             $query->where('id', '!=', $this->id)
-            ->when($this->category_id || $this->brand_id, function ($query) {
+            ->where(function ($query) {
                 return $query->where('category_id', $this->category_id)
                     ->orWhere('brand_id', $this->brand_id);
             })
+            ->with('media')
             ->active()
             ->take($limit)
             ->get();

@@ -54,8 +54,8 @@ class SettingController extends Controller
             'time_format'        => ['required', 'string'],
             'timezone'           => ['required', 'string'],
             'is_captcha'         => ['required'],
-            'captcha_secret_key' => ['required', 'string'],
-            'captcha_site_key'   => ['required', 'string'],
+            'captcha_secret_key' => ['nullable', 'string'],
+            'captcha_site_key'   => ['nullable', 'string'],
 
             'logo'               => ['nullable', 'image', 'max:2000'],
             'favicon'            => ['nullable', 'image', 'mimes:png'],

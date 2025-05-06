@@ -20,7 +20,8 @@
                         <div class="swiper-slide">
 
                             @if ($slider->link)
-                                <a href="{{ $slider->link }}" @if ($slider->is_new_tab) target="_bank" @endif>
+                                <a href="{{ $slider->link }}" @if ($slider->is_new_tab) target="_bank" @endif
+                                    aria-label="{{ $slider->name }}">
                             @endif
                             <img class="w-full object-cover rounded-xl"
                                 src="{{ $slider?->getMedia($slider->location)->first()?->getUrl() }}"
@@ -278,7 +279,7 @@
                     </div>
                     <div>
                         <h4 class="text-lg leading-tight text-gray-800 mb-1.5 font-medium">Discount</h4>
-                        <p class="text-gray-600 opacity-60 text-base leading-tight">Every week new sales</p>
+                        <p class="text-gray-600 opacity-90 text-base leading-tight">Every week new sales</p>
                     </div>
                 </div>
                 <div class="flex gap-4 items-center w-full">
@@ -301,7 +302,7 @@
                     </div>
                     <div>
                         <h4 class="text-lg leading-tight text-gray-800 mb-1.5 font-medium">Free Delivary</h4>
-                        <p class="text-gray-600 opacity-60 text-base leading-tight">100% Free for all orders</p>
+                        <p class="text-gray-600 opacity-90 text-base leading-tight">100% Free for all orders</p>
                     </div>
                 </div>
                 <div class="flex gap-4 items-center w-full">
@@ -344,7 +345,7 @@
                     <div>
                         <h4 class="text-lg leading-tight text-gray-800 mb-1.5 font-medium">Great Support 24/7
                         </h4>
-                        <p class="text-gray-600 opacity-60 text-base leading-tight">We care your experiences</p>
+                        <p class="text-gray-600 opacity-90 text-base leading-tight">We care your experiences</p>
                     </div>
                 </div>
                 <div class="flex gap-4 items-center w-full">
@@ -368,7 +369,7 @@
                     </div>
                     <div>
                         <h4 class="text-lg leading-tight text-gray-800 mb-1.5 font-medium">secure Payment</h4>
-                        <p class="text-gray-600 opacity-60 text-base leading-tight">100% Secure Payment</p>
+                        <p class="text-gray-600 opacity-90 text-base leading-tight">100% Secure Payment</p>
                     </div>
                 </div>
             </div>
@@ -388,7 +389,7 @@
                 },
                 pagination: {
                     el: ".banner-pagination",
-                    clickable: true,
+                    clickable: false,
                 },
                 navigation: {
                     nextEl: ".banner-next",

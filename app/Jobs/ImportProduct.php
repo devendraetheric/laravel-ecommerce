@@ -8,6 +8,7 @@ use App\Models\Product;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\DomCrawler\Crawler;
 
 use function Illuminate\Log\log;
@@ -49,15 +50,15 @@ class ImportProduct implements ShouldQueue
                 // check product exists or not
                 $product = Product::where('barcode', $data[1])->first();
                 if ($product) {
-                    log('Product Already Exists: ' . $product->slug);
+                    Log::info('Product Already Exists: ' . $product->slug);
                     continue;
                 }
 
                 $product = $this->saveProduct($data);
                 if ($product) {
-                    log('Product Imported: ' . $product->name);
+                    Log::info('Product Imported: ' . $product->name);
                 } else {
-                    log('Product Import Failed: ' . $data[0]);
+                    Log::info('Product Import Failed: ' . $data[0]);
                 }
 
                 sleep(120);
@@ -73,7 +74,7 @@ class ImportProduct implements ShouldQueue
     {
         $barcode = $data[1];
         $sku = $data[0];
-        $price = $data[2];
+        $price = $data[3];
 
         $url = "https://go-upc.com/search?q={$barcode}";
 

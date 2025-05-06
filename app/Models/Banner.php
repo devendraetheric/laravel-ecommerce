@@ -28,8 +28,6 @@ class Banner extends Model implements HasMedia
         'is_active' => 'boolean',
     ];
 
-    protected $perPage = 10;
-
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
