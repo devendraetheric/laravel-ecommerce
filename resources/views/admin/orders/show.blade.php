@@ -29,8 +29,8 @@
                     <div class="p-6 border-b border-gray-200 flex justify-between items-center w-full">
                         <h3 class="text-base font-semibold text-gray-800">Order Detail</h3>
 
-                        <a href="{{ route('admin.generate-pdf', $order) }}" class="btn-primary gap-1 flex item-center">
-                            <span>Generate PDF</span>
+                        <a href="{{ route('admin.orders.pdf', $order) }}" class="btn-primary gap-1 flex item-center">
+                            <span>PDF</span>
                         </a>
                     </div>
                     <div class="p-6">
@@ -166,7 +166,7 @@
                                 <dd class="text-sm/6 text-gray-900">
 
                                     <time
-                                        datetime="2023-01-31">{{ $order->order_date->format(dateFormat()) }}</time>
+                                        datetime="2023-01-31">{{ $order->order_date->format(setting('general.date_format')) }}</time>
                                 </dd>
                             </div>
                         </dl>

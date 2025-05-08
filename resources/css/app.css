@@ -94,7 +94,7 @@
             @apply opacity-50 !inline-flex !w-20 m-1 p-1 mx-auto rounded-md !aspect-square overflow-hidden !bg-white !items-center;
 
             img {
-                @apply block object-contain w-18 rounded-md;
+                @apply block object-contain aspect-square w-18 rounded-md;
             }
         }
 

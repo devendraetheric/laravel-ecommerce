@@ -12,15 +12,6 @@
 
 }
 
-/* @media print {
-    @page {
-        size: landscape;
-        margin-top: 25px;
-        margin-bottom: 25px;
-    }
-} */
-
-
 @page {
     size: letter;
     margin-top: 25px;

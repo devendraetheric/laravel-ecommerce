@@ -1,8 +1,8 @@
 <div class="relative w-full inline-block">
     <a href="{{ route('products.show', $product) }}">
-        <div class="overflow-hidden aspect-square bg-white mb-2 relative rounded-lg">
-            <img class="w-full object-cover rounded-xs" src="{{ $product->thumbnailURL() }}" alt="{{ $product?->name }}"
-                loading="lazy" fetchpriority="low" />
+        <div class="overflow-hidden aspect-square items-center bg-white mb-2 relative rounded-lg">
+            <img class="w-full object-contain aspect-square rounded-xs" src="{{ $product->thumbnailURL() }}"
+                alt="{{ $product?->name }}" loading="lazy" fetchpriority="low" />
         </div>
     </a>
     <div>

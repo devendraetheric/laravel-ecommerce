@@ -111,4 +111,4 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::post('settings/prefix', [SettingController::class, 'savePrefix'])->name('settings.savePrefix');
 });
 
-Route::get('orders/generate-pdf/{order}', [OrderController::class, 'generatePDF'])->name('generate-pdf');
+Route::get('orders/pdf/{order}', [OrderController::class, 'pdf'])->name('orders.pdf');

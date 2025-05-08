@@ -183,33 +183,24 @@ class OrderController extends Controller
     /**
      * generate PDF
      */
-    public function generatePdf(Request $request, Order $order)
+    public function pdf(Request $request, Order $order)
     {
-        $generalSetting = new GeneralSetting();
         $companySetting = new CompanySetting();
-        $prefix         = new PrefixSetting();
-        $socialMedia    = new SocialMediaSetting();
 
-        $country = Country::find($companySetting->country)->name;
+        $country = Country::find($companySetting->country)?->name;
 
-        $state = State::find($companySetting->state)->name;
+        $state = State::find($companySetting->state)?->name;
 
         $data = [
             'order'          => $order,
-            'generalSetting' => $generalSetting,
-            'companySetting' => $companySetting,
-            'prefix'         => $prefix,
-            'socialMedia'    => $socialMedia,
             'country'        => $country,
             'state'          => $state
-
-
         ];
 
-        // return view('admin.orders.invoice', $data);
+        // return view('admin.orders.pdf', $data);
 
-        $pdf = Pdf::loadView('admin.orders.invoice', $data);
+        $pdf = Pdf::loadView('admin.orders.pdf', $data);
 
-        return $pdf->stream('my-invoice.pdf');
+        return $pdf->stream("$order->order_number.pdf");
     }
 }
