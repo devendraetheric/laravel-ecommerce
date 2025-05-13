@@ -52,14 +52,13 @@
                                                 </td>
 
                                                 <td class="!whitespace-normal !break-words">
-                                                    {{ $order->items()->count() }}
-                                                    {{ $order->items->pluck('product.name')->implode(',') }}
+                                                    {{ $order->items->pluck('product.name')->implode(', ') }}
                                                 </td>
                                                 <td class="text-center">
                                                     <span
                                                         class="inline-flex items-center rounded-md bg-{{ $order->status->color() }}-50 px-2 py-1 text-xs font-medium text-{{ $order->status->color() }}-600 ring-1 ring-{{ $order->status->color() }}-500/10 ring-inset">{{ $order->status->label() }}</span>
                                                 </td>
-                                                <td class="text-right">${{ $order->grand_total }}</td>
+                                                <td class="text-right">@money($order->grand_total)</td>
                                                 <td class="text-right">
                                                     <a class="btn-primary !p-2 !text-sm"
                                                         href="{{ route('account.orders.show', $order) }}">View

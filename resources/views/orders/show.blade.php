@@ -40,10 +40,28 @@
                                             <tbody>
                                                 @foreach ($order->items as $item)
                                                     <tr>
-                                                        <td>{{ $item->product->name }}</td>
-                                                        <td class="!text-right">${{ $item->price }}</td>
+                                                        <td>
+                                                            @php
+                                                                $product = $item->product;
+                                                            @endphp
+                                                            <div class="flex items-center">
+                                                                <div class="shrink-0">
+                                                                    <a href="{{ route('products.show', $product) }}">
+                                                                        <img class="h-18 w-auto rounded-lg"
+                                                                            src="{{ $product?->thumbnailURL('thumb') }}"
+                                                                            alt="{{ $product->name }}" loading="lazy" />
+                                                                    </a>
+                                                                </div>
+                                                                <div class="ml-4 max-w-112 text-wrap">
+                                                                    <a href="{{ route('products.show', $product) }}"
+                                                                        class="font-medium text-base/6 text-gray-900">{{ $product->name }}
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="!text-right">@money($item->price)</td>
                                                         <td class="!text-center">{{ $item->quantity }}</td>
-                                                        <td class="!text-right">${{ $item->total }}</td>
+                                                        <td class="!text-right">@money($item->total)</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
@@ -80,11 +98,11 @@
                                 <dl class="space-y-6">
                                     <div class="flex items-center justify-between">
                                         <dt class="text-base/6 text-gray-600">Sub Total</dt>
-                                        <dd class="text-base/6 font-medium text-gray-900">${{ $order->sub_total }}</dd>
+                                        <dd class="text-base/6 font-medium text-gray-900">@money($order->sub_total)</dd>
                                     </div>
                                     <div class="flex items-center justify-between">
                                         <dt class="text-base/6 text-gray-600">Grand Total</dt>
-                                        <dd class="text-base/6 font-bold text-gray-900">${{ $order->grand_total }}</dd>
+                                        <dd class="text-base/6 font-bold text-gray-900">@money($order->grand_total)</dd>
                                     </div>
                                 </dl>
 

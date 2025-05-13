@@ -96,8 +96,8 @@
                                     <!-- cart item start  -->
                                     <div class="block pb-4">
                                         <div class="flex items-start space-y-4 gap-3">
-                                            <div class="min-w-32">
-                                                <img class="w-30 rounded-md"
+                                            <div class="min-w-24">
+                                                <img class="w-24 rounded-md"
                                                     src="{{ $product->product->thumbnailURL('thumb') }}"
                                                     alt="{{ $product->product->name }}" loading="lazy" />
                                             </div>
@@ -110,7 +110,7 @@
                                                         <span class="font-semibold">{{ $product->quantity }}</span>
                                                     </p>
                                                     <p class="text-gray-800 text-base/tight font-bold">
-                                                        ${{ $product->total }}
+                                                        @money($product->total)
                                                     </p>
                                                 </div>
                                             </div>
@@ -121,11 +121,11 @@
                                 <dl class="space-y-6 mt-10">
                                     <div class="flex items-center justify-between">
                                         <dt class="text-base/6 text-gray-600">Sub Total</dt>
-                                        <dd class="text-base/6 font-medium text-gray-900">${{ cart()->total }}</dd>
+                                        <dd class="text-base/6 font-medium text-gray-900">@money(cart()->total)</dd>
                                     </div>
                                     <div class="flex items-center justify-between">
                                         <dt class="text-base/6 text-gray-600">Grand Total</dt>
-                                        <dd class="text-base/6 font-bold text-gray-900">${{ cart()->total }}</dd>
+                                        <dd class="text-base/6 font-bold text-gray-900">@money(cart()->total)</dd>
                                     </div>
                                 </dl>
 

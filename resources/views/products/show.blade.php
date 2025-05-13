@@ -68,9 +68,9 @@
                     <h2 class="text-gray-800 text-2xl font-semibold mb-3">{{ $product->name }}</h2>
                     <div class="flex items-center gap-2.5 mb-6">
                         <p class="flex gap-4 items-center">
-                            <span class="text-gray-800 text-3xl">${{ $product->selling_price }}</span>
-                            <span
-                                class="text-red-600 opacity-70 text-3xl line-through">${{ $product->regular_price }}</span>
+                            <span class="text-gray-800 text-3xl">@money($product->selling_price)</span>
+                            {{-- <span
+                                class="text-red-600 opacity-70 text-3xl line-through">${{ $product->regular_price }}</span> --}}
                         </p>
                         {{-- <span class="bg-[#F5813F] px-2.5 py-1.5 rounded-[4px] text-white text-sm">50% Off</span> --}}
                     </div>
@@ -122,6 +122,25 @@
                             </a>
                         </div>
                     </form>
+
+                    @if ($product->sku)
+                        <p class="text-base/6 text-gray-700"><span class="text-gray-800 font-semibold">SKU</span> :
+                            {{ $product?->sku }}</p>
+                    @endif
+                    @if ($product->barcode)
+                        <p class="text-base/6 text-gray-700">
+                            <span class="text-gray-800 font-semibold">Barcode (ISBN, UPC, GTIN, etc.)</span> :
+                            {{ $product?->barcode }}
+                        </p>
+                    @endif
+                    @if ($product->category_id)
+                        <p class="text-base/6 text-gray-700"><span class="text-gray-800 font-semibold">Category</span> :
+                            {{ $product?->category?->name }}</p>
+                    @endif
+                    @if ($product->brand_id)
+                        <p class="text-base/6 text-gray-700"><span class="text-gray-800 font-semibold">Brand</span> :
+                            {{ $product?->brand?->name }}</p>
+                    @endif
                 </div>
             </div>
 
@@ -142,18 +161,16 @@
                 <h2 class="text-gray-800 xl:text-4xl xl:leading-tight text-xl md:text-2xl font-bold">
                     Related Products</h2>
                 <div class="flex gap-6">
-                    <button class="recentSwiper-button-prev">
+                    <button class="recentSwiper-button-prev slider-nav">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
                         </svg>
                     </button>
-                    <button class="recentSwiper-button-next">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                    <button class="recentSwiper-button-next slider-nav">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                         </svg>
                     </button>
                 </div>

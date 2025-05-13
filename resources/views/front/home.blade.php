@@ -56,26 +56,28 @@
         <!-- banner section end -->
     @endif
 
-    <!-- feature and brand area start -->
-    <section class="xl:pb-20 pb-8 md:pb-12">
-        <div class="container px-3 md:px-5 xl:px-0">
-            <h2 class="text-gray-800 xl:text-4xl xl:leading-tight text-xl md:text-2xl font-bold mb-10">
-                Shop By Brand</h2>
-            <div class="swiper brandSwiper overflow-hidden mb-6">
-                <div class="swiper-wrapper items-center">
-                    @foreach ($brands as $brand)
-                        <div class="swiper-slide inline-flex items-center justify-center">
-                            <a href="{{ route('products.byBrand', $brand) }}">
-                                <img class="rounded-lg" src="{{ $brand->thumbnailURL('thumb') }}"
-                                    alt="{{ $brand->name }}" loading="lazy" />
-                            </a>
-                        </div>
-                    @endforeach
+    @if ($brands->count() > 0)
+        <!-- feature and brand area start -->
+        <section class="xl:pb-20 pb-8 md:pb-12">
+            <div class="container px-3 md:px-5 xl:px-0">
+                <h2 class="text-gray-800 xl:text-4xl xl:leading-tight text-xl md:text-2xl font-bold mb-10">
+                    Shop By Brand</h2>
+                <div class="swiper brandSwiper overflow-hidden mb-6">
+                    <div class="swiper-wrapper items-center">
+                        @foreach ($brands as $brand)
+                            <div class="swiper-slide inline-flex items-center justify-center">
+                                <a href="{{ route('products.byBrand', $brand) }}">
+                                    <img class="rounded-lg" src="{{ $brand->thumbnailURL('thumb') }}"
+                                        alt="{{ $brand->name }}" loading="lazy" />
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- feature and brand area end -->
+        </section>
+        <!-- feature and brand area end -->
+    @endif
 
     <!-- feature products section start -->
     <section class="xl:pb-20 pb-8 md:pb-12">
@@ -104,20 +106,18 @@
         <div class="container px-3 md:px-5 xl:px-0">
             <div class="flex justify-between items-center mb-10">
                 <h2 class="text-gray-800 xl:text-4xl xl:leading-tight text-xl md:text-2xl font-bold">
-                    Top Categories</h2>
-                <div class="flex gap-6">
-                    <button class="categoriesSwiper-button-prev">
+                    Our Top Categories</h2>
+                <div class="flex gap-4">
+                    <button class="categoriesSwiper-button-prev slider-nav">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
                         </svg>
                     </button>
-                    <button class="categoriesSwiper-button-next">
+                    <button class="categoriesSwiper-button-next slider-nav">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                         </svg>
                     </button>
                 </div>
@@ -126,7 +126,7 @@
             <div class="swiper topCategoriesSwiper mx-3 md:mx-0">
                 <div class="swiper-wrapper">
                     @foreach ($topCategories as $category)
-                        <div class="swiper-slide">
+                        <div class="swiper-slide border border-gray-100 rounded-xl">
                             <div class="group overflow-hidden rounded-lg">
                                 <div class="w-full">
                                     <a href="{{ route('products.byCategory', $category) }}">
@@ -183,24 +183,25 @@
                 <h2 class="text-gray-800 xl:text-4xl xl:leading-tight text-xl md:text-2xl font-bold">
                     What client says about us</h2>
                 <div class="flex gap-6">
-                    <button class="testimonials-button-prev">
+                    <button class="testimonials-button-prev slider-nav">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
                         </svg>
                     </button>
-                    <button class="testimonials-button-next">
+                    <button class="testimonials-button-next slider-nav">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                         </svg>
                     </button>
                 </div>
             </div>
             <div class="swiper testimonialSwiper overflow-hidden">
                 <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <x-common.testimonial-card />
+                    </div>
                     <div class="swiper-slide">
                         <x-common.testimonial-card />
                     </div>
@@ -223,18 +224,16 @@
                 <h2 class="text-gray-800 xl:text-4xl xl:leading-tight text-xl md:text-2xl font-bold">
                     Recently Added</h2>
                 <div class="flex gap-6">
-                    <button class="recentSwiper-button-prev">
+                    <button class="recentSwiper-button-prev slider-nav">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
                         </svg>
                     </button>
-                    <button class="recentSwiper-button-next">
+                    <button class="recentSwiper-button-next slider-nav">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                         </svg>
                     </button>
                 </div>
@@ -253,7 +252,7 @@
     <!-- recent products section end -->
 
     <section class="container px-3 md:px-5 xl:px-0">
-        <div class="bg-white shadow-xs rounded-xl xl:py-12 xl:px-18 p-8 mb-6">
+        <div class="bg-white shadow-xs rounded-xl border border-gray-100 xl:py-12 xl:px-18 p-8 mb-6">
             <div class="grid grid-cols-1 xl:grid-cols-4 lg:grid-cols-4 sm:grid-cols-2 gap-6">
                 <div class="flex gap-4 items-center w-full">
                     <div>

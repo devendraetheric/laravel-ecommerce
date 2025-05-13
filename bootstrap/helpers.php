@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Cart;
-use App\Settings\GeneralSetting;
+use App\Models\Country;
 use Illuminate\Support\Facades\Auth;
 
 if (!function_exists('cart')) {
@@ -61,20 +61,6 @@ function setting(string $classOrKey)
     throw new \Exception("Invalid setting call: [$classOrKey]");
 }
 
-
-if (! function_exists('getGeneralSettings')) {
-    function getGeneralSettings(): GeneralSetting
-    {
-        static $settings;
-
-        if ($settings === null) {
-            $settings = app(GeneralSetting::class);
-        }
-
-        return $settings;
-    }
-}
-
 if (! function_exists('getLogoURL')) {
     function getLogoURL(): string
     {
@@ -86,5 +72,23 @@ if (! function_exists('getFaviconURL')) {
     function getFaviconURL(): string
     {
         return setting('general.favicon') ? asset('storage/' . setting('general.favicon')) : asset('favicon.png');
+    }
+}
+
+if (! function_exists('app_country')) {
+    function app_country(): Country
+    {
+        static $country = null;
+
+        return $country ??= Country::find(setting('company.country'));
+    }
+}
+
+if (! function_exists('get_currency_symbol')) {
+    function get_currency_symbol(): string
+    {
+        static $symbol = null;
+
+        return $symbol ??= app_country()->currency_symbol;
     }
 }

@@ -70,7 +70,7 @@
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td class="text-right">${{ $product->price }}</td>
+                                                        <td class="text-right">@money($product->price)</td>
                                                         <td>
                                                             <div x-data="{ count: {{ $product->quantity }} }"
                                                                 class="mx-auto flex items-center justify-center">
@@ -89,7 +89,7 @@
                                                                     class="w-12 h-12 border border-gray-300 flex items-center justify-center text-2xl bg-white hover:bg-gray-100 transition rounded-r-lg">+</button>
                                                             </div>
                                                         </td>
-                                                        <td class="text-right">${{ $product->total }}</td>
+                                                        <td class="text-right">@money($product->total)</td>
                                                     </tr>
                                                 @empty
                                                     <tr>
@@ -125,11 +125,11 @@
                             <dl class="space-y-6">
                                 <div class="flex items-center justify-between">
                                     <dt class="text-base/6 text-gray-600">Sub Total</dt>
-                                    <dd class="text-base/6 font-medium text-gray-900">${{ $cart->total }}</dd>
+                                    <dd class="text-base/6 font-medium text-gray-900">@money($cart->total)</dd>
                                 </div>
                                 <div class="flex items-center justify-between">
                                     <dt class="text-base/6 text-gray-600">Grand Total</dt>
-                                    <dd class="text-base/6 font-bold text-gray-900">${{ $cart->total }}</dd>
+                                    <dd class="text-base/6 font-bold text-gray-900">@money($cart->total)</dd>
                                 </div>
                             </dl>
 

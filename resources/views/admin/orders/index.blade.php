@@ -61,7 +61,7 @@
                                                     {{ $order->payment_status->label() }}
                                                 </span>
                                             </td>
-                                            <td>{{ $order->grand_total }}</td>
+                                            <td>@money($order->grand_total)</td>
 
                                             {{-- Order Status --}}
 

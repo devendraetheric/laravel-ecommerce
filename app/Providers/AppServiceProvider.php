@@ -9,6 +9,7 @@ use App\Observers\PaymentObserver;
 use App\Settings\GeneralSetting;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,6 +28,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+
+        Blade::directive('money', function (string $money) {
+            return "<?php echo get_currency_symbol() .' '. number_format($money, 2); ?>";
+        });
 
         VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
 

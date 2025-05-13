@@ -67,7 +67,7 @@
 
                 <div class="space-y-2 col-span-2 md:col-span-2">
                     <label for="notes" class="control-label">Note</label>
-                    <textarea class="form-control @error('notes') is-invalid @enderror" id="notes" name="notes" rows="2">{{ old('notes', $order->notes) }}</textarea>
+                    <textarea class="form-control @error('notes') is-invalid @enderror" id="notes" name="notes" rows="2">{{ old('notes') }}</textarea>
                     @error('notes')
                         <p class="text-sm text-red-600">{{ $message }}</p>
                     @enderror

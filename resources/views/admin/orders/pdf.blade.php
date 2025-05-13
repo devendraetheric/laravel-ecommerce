@@ -55,14 +55,14 @@
         </tr>
     </table>
 
-    <table width="100%" style="line-height: 20px;" class="table-bordered">
-        <thead style="font-weight: bold;">
+    <table class="table-bordered">
+        <thead>
             <tr>
                 <th width="5%" class="text-center">#</th>
                 <th width="60%" class="text-center">Product</th>
-                <th width="10%" class="text-center">Rate</th>
-                <th width="10%" class="text-center">QTY</th>
-                <th width="10%" class="text-right">Total</th>
+                <th class="text-right">Rate</th>
+                <th class="text-center">QTY</th>
+                <th class="text-right">Total</th>
             </tr>
         </thead>
         <tbody>
@@ -70,25 +70,25 @@
                 <tr>
                     <td class="text-center">{{ $key + 1 }}</td>
                     <td>{{ $item->product->name }}</td>
-                    <td class="text-center">${{ $item->price }}</td>
+                    <td class="text-right">@money($item->price)</td>
                     <td class="text-center">{{ $item->quantity }}</td>
-                    <td class="text-right">${{ $item->total }}</td>
+                    <td class="text-right">@money($item->total)</td>
                 </tr>
             @endforeach
         </tbody>
 
-        <tfoot class="tfoot-bordered">
+        <tfoot>
             <tr>
                 <td colspan="2" rowspan="2" class="text-left">
-                    <p style="margin-left: 10px;">{{ $order->notes }}</p>
+                    {{ $order->notes }}
                 </td>
-                <th colspan="2"><b>Subtotal</b></th>
-                <td class="text-right">${{ $order->sub_total }}</td>
+                <th colspan="2">Sub Total</th>
+                <td class="text-right">@money($order->sub_total)</td>
             </tr>
 
             <tr>
-                <th colspan="2"><b>Grand Total</b></th>
-                <td class="text-right"><b>${{ $order->grand_total }}</b></td>
+                <th colspan="2">Grand Total</th>
+                <td class="text-right"><b>@money($order->grand_total)</b></td>
             </tr>
         </tfoot>
     </table>
