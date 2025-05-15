@@ -11,7 +11,7 @@ use App\Jobs\Demo;
 use App\Mail\JobFailedMail;
 use App\Models\State;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/fetch-states', function (Request $request) {
@@ -62,7 +62,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/removeFromWishlist/{product_id}', [AccountController::class, 'removeFromWishlist'])->name('account.removeFromWishlist');
     Route::get('/account/wishlist', [AccountController::class, 'wishlist'])->name('account.wishlist');
 
-
     /**
      * Account Details
      */
@@ -77,22 +76,22 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     Route::get('/account/profile/password', [ProfileController::class, 'password'])->name('profile.password');
 
-
-
     /**
      * Address Routes
      */
     Route::resource('/account/addresses', AddressController::class)->except(['show'])->names('account.addresses');
     Route::get('/account/addresses/set-default/{address}', [AddressController::class, 'setDefault'])->name('account.addresses.setDefault');
 
-
-
     /**
      * Order Routes
      */
-    Route::resource('/account/orders', OrderController::class)->except(['store'])->names('account.orders');
+    Route::resource('/account/orders', OrderController::class)->except(['store', 'show'])->names('account.orders');
     Route::get('/account/checkout', [OrderController::class, 'checkout'])->name('account.checkout');
     Route::post('/account/checkout/store', [OrderController::class, 'store'])->name('account.checkout.store');
+
+    Route::get('/account/orders/{order:order_number}/pay', [OrderController::class, 'pay'])->name('account.orders.pay');
+    Route::get('/account/orders/{order}/verify-payment', [OrderController::class, 'verifyPayment'])->name('account.orders.verifyPayment');
+
     Route::get('/account/orders/{order:order_number}', [OrderController::class, 'show'])->name('account.orders.show');
 });
 

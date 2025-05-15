@@ -52,14 +52,16 @@
                                                 </svg>
                                             </label>
                                         @empty
-                                            <div>
-                                                <p class="text-gray-500">No saved addresses found.</p>
-                                                <a href="{{ route('account.addresses.create') }}"
-                                                    class="btn-primary mt-4">Add Address</a>
-                                            </div>
+                                            <p class="text-gray-500">No saved addresses found.</p>
                                         @endforelse
                                     </div>
                                 </fieldset>
+                                <a href="{{ route('account.addresses.create') }}" class="btn-primary mt-4 !inline">Add
+                                    Address</a>
+
+                                @error('address_id')
+                                    <p class="mt-2 text-base text-red-600">Please Select Address to continue order.</p>
+                                @enderror
 
                                 <div class="mt-10 border-t border-gray-200 pt-10">
                                     <h2 class="text-2xl font-semibold text-gray-800">Payment</h2>
@@ -67,12 +69,19 @@
                                     <fieldset class="mt-4">
                                         <legend class="sr-only">Payment type</legend>
                                         <div class="space-y-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-10">
-                                            <div class="flex items-center">
+                                            {{-- <div class="flex items-center">
                                                 <input id="cash" name="payment_method" type="radio" checked
                                                     class="form-radio" value="cod" />
                                                 <label for="cash"
                                                     class="ml-3 block text-base/6 font-medium text-gray-700">Cash on
                                                     Delivery</label>
+                                            </div> --}}
+                                            <div class="flex items-center">
+                                                <input id="phonepe" name="payment_method" type="radio" checked
+                                                    class="form-radio" value="phonepe" />
+                                                <label for="phonepe"
+                                                    class="ml-3 block text-base/6 font-medium text-gray-700">Phone Pe
+                                                    Payment Gateway</label>
                                             </div>
                                         </div>
                                     </fieldset>
@@ -96,8 +105,8 @@
                                     <!-- cart item start  -->
                                     <div class="block pb-4">
                                         <div class="flex items-start space-y-4 gap-3">
-                                            <div class="min-w-32">
-                                                <img class="w-30 rounded-md"
+                                            <div class="min-w-24">
+                                                <img class="w-24 rounded-md"
                                                     src="{{ $product->product->thumbnailURL('thumb') }}"
                                                     alt="{{ $product->product->name }}" loading="lazy" />
                                             </div>
@@ -110,7 +119,7 @@
                                                         <span class="font-semibold">{{ $product->quantity }}</span>
                                                     </p>
                                                     <p class="text-gray-800 text-base/tight font-bold">
-                                                        ${{ $product->total }}
+                                                        @money($product->total)
                                                     </p>
                                                 </div>
                                             </div>
@@ -121,11 +130,15 @@
                                 <dl class="space-y-6 mt-10">
                                     <div class="flex items-center justify-between">
                                         <dt class="text-base/6 text-gray-600">Sub Total</dt>
-                                        <dd class="text-base/6 font-medium text-gray-900">${{ cart()->total }}</dd>
+                                        <dd class="text-base/6 font-medium text-gray-900">@money(cart()->total)</dd>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <dt class="text-base/6 text-gray-600">Delivery Charge</dt>
+                                        <dd class="text-base/6 font-bold text-gray-900">@money(50)</dd>
                                     </div>
                                     <div class="flex items-center justify-between">
                                         <dt class="text-base/6 text-gray-600">Grand Total</dt>
-                                        <dd class="text-base/6 font-bold text-gray-900">${{ cart()->total }}</dd>
+                                        <dd class="text-base/6 font-bold text-gray-900">@money(cart()->total + 50)</dd>
                                     </div>
                                 </dl>
 

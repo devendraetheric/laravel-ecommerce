@@ -55,8 +55,8 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>${{ $product->regular_price }}</td>
-                                        <td>${{ $product->selling_price }}</td>
+                                        <td>@money($product->regular_price)</td>
+                                        <td>@money($product->selling_price)</td>
                                         <td>{{ $product->category?->name }}</td>
                                         <td>{{ $product->brand?->name }}</td>
 

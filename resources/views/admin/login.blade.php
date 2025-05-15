@@ -34,31 +34,29 @@
             <form class="space-y-6" action="{{ route('admin.login.post') }}" method="POST">
                 @csrf
 
-                <div>
+                <div class="space-y-2">
                     <label for="email" class="control-label">Email address</label>
-                    <div class="mt-2">
-                        <input type="email" name="email" id="email" value="{{ old('email') }}"
-                            autocomplete="email" class="form-control @error('email') is-invalid @enderror" />
-                        @error('email')
-                            <p class="text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
+                    <input type="email" name="email" id="email" value="{{ old('email') }}" autocomplete="email"
+                        class="form-control @error('email') is-invalid @enderror" />
+                    @error('email')
+                        <p class="text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
 
-                <div>
+                <div class="space-y-2">
                     <label for="password" class="control-label">Password</label>
-                    <div class="mt-2">
-                        <input type="password" name="password" id="password" autocomplete="current-password"
-                            class="form-control @error('password') is-invalid @enderror">
-                    </div>
+                    <input type="password" name="password" id="password" autocomplete="current-password"
+                        class="form-control @error('password') is-invalid @enderror">
+                    @error('email')
+                        <p class="text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
 
-                <div class="flex gap-3 items-center">
-                    <div class="flex h-4 shrink-0 items-center">
+                <div class="flex gap-3">
+                    <div class="flex h-6 shrink-0 items-center">
                         <div class="group grid size-4 grid-cols-1">
-                            <input id="remember-me" name="remember" type="checkbox"
-                                class="col-start-1 row-start-1 form-checkbox" />
-                            <svg class="pointer-events-none col-start-1 row-start-1 size-4 self-center justify-self-center stroke-white group-has-disabled:stroke-gray-950/25"
+                            <input id="remember-me" name="remember" type="checkbox" class="form-checkbox">
+                            <svg class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-disabled:stroke-gray-950/25"
                                 viewBox="0 0 14 14" fill="none">
                                 <path class="opacity-0 group-has-checked:opacity-100" d="M3 8L6 11L11 3.5"
                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -67,7 +65,7 @@
                             </svg>
                         </div>
                     </div>
-                    <label for="remember-me" class="block text-sm/tight text-gray-900">Remember me</label>
+                    <label for="remember-me" class="block text-sm/6 text-gray-600">Remember me</label>
                 </div>
 
                 <div>

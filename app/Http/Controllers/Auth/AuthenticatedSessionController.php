@@ -24,8 +24,6 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        print_r(session()->getId());
-
         $oldCart = cart();
 
         $request->authenticate();

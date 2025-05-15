@@ -5,9 +5,9 @@
                 ['url' => route('home'), 'text' => 'Home'],
                 ['url' => route('account.dashboard'), 'text' => 'Account'],
                 ['url' => route('account.addresses.index'), 'text' => 'Your Addresses'],
-                ['url' => '#', 'text' => 'Add a new Address'],
+                ['url' => '#', 'text' => $address->id ? 'Edit ' . $address->name : 'Add new Address'],
             ],
-            'title' => 'Add a new Address',
+            'title' => $address->id ? 'Edit ' . $address->name : 'Add new Address',
         ];
     @endphp
 
@@ -197,11 +197,11 @@
 
     @push('scripts')
         <script>
-            var stateId = "{{ old('state_id', $address->state_id ?? 1460) }}";
+            var stateId = "{{ old('state_id', $address->state_id ?? setting('company.state')) }}";
 
             function addressInfo() {
                 return {
-                    country_id: "{{ old('country_id', $address->country_id ?? 233) }}",
+                    country_id: "{{ old('country_id', $address->country_id ?? setting('company.country')) }}",
                     state_id: "",
                     states: [],
 

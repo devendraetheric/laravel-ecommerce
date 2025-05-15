@@ -31,7 +31,7 @@
                                         <tr>
                                             <th scope="col"></th>
                                             <th scope="col">Product</th>
-                                            <th scope="col">Price</th>
+                                            <th scope="col" class="!text-right">Price</th>
                                             <th scope="col">
                                                 <span class="sr-only">Action</span>
                                             </th>
@@ -67,8 +67,8 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td>${{ $product->selling_price }}</td>
-                                                <td>
+                                                <td class="text-right">@money($product->selling_price)</td>
+                                                <td width="10%">
                                                     <form action="{{ route('products.addToCart') }}" method="POST"
                                                         class="flex justify-end">
                                                         @csrf
@@ -76,7 +76,8 @@
                                                         <input type="hidden" name="product_id"
                                                             value="{{ $product->id }}" />
 
-                                                        <button type="submit" class="btn-primary">Add to Cart</button>
+                                                        <button type="submit" class="btn-primary  !p-2 !text-sm">Add to
+                                                            Cart</button>
                                                     </form>
                                                 </td>
                                             </tr>

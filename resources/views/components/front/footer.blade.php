@@ -1,7 +1,7 @@
 @inject('socialMedia', 'App\Settings\SocialMediaSetting')
 <!-- footer area start -->
 <footer class="bg-white">
-    <div class="xl:py-20 py-6 sm:py-8 md:py-12">
+    <div class="xl:py-20 py-6 sm:py-8 md:py-12 border-t border-gray-200">
         <div class="container px-3 md:px-5 xl:px-0">
             <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
                 <div class="lg:col-span-2 col-span-1">

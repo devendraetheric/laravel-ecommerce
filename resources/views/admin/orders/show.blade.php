@@ -29,8 +29,9 @@
                     <div class="p-6 border-b border-gray-200 flex justify-between items-center w-full">
                         <h3 class="text-base font-semibold text-gray-800">Order Detail</h3>
 
-                        <a href="{{ route('admin.generate-pdf', $order) }}" class="btn-primary gap-1 flex item-center">
-                            <span>Generate PDF</span>
+                        <a target="_blank" href="{{ route('admin.orders.pdf', $order) }}"
+                            class="btn-primary gap-1 flex item-center">
+                            <span>PDF</span>
                         </a>
                     </div>
                     <div class="p-6">
@@ -49,9 +50,9 @@
                                         @foreach ($order->items as $item)
                                             <tr>
                                                 <td class="!font-semibold">{{ $item->product->name }}</td>
-                                                <td class="text-right">{{ $item->price }}</td>
+                                                <td class="text-right">@money($item->price)</td>
                                                 <td class="text-center">{{ $item->quantity }}</td>
-                                                <td class="text-right">${{ $item->total }}</td>
+                                                <td class="text-right">@money($item->total)</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -59,12 +60,17 @@
                                         <tr>
                                             <th scope="row" colspan="3" class="!text-right !font-semibold">
                                                 Subtotal</th>
-                                            <td class="text-right">${{ $order->sub_total }}</td>
+                                            <td class="text-right">@money($order->sub_total)</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" colspan="3" class="!text-right !font-semibold">
+                                                Delivery Charge</th>
+                                            <td class="text-right">@money($order->delivery_charge)</td>
                                         </tr>
                                         <tr>
                                             <th scope="row" colspan="3" class="!text-right !font-semibold">
                                                 Grandtotal</th>
-                                            <td class="text-right">${{ $order->grand_total }}</td>
+                                            <td class="text-right">@money($order->grand_total)</td>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -98,7 +104,7 @@
                                                     <td class="!font-semibold">{{ $paymentObj->payment_number }}</td>
                                                     <td>{{ $paymentObj->reference }}</td>
                                                     <td>{{ $paymentObj->method }}</td>
-                                                    <td class="text-right">${{ $paymentObj->amount }}</td>
+                                                    <td class="text-right">@money($paymentObj->amount)</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -166,7 +172,7 @@
                                 <dd class="text-sm/6 text-gray-900">
 
                                     <time
-                                        datetime="2023-01-31">{{ $order->order_date->format(dateFormat()) }}</time>
+                                        datetime="2023-01-31">{{ $order->order_date->format(setting('general.date_format')) }}</time>
                                 </dd>
                             </div>
                         </dl>
