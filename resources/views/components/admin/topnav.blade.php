@@ -75,8 +75,8 @@
                     x-transition:leave-start="transform opacity-100 scale-100"
                     x-transition:leave-end="transform opacity-0 scale-95" @click.outside="open= false" x-cloak>
                     <!-- Active: "bg-gray-50 outline-hidden", Not Active: "" -->
-                    <a href="#" class="block px-3 py-1 text-sm/6 text-gray-900" role="menuitem" tabindex="-1"
-                        id="user-menu-item-0">Your profile</a>
+                    <a href="{{ route('admin.profile.edit') }}" class="block px-3 py-1 text-sm/6 text-gray-900"
+                        role="menuitem" tabindex="-1" id="user-menu-item-0">Your profile</a>
                     <form action="{{ route('admin.logout') }}">
                         @csrf
                         <button type="submit"

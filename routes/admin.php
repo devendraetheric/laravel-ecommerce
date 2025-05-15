@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Artisan;
@@ -109,6 +110,15 @@ Route::group(['middleware' => 'auth:admin'], function () {
 
     Route::get('settings/prefix', [SettingController::class, 'prefix'])->name('settings.prefix');
     Route::post('settings/prefix', [SettingController::class, 'savePrefix'])->name('settings.savePrefix');
+
+
+    /**
+     * Admin Profile Routes
+     */
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    Route::put('/profile/change-password', [ProfileController::class, 'password'])->name('profile.password');
 });
 
 Route::get('orders/pdf/{order}', [OrderController::class, 'pdf'])->name('orders.pdf');
