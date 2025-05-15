@@ -45,7 +45,11 @@
                         </div>
 
                         <div class="space-y-2 col-span-1 md:col-span-1">
-                            <label for="site_name" class="control-label">Site Name</label>
+                            <div class="flex justify-between">
+                                <label for="site_name" class="control-label">Site Name</label>
+                                <span class="text-sm/6 text-gray-500"
+                                    id="site-name-optional">setting('general.site_name')</span>
+                            </div>
                             <input type="text" name="site_name" id="site_name"
                                 class="form-control @error('site_name') is-invalid @enderror"
                                 value="{{ old('site_name', $settings->site_name) }}" />
@@ -55,7 +59,11 @@
                         </div>
 
                         <div class="space-y-2 col-span-1 md:col-span-1">
-                            <label for="tagline" class="control-label">Tagline</label>
+                            <div class="flex justify-between">
+                                <label for="tagline" class="control-label">Tagline</label>
+                                <span class="text-sm/6 text-gray-500"
+                                    id="tagline-optional">setting('general.tagline')</span>
+                            </div>
                             <input type="text" name="tagline" id="tagline"
                                 class="form-control @error('tagline') is-invalid @enderror"
                                 value="{{ old('tagline', $settings->tagline) }}" />
@@ -65,7 +73,11 @@
                         </div>
 
                         <div class="space-y-2 col-span-3">
-                            <label for="site_description" class="control-label">Site Description</label>
+                            <div class="flex justify-between">
+                                <label for="site_description" class="control-label">Site Description</label>
+                                <span class="text-sm/6 text-gray-500"
+                                    id="site-description-optional">setting('general.site_description')</span>
+                            </div>
                             <textarea class="form-control @error('site_description') is-invalid @enderror" id="site_description"
                                 name="site_description" rows="2">{{ old('site_description', $settings->site_description) }}</textarea>
                             @error('site_description')
@@ -74,8 +86,13 @@
                         </div>
 
                         <div>
-                            <label for="date_format" class="block text-base/6 font-medium text-gray-600">Date
-                                Format</label>
+                            <div class="flex justify-between">
+                                <label for="date_format" class="control-label">
+                                    Date Format
+                                </label>
+                                <span class="text-sm/6 text-gray-500"
+                                    id="date-format-optional">setting('general.date_format')</span>
+                            </div>
                             <div class="mt-2 grid grid-cols-1">
                                 <select id="date_format" name="date_format" class="col-start-1 row-start-1 form-select">
                                     <option value="">Select Date Format</option>
@@ -99,8 +116,13 @@
                         </div>
 
                         <div>
-                            <label for="time_format" class="block text-base/6 font-medium text-gray-600">Time
-                                Format</label>
+                            <div class="flex justify-between">
+                                <label for="date_format" class="control-label">
+                                    Time Format
+                                </label>
+                                <span class="text-sm/6 text-gray-500"
+                                    id="time-format-optional">setting('general.time_format')</span>
+                            </div>
                             <div class="mt-2 grid grid-cols-1">
                                 <select id="time_format" name="time_format" class="col-start-1 row-start-1 form-select">
                                     <option value="">Select Time Format</option>
@@ -124,7 +146,14 @@
                         </div>
 
                         <div>
-                            <label for="timezone" class="block text-base/6 font-medium text-gray-600">Time Zone</label>
+                            <div class="flex justify-between">
+                                <label for="timezone" class="control-label">
+                                    Time Zone
+                                </label>
+                                <span class="text-sm/6 text-gray-500"
+                                    id="time-zone-optional">setting('general.timezone')</span>
+                            </div>
+
                             <div class="mt-2 grid grid-cols-1">
                                 <select id="timezone" name="timezone" class="col-start-1 row-start-1 form-select">
                                     <option value="">Select Time Zone</option>
@@ -156,9 +185,13 @@
 
                         <!----- Re-captcha -------------->
                         <div>
-                            <label for="is_captcha" class="block text-base/6 font-medium text-gray-600">
-                                Is Captcha
-                            </label>
+                            <div class="flex justify-between">
+                                <label for="is_captcha" class="control-label">
+                                    Is Captcha
+                                </label>
+                                <span class="text-sm/6 text-gray-500"
+                                    id="is-captcha-optional">setting('general.is_captcha')</span>
+                            </div>
                             <div class="mt-2 grid grid-cols-1">
                                 <select id="is_captcha" name="is_captcha"
                                     class="col-start-1 row-start-1 form-select">
@@ -178,9 +211,13 @@
                         </div>
 
                         <div>
-                            <label for="captcha_secret_key" class="block text-base/6 font-medium text-gray-600">
-                                Captcha Secret Key
-                            </label>
+                            <div class="flex justify-between">
+                                <label for="captcha_secret_key" class="control-label">
+                                    Captcha Secret Key
+                                </label>
+                                <span class="text-sm/6 text-gray-500"
+                                    id="captcha-secret-key-optional">setting('general.captcha_secret_key')</span>
+                            </div>
                             <div class="mt-2 grid grid-cols-1">
                                 <input type="text" name="captcha_secret_key" id="captcha_secret_key"
                                     class="form-control @error('captcha_secret_key') is-invalid @enderror"
@@ -192,9 +229,13 @@
                         </div>
 
                         <div>
-                            <label for="captcha_site_key" class="block text-base/6 font-medium text-gray-600">
-                                Captcha Site Key
-                            </label>
+                            <div class="flex justify-between">
+                                <label for="captcha_site_key" class="control-label">
+                                    Captcha Site Key
+                                </label>
+                                <span class="text-sm/6 text-gray-500"
+                                    id="captcha-site-key-optional">setting('general.captcha_site_key')</span>
+                            </div>
                             <div class="mt-2 grid grid-cols-1">
                                 <input type="text" name="captcha_site_key" id="captcha_site_key"
                                     class="form-control @error('captcha_site_key') is-invalid @enderror"
@@ -214,9 +255,12 @@
 
                         <!----- Logo And Favicon -------------->
                         <div>
-                            <label for="logo" class="block text-base/6 font-medium text-gray-600">
-                                Logo
-                            </label>
+                            <div class="flex justify-between">
+                                <label for="logo" class="control-label">
+                                    Logo
+                                </label>
+                                <span class="text-sm/6 text-gray-500" id="logo-optional">getLogoURL()</span>
+                            </div>
                             <div class="mt-2 grid grid-cols-1">
                                 <input type="file" id="logo" name="logo" class="form-control">
 
@@ -227,9 +271,12 @@
                         </div>
 
                         <div>
-                            <label for="favicon" class="block text-base/6 font-medium text-gray-600">
-                                Favicon
-                            </label>
+                            <div class="flex justify-between">
+                                <label for="favicon" class="control-label">
+                                    Favicon
+                                </label>
+                                <span class="text-sm/6 text-gray-500" id="favicon-optional">getFaviconURL()</span>
+                            </div>
                             <div class="mt-2 grid grid-cols-1">
                                 <input type="file" id="favicon" name="favicon" class="form-control">
 

@@ -30,7 +30,10 @@
                     <div class="grid grid-cols-2 gap-4">
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="name" class="control-label">Name</label>
+                            <div class="flex justify-between">
+                                <label for="app_name" class="control-label">Name</label>
+                                <span class="text-sm/6 text-gray-500" id="name-optional">setting('company.name')</span>
+                            </div>
                             <input type="text" name="name" id="name"
                                 class="form-control @error('name') is-invalid @enderror"
                                 value="{{ old('name', $settings->name) }}" />
@@ -40,7 +43,11 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="email" class="control-label">Email</label>
+                            <div class="flex justify-between">
+                                <label for="email" class="control-label">Email</label>
+                                <span class="text-sm/6 text-gray-500"
+                                    id="email-optional">setting('company.email')</span>
+                            </div>
                             <input type="text" name="email" id="email"
                                 class="form-control @error('email') is-invalid @enderror"
                                 value="{{ old('email', $settings->email) }}" />
@@ -50,7 +57,11 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="phone" class="control-label">Phone</label>
+                            <div class="flex justify-between">
+                                <label for="phone" class="control-label">Phone</label>
+                                <span class="text-sm/6 text-gray-500"
+                                    id="phone-optional">setting('company.phone')</span>
+                            </div>
                             <input type="text" name="phone" id="phone"
                                 class="form-control @error('phone') is-invalid @enderror"
                                 value="{{ old('phone', $settings->phone) }}" />
@@ -60,7 +71,11 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="website" class="control-label">Website</label>
+                            <div class="flex justify-between">
+                                <label for="website" class="control-label">Website</label>
+                                <span class="text-sm/6 text-gray-500"
+                                    id="website-optional">setting('company.website')</span>
+                            </div>
                             <input type="text" name="website" id="website"
                                 class="form-control @error('website') is-invalid @enderror"
                                 value="{{ old('website', $settings->website) }}" />
@@ -70,7 +85,11 @@
                         </div>
 
                         <div class="space-y-2 col-span-2">
-                            <label for="address" class="control-label">Address</label>
+                            <div class="flex justify-between">
+                                <label for="address" class="control-label">Address</label>
+                                <span class="text-sm/6 text-gray-500"
+                                    id="address-optional">setting('company.address')</span>
+                            </div>
                             <textarea class="form-control @error('address') is-invalid @enderror" id="address" name="address" rows="2">{{ old('address', $settings->address) }}</textarea>
                             @error('address')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
@@ -78,7 +97,11 @@
                         </div>
 
                         <div>
-                            <label for="country" class="control-label">Country</label>
+                            <div class="flex justify-between">
+                                <label for="country" class="control-label">Country</label>
+                                <span class="text-sm/6 text-gray-500"
+                                    id="country-optional">setting('company.country')</span>
+                            </div>
                             <div class="mt-2 grid grid-cols-1">
                                 <select id="country" name="country" class="col-start-1 row-start-1 form-select"
                                     x-model="country" x-init="countryChange()" @change="countryChange()">
@@ -101,7 +124,11 @@
                         </div>
 
                         <div>
-                            <label for="state" class="control-label">State</label>
+                            <div class="flex justify-between">
+                                <label for="state" class="control-label">State</label>
+                                <span class="text-sm/6 text-gray-500"
+                                    id="state-optional">setting('company.state')</span>
+                            </div>
                             <div class="mt-2 grid grid-cols-1">
                                 <select id="state" name="state" class="col-start-1 row-start-1 form-select">
                                     <option value="">Select State</option>
@@ -123,7 +150,11 @@
 
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="city" class="control-label">City</label>
+                            <div class="flex justify-between">
+                                <label for="city" class="control-label">City</label>
+                                <span class="text-sm/6 text-gray-500"
+                                    id="city-optional">setting('company.city')</span>
+                            </div>
                             <input type="text" name="city" id="city"
                                 class="form-control @error('city') is-invalid @enderror"
                                 value="{{ old('city', $settings->city) }}" />
@@ -133,7 +164,11 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="zipcode" class="control-label">Zipcode</label>
+                            <div class="flex justify-between">
+                                <label for="zipcode" class="control-label">Zipcode</label>
+                                <span class="text-sm/6 text-gray-500"
+                                    id="zipcode-optional">setting('company.zipcode')</span>
+                            </div>
                             <input type="text" name="zipcode" id="zipcode"
                                 class="form-control @error('zipcode') is-invalid @enderror"
                                 value="{{ old('zipcode', $settings->zipcode) }}" />
@@ -141,8 +176,6 @@
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
-
-
                     </div>
                 </div>
             </div>

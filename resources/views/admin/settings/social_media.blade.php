@@ -30,7 +30,11 @@
                     <div class="grid grid-cols-2 gap-4">
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="facebook" class="control-label">Facebool</label>
+                            <div class="flex justify-between">
+                                <label for="facebook" class="control-label">Facebool</label>
+                                <span class="text-sm/6 text-gray-500"
+                                    id="facebook-optional">setting('social.facebook')</span>
+                            </div>
                             <input type="text" name="facebook" id="facebook"
                                 class="form-control @error('facebook') is-invalid @enderror"
                                 value="{{ old('facebook', $settings->facebook) }}" />
@@ -40,7 +44,11 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="instagram" class="control-label">Instagram</label>
+                            <div class="flex justify-between">
+                                <label for="instagram" class="control-label">Instagram</label>
+                                <span class="text-sm/6 text-gray-500"
+                                    id="instagram-optional">setting('social.instagram')</span>
+                            </div>
                             <input type="text" name="instagram" id="instagram"
                                 class="form-control @error('instagram') is-invalid @enderror"
                                 value="{{ old('instagram', $settings->instagram) }}" />
@@ -50,7 +58,11 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="youtube" class="control-label">YouTube</label>
+                            <div class="flex justify-between">
+                                <label for="youtube" class="control-label">YouTube</label>
+                                <span class="text-sm/6 text-gray-500"
+                                    id="youtube-optional">setting('social.youtube')</span>
+                            </div>
                             <input type="text" name="youtube" id="youtube"
                                 class="form-control @error('youtube') is-invalid @enderror"
                                 value="{{ old('youtube', $settings->youtube) }}" />
@@ -60,7 +72,11 @@
                         </div>
 
                         <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="twitter" class="control-label">Twitter</label>
+                            <div class="flex justify-between">
+                                <label for="twitter" class="control-label">Twitter</label>
+                                <span class="text-sm/6 text-gray-500"
+                                    id="twitter-optional">setting('social.twitter')</span>
+                            </div>
                             <input type="text" name="twitter" id="twitter"
                                 class="form-control @error('twitter') is-invalid @enderror"
                                 value="{{ old('twitter', $settings->twitter) }}" />
