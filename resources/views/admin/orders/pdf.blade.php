@@ -23,7 +23,7 @@
     <table width="100%" class="table-bordered">
         <tr>
             <td width="50%">
-                <img src="{{ public_path('storage/' . setting('general.logo')) }}"
+                <img src="{{ setting('general.logo') ? public_path('storage/' . setting('general.logo')) : public_path('logo.png') }}"
                     alt="{{ setting('general.app_name') }}" height="50px;" />
             </td>
             <td width="50%">
@@ -79,15 +79,20 @@
 
         <tfoot>
             <tr>
-                <td colspan="2" rowspan="2" class="text-left">
+                <td colspan="2" rowspan="3" class="text-left">
                     {{ $order->notes }}
                 </td>
-                <th colspan="2">Sub Total</th>
+                <th colspan="2" class="text-right">Sub Total</th>
                 <td class="text-right">@money($order->sub_total)</td>
             </tr>
 
             <tr>
-                <th colspan="2">Grand Total</th>
+                <th colspan="2" class="text-right">Delivery Charge</th>
+                <td class="text-right"><b>@money($order->delivery_charge)</b></td>
+            </tr>
+
+            <tr>
+                <th colspan="2" class="text-right">Grand Total</th>
                 <td class="text-right"><b>@money($order->grand_total)</b></td>
             </tr>
         </tfoot>

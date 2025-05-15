@@ -101,6 +101,10 @@
                                         <dd class="text-base/6 font-medium text-gray-900">@money($order->sub_total)</dd>
                                     </div>
                                     <div class="flex items-center justify-between">
+                                        <dt class="text-base/6 text-gray-600">Delivery Charge</dt>
+                                        <dd class="text-base/6 font-bold text-gray-900">@money($order->delivery_charge)</dd>
+                                    </div>
+                                    <div class="flex items-center justify-between">
                                         <dt class="text-base/6 text-gray-600">Grand Total</dt>
                                         <dd class="text-base/6 font-bold text-gray-900">@money($order->grand_total)</dd>
                                     </div>

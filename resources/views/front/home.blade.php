@@ -181,7 +181,7 @@
         <div class="container px-3 md:px-5 xl:px-0">
             <div class="flex flex-wrap justify-between items-center mb-10">
                 <h2 class="text-gray-800 xl:text-4xl xl:leading-tight text-xl md:text-2xl font-bold">
-                    What client says about us</h2>
+                    What our client says about us</h2>
                 <div class="flex gap-6">
                     <button class="testimonials-button-prev slider-nav">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

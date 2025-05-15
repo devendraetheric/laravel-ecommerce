@@ -119,7 +119,7 @@
                 <div class="lg:col-span-4 mt-6 lg:mt-0">
                     <div class="overflow-hidden rounded-xl bg-white shadow-sm">
                         <div class="p-6 border-b border-gray-200">
-                            <h3 class="text-xl/6 font-semibold text-gray-800">Order Summary</h3>
+                            <h3 class="text-xl/6 font-semibold text-gray-800">Cart Summary</h3>
                         </div>
                         <div class="p-6">
                             <dl class="space-y-6">

@@ -7,20 +7,26 @@ use App\Enums\PaymentType;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Notifications\OrderPlaced;
+use App\Services\PhonePeService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class OrderController extends Controller
 {
-    public function checkout(): View
+    public function checkout()
     {
+        $cart = cart();
+        if ($cart->items->isEmpty()) {
+            return redirect()->route('products.index')
+                ->with('error', 'Your cart is empty.');
+        }
+
         return view('orders.checkout');
     }
 
     public function store(Request $request): RedirectResponse
     {
-
         $validated = $request->validate([
             'address_id' => ['required'],
             'payment_method' => ['required'],
@@ -30,26 +36,15 @@ class OrderController extends Controller
         $cart = cart();
 
         $order = Order::create([
-            'order_number' => $orderID = Order::generateOrderNumber(),
+            'order_number' => Order::generateOrderNumber(),
             'order_date' => now()->format('Y-m-d'),
             'user_id' => auth()->id(),
             'payment_method' => $validated['payment_method'],
             'sub_total' => $cart->total,
-            'grand_total' => $cart->total,
+            'delivery_charge' => 50,
+            'grand_total' => $cart->total + 50,
             'notes' => $validated['notes']
         ]);
-
-        $order->payments()->create([
-            'payment_number' => Payment::generatePaymentNumber(),
-            'reference' =>  $orderID,
-            'amount' =>  $cart->total,
-            'method' =>  PaymentType::CASH,
-        ]);
-
-        $order->increment('paid_amount', $cart->total);
-        $order->payment_status = PaymentStatus::PAID;
-
-        $order->save();
 
         $cartItems = $cart->items->map(function ($item) {
             return $item->only(['product_id', 'quantity', 'price', 'total']);
@@ -67,8 +62,45 @@ class OrderController extends Controller
         $cart->items()->delete();
         $cart->delete();
 
-        return redirect()->route('account.orders.show', $order)
+        return redirect()->route('account.orders.pay', $order)
             ->with('success', 'Order placed successfully.');
+    }
+
+    public function pay(Order $order, PhonePeService $phonePe)
+    {
+        $redirectURL = $phonePe->initiatePayment([
+            'order_id' => $order->order_number,
+            'user_id' => 'USER123',
+            'amount' => $order->grand_total * 100, // ₹100 in paise
+            'redirect_url' => route('account.orders.verifyPayment', $order),
+        ]);
+
+        return redirect($redirectURL);
+    }
+
+    public function verifyPayment(Order $order, PhonePeService $phonePe)
+    {
+        $response = $phonePe->checkStatus($order->order_number);
+
+        if ($response && $response['state'] == 'COMPLETED') {
+            $order->payments()->create([
+                'payment_number' => Payment::generatePaymentNumber(),
+                'reference' =>  $response['orderId'],
+                'amount' =>  $order->grand_total,
+                'method' =>  PaymentType::PHONEPE,
+            ]);
+
+            $order->increment('paid_amount', $order->grand_total);
+            $order->payment_status = PaymentStatus::PAID;
+
+            $order->save();
+
+            return redirect()->route('account.orders.show', $order)
+                ->with('success', 'Payment completed successfully.');
+        }
+
+        return redirect()->route('account.orders.show', $order)
+            ->with('error', 'Payment failed.');
     }
 
     public function index(): View

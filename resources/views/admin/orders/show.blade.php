@@ -64,6 +64,11 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" colspan="3" class="!text-right !font-semibold">
+                                                Delivery Charge</th>
+                                            <td class="text-right">@money($order->delivery_charge)</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" colspan="3" class="!text-right !font-semibold">
                                                 Grandtotal</th>
                                             <td class="text-right">@money($order->grand_total)</td>
                                         </tr>

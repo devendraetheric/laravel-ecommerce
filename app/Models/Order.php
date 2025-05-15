@@ -18,6 +18,7 @@ class Order extends Model
         'user_id',
         'status',
         'sub_total',
+        'delivery_charge',
         'grand_total',
         'payment_method',
         'payment_status',

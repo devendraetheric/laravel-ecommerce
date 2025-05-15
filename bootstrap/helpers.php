@@ -64,7 +64,7 @@ function setting(string $classOrKey)
 if (! function_exists('getLogoURL')) {
     function getLogoURL(): string
     {
-        return setting('general.logo') ? asset('storage/' . setting('general.logo')) : asset('otc-logo.png');
+        return setting('general.logo') ? asset('storage/' . setting('general.logo')) : asset('logo.png');
     }
 }
 
