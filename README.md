@@ -44,7 +44,7 @@ A modern e-commerce platform built with Laravel 12, featuring a responsive front
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/hkmakwana12/laravel-ecommerce.git
+   git clone https://github.com/ethericsolution/laravel-ecommerce.git
    cd laravel-ecommerce
    ```
 
