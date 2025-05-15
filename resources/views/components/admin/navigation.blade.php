@@ -94,8 +94,8 @@
         ],
         [
             'name' => 'Blog Categories',
-            'route' => route('admin.blog_categories.index'),
-            'active' => ($active = request()->routeIs('admin.blog_categories.*')),
+            'route' => route('admin.blogs.categories.index'),
+            'active' => ($active = request()->routeIs('admin.blogs.categories.*')),
             'icon' =>
                 '<svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 shrink-0 ' .
                 ($active ? 'text-primary-600' : 'text-gray-400') .
@@ -105,8 +105,8 @@
         ],
         [
             'name' => 'Blog Posts',
-            'route' => route('admin.blog_posts.index'),
-            'active' => ($active = request()->routeIs('admin.blog_posts.*')),
+            'route' => route('admin.blogs.posts.index'),
+            'active' => ($active = request()->routeIs('admin.blogs.posts.*')),
             'icon' =>
                 '<svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 shrink-0 ' .
                 ($active ? 'text-primary-600' : 'text-gray-400') .

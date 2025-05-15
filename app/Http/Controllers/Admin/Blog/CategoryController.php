@@ -56,7 +56,7 @@ class CategoryController extends Controller
         }
 
         return redirect()
-            ->route('admin.blog_categories.index')
+            ->route('admin.blogs.categories.index')
             ->with('success', 'Blog Category created successfully.');
     }
 
@@ -108,7 +108,7 @@ class CategoryController extends Controller
         }
 
         return redirect()
-            ->route('admin.blog_categories.index')
+            ->route('admin.blogs.categories.index')
             ->with('success', 'Blog Category updated successfully.');
     }
 
@@ -122,7 +122,7 @@ class CategoryController extends Controller
         $blog_category->delete();
 
         return redirect()
-            ->route('admin.blog_categories.index')
+            ->route('admin.blogs.categories.index')
             ->with('success', 'Blog Category deleted successfully.');
     }
 

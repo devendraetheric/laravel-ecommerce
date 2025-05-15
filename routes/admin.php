@@ -83,17 +83,16 @@ Route::group(['middleware' => 'auth:admin'], function () {
      */
     Route::resource('coupons', CouponController::class)->except(['show']);
 
-    /**
-     * Routes For Blog Categories
-     */
-    Route::resource('blog_categories', BlogCategoryController::class)->except(['show']);
-    Route::get('blog_categories/search', [BlogCategoryController::class, 'search'])->name('blog_categories.search');
 
     /**
      * Routes For Blog Categories
      */
-    Route::resource('blog_posts', BlogPostController::class)->except(['show']);
+    Route::prefix('/blogs')->name('blogs.')->group(function () {
+        Route::resource('categories', BlogCategoryController::class)->parameters(['categories' => 'blog_category'])->except(['show']);
+        Route::get('categories/search', [BlogCategoryController::class, 'search'])->name('categories.search');
 
+        Route::resource('posts',BlogPostController::class)->parameters(['posts' => 'blog_post'])->except(['show']);
+    });
 
 
     /**

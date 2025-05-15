@@ -8,7 +8,7 @@
                     'text' => 'Dashboard',
                 ],
                 [
-                    'url' => route('admin.blog_categories.index'),
+                    'url' => route('admin.blogs.categories.index'),
                     'text' => 'Blog Categories',
                 ],
                 [
@@ -18,10 +18,10 @@
             $title = $blog_category->id ? 'Edit ' . $blog_category->name : 'Create Blog Category';
         @endphp
 
-        <x-admin.breadcrumb :links=$breadcrumbLinks :title=$title :goBackAction="route('admin.blog_categories.index')" />
+        <x-admin.breadcrumb :links=$breadcrumbLinks :title=$title :goBackAction="route('admin.blogs.categories.index')" />
 
         <form method="post"
-            action="{{ $blog_category->id ? route('admin.blog_categories.update', $blog_category) : route('admin.blog_categories.store') }}"
+            action="{{ $blog_category->id ? route('admin.blogs.categories.update', $blog_category) : route('admin.blogs.categories.store') }}"
             enctype="multipart/form-data">
             @csrf
 
@@ -99,7 +99,7 @@
             </div>
             <div class="mt-6 space-x-2">
                 <button type="submit" class="btn-primary">Submit</button>
-                <a href="{{ route('admin.blog_categories.index') }}" class="btn-secondary">Cancel</a>
+                <a href="{{ route('admin.blogs.categories.index') }}" class="btn-secondary">Cancel</a>
             </div>
         </form>
     </div>

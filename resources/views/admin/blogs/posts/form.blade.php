@@ -8,7 +8,7 @@
                     'text' => 'Dashboard',
                 ],
                 [
-                    'url' => route('admin.blog_posts.index'),
+                    'url' => route('admin.blogs.posts.index'),
                     'text' => 'Blog Posts',
                 ],
                 [
@@ -18,11 +18,11 @@
             $title = $blog_post->id ? 'Edit ' . $blog_post->name : 'Create Blog Post';
         @endphp
 
-        <x-admin.breadcrumb :links=$breadcrumbLinks :title=$title :goBackAction="route('admin.blog_posts.index')" />
+        <x-admin.breadcrumb :links=$breadcrumbLinks :title=$title :goBackAction="route('admin.blogs.posts.index')" />
 
 
         <form method="post"
-            action="{{ $blog_post->id ? route('admin.blog_posts.update', $blog_post) : route('admin.blog_posts.store') }}"
+            action="{{ $blog_post->id ? route('admin.blogs.posts.update', $blog_post) : route('admin.blogs.posts.store') }}"
             enctype="multipart/form-data">
             @csrf
 
@@ -209,7 +209,7 @@
             </div>
             <div class="mt-6 space-x-2">
                 <button type="submit" class="btn-primary">Submit</button>
-                <a href="{{ route('admin.blog_posts.index') }}" class="btn-secondary">Cancel</a>
+                <a href="{{ route('admin.blogs.posts.index') }}" class="btn-secondary">Cancel</a>
             </div>
         </form>
 
@@ -238,7 +238,7 @@
                         this.results = [];
                         return;
                     }
-                    fetch(`{{ route('admin.blog_categories.search') }}?q=${encodeURIComponent(this.query)}`)
+                    fetch(`{{ route('admin.blogs.categories.search') }}?q=${encodeURIComponent(this.query)}`)
                         .then(res => res.json())
                         .then(data => {
                             this.results = data;
