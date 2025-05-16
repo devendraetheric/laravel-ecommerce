@@ -28,10 +28,10 @@
                             @csrf
                             @method('patch')
 
-                            <div class="grid grid-cols-2 gap-4">
+                            <div class="grid md:grid-cols-2 gap-4">
 
-                                <div class="space-y-2 col-span-2 md:col-span-1">
-                                    <label for="first_name" class="block text-base/6 font-medium text-gray-600">
+                                <div class="space-y-2">
+                                    <label for="first_name" class="control-label">
                                         First Name
                                     </label>
                                     <input type="text" id="first_name" name="first_name"
@@ -42,8 +42,8 @@
                                     @enderror
                                 </div>
 
-                                <div class="space-y-2 col-span-2 md:col-span-1">
-                                    <label for="last_name" class="block text-base/6 font-medium text-gray-600">
+                                <div class="space-y-2">
+                                    <label for="last_name" class="control-label">
                                         Last Name
                                     </label>
                                     <input type="text" id="last_name" name="last_name"
@@ -56,9 +56,9 @@
 
                             </div>
 
-                            <div class="grid grid-cols-2 gap-4 py-5">
-                                <div class="space-y-2 col-span-2 md:col-span-1">
-                                    <label for="email" class="block text-base/6 font-medium text-gray-600">
+                            <div class="grid md:grid-cols-2 gap-4 py-5">
+                                <div class="space-y-2">
+                                    <label for="email" class="control-label">
                                         Email
                                     </label>
                                     <input type="text" id="email" name="email"
@@ -69,8 +69,8 @@
                                     @enderror
                                 </div>
 
-                                <div class="space-y-2 col-span-2 md:col-span-1">
-                                    <label for="phone" class="block text-base/6 font-medium text-gray-600">
+                                <div class="space-y-2">
+                                    <label for="phone" class="control-label">
                                         Phone
                                     </label>
                                     <input type="text" id="phone" name="phone"

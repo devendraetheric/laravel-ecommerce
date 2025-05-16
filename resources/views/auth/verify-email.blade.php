@@ -10,7 +10,7 @@
 
     <div class="container py-20">
 
-        <div class="w-1/2 bg-white shadow-lg rounded-xl mx-auto p-8">
+        <div class="w-full lg:w-1/2 bg-white shadow-lg rounded-xl mx-auto p-8">
             <h2 class="text-center text-gray-800 xl:text-4xl text-xl font-bold mb-10">{{ __('Email Verification') }}</h2>
 
             <div class="mx-12">

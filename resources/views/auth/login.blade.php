@@ -11,7 +11,7 @@
     <!-- Sign In Form Start -->
     <div class="container py-20">
 
-        <div class="w-1/2 bg-white shadow-lg rounded-xl mx-auto p-8">
+        <div class="w-full lg:w-1/2 bg-white shadow-lg rounded-xl mx-auto p-8">
             <h2 class="text-center text-gray-800 xl:text-4xl text-xl font-bold mb-10">Sign In</h2>
 
             <form method="POST" action="{{ route('login') }}" class="space-y-6">

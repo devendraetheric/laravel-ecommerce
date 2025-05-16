@@ -30,7 +30,7 @@
 
                             <div class="space-y-2">
                                 <label for="update_password_current_password"
-                                    class="block text-base/6 font-medium text-gray-600">
+                                    class="control-label">
                                     Current Password
                                 </label>
                                 <input type="password" id="update_password_current_password" name="current_password"
@@ -43,7 +43,7 @@
 
                             <div class="space-y-2">
                                 <label for="update_password_password"
-                                    class="block text-base/6 font-medium text-gray-600">
+                                    class="control-label">
                                     New Password
                                 </label>
                                 <input type="password" id="update_password_password" name="password"
@@ -56,7 +56,7 @@
 
                             <div class="space-y-2">
                                 <label for="update_password_password_confirmation"
-                                    class="block text-base/6 font-medium text-gray-600">
+                                    class="control-label">
                                     Confirm Password
                                 </label>
                                 <input type="password" id="update_password_password_confirmation"

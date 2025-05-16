@@ -28,9 +28,9 @@
             @endisset
             <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
                 <div class="p-6">
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="grid md:grid-cols-2 gap-4 py-2">
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <label for="code" class="control-label">Code</label>
                             <input type="text" name="code" id="code"
                                 class="form-control @error('code') is-invalid @enderror"
@@ -39,19 +39,6 @@
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
-
-                        <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="total_quantity" class="control-label">Total Quantity</label>
-                            <input type="text" name="total_quantity" id="total_quantity"
-                                class="form-control @error('total_quantity') is-invalid @enderror"
-                                value="{{ old('total_quantity', $coupon->total_quantity) }}" />
-                            @error('total_quantity')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-
-
 
                         <div class="space-y-2 col-span-2">
                             <label for="description" class="control-label">Description</label>
@@ -62,7 +49,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <label for="start_date" class="control-label">Start Date</label>
                             <input type="date" name="start_date" id="start_date"
                                 class="form-control @error('start_date') is-invalid @enderror"
@@ -72,7 +59,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <label for="end_date" class="control-label">End Date</label>
                             <input type="date" name="end_date" id="end_date"
                                 class="form-control @error('end_date') is-invalid @enderror"
@@ -81,8 +68,11 @@
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
+                    </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                    <div class="grid md:grid-cols-3 gap-4 py-2 ">
+
+                        <div class="space-y-2">
                             <label for="type" class="control-label">Type</label>
                             <div class="sm:grid sm:grid-cols-6 sm:items-start sm:gap-4">
                                 <div class="mt-2 sm:col-span-6 sm:mt-0 grid grid-cols-1">
@@ -104,7 +94,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <label for="value" class="control-label">Value</label>
                             <input type="text" name="value" id="value"
                                 class="form-control @error('value') is-invalid @enderror"
@@ -114,37 +104,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="total_quantity" class="control-label">Total Quantity</label>
-                            <input type="text" name="total_quantity" id="total_quantity"
-                                class="form-control @error('total_quantity') is-invalid @enderror"
-                                value="{{ old('total_quantity', $coupon->total_quantity) }}" />
-                            @error('total_quantity')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="use_per_user" class="control-label">Use Per User</label>
-                            <input type="text" name="use_per_user" id="use_per_user"
-                                class="form-control @error('use_per_user') is-invalid @enderror"
-                                value="{{ old('use_per_user', $coupon->use_per_user) }}" />
-                            @error('use_per_user')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="used_quantity" class="control-label">Used Quantity</label>
-                            <input type="text" name="used_quantity" id="used_quantity"
-                                class="form-control @error('used_quantity') is-invalid @enderror"
-                                value="{{ old('used_quantity', $coupon->used_quantity) }}" />
-                            @error('used_quantity')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <label for="max_discount_value" class="control-label">Max Discount Value</label>
                             <input type="text" name="max_discount_value" id="max_discount_value"
                                 class="form-control @error('max_discount_value') is-invalid @enderror"
@@ -154,7 +114,43 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-4 py-2">
+                        <div class="space-y-2">
+                            <label for="total_quantity" class="control-label">Total Quantity</label>
+                            <input type="text" name="total_quantity" id="total_quantity"
+                                class="form-control @error('total_quantity') is-invalid @enderror"
+                                value="{{ old('total_quantity', $coupon->total_quantity) }}" />
+                            @error('total_quantity')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="use_per_user" class="control-label">Use Per User</label>
+                            <input type="text" name="use_per_user" id="use_per_user"
+                                class="form-control @error('use_per_user') is-invalid @enderror"
+                                value="{{ old('use_per_user', $coupon->use_per_user) }}" />
+                            @error('use_per_user')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-4 py-2 ">
+                        <div class="space-y-2">
+                            <label for="used_quantity" class="control-label">Used Quantity</label>
+                            <input type="text" name="used_quantity" id="used_quantity"
+                                class="form-control @error('used_quantity') is-invalid @enderror"
+                                value="{{ old('used_quantity', $coupon->used_quantity) }}" />
+                            @error('used_quantity')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="space-y-2">
                             <label for="min_cart_value" class="control-label">Min Cart Value</label>
                             <input type="text" name="min_cart_value" id="min_cart_value"
                                 class="form-control @error('min_cart_value') is-invalid @enderror"
@@ -164,7 +160,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <label for="max_cart_value" class="control-label">Max Cart Value</label>
                             <input type="text" name="max_cart_value" id="max_cart_value"
                                 class="form-control @error('max_cart_value') is-invalid @enderror"
@@ -173,15 +169,30 @@
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
+                    </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="is_for_new_user" class="control-label">Is For New User</label>
-                            <input type="text" name="is_for_new_user" id="is_for_new_user"
-                                class="form-control @error('is_for_new_user') is-invalid @enderror"
-                                value="{{ old('is_for_new_user', $coupon->is_for_new_user) }}" />
-                            @error('is_for_new_user')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
-                            @enderror
+                    <div class="grid md:grid-cols-1 gap-4 py-2 ">
+
+                        <div class="space-y-2 mt-4">
+                            <script>
+                                var is_for_new_user = '{{ old('is_for_new_user', $coupon->is_for_new_user) }}';
+                            </script>
+                            <div class="flex items-center" x-data="{
+                                isForNewUser: is_for_new_user == 1 ? true : false,
+                            }">
+                                <button type="button" :class="isForNewUser ? 'bg-primary-600' : 'bg-gray-200'"
+                                    class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 focus:outline-hidden"
+                                    role="switch" :aria-checked="isForNewUser" aria-labelledby="annual-billing-label"
+                                    @click="isForNewUser = !isForNewUser">
+                                    <span aria-hidden="true" :class="isForNewUser ? 'translate-x-5' : 'translate-x-0'"
+                                        class="pointer-events-none inline-block size-5 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out"></span>
+                                </button>
+                                <span class="ml-3 text-sm" id="annual-billing-label">
+                                    <span class="font-medium text-gray-900">Is For New User</span>
+                                </span>
+                                <!-- Hidden input for form submission -->
+                                <input type="hidden" name="is_for_new_user" :value="isForNewUser ? 1 : 0" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -191,6 +202,7 @@
                 <button type="submit" class="btn-primary">Submit</button>
                 <a href="{{ route('admin.coupons.index') }}" class="btn-secondary">Cancel</a>
             </div>
+
         </form>
     </div>
 

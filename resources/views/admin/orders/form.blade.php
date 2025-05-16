@@ -146,12 +146,12 @@
 
             @include('admin.orders.address', ['address' => $order?->address])
 
-            <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
+            <div class="mt-6 rounded-xl bg-white shadow-sm">
                 <div class="p-6 border-b border-gray-200">
                     <h3 class="text-base font-semibold text-gray-800">Order Items</h3>
                 </div>
                 <div class="p-6">
-                    <div class="-mx-6 -my-6 overflow-x-auto">
+                    <div class="-mx-6 -my-6 ">
                         <div class="inline-block min-w-full align-middle">
                             <table class="record-table">
                                 <thead>
@@ -296,13 +296,23 @@
                     <h3 class="text-base font-semibold text-gray-800">Order Summary</h3>
                 </div>
                 <div class="p-6">
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="grid grid-cols-3 gap-4">
                         <div class="space-y-2 col-span-2 md:col-span-1">
                             <label for="sub_total" class="control-label">Sub Total</label>
                             <input type="text" name="sub_total" id="sub_total"
                                 class="form-control @error('sub_total') is-invalid @enderror"
-                                :value="grandTotal.toFixed(2)" readonly />
+                                :value="subTotal.toFixed(2)" readonly />
                             @error('sub_total')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="space-y-2 col-span-2 md:col-span-1">
+                            <label for="delivery_charge" class="control-label">Delivery Charge</label>
+                            <input type="text" name="delivery_charge" id="delivery_charge"
+                                class="form-control @error('delivery_charge') is-invalid @enderror"
+                                x-model="deliveryCharge" />
+                            @error('delivery_charge')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
@@ -370,6 +380,8 @@
 
                 return {
                     items: formItems, // Array to hold order items
+                    deliveryCharge: '{{ old('delivery_charge', $order->delivery_charge ?? 0) }}',
+
 
                     // Method to add a new item
                     addItem() {
@@ -391,8 +403,12 @@
                         item.total = parseFloat(item.quantity * item.price).toFixed(2);
                     },
 
-                    get grandTotal() {
+                    get subTotal() {
                         return this.items.reduce((sum, item) => sum + parseFloat(item.total), 0);
+                    },
+
+                    get grandTotal() {
+                        return this.subTotal + parseFloat(this.deliveryCharge || 0);
                     },
                 };
             }

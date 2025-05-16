@@ -31,9 +31,9 @@
 
             <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
                 <div class="p-6">
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="grid md:grid-cols-2 gap-4">
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <label for="name" class="control-label">Name</label>
                             <input type="text" name="name" id="name"
                                 class="form-control @error('name') is-invalid @enderror"
@@ -43,13 +43,13 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <label for="image" class="control-label">Image</label>
                             <input id="image" name="image" type="file" class="form-control">
                         </div>
 
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <label for="link" class="control-label">Destination Link</label>
                             <input type="text" name="link" id="link"
                                 class="form-control @error('link') is-invalid @enderror"
@@ -59,7 +59,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <label for="location" class="control-label">Location</label>
                             <input type="text" name="location" id="location"
                                 class="form-control @error('location') is-invalid @enderror"
@@ -72,7 +72,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <script>
                                 var is_new_tab = '{{ old('is_new_tab', $banner->is_new_tab) }}';
                             </script>
@@ -94,7 +94,7 @@
                             </div>
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <script>
                                 var is_active = '{{ old('is_active', $banner->is_active) }}';
                             </script>

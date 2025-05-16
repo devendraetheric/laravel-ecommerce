@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Artisan;
@@ -82,17 +83,16 @@ Route::group(['middleware' => 'auth:admin'], function () {
      */
     Route::resource('coupons', CouponController::class)->except(['show']);
 
-    /**
-     * Routes For Blog Categories
-     */
-    Route::resource('blog_categories', BlogCategoryController::class)->except(['show']);
-    Route::get('blog_categories/search', [BlogCategoryController::class, 'search'])->name('blog_categories.search');
 
     /**
      * Routes For Blog Categories
      */
-    Route::resource('blog_posts', BlogPostController::class)->except(['show']);
+    Route::prefix('/blogs')->name('blogs.')->group(function () {
+        Route::resource('categories', BlogCategoryController::class)->parameters(['categories' => 'blog_category'])->except(['show']);
+        Route::get('categories/search', [BlogCategoryController::class, 'search'])->name('categories.search');
 
+        Route::resource('posts',BlogPostController::class)->parameters(['posts' => 'blog_post'])->except(['show']);
+    });
 
 
     /**
@@ -109,6 +109,15 @@ Route::group(['middleware' => 'auth:admin'], function () {
 
     Route::get('settings/prefix', [SettingController::class, 'prefix'])->name('settings.prefix');
     Route::post('settings/prefix', [SettingController::class, 'savePrefix'])->name('settings.savePrefix');
+
+
+    /**
+     * Admin Profile Routes
+     */
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    Route::put('/profile/change-password', [ProfileController::class, 'password'])->name('profile.password');
 });
 
 Route::get('orders/pdf/{order}', [OrderController::class, 'pdf'])->name('orders.pdf');

@@ -8,7 +8,7 @@
                     'text' => 'Dashboard',
                 ],
                 [
-                    'url' => route('admin.blog_posts.index'),
+                    'url' => route('admin.blogs.posts.index'),
                     'text' => 'Blog Posts',
                 ],
                 [
@@ -17,7 +17,7 @@
             ];
         @endphp
 
-        <x-admin.breadcrumb :links=$breadcrumbLinks title="Blog Posts" :addNewAction="route('admin.blog_posts.create')" />
+        <x-admin.breadcrumb :links=$breadcrumbLinks title="Blog Posts" :addNewAction="route('admin.blogs.posts.create')" />
 
         <div class="mt-8 flow-root">
             <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -46,7 +46,7 @@
                                             <td>{{ $blog_post->status }}</td>
 
                                             <td class="relative text-right text-sm space-x-1 items-center">
-                                                <a href="{{ route('admin.blog_posts.edit', $blog_post) }}"
+                                                <a href="{{ route('admin.blogs.posts.edit', $blog_post) }}"
                                                     class="link-primary relative inline-flex">
                                                     <svg viewBox="0 0 20 20" fill="currentColor" class="size-5">
                                                         <path
@@ -55,7 +55,7 @@
                                                             d="M3.5 5.75c0-.69.56-1.25 1.25-1.25H10A.75.75 0 0 0 10 3H4.75A2.75 2.75 0 0 0 2 5.75v9.5A2.75 2.75 0 0 0 4.75 18h9.5A2.75 2.75 0 0 0 17 15.25V10a.75.75 0 0 0-1.5 0v5.25c0 .69-.56 1.25-1.25 1.25h-9.5c-.69 0-1.25-.56-1.25-1.25v-9.5Z" />
                                                     </svg>
                                                 </a>
-                                                <form action="{{ route('admin.blog_posts.destroy', $blog_post) }}"
+                                                <form action="{{ route('admin.blogs.posts.destroy', $blog_post) }}"
                                                     method="post" class="inline-flex"
                                                     onsubmit="return confirm('Are you sure want to delete?')">
                                                     @csrf

@@ -61,7 +61,7 @@ class PostController extends Controller
         }
 
         return redirect()
-            ->route('admin.blog_posts.index')
+            ->route('admin.blogs.posts.index')
             ->with('success', 'Blog Product created successfully.');
     }
 
@@ -115,7 +115,7 @@ class PostController extends Controller
         }
 
         return redirect()
-            ->route('admin.blog_posts.index')
+            ->route('admin.blogs.posts.index')
             ->with('success', 'Blog Posts updated successfully.');
     }
 
@@ -129,7 +129,7 @@ class PostController extends Controller
         $blog_post->delete();
 
         return redirect()
-            ->route('admin.blog_posts.index')
+            ->route('admin.blogs.posts.index')
             ->with('success', 'Blog Post deleted successfully.');
     }
 }

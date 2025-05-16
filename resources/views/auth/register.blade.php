@@ -11,14 +11,14 @@
     <!-- Sign Up Form Start -->
     <div class="container py-20">
 
-        <div class="w-1/2 bg-white shadow-lg rounded-xl mx-auto p-8">
+        <div class="w-full lg:w-1/2 bg-white shadow-lg rounded-xl mx-auto p-8">
             <h2 class="text-center text-gray-800 xl:text-4xl text-xl font-bold mb-10">Sign Up</h2>
 
             <form method="POST" action="{{ route('register') }}" class="space-y-6">
                 @csrf
 
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="space-y-2 col-span-2 md:col-span-1">
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="space-y-2">
                         <input type="text" id="first_name" name="first_name" value="{{ old('first_name') }}"
                             placeholder="First Name" class="form-control @error('first_name') is-invalid @enderror" />
                         @error('first_name')
@@ -26,7 +26,7 @@
                         @enderror
                     </div>
 
-                    <div class="space-y-2 col-span-2 md:col-span-1">
+                    <div class="space-y-2">
                         <input type="text" id="last_name" name="last_name" value="{{ old('last_name') }}"
                             placeholder="Last Name" class="form-control @error('last_name') is-invalid @enderror" />
                         @error('last_name')

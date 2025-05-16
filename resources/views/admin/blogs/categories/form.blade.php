@@ -8,7 +8,7 @@
                     'text' => 'Dashboard',
                 ],
                 [
-                    'url' => route('admin.blog_categories.index'),
+                    'url' => route('admin.blogs.categories.index'),
                     'text' => 'Blog Categories',
                 ],
                 [
@@ -18,10 +18,10 @@
             $title = $blog_category->id ? 'Edit ' . $blog_category->name : 'Create Blog Category';
         @endphp
 
-        <x-admin.breadcrumb :links=$breadcrumbLinks :title=$title :goBackAction="route('admin.blog_categories.index')" />
+        <x-admin.breadcrumb :links=$breadcrumbLinks :title=$title :goBackAction="route('admin.blogs.categories.index')" />
 
         <form method="post"
-            action="{{ $blog_category->id ? route('admin.blog_categories.update', $blog_category) : route('admin.blog_categories.store') }}"
+            action="{{ $blog_category->id ? route('admin.blogs.categories.update', $blog_category) : route('admin.blogs.categories.store') }}"
             enctype="multipart/form-data">
             @csrf
 
@@ -33,8 +33,8 @@
                     title: '{{ addslashes(old('name', $blog_category->name)) }}',
                     slug: '{{ old('slug', $blog_category->slug) }}'
                 }">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="space-y-2">
                             <label for="name" class="control-label">Name</label>
                             <input type="text" name="name" id="name"
                                 class="form-control @error('name') is-invalid @enderror" x-model="title"
@@ -44,7 +44,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <label for="slug" class="control-label">Slug</label>
                             <input type="text" name="slug" id="slug"
                                 class="form-control @error('slug') is-invalid @enderror" x-model="slug" readonly />
@@ -60,12 +60,6 @@
                             @error('description')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
-                        </div>
-
-                        <div class="space-y-2 col-span-2 md:col-span-1">
-                            <label for="image" class="block text-sm/6 font-medium text-gray-900">Featured
-                                Image</label>
-                            <input id="image" name="image" type="file" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -99,7 +93,7 @@
             </div>
             <div class="mt-6 space-x-2">
                 <button type="submit" class="btn-primary">Submit</button>
-                <a href="{{ route('admin.blog_categories.index') }}" class="btn-secondary">Cancel</a>
+                <a href="{{ route('admin.blogs.categories.index') }}" class="btn-secondary">Cancel</a>
             </div>
         </form>
     </div>
