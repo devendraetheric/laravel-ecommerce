@@ -46,15 +46,6 @@ class CategoryController extends Controller
 
         $blog_category = BlogCategory::create($validated);
 
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $path = $file->store('uploads', 'public');
-
-            $blog_category->addMedia(storage_path("app/public/$path"))
-                ->preservingOriginal()
-                ->toMediaCollection();
-        }
-
         return redirect()
             ->route('admin.blogs.categories.index')
             ->with('success', 'Blog Category created successfully.');
@@ -95,17 +86,6 @@ class CategoryController extends Controller
 
         $blog_category->fill($validated);
         $blog_category->save();
-
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $path = $file->store('uploads', 'public');
-
-            $blog_category->clearMediaCollection();
-
-            $blog_category->addMedia(storage_path("app/public/$path"))
-                ->preservingOriginal()
-                ->toMediaCollection();
-        }
 
         return redirect()
             ->route('admin.blogs.categories.index')

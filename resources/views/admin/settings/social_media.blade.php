@@ -27,11 +27,11 @@
 
             <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
                 <div class="p-6">
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="grid md:grid-cols-2 gap-4">
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <div class="flex justify-between">
-                                <label for="facebook" class="control-label">Facebool</label>
+                                <label for="facebook" class="control-label">Facebook</label>
                                 <span class="text-sm/6 text-gray-500"
                                     id="facebook-optional">setting('social.facebook')</span>
                             </div>
@@ -43,7 +43,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <div class="flex justify-between">
                                 <label for="instagram" class="control-label">Instagram</label>
                                 <span class="text-sm/6 text-gray-500"
@@ -57,7 +57,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <div class="flex justify-between">
                                 <label for="youtube" class="control-label">YouTube</label>
                                 <span class="text-sm/6 text-gray-500"
@@ -71,7 +71,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <div class="flex justify-between">
                                 <label for="twitter" class="control-label">Twitter</label>
                                 <span class="text-sm/6 text-gray-500"

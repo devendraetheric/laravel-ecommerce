@@ -7,9 +7,9 @@
         </div>
 
         <div class="p-6">
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid md:grid-cols-2 gap-4">
 
-                <div class="space-y-2 col-span-2 md:col-span-1">
+                <div class="space-y-2">
                     <label for="payment_number" class="control-label">Payment Number</label>
                     <input type="text" name="payment_number" id="payment_number"
                         class="form-control @error('payment_number') is-invalid @enderror"
@@ -20,7 +20,7 @@
                     @enderror
                 </div>
 
-                <div class="space-y-2 col-span-2 md:col-span-1">
+                <div class="space-y-2">
                     <label for="reference" class="control-label">Reference</label>
                     <input type="text" name="reference" id="reference"
                         class="form-control @error('reference') is-invalid @enderror" value="{{ old('reference') }}" />
@@ -29,7 +29,7 @@
                     @enderror
                 </div>
 
-                <div class="space-y-2 col-span-2 md:col-span-1">
+                <div class="space-y-2">
                     <label for="amount" class="control-label">Amount</label>
                     <input type="text" name="amount" id="amount"
                         class="form-control @error('amount') is-invalid @enderror"

@@ -30,11 +30,11 @@
             @endisset
             <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
                 <div class="p-6">
-                    <div class="grid grid-cols-2 gap-4" x-data="{
+                    <div class="grid md:grid-cols-2 gap-4" x-data="{
                         title: '{{ addslashes(old('name', $brand->name)) }}',
                         slug: '{{ old('slug', $brand->slug) }}'
                     }">
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <label for="name" class="control-label">Name</label>
                             <input type="text" name="name" id="name"
                                 class="form-control @error('name') is-invalid @enderror" x-model="title"
@@ -44,7 +44,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <label for="slug" class="control-label">Slug</label>
                             <input type="text" name="slug" id="slug"
                                 class="form-control @error('slug') is-invalid @enderror" x-model="slug" readonly />
@@ -62,7 +62,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <label for="image" class="block text-sm/6 font-medium text-gray-900">Featured
                                 Image</label>
                             <input id="image" name="image" type="file" class="form-control">

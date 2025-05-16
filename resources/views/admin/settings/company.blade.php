@@ -27,9 +27,9 @@
 
             <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
                 <div class="p-6">
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="grid md:grid-cols-2 gap-4">
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <div class="flex justify-between">
                                 <label for="app_name" class="control-label">Name</label>
                                 <span class="text-sm/6 text-gray-500" id="name-optional">setting('company.name')</span>
@@ -42,7 +42,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <div class="flex justify-between">
                                 <label for="email" class="control-label">Email</label>
                                 <span class="text-sm/6 text-gray-500"
@@ -56,7 +56,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <div class="flex justify-between">
                                 <label for="phone" class="control-label">Phone</label>
                                 <span class="text-sm/6 text-gray-500"
@@ -70,7 +70,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <div class="flex justify-between">
                                 <label for="website" class="control-label">Website</label>
                                 <span class="text-sm/6 text-gray-500"
@@ -149,7 +149,7 @@
                         </div>
 
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <div class="flex justify-between">
                                 <label for="city" class="control-label">City</label>
                                 <span class="text-sm/6 text-gray-500"
@@ -163,7 +163,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <div class="flex justify-between">
                                 <label for="zipcode" class="control-label">Zipcode</label>
                                 <span class="text-sm/6 text-gray-500"

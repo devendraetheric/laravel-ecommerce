@@ -49,7 +49,7 @@
                             title: '{{ addslashes(old('name', $product->name)) }}',
                             slug: '{{ old('slug', $product->slug) }}'
                         }">
-                            <div class="space-y-2 col-span-2 md:col-span-1">
+                            <div class="space-y-2">
                                 <label for="name" class="control-label">Name</label>
                                 <input type="text" name="name" id="name"
                                     class="form-control @error('name') is-invalid @enderror" x-model="title"
@@ -84,8 +84,8 @@
                             <h3 class="text-base font-semibold text-gray-800">Pricing</h3>
                         </div>
                         <div class="p-6">
-                            <div class="grid grid-cols-2 gap-4">
-                                <div class="space-y-2 col-span-2 md:col-span-1">
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="space-y-2">
                                     <label for="regular_price" class="control-label">Regular Price</label>
                                     <input type="text" name="regular_price" id="regular_price"
                                         class="form-control @error('regular_price') is-invalid @enderror"
@@ -95,7 +95,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="space-y-2 col-span-2 md:col-span-1">
+                                <div class="space-y-2">
                                     <label for="selling_price" class="control-label">Selling Price</label>
                                     <input type="text" name="selling_price" id="selling_price"
                                         class="form-control @error('selling_price') is-invalid @enderror"
@@ -113,8 +113,8 @@
                             <h3 class="text-base font-semibold text-gray-800">Inventory</h3>
                         </div>
                         <div class="p-6">
-                            <div class="grid grid-cols-2 gap-4">
-                                <div class="space-y-2 col-span-2 md:col-span-1">
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="space-y-2">
                                     <label for="sku" class="control-label">SKU (Stock Keeping
                                         Unit)</label>
                                     <input type="text" name="sku" id="sku"
@@ -125,7 +125,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="space-y-2 col-span-2 md:col-span-1">
+                                <div class="space-y-2">
                                     <label for="barcode" class="control-label">Barcode (ISBN, UPC, GTIN,
                                         etc.)</label>
                                     <input type="text" name="barcode" id="barcode"

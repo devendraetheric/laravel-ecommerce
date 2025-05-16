@@ -89,7 +89,7 @@
 
                                 <div>
                                     <label for="notes"
-                                        class="block text-base/6 font-medium text-gray-600">Notes</label>
+                                        class="control-label">Notes</label>
                                     <textarea id="notes" name="notes" class="form-control mt-2" rows="3">{{ old('notes') }}</textarea>
                                     @error('notes')
                                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>

@@ -26,12 +26,13 @@ class Order extends Model
     ];
 
     protected $casts = [
-        'status'         => OrderStatus::class,
-        'payment_status' => PaymentStatus::class,
-        'sub_total'      => 'decimal:2',
-        'grand_total'    => 'decimal:2',
-        'paid_amount'    => 'decimal:2',
-        'order_date'     => 'date:Y-m-d'
+        'status'          => OrderStatus::class,
+        'payment_status'  => PaymentStatus::class,
+        'sub_total'       => 'decimal:2',
+        'delivery_charge' => 'decimal:2',
+        'grand_total'     => 'decimal:2',
+        'paid_amount'     => 'decimal:2',
+        'order_date'      => 'date:Y-m-d'
     ];
 
     public static function generateOrderNumber(): string

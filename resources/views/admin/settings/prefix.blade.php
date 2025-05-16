@@ -31,7 +31,7 @@
                     </div>
                     <div class="p-6">
                         <div class="grid grid-cols-1 gap-4">
-                            <div class="space-y-2 col-span-2 md:col-span-1">
+                            <div class="space-y-2">
                                 <div class="flex justify-between">
                                     <label for="order_prefix" class="control-label">Prefix</label>
                                     <span class="text-sm/6 text-gray-500"
@@ -45,7 +45,7 @@
                                 @enderror
                             </div>
 
-                            <div class="space-y-2 col-span-2 md:col-span-1">
+                            <div class="space-y-2">
                                 <div class="flex justify-between">
                                     <label for="order_digit_length" class="control-label">Digit Length</label>
                                     <span class="text-sm/6 text-gray-500"
@@ -59,7 +59,7 @@
                                 @enderror
                             </div>
 
-                            <div class="space-y-2 col-span-2 md:col-span-1">
+                            <div class="space-y-2">
                                 <div class="flex justify-between">
                                     <label for="order_sequence" class="control-label">Sequence</label>
                                     <span class="text-sm/6 text-gray-500"
@@ -83,7 +83,7 @@
                     <div class="p-6">
                         <div class="grid grid-cols-1 gap-4">
 
-                            <div class="space-y-2 col-span-2 md:col-span-1">
+                            <div class="space-y-2">
                                 <div class="flex justify-between">
                                     <label for="payment_prefix" class="control-label">Prefix</label>
                                     <span class="text-sm/6 text-gray-500"
@@ -97,7 +97,7 @@
                                 @enderror
                             </div>
 
-                            <div class="space-y-2 col-span-2 md:col-span-1">
+                            <div class="space-y-2">
                                 <div class="flex justify-between">
                                     <label for="payment_digit_length" class="control-label">Digit Length</label>
                                     <span class="text-sm/6 text-gray-500"
@@ -111,7 +111,7 @@
                                 @enderror
                             </div>
 
-                            <div class="space-y-2 col-span-2 md:col-span-1">
+                            <div class="space-y-2">
                                 <div class="flex justify-between">
                                     <label for="payment_sequence" class="control-label">Sequence</label>
                                     <span class="text-sm/6 text-gray-500"

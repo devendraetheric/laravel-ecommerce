@@ -5,7 +5,7 @@
     <div class="p-6 space-y-6" x-data="addressInfo()">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-                <label for="name" class="block text-base/6 font-medium text-gray-600">Address
+                <label for="name" class="control-label">Address
                     Name</label>
                 <input type="text" id="name" name="address[name]"
                     value="{{ old('address.name', $address?->name) }}"
@@ -16,7 +16,7 @@
             </div>
 
             <div>
-                <label for="country_id" class="block text-base/6 font-medium text-gray-600">Country</label>
+                <label for="country_id" class="control-label">Country</label>
                 <div class="mt-2 grid grid-cols-1">
                     <select id="country_id" name="address[country_id]" class="col-start-1 row-start-1 form-select"
                         x-model="country_id" x-init="countryChange()" @change="countryChange()">
@@ -41,7 +41,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-                <label for="contact_name" class="block text-base/6 font-medium text-gray-600">Full
+                <label for="contact_name" class="control-label">Full
                     Name</label>
                 <input type="text" id="contact_name" name="address[contact_name]"
                     value="{{ old('address.contact_name', $address?->contact_name) }}"
@@ -52,7 +52,7 @@
             </div>
 
             <div>
-                <label for="phone" class="block text-base/6 font-medium text-gray-600">Phone</label>
+                <label for="phone" class="control-label">Phone</label>
                 <input type="text" id="phone" name="address[phone]"
                     value="{{ old('address.phone', $address?->phone) }}"
                     class="form-control mt-2 @error('address.phone') is-invalid @enderror" />
@@ -64,7 +64,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-                <label for="address_line_1" class="block text-base/6 font-medium text-gray-600">Address
+                <label for="address_line_1" class="control-label">Address
                     Line 1</label>
                 <input type="text" id="address_line_1" name="address[address_line_1]"
                     value="{{ old('address.address_line_1', $address?->address_line_1) }}"
@@ -76,7 +76,7 @@
             </div>
 
             <div>
-                <label for="address_line_2" class="block text-base/6 font-medium text-gray-600">Address
+                <label for="address_line_2" class="control-label">Address
                     Line 2</label>
                 <input type="text" id="address_line_2" name="address[address_line_2]"
                     value="{{ old('address.address_line_2', $address?->address_line_2) }}" class="form-control mt-2"
@@ -89,7 +89,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div>
-                <label for="city" class="block text-base/6 font-medium text-gray-600">City</label>
+                <label for="city" class="control-label">City</label>
                 <input type="text" id="city" name="address[city]"
                     value="{{ old('address.city', $address?->city) }}"
                     class="form-control mt-2 @error('address.city') is-invalid @enderror" />
@@ -99,7 +99,7 @@
             </div>
 
             <div>
-                <label for="state_id" class="block text-base/6 font-medium text-gray-600">State</label>
+                <label for="state_id" class="control-label">State</label>
                 <div class="mt-2 grid grid-cols-1">
                     <select x-model="state_id" id="state_id" name="address[state_id]"
                         class="col-start-1 row-start-1 form-select">
@@ -121,7 +121,7 @@
             </div>
 
             <div>
-                <label for="zip_code" class="block text-base/6 font-medium text-gray-600">Zip
+                <label for="zip_code" class="control-label">Zip
                     Code</label>
                 <input type="text" id="zip_code" name="address[zip_code]"
                     value="{{ old('address.zip_code', $address?->zip_code) }}"

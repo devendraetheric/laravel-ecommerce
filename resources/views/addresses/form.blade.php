@@ -36,7 +36,7 @@
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <label for="name" class="block text-base/6 font-medium text-gray-600">Address
+                                    <label for="name" class="control-label">Address
                                         Name</label>
                                     <input type="text" id="name" name="name"
                                         value="{{ old('name', $address->name) }}" class="form-control mt-2" />
@@ -47,7 +47,7 @@
 
                                 <div>
                                     <label for="country_id"
-                                        class="block text-base/6 font-medium text-gray-600">Country</label>
+                                        class="control-label">Country</label>
                                     <div class="mt-2 grid grid-cols-1">
                                         <select id="country_id" name="country_id"
                                             class="col-start-1 row-start-1 w-full appearance-none rounded-lg bg-gray-50 py-4 pr-10 pl-4 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 sm:text-sm/6"
@@ -73,7 +73,7 @@
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <label for="contact_name" class="block text-base/6 font-medium text-gray-600">Full
+                                    <label for="contact_name" class="control-label">Full
                                         Name</label>
                                     <input type="text" id="contact_name" name="contact_name"
                                         value="{{ old('contact_name', $address->contact_name ?? auth()->user()->name) }}"
@@ -85,7 +85,7 @@
 
                                 <div>
                                     <label for="phone"
-                                        class="block text-base/6 font-medium text-gray-600">Phone</label>
+                                        class="control-label">Phone</label>
                                     <input type="text" id="phone" name="phone"
                                         value="{{ old('phone', $address->phone ?? auth()->user()->phone) }}"
                                         class="form-control mt-2" />
@@ -98,7 +98,7 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label for="address_line_1"
-                                        class="block text-base/6 font-medium text-gray-600">Address
+                                        class="control-label">Address
                                         Line 1</label>
                                     <input type="text" id="address_line_1" name="address_line_1"
                                         value="{{ old('address_line_1', $address->address_line_1) }}"
@@ -110,7 +110,7 @@
 
                                 <div>
                                     <label for="address_line_2"
-                                        class="block text-base/6 font-medium text-gray-600">Address
+                                        class="control-label">Address
                                         Line 2</label>
                                     <input type="text" id="address_line_2" name="address_line_2"
                                         value="{{ old('address_line_2', $address->address_line_2) }}"
@@ -124,7 +124,7 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 <div>
                                     <label for="city"
-                                        class="block text-base/6 font-medium text-gray-600">City</label>
+                                        class="control-label">City</label>
                                     <input type="text" id="city" name="city"
                                         value="{{ old('city', $address->city) }}" class="form-control mt-2" />
                                     @error('city')
@@ -134,7 +134,7 @@
 
                                 <div>
                                     <label for="state_id"
-                                        class="block text-base/6 font-medium text-gray-600">State</label>
+                                        class="control-label">State</label>
                                     <div class="mt-2 grid grid-cols-1">
                                         <select x-model="state_id" id="state_id" name="state_id"
                                             class="col-start-1 row-start-1 w-full appearance-none rounded-lg bg-gray-50 py-4 pr-10 pl-4 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 sm:text-sm/6">
@@ -156,7 +156,7 @@
                                 </div>
 
                                 <div>
-                                    <label for="zip_code" class="block text-base/6 font-medium text-gray-600">Zip
+                                    <label for="zip_code" class="control-label">Zip
                                         Code</label>
                                     <input type="text" id="zip_code" name="zip_code"
                                         value="{{ old('zip_code', $address->zip_code) }}"

@@ -28,9 +28,9 @@
 
             <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
                 <div class="p-6">
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="grid md:grid-cols-2 gap-4">
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <label for="first_name" class="control-label">First Name</label>
                             <input type="text" name="first_name" id="first_name"
                                 class="form-control @error('first_name') is-invalid @enderror"
@@ -40,7 +40,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <label for="last_name" class="control-label">Last Name</label>
                             <input type="text" name="last_name" id="last_name"
                                 class="form-control @error('last_name') is-invalid @enderror"
@@ -50,7 +50,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <label for="email" class="control-label">Email</label>
                             <input type="text" name="email" id="email"
                                 class="form-control @error('email') is-invalid @enderror"
@@ -60,7 +60,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <label for="phone" class="control-label">Phone</label>
                             <input type="text" name="phone" id="phone"
                                 class="form-control @error('phone') is-invalid @enderror"
@@ -72,7 +72,7 @@
 
 
                         <!---  passsword------->
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <label for="password" class="control-label">Password</label>
                             <input type="password" name="password" id="password"
                                 class="form-control @error('password') is-invalid @enderror" />

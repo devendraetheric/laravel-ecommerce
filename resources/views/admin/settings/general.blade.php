@@ -251,7 +251,7 @@
 
             <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
                 <div class="p-6">
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="grid md:grid-cols-2 gap-4">
 
                         <!----- Logo And Favicon -------------->
                         <div>
