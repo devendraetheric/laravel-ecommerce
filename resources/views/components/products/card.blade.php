@@ -2,7 +2,7 @@
     <div>
         <a href="{{ route('products.show', $product) }}">
             <div class="overflow-hidden aspect-square items-center bg-gray-50 mb-2 relative rounded-lg">
-                <img class="w-full object-contain aspect-square rounded-xs" src="{{ $product->thumbnailURL() }}"
+                <img class="w-full object-contain aspect-square rounded-xs" src="{{ $product->thumbnailURL('thumb') }}"
                     alt="{{ $product?->name }}" loading="lazy" fetchpriority="low" />
             </div>
         </a>

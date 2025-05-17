@@ -1,4 +1,3 @@
-@inject('socialMedia', 'App\Settings\SocialMediaSetting')
 <!-- footer area start -->
 <footer class="bg-white">
     <div class="xl:py-20 py-6 sm:py-8 md:py-12 border-t border-gray-200">
@@ -110,8 +109,10 @@
                                             d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
                                     </svg>
                                 </dt>
-                                <dd class="text-gray-600 text-base/relaxed">12333 Bear Plaza Ste. #100, Burleson, <br>TX
-                                    76028, <br>United States</dd>
+                                <dd class="text-gray-600 text-base/relaxed">12333 Bear Plaza Ste. #100, Burleson,
+                                    <br>TX
+                                    76028, <br>United States
+                                </dd>
                             </div>
 
                             <div class="flex w-full flex-none gap-x-4 items-center">
@@ -155,8 +156,7 @@
                         <b>Etheric Solution</b></a>
                 </p>
                 <div class="inline-flex justify-center h-6">
-                    <img src="{{ asset('assets/images/all-img/payments.png') }}" alt="Payment Method"
-                        loading="lazy" />
+                    <img src="{{ asset('assets/images/payments.png') }}" alt="Payment Method" loading="lazy" />
                 </div>
             </div>
         </div>

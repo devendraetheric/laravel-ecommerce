@@ -76,4 +76,29 @@ class ProductController extends Controller
 
         return view('products.show', compact('product'));
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query', '');
+
+        // sleep(10);
+
+        if ($query) {
+            $products = Product::active()
+                ->where('name', 'like', "%$query%")
+                ->latest()
+                ->take(8)
+                ->get(['id', 'name', 'slug', 'short_description']);
+
+            $products->each(function ($product) {
+                $product->media_url = $product->thumbnailURL('thumb');
+                $product->url = route('products.show', $product->slug);
+
+                unset($product->media);
+            });
+
+            return response()->json($products);
+        }
+        return response()->json([]);
+    }
 }
