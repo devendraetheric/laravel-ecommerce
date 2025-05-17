@@ -23,7 +23,7 @@
     <table width="100%" class="table-bordered">
         <tr>
             <td width="50%">
-                <img src="{{ setting('general.logo') ? public_path('storage/' . setting('general.logo')) : public_path('logo.png') }}"
+                <img src="{{ setting('general.logo') ? public_path('storage/' . setting('general.logo')) : public_path('assets/logo.png') }}"
                     alt="{{ setting('general.app_name') }}" height="50px;" />
             </td>
             <td width="50%">
