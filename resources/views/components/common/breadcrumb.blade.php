@@ -1,6 +1,6 @@
 <!-- resources/views/components/breadcrumb.blade.php -->
 
-<div class="bg-gray-100 py-12 mx-auto">
+<div class="bg-gray-100 py-20 mx-auto">
     <div class="container px-3 md:px-5 xl:px-0">
         <div class="flex items-center gap-1 py-1">
             @foreach ($links as $link)

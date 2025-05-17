@@ -35,7 +35,19 @@
     @stack('styles')
 </head>
 
-<body class="font-display bg-gray-50">
+<body class="font-display bg-gray-50" x-data="{
+    showMenu: false,
+    openSearch: false,
+    ...searchModal(),
+    focusInput() {
+        this.$nextTick(() => this.$refs.searchInput.focus())
+    }
+}" :class="{ 'overflow-hidden': openSearch || showMenu }"
+    x-init="$watch('openSearch', value => {
+        if (value) {
+            focusInput();
+        }
+    })" x-on:keydown.escape.window="openSearch = false">
     <x-admin.alert />
     <x-front.header />
 

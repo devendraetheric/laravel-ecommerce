@@ -16,7 +16,6 @@ class FrontController extends Controller
         $data['sliders'] = Banner::active()
             ->where('location', 'slider')
             ->with('media')
-            ->latest()
             ->get();
 
         $data['featuredProducts'] = Product::featured()->with('media')->take(8)->get();
@@ -41,10 +40,7 @@ class FrontController extends Controller
     // Import From csv
     public function import()
     {
-        /* ImportOldProduct::dispatch()
-            ->onQueue('import-product'); */
-
-        ImportProduct::dispatch()
+        ImportOldProduct::dispatch()
             ->onQueue('import-product');
 
         return redirect()->route('home')

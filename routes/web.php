@@ -41,6 +41,8 @@ Route::get('/product/{product:slug}', [ProductController::class, 'show'])->name(
 Route::get('/category/{category:slug}', [ProductController::class, 'byCategory'])->name('products.byCategory');
 Route::get('/brand/{brand:slug}', [ProductController::class, 'byBrand'])->name('products.byBrand');
 
+Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');
+
 /**
  * Cart Routes
  */

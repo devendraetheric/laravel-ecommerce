@@ -64,14 +64,21 @@ function setting(string $classOrKey)
 if (! function_exists('getLogoURL')) {
     function getLogoURL(): string
     {
-        return setting('general.logo') ? asset('storage/' . setting('general.logo')) : asset('logo.png');
+        return setting('general.logo') ? asset('storage/' . setting('general.logo')) : asset('assets/logo.png');
     }
 }
 
 if (! function_exists('getFaviconURL')) {
     function getFaviconURL(): string
     {
-        return setting('general.favicon') ? asset('storage/' . setting('general.favicon')) : asset('favicon.png');
+        return setting('general.favicon') ? asset('storage/' . setting('general.favicon')) : asset('assets/favicon.png');
+    }
+}
+
+if (! function_exists('placeholderURL')) {
+    function placeholderURL(): string
+    {
+        return asset('assets/images/placeholder.png');
     }
 }
 

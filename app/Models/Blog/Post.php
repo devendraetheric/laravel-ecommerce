@@ -47,7 +47,7 @@ class Post extends Model implements HasMedia
 
     public function thumbnailURL($size = ''): string|null
     {
-        return $this?->getMedia('featured-image')->first()?->getUrl($size) ?? asset('/placeholder.png');
+        return $this?->getMedia('featured-image')->first()?->getUrl($size) ?? placeholderURL();
     }
 
 
