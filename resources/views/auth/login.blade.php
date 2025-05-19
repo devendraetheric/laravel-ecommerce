@@ -11,7 +11,7 @@
     <!-- Sign In Form Start -->
     <div class="container py-20">
 
-        <div class="w-full lg:w-1/2 bg-white shadow-lg rounded-xl mx-auto p-8">
+        <div class="w-full lg:w-1/2 bg-white shadow-xs rounded-xl border border-gray-200 mx-auto p-8">
             <h2 class="text-center text-gray-800 xl:text-4xl text-xl font-bold mb-10">Sign In</h2>
 
             <form method="POST" action="{{ route('login') }}" class="space-y-6">
@@ -59,6 +59,8 @@
                     @endif
                 </div>
 
+                <x-common.captcha />
+
                 <button type="submit" class="btn-primary w-full gap-x-2">
                     Sign In
                     <svg width="25" height="24" viewBox="0 0 25 24" fill="none"
@@ -79,5 +81,4 @@
         </div>
     </div>
     <!-- Sign In Form End -->
-
 </x-layouts.front>

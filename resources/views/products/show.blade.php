@@ -23,41 +23,35 @@
     <!-- product details section start -->
     <section>
         <div class="container px-3 md:px-5 xl:px-0">
-            <div class="md:grid md:grid-cols-2 gap-6 pt-10">
+            <div class="md:grid md:grid-cols-2 gap-6 my-10">
                 {{-- Left Side --}}
-                <div class="gallery-container overflow-hidden">
+                <div class="gallery-container">
 
-                    <div class="space-y-2">
-                        <div class="overflow-hidden">
-                            <!-- Main Gallery -->
-                            <div class="swiper gallery-main">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide !aspect-square bg-white rounded-md">
-                                        <img src="{{ $product->thumbnailURL() }}" alt="{{ $product?->name }}"
-                                            class="w-full rounded-md object-contain aspect-square" loading="lazy" />
-                                    </div>
-                                    @foreach ($product?->getMedia('product-images') as $image)
-                                        <div class="swiper-slide !aspect-square bg-white rounded-md">
-                                            <img src="{{ $image->getUrl() }}" alt="{{ $product?->name }}"
-                                                class="w-full rounded-md object-contain aspect-square" loading="lazy" />
-                                        </div>
-                                    @endforeach
-                                </div>
+                    <!-- Main Gallery -->
+                    <div class="swiper gallery-main mb-2">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <img src="{{ $product->thumbnailURL() }}" alt="{{ $product?->name }}" loading="lazy" />
                             </div>
-                        </div>
-                        <div class="hidden md:flex md:flex-col">
-                            <div class="swiper gallery-thumb">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <img src="{{ $product->thumbnailURL('thumb') }}" alt="{{ $product?->name }}" />
-                                    </div>
-                                    @foreach ($product?->getMedia('product-images') as $image)
-                                        <div class="swiper-slide">
-                                            <img src="{{ $image->getUrl('thumb') }}" alt="{{ $product?->name }}"
-                                                loading="lazy" />
-                                        </div>
-                                    @endforeach
+                            @foreach ($product?->getMedia('product-images') as $image)
+                                <div class="swiper-slide">
+                                    <img src="{{ $image->getUrl() }}" alt="{{ $product?->name }}" loading="lazy" />
                                 </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="hidden md:flex md:flex-col">
+                        <div class="swiper gallery-thumb">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <img src="{{ $product->thumbnailURL('thumb') }}" alt="{{ $product?->name }}" />
+                                </div>
+                                @foreach ($product?->getMedia('product-images') as $image)
+                                    <div class="swiper-slide">
+                                        <img src="{{ $image->getUrl('thumb') }}" alt="{{ $product?->name }}"
+                                            loading="lazy" />
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -168,8 +162,8 @@
                         </svg>
                     </button>
                     <button class="recentSwiper-button-next slider-nav">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                         </svg>
                     </button>

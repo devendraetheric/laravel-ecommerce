@@ -1,6 +1,4 @@
 <x-layouts.admin>
-
-
     <div class="max-w-7xl mx-auto">
         @php
             $breadcrumbLinks = [
@@ -130,7 +128,8 @@
                                     id="state-optional">setting('company.state')</span>
                             </div>
                             <div class="mt-2 grid grid-cols-1">
-                                <select id="state" name="state" class="col-start-1 row-start-1 form-select">
+                                <select x-model="state" id="state" name="state"
+                                    class="col-start-1 row-start-1 form-select">
                                     <option value="">Select State</option>
                                     <template x-for="(state,key) in states" :key="state">
                                         <option :value="state" x-text="key"></option>
@@ -190,11 +189,11 @@
 
     @push('scripts')
         <script>
-            var stateId = "{{ old('state', $settings->state ?? 1460) }}";
+            var stateId = "{{ old('state', $settings->state) }}";
 
             function companyAddressInfo() {
                 return {
-                    country: "{{ old('country', $settings->country ?? 233) }}",
+                    country: "{{ old('country', $settings->country) }}",
                     state: "",
                     states: [],
 

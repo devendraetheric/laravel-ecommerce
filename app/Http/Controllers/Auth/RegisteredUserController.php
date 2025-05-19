@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Rules\Captcha;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -29,13 +30,19 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
+        $validations = [
             'first_name'    => ['required', 'string', 'max:255'],
             'last_name'     => ['required', 'string', 'max:255'],
             'email'         => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'phone'         => ['required', 'string', 'max:20'],
             'password'      => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        ];
+
+        if (setting('general.is_captcha')) {
+            $validations = array_merge($validations, ['cf-turnstile-response' => ['required', new Captcha()]]);
+        }
+
+        $request->validate($validations);
 
         $user = User::create([
             'first_name' => $request->first_name,

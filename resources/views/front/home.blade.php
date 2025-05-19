@@ -80,7 +80,7 @@
     @endif
 
     <!-- feature products section start -->
-    <section class="xl:pb-20 pb-8 md:pb-12">
+    <section class="lg:pb-20 md:pb-6 pb-3">
         <div class="container px-3 md:px-5 xl:px-0">
             <div class="flex justify-between items-center mb-10">
                 <h2 class="text-gray-800 xl:text-4xl xl:leading-tight text-xl md:text-2xl font-bold">
@@ -109,24 +109,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-center mx-auto gap-6">
                 @foreach ($topCategories as $category)
-                    <div class="swiper-slide border border-gray-100 rounded-xl">
-                        <div class="group overflow-hidden rounded-lg">
-                            <div class="w-full">
-                                <a href="{{ route('products.byCategory', $category) }}">
-                                    <img class="w-full object-cover transition duration-500 ease-out delay-0 group-hover:scale-110"
-                                        src="{{ $category?->thumbnailURL('thumb') }}" alt="{{ $category->name }}"
-                                        loading="lazy" fetchpriority="low" />
-                                </a>
-                            </div>
-
-                            <div class="bg-gray-900 opacity-70 p-5 absolute bottom-0 w-full rounded-b-lg text-white">
-                                <h3 class="font-normal text-xl leading-tight mb-2 line-clamp-1">
-                                    <a href="{{ route('products.byCategory', $category) }}">{{ $category->name }}</a>
-                                </h3>
-                                <p class="text-sm leading-tight">{{ $category->products_count }} Products</p>
-                            </div>
-                        </div>
-                    </div>
+                    <x-common.category-card :category=$category />
                 @endforeach
             </div>
         </div>

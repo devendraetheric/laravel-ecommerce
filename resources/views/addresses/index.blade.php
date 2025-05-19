@@ -36,7 +36,7 @@
 
                     @foreach ($addresses as $address)
                         <div class="col-span-1">
-                            <div class="overflow-hidden rounded-xl bg-white shadow-sm">
+                            <div class="overflow-hidden rounded-xl bg-white shadow-xs border border-gray-200">
                                 <div class="p-6 border-b border-gray-200">
                                     <h3 class="text-xl/6 font-semibold text-gray-800">{{ $address?->name }} @if ($address?->is_default)
                                             <span class="text-primary-600">(Default)</span>

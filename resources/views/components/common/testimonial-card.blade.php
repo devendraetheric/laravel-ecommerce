@@ -1,4 +1,4 @@
-<figure class="relative rounded-xl bg-white p-6 shadow-lg ring-1 ring-gray-900/5">
+<figure class="relative rounded-xl bg-white p-6 shadow-xs">
     <blockquote class="text-gray-900">
         <p>{{ $review['review'] }}</p>
     </blockquote>

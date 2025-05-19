@@ -19,7 +19,7 @@
             <x-account.nav />
 
             <div class="w-full">
-                <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
+                <div class="my-10 overflow-hidden rounded-xl bg-white shadow-xs border border-gray-200">
                     <div class="p-6 border-b border-gray-200">
                         <h3 class="text-xl/6 font-semibold text-gray-800">Your Orders</h3>
                     </div>

@@ -18,7 +18,7 @@
             <x-account.nav />
 
             <div class="w-full">
-                <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
+                <div class="my-10 overflow-hidden rounded-xl bg-white shadow-xs border border-gray-200">
                     <div class="p-6 border-b border-gray-200">
                         <h3 class="text-xl/6 font-semibold text-gray-800">Change Password</h3>
                     </div>
@@ -29,8 +29,7 @@
                             @method('put')
 
                             <div class="space-y-2">
-                                <label for="update_password_current_password"
-                                    class="control-label">
+                                <label for="update_password_current_password" class="control-label">
                                     Current Password
                                 </label>
                                 <input type="password" id="update_password_current_password" name="current_password"
@@ -42,8 +41,7 @@
                             </div>
 
                             <div class="space-y-2">
-                                <label for="update_password_password"
-                                    class="control-label">
+                                <label for="update_password_password" class="control-label">
                                     New Password
                                 </label>
                                 <input type="password" id="update_password_password" name="password"
@@ -55,8 +53,7 @@
                             </div>
 
                             <div class="space-y-2">
-                                <label for="update_password_password_confirmation"
-                                    class="control-label">
+                                <label for="update_password_password_confirmation" class="control-label">
                                     Confirm Password
                                 </label>
                                 <input type="password" id="update_password_password_confirmation"

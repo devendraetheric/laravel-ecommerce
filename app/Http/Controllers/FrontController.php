@@ -24,13 +24,13 @@ class FrontController extends Controller
 
         $data['topCategories'] = Category::withCount('products')
             ->with('media')
-            ->latest()
+            ->latest('products_count')
             ->take(8)
             ->get();
 
         $data['brands'] = Brand::withCount('products')
             ->with('media')
-            ->latest()
+            ->latest('products_count')
             ->take(12)
             ->get();
 

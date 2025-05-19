@@ -20,11 +20,11 @@
             <x-account.nav />
 
             <div class="w-full">
-                <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
+                <div class="my-10 overflow-hidden rounded-xl bg-white shadow-xs border border-gray-200">
                     <div class="p-6 border-b border-gray-200">
                         <h3 class="text-xl/6 font-semibold text-gray-800">Address Information</h3>
                     </div>
-                    <div class="p-6 ">
+                    <div class="p-6">
                         <form
                             action="{{ $address->id ? route('account.addresses.update', $address) : route('account.addresses.store') }}"
                             method="POST" class="space-y-6" x-data="addressInfo()">
@@ -46,8 +46,7 @@
                                 </div>
 
                                 <div>
-                                    <label for="country_id"
-                                        class="control-label">Country</label>
+                                    <label for="country_id" class="control-label">Country</label>
                                     <div class="mt-2 grid grid-cols-1">
                                         <select id="country_id" name="country_id"
                                             class="col-start-1 row-start-1 w-full appearance-none rounded-lg bg-gray-50 py-4 pr-10 pl-4 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 sm:text-sm/6"
@@ -84,8 +83,7 @@
                                 </div>
 
                                 <div>
-                                    <label for="phone"
-                                        class="control-label">Phone</label>
+                                    <label for="phone" class="control-label">Phone</label>
                                     <input type="text" id="phone" name="phone"
                                         value="{{ old('phone', $address->phone ?? auth()->user()->phone) }}"
                                         class="form-control mt-2" />
@@ -97,8 +95,7 @@
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <label for="address_line_1"
-                                        class="control-label">Address
+                                    <label for="address_line_1" class="control-label">Address
                                         Line 1</label>
                                     <input type="text" id="address_line_1" name="address_line_1"
                                         value="{{ old('address_line_1', $address->address_line_1) }}"
@@ -109,8 +106,7 @@
                                 </div>
 
                                 <div>
-                                    <label for="address_line_2"
-                                        class="control-label">Address
+                                    <label for="address_line_2" class="control-label">Address
                                         Line 2</label>
                                     <input type="text" id="address_line_2" name="address_line_2"
                                         value="{{ old('address_line_2', $address->address_line_2) }}"
@@ -123,8 +119,7 @@
 
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 <div>
-                                    <label for="city"
-                                        class="control-label">City</label>
+                                    <label for="city" class="control-label">City</label>
                                     <input type="text" id="city" name="city"
                                         value="{{ old('city', $address->city) }}" class="form-control mt-2" />
                                     @error('city')
@@ -133,8 +128,7 @@
                                 </div>
 
                                 <div>
-                                    <label for="state_id"
-                                        class="control-label">State</label>
+                                    <label for="state_id" class="control-label">State</label>
                                     <div class="mt-2 grid grid-cols-1">
                                         <select x-model="state_id" id="state_id" name="state_id"
                                             class="col-start-1 row-start-1 w-full appearance-none rounded-lg bg-gray-50 py-4 pr-10 pl-4 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 sm:text-sm/6">

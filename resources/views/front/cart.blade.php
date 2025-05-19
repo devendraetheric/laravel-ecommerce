@@ -15,12 +15,12 @@
     <section class="xl:pb-20 pb-8 md:pb-12">
         <div class="container px-3 md:px-5 xl:px-0">
 
-            <div class="mt-6 lg:grid lg:grid-cols-12 gap-6">
+            <div class="my-10 lg:grid lg:grid-cols-12 gap-6">
                 <div class="lg:col-span-8">
                     <form action="{{ route('account.updateCart') }}" method="POST">
                         @csrf
 
-                        <div class="overflow-hidden rounded-xl bg-white shadow-sm">
+                        <div class="overflow-hidden rounded-xl bg-white shadow-xs border border-gray-200">
                             <div class="p-6 border-b border-gray-200">
                                 <h3 class="text-xl/6 font-semibold text-gray-800">Your Cart</h3>
                             </div>
@@ -117,7 +117,7 @@
                     </form>
                 </div>
                 <div class="lg:col-span-4 mt-6 lg:mt-0">
-                    <div class="overflow-hidden rounded-xl bg-white shadow-sm">
+                    <div class="overflow-hidden rounded-xl bg-white shadow-xs border border-gray-200">
                         <div class="p-6 border-b border-gray-200">
                             <h3 class="text-xl/6 font-semibold text-gray-800">Cart Summary</h3>
                         </div>

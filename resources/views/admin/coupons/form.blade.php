@@ -70,7 +70,7 @@
                         </div>
                     </div>
 
-                    <div class="grid md:grid-cols-3 gap-4 py-2 ">
+                    <div class="grid md:grid-cols-3 gap-4 py-2">
 
                         <div class="space-y-2">
                             <label for="type" class="control-label">Type</label>

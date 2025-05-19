@@ -18,7 +18,7 @@
                 @csrf
                 <div class="mt-6 lg:grid lg:grid-cols-12 gap-6">
                     <div class="lg:col-span-8">
-                        <div class="overflow-hidden rounded-xl bg-white shadow-sm">
+                        <div class="overflow-hidden rounded-xl bg-white shadow-xs border border-gray-200">
                             <div class="p-6 space-y-6">
                                 <fieldset>
                                     <legend class="text-2xl font-semibold text-gray-800">Select a delivery address
@@ -98,7 +98,7 @@
                         </div>
                     </div>
                     <div class="lg:col-span-4 mt-6 lg:mt-0">
-                        <div class="rounded-xl bg-white shadow-sm">
+                        <div class="rounded-xl bg-white shadow-xs border border-gray-200">
                             <div class="p-6">
                                 @foreach (cart()->items as $product)
                                     <!-- cart item start  -->

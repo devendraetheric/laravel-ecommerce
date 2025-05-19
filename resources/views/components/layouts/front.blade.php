@@ -35,7 +35,7 @@
     @stack('styles')
 </head>
 
-<body class="font-display bg-gray-50" x-data="{
+<body class="font-display bg-white" x-data="{
     showMenu: false,
     openSearch: false,
     ...searchModal(),
@@ -59,6 +59,9 @@
     @vite(['resources/js/app.js'])
     @stack('scripts')
 
+    @if (setting('general.is_captcha'))
+        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
+    @endif
 </body>
 
 </html>

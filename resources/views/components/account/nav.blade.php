@@ -1,5 +1,5 @@
-<aside class="flex overflow-x-auto mt-6 lg:block lg:w-64 lg:flex-none">
-    <nav class="flex-none bg-white p-4 rounded-xl shadow-sm">
+<aside class="flex overflow-x-auto mt-10 lg:block lg:w-64 lg:flex-none">
+    <nav class="flex-none bg-white p-4 rounded-xl shadow-xs border border-gray-200">
         <ul role="list" class="flex gap-x-3 gap-y-1 whitespace-nowrap lg:flex-col">
             <li>
                 <a href="{{ route('account.dashboard') }}"

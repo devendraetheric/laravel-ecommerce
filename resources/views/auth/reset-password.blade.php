@@ -11,7 +11,7 @@
     <!-- Reset Password Form Start -->
     <div class="container py-20">
 
-        <div class="w-full lg:w-1/2 bg-white shadow-lg rounded-xl mx-auto p-8">
+        <div class="w-full lg:w-1/2 bg-white shadow-xs rounded-xl border border-gray-200 mx-auto p-8">
             <h2 class="text-center text-gray-800 xl:text-4xl text-xl font-bold mb-10">Reset Password</h2>
 
             <form method="POST" action="{{ route('password.store') }}" class="space-y-6">
@@ -43,6 +43,8 @@
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
+
+                <x-common.captcha />
 
                 <button type="submit" class="btn-primary w-full gap-x-2">
                     {{ __('Reset Password') }}

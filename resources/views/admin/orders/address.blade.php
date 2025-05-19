@@ -22,7 +22,7 @@
                         x-model="country_id" x-init="countryChange()" @change="countryChange()">
                         <option value="">Select Country</option>
                         @foreach ($countries as $key => $country)
-                            <option value="{{ $key }}" @selected(old('country_id', $address->country_id ?? 233) == $key)>
+                            <option value="{{ $key }}" @selected(old('country_id', $address->country_id ?? setting('company.country')) == $key)>
                                 {{ $country }}</option>
                         @endforeach
                     </select>
@@ -136,11 +136,11 @@
 
 @push('scripts')
     <script>
-        var stateId = "{{ old('address.state_id', $address->state_id ?? 1460) }}";
+        var stateId = "{{ old('address.state_id', $address->state_id ?? setting('company.state')) }}";
 
         function addressInfo() {
             return {
-                country_id: "{{ old('address.country_id', $address->country_id ?? 233) }}",
+                country_id: "{{ old('address.country_id', $address->country_id ?? setting('company.country')) }}",
                 state_id: "",
                 states: [],
 

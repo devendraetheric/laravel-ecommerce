@@ -57,59 +57,7 @@
 
                         <div class="space-y-2">
                             <label for="user_name" class="control-label">User</label>
-                            <div class="relative" x-data="userCombobox()">
-                                <input x-model="query" @input="searchUsers" @focus="open = !open"
-                                    @keydown.arrow-down.prevent="highlightNext()"
-                                    @keydown.arrow-up.prevent="highlightPrev()"
-                                    @keydown.enter.prevent="selectHighlighted()" id="user_combobox" type="text"
-                                    name="user_name" id="user_name"
-                                    class="form-control @error('user_id') is-invalid @enderror" role="combobox"
-                                    :aria-expanded="open" autocomplete="off">
-                                <input type="hidden" name="user_id" id="user_id" x-model="selectedId" />
-                                <button type="button"
-                                    class="absolute inset-y-0 right-0 flex items-center rounded-r-lg px-2 focus:outline-hidden"
-                                    @click="open = !open">
-                                    <svg class="size-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor"
-                                        aria-hidden="true" data-slot="icon">
-                                        <path fill-rule="evenodd"
-                                            d="M10.53 3.47a.75.75 0 0 0-1.06 0L6.22 6.72a.75.75 0 0 0 1.06 1.06L10 5.06l2.72 2.72a.75.75 0 1 0 1.06-1.06l-3.25-3.25Zm-4.31 9.81 3.25 3.25a.75.75 0 0 0 1.06 0l3.25-3.25a.75.75 0 1 0-1.06-1.06L10 14.94l-2.72-2.72a.75.75 0 0 0-1.06 1.06Z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                </button>
-
-                                <ul class="absolute z-100 mt-1 max-h-60 w-full overflow-auto rounded-lg bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-hidden sm:text-sm"
-                                    role="listbox" x-show="open && results.length" @click.away="open = !open">
-                                    <template x-for="(item, i) in results" :key="item.id">
-                                        <li class="relative cursor-default py-2 pr-9 pl-3 text-gray-900 select-none"
-                                            id="option-0" role="option" tabindex="-1"
-                                            :class="{
-                                                'text-white bg-primary-600 outline-hidden': selectedId == item
-                                                    .id,
-                                                'text-white bg-primary-600 outline-hidden': highlighted == i,
-                                            }"
-                                            @click="selectUser(item)" @mouseenter="highlighted = i">
-                                            <span class="block truncate"
-                                                :class="{
-                                                    'font-semibold': selectedId == item.id
-                                                }"
-                                                x-text="item.name"></span>
-                                            <span
-                                                class="absolute inset-y-0 right-0 flex items-center pr-4 text-primary-600"
-                                                :class="{
-                                                    'text-white': selectedId == item.id,
-                                                    'text-white': highlighted == i,
-                                                }">
-                                                <svg class="size-5" viewBox="0 0 20 20" fill="currentColor"
-                                                    aria-hidden="true" data-slot="icon">
-                                                    <path fill-rule="evenodd"
-                                                        d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
-                                                        clip-rule="evenodd" />
-                                                </svg>
-                                            </span>
-                                        </li>
-                                    </template>
-                                </ul>
-                            </div>
+                            @include('admin.orders.user-combobox')
                             @error('user_id')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -169,81 +117,7 @@
                                     <template x-for="(item, index) in items" :key="index">
                                         <tr>
                                             <td width="50%">
-                                                <div class="sm:grid sm:grid-cols-6 sm:items-start sm:gap-4">
-                                                    <div class="mt-2 sm:col-span-6 sm:mt-0 grid grid-cols-1">
-
-                                                        <div class="relative" x-data="productCombobox(index)">
-                                                            <input x-model="query" @input="searchProducts"
-                                                                @focus="open = !open"
-                                                                @keydown.arrow-down.prevent="highlightNext()"
-                                                                @keydown.arrow-up.prevent="highlightPrev()"
-                                                                @keydown.enter.prevent="selectHighlighted()"
-                                                                id="product_combobox" type="text"
-                                                                name="product_name" id="product_name"
-                                                                class="form-control @error('product_id') is-invalid @enderror"
-                                                                role="combobox" :aria-expanded="open"
-                                                                autocomplete="off">
-
-                                                            <input type="hidden"
-                                                                :name="'items[' + index + '][product_id]'"
-                                                                id="product_id" x-model="selectedId" />
-
-                                                            <input type="hidden" :name="'items[' + index + '][name]'"
-                                                                x-model="query" />
-
-                                                            <button type="button"
-                                                                class="absolute inset-y-0 right-0 flex items-center rounded-r-lg px-2 focus:outline-hidden"
-                                                                @click="open = !open">
-                                                                <svg class="size-5 text-gray-400" viewBox="0 0 20 20"
-                                                                    fill="currentColor" aria-hidden="true"
-                                                                    data-slot="icon">
-                                                                    <path fill-rule="evenodd"
-                                                                        d="M10.53 3.47a.75.75 0 0 0-1.06 0L6.22 6.72a.75.75 0 0 0 1.06 1.06L10 5.06l2.72 2.72a.75.75 0 1 0 1.06-1.06l-3.25-3.25Zm-4.31 9.81 3.25 3.25a.75.75 0 0 0 1.06 0l3.25-3.25a.75.75 0 1 0-1.06-1.06L10 14.94l-2.72-2.72a.75.75 0 0 0-1.06 1.06Z"
-                                                                        clip-rule="evenodd" />
-                                                                </svg>
-                                                            </button>
-
-                                                            <ul class="absolute z-100 mt-1 max-h-60 w-full overflow-auto rounded-lg bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-hidden sm:text-sm"
-                                                                role="listbox" x-show="open && results.length"
-                                                                @click.away="open = !open">
-                                                                <template x-for="(item, i) in results"
-                                                                    :key="item.id">
-                                                                    <li class="relative cursor-default py-2 pr-9 pl-3 text-gray-900 select-none"
-                                                                        id="option-0" role="option" tabindex="-1"
-                                                                        :class="{
-                                                                            'text-white bg-primary-600 outline-hidden': selectedId ==
-                                                                                item
-                                                                                .id,
-                                                                            'text-white bg-primary-600 outline-hidden': highlighted ==
-                                                                                i,
-                                                                        }"
-                                                                        @click="selectProduct(item)"
-                                                                        @mouseenter="highlighted = i">
-                                                                        <span class="block truncate"
-                                                                            :class="{
-                                                                                'font-semibold': selectedId == item.id
-                                                                            }"
-                                                                            x-text="item.name"></span>
-                                                                        <span
-                                                                            class="absolute inset-y-0 right-0 flex items-center pr-4 text-primary-600"
-                                                                            :class="{
-                                                                                'text-white': selectedId == item.id,
-                                                                                'text-white': highlighted == i,
-                                                                            }">
-                                                                            <svg class="size-5" viewBox="0 0 20 20"
-                                                                                fill="currentColor" aria-hidden="true"
-                                                                                data-slot="icon">
-                                                                                <path fill-rule="evenodd"
-                                                                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
-                                                                                    clip-rule="evenodd" />
-                                                                            </svg>
-                                                                        </span>
-                                                                    </li>
-                                                                </template>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                @include('admin.orders.product-combobox')
                                                 <p class="text-sm text-red-600"
                                                     x-text="getValidationError(index, 'product_id')">
                                                 </p>
@@ -296,8 +170,8 @@
                     <h3 class="text-base font-semibold text-gray-800">Order Summary</h3>
                 </div>
                 <div class="p-6">
-                    <div class="grid grid-cols-3 gap-4">
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="space-y-2">
                             <label for="sub_total" class="control-label">Sub Total</label>
                             <input type="text" name="sub_total" id="sub_total"
                                 class="form-control @error('sub_total') is-invalid @enderror"
@@ -307,7 +181,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <label for="delivery_charge" class="control-label">Delivery Charge</label>
                             <input type="text" name="delivery_charge" id="delivery_charge"
                                 class="form-control @error('delivery_charge') is-invalid @enderror"
@@ -317,7 +191,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <label for="grand_total" class="control-label">Grand Total</label>
                             <input type="text" name="grand_total" id="grand_total"
                                 class="form-control @error('grand_total') is-invalid @enderror"
@@ -327,7 +201,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2">
+                        <div class="space-y-2 md:col-span-3">
                             <label for="notes" class="control-label">Notes</label>
                             <textarea class="form-control @error('notes') is-invalid @enderror" id="notes" name="notes" rows="2">{{ old('notes', $order->notes) }}</textarea>
                             @error('notes')
@@ -411,94 +285,6 @@
                         return this.subTotal + parseFloat(this.deliveryCharge || 0);
                     },
                 };
-            }
-
-            function userCombobox() {
-                return {
-                    open: false,
-                    query: "{{ old('user_name', $order->user->name ?? '') }}",
-                    results: [],
-                    highlighted: -1,
-                    selectedId: "{{ old('user_id', $order->user_id) }}",
-                    searchUsers() {
-                        if (this.query.length < 1) {
-                            this.results = [];
-                            return;
-                        }
-                        fetch(`{{ route('admin.users.search') }}?q=${encodeURIComponent(this.query)}`)
-                            .then(res => res.json())
-                            .then(data => {
-                                this.results = data;
-                                this.highlighted = -1;
-                                this.selectedId = "";
-                            });
-                    },
-                    highlightNext() {
-                        if (this.results.length === 0) return;
-                        this.highlighted = (this.highlighted + 1) % this.results.length;
-                    },
-                    highlightPrev() {
-                        if (this.results.length === 0) return;
-                        this.highlighted = (this.highlighted - 1 + this.results.length) % this.results.length;
-                    },
-                    selectHighlighted() {
-                        if (this.highlighted >= 0 && this.results[this.highlighted]) {
-                            this.selectUser(this.results[this.highlighted]);
-                        }
-                    },
-                    selectUser(item) {
-                        this.query = item.name;
-                        this.selectedId = item.id;
-                        this.open = false;
-                    }
-                }
-            }
-
-
-            function productCombobox(index) {
-
-                return {
-                    open: false,
-                    query: formItems[index]['name'] ?? '',
-                    results: [],
-                    highlighted: -1,
-                    selectedId: formItems[index]['product_id'] ?? '',
-
-                    searchProducts() {
-
-                        if (this.query.length < 1) {
-                            this.results = [];
-                            return;
-                        }
-                        fetch(`{{ route('admin.products.search') }}?q=${encodeURIComponent(this.query)}`)
-                            .then(res => res.json())
-                            .then(data => {
-                                this.results = data;
-                                this.highlighted = -1;
-                                this.selectedId = "";
-                            });
-                    },
-
-
-                    highlightNext() {
-                        if (this.results.length === 0) return;
-                        this.highlighted = (this.highlighted + 1) % this.results.length;
-                    },
-                    highlightPrev() {
-                        if (this.results.length === 0) return;
-                        this.highlighted = (this.highlighted - 1 + this.results.length) % this.results.length;
-                    },
-                    selectHighlighted() {
-                        if (this.highlighted >= 0 && this.results[this.highlighted]) {
-                            this.selectProduct(this.results[this.highlighted]);
-                        }
-                    },
-                    selectProduct(item) {
-                        this.query = item.name;
-                        this.selectedId = item.id;
-                        this.open = false;
-                    }
-                }
             }
         </script>
     @endpush

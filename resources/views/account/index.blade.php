@@ -18,7 +18,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-10">
 
                     <a href="{{ route('account.orders.index') }}">
-                        <div class="overflow-hidden rounded-xl bg-white border border-gray-200 shadow-xs">
+                        <div class="overflow-hidden rounded-xl bg-white shadow-xs border border-gray-200">
                             <div class="flex gap-4 items-center w-full p-6">
                                 <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                     class="size-16 text-primary-600">
@@ -34,7 +34,7 @@
                     </a>
 
                     <a href="{{ route('account.addresses.index') }}">
-                        <div class="overflow-hidden rounded-xl bg-white border border-gray-200 shadow-xs">
+                        <div class="overflow-hidden rounded-xl bg-white shadow-xs border border-gray-200">
                             <div class="flex gap-4 items-center w-full p-6">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="size-16 text-primary-600">
@@ -54,7 +54,7 @@
                         </div>
                     </a>
                     <a href="{{ route('account.wishlist') }}">
-                        <div class="overflow-hidden rounded-xl bg-white border border-gray-200 shadow-xs">
+                        <div class="overflow-hidden rounded-xl bg-white shadow-xs border border-gray-200">
                             <div class="flex gap-4 items-center w-full p-6">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="size-16 text-primary-600">
@@ -72,7 +72,7 @@
                         </div>
                     </a>
                     <a href="{{ route('profile.edit') }}">
-                        <div class="overflow-hidden rounded-xl bg-white border border-gray-200 shadow-xs">
+                        <div class="overflow-hidden rounded-xl bg-white shadow-xs border border-gray-200">
                             <div class="flex gap-4 items-center w-full p-6">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="size-16 text-primary-600">

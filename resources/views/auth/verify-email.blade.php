@@ -10,7 +10,7 @@
 
     <div class="container py-20">
 
-        <div class="w-full lg:w-1/2 bg-white shadow-lg rounded-xl mx-auto p-8">
+        <div class="w-full lg:w-1/2 bg-white shadow-xs rounded-xl border border-gray-200 mx-auto p-8">
             <h2 class="text-center text-gray-800 xl:text-4xl text-xl font-bold mb-10">{{ __('Email Verification') }}</h2>
 
             <div class="mx-12">
@@ -27,6 +27,8 @@
 
             <form method="POST" action="{{ route('verification.send') }}" class="space-y-6">
                 @csrf
+
+                <x-common.captcha />
 
                 <button type="submit" class="btn-primary w-full gap-x-2">
                     {{ __('Resend Verification Email') }}

@@ -11,7 +11,7 @@
     <!-- Sign Up Form Start -->
     <div class="container py-20">
 
-        <div class="w-full lg:w-1/2 bg-white shadow-lg rounded-xl mx-auto p-8">
+        <div class="w-full lg:w-1/2 bg-white shadow-xs rounded-xl border border-gray-200 mx-auto p-8">
             <h2 class="text-center text-gray-800 xl:text-4xl text-xl font-bold mb-10">Sign Up</h2>
 
             <form method="POST" action="{{ route('register') }}" class="space-y-6">
@@ -68,7 +68,7 @@
                     @enderror
                 </div>
 
-                <div class="cf-turnstile" data-sitekey="0x4AAAAAABZpN4J3QuMhFBMz"></div>
+                <x-common.captcha />
 
                 <button type="submit" class="btn-primary w-full gap-x-2">
                     Sign Up

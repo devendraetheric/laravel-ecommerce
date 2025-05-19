@@ -19,9 +19,9 @@
             <x-account.nav />
 
             <div class="w-full">
-                <div class="mt-6 lg:grid lg:grid-cols-12 gap-6">
+                <div class="my-10 lg:grid lg:grid-cols-12 gap-6">
                     <div class="lg:col-span-8">
-                        <div class="overflow-hidden rounded-xl bg-white shadow-sm">
+                        <div class="overflow-hidden rounded-xl bg-white shadow-xs border border-gray-200">
                             <div class="p-6 border-b border-gray-200">
                                 <h3 class="text-xl/6 font-semibold text-gray-800">Order Detail</h3>
                             </div>
@@ -73,7 +73,7 @@
                     </div>
 
                     <div class="lg:col-span-4 mt-6 lg:mt-0 space-y-6">
-                        <div class="overflow-hidden rounded-xl bg-white shadow-sm">
+                        <div class="overflow-hidden rounded-xl bg-white shadow-xs border border-gray-200">
                             <div class="p-6 border-b border-gray-200">
                                 <h3 class="text-xl/6 font-semibold text-gray-800">Shipping Address</h3>
                             </div>
@@ -90,7 +90,7 @@
                             </div>
                         </div>
 
-                        <div class="overflow-hidden rounded-xl bg-white shadow-sm">
+                        <div class="overflow-hidden rounded-xl bg-white shadow-xs border border-gray-200">
                             <div class="p-6 border-b border-gray-200">
                                 <h3 class="text-xl/6 font-semibold text-gray-800">Order Summary</h3>
                             </div>
