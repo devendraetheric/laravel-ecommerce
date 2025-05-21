@@ -19,10 +19,10 @@
         <x-admin.breadcrumb :links=$breadcrumbLinks :title=$title />
 
 
-        <form method="post" action="{{ route('admin.settings.saveCompany') }}" x-data="companyAddressInfo()">
-
+        <form method="post" action="{{ route('admin.settings.store') }}" x-data="companyAddressInfo()">
             @csrf
 
+            <input type="hidden" name="group_name" value="company" />
             <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
                 <div class="p-6">
                     <div class="grid md:grid-cols-2 gap-4">
@@ -179,10 +179,7 @@
                 </div>
             </div>
 
-            <div class="mt-6 space-x-2">
-                <button type="submit" class="btn-primary">Submit</button>
-                <a href="{{ route('admin.settings.company') }}" class="btn-secondary">Cancel</a>
-            </div>
+            <button type="submit" class="btn-primary mt-6">Save Changes</button>
         </form>
     </div>
 

@@ -1,7 +1,6 @@
-@inject('settings', 'App\Settings\GeneralSetting')
 <x-layouts.front>
     <x-slot name="title">
-        {{ $product->seo_title ?? $product->name . ' - ' . $settings->site_name }}
+        {{ $product->seo_title ?? $product->name . ' - ' . setting('general.site_name') }}
     </x-slot>
     <x-slot name="description">
         {{ $product->seo_description }}

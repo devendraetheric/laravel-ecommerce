@@ -69,20 +69,18 @@
                                     <fieldset class="mt-4">
                                         <legend class="sr-only">Payment type</legend>
                                         <div class="space-y-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-10">
-                                            {{-- <div class="flex items-center">
-                                                <input id="cash" name="payment_method" type="radio" checked
-                                                    class="form-radio" value="cod" />
-                                                <label for="cash"
-                                                    class="ml-3 block text-base/6 font-medium text-gray-700">Cash on
-                                                    Delivery</label>
-                                            </div> --}}
-                                            <div class="flex items-center">
-                                                <input id="phonepe" name="payment_method" type="radio" checked
-                                                    class="form-radio" value="phonepe" />
-                                                <label for="phonepe"
-                                                    class="ml-3 block text-base/6 font-medium text-gray-700">Phone Pe
-                                                    Payment Gateway</label>
-                                            </div>
+                                            <input type="hidden" name="payment_method" value="cod" />
+
+                                            @foreach (paymentGateways() as $paymentGateway)
+                                                <div class="flex items-center">
+                                                    <input id="{{ $paymentGateway['name'] }}" name="payment_method"
+                                                        type="radio" class="form-radio"
+                                                        value="{{ $paymentGateway['name'] }}"
+                                                        {{ $loop->first ? 'checked' : '' }} />
+                                                    <label for="{{ $paymentGateway['name'] }}"
+                                                        class="ml-3 block text-base/6 font-medium text-gray-700">{{ $paymentGateway['description'] }}</label>
+                                                </div>
+                                            @endforeach
                                         </div>
                                     </fieldset>
                                 </div>

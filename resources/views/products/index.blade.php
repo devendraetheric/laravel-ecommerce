@@ -1,10 +1,9 @@
-@inject('settings', 'App\Settings\GeneralSetting')
 <x-layouts.front>
     <x-slot name="title">
-        {{ $breadcrumbs['title'] }} - {{ $settings->site_name }}
+        {{ $breadcrumbs['title'] }} - {{ setting('general.site_name') }}
     </x-slot>
     <x-slot name="description">
-        {{ $settings->site_description }}
+        {{ setting('general.site_description') }}
     </x-slot>
 
     @include('components.common.breadcrumb', $breadcrumbs)

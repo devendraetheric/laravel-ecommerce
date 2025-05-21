@@ -37,11 +37,7 @@ class Order extends Model
 
     public static function generateOrderNumber(): string
     {
-        /*  return 'ORD-' . strtoupper(random_int(10000, 99999)); */
-
-        $settings = app(PrefixSetting::class);
-
-        return $settings->order_prefix . str_pad($settings->order_sequence, $settings->order_digit_length, '0', STR_PAD_LEFT);
+        return setting('prefix.order_prefix') . str_pad(setting('prefix.order_sequence'), setting('prefix.order_digit_length'), '0', STR_PAD_LEFT);
     }
 
     public function user(): BelongsTo

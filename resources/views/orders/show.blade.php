@@ -7,7 +7,7 @@
                 ['url' => route('account.orders.index'), 'text' => 'Your Orders'],
                 ['url' => '#', 'text' => $order->order_number],
             ],
-            'title' => 'Order # ' . $order->order_number,
+            'title' => 'Order # : ' . $order->order_number,
         ];
     @endphp
 
@@ -82,10 +82,10 @@
                                     {{ $order->address?->contact_name }}<br>
                                     {{ $order->address?->address_line_1 }} , {{ $order->address?->address_line_2 }}
                                     {{ $order->address?->city }}
-                                    <br>{{ $order->address?->state?->name }},
+                                    <br>{{ $order->address?->state?->iso2 }},
                                     {{ $order->address?->country?->iso2 }} -
                                     {{ $order->address?->zip_code }}<br>
-                                    Phone Number : {{ $order->address?->phone }}
+                                    Phone # : {{ $order->address?->phone }}
                                 </p>
                             </div>
                         </div>

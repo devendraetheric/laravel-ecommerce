@@ -16,7 +16,7 @@
                 ],
             ];
 
-            $title = 'Order ' . '#' . $order->order_number;
+            $title = 'Order # : ' . $order->order_number;
 
         @endphp
 

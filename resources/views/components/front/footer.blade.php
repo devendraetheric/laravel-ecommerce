@@ -1,3 +1,4 @@
+@inject('socialMedia', 'App\Settings\SocialMediaSetting')
 <!-- footer area start -->
 <footer class="bg-white">
     <div class="xl:py-20 py-6 sm:py-8 md:py-12 border-t border-gray-200">

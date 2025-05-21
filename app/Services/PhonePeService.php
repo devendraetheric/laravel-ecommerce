@@ -21,10 +21,10 @@ class PhonePeService
     public function __construct()
     {
 
-        $this->isLive = config('phonepe.is_live');
-        $this->clientId = config('phonepe.client_id');
-        $this->clientSecret = config('phonepe.client_secret');
-        $this->clientVersion = config('phonepe.client_version');
+        $this->isLive = setting('payment_phonepe.is_live');
+        $this->clientId = setting('payment_phonepe.client_id');
+        $this->clientSecret = setting('payment_phonepe.client_secret');
+        $this->clientVersion = setting('payment_phonepe.client_version');
 
         $this->auth_url = $this->isLive ? 'https://api.phonepe.com/apis/identity-manager/v1/oauth/token' : 'https://api-preprod.phonepe.com/apis/pg-sandbox/v1/oauth/token';
 

@@ -66,8 +66,6 @@ Route::group(['middleware' => 'auth:admin'], function () {
 
     Route::resource('orders', OrderController::class);
 
-    /*  Route::resource('payments',PaymentController::class)->except('show'); */
-
     Route::post('payments/store/{order}', [PaymentController::class, 'store'])->name('payments.store');
 
     Route::resource('users', UserController::class)->except(['show']);
@@ -91,7 +89,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
         Route::resource('categories', BlogCategoryController::class)->parameters(['categories' => 'blog_category'])->except(['show']);
         Route::get('categories/search', [BlogCategoryController::class, 'search'])->name('categories.search');
 
-        Route::resource('posts',BlogPostController::class)->parameters(['posts' => 'blog_post'])->except(['show']);
+        Route::resource('posts', BlogPostController::class)->parameters(['posts' => 'blog_post'])->except(['show']);
     });
 
 
@@ -99,16 +97,12 @@ Route::group(['middleware' => 'auth:admin'], function () {
      * Settings
      */
     Route::get('settings/general', [SettingController::class, 'general'])->name('settings.general');
-    Route::post('settings/general', [SettingController::class, 'saveGeneralSettings'])->name('settings.saveGeneralSettings');
-
     Route::get('settings/socialMedia', [SettingController::class, 'socialMedia'])->name('settings.socialMedia');
-    Route::post('settings/socialMedia', [SettingController::class, 'saveSocialMedia'])->name('settings.saveSocialMedia');
-
     Route::get('settings/company', [SettingController::class, 'company'])->name('settings.company');
-    Route::post('settings/company', [SettingController::class, 'saveCompany'])->name('settings.saveCompany');
-
     Route::get('settings/prefix', [SettingController::class, 'prefix'])->name('settings.prefix');
-    Route::post('settings/prefix', [SettingController::class, 'savePrefix'])->name('settings.savePrefix');
+    Route::get('settings/payment-gateway', [SettingController::class, 'paymentGateway'])->name('settings.paymentGateway');
+
+    Route::post('settings/store', [SettingController::class, 'store'])->name('settings.store');
 
 
     /**

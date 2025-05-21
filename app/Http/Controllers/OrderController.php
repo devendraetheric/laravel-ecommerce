@@ -7,6 +7,7 @@ use App\Enums\PaymentType;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Notifications\OrderPlaced;
+use App\Services\PaypalService;
 use App\Services\PhonePeService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -66,37 +67,69 @@ class OrderController extends Controller
             ->with('success', 'Order placed successfully.');
     }
 
-    public function pay(Order $order, PhonePeService $phonePe)
+    public function pay(Order $order, PhonePeService $phonePe, PaypalService $paypal)
     {
-        $redirectURL = $phonePe->initiatePayment([
-            'order_id' => $order->order_number,
-            'user_id' => 'USER123',
-            'amount' => $order->grand_total * 100, // ₹100 in paise
-            'redirect_url' => route('account.orders.verifyPayment', $order),
-        ]);
+        if ($order->payment_method == 'Paypal')
+            $redirectURL = $paypal->initiatePayment([
+                'order_id' => $order->order_number,
+                'amount' => $order->grand_total,
+                'currency' => app_country()->currency,
+                // 'currency' => 'USD',
+                'redirect_url' => route('account.orders.verifyPayment', $order),
+            ]);
+
+        if ($order->payment_method == 'Phonepe')
+            $redirectURL = $phonePe->initiatePayment([
+                'order_id' => $order->order_number,
+                'amount' => $order->grand_total * 100, // ₹100 in paise
+                'redirect_url' => route('account.orders.verifyPayment', $order),
+            ]);
 
         return redirect($redirectURL);
     }
 
-    public function verifyPayment(Order $order, PhonePeService $phonePe)
+    public function verifyPayment(Order $order, PhonePeService $phonePe, PaypalService $paypal)
     {
-        $response = $phonePe->checkStatus($order->order_number);
+        if ($order->payment_method == 'Paypal') {
+            $response = $paypal->captureOrder(request()->token);
 
-        if ($response && $response['state'] == 'COMPLETED') {
-            $order->payments()->create([
-                'payment_number' => Payment::generatePaymentNumber(),
-                'reference' =>  $response['orderId'],
-                'amount' =>  $order->grand_total,
-                'method' =>  PaymentType::PHONEPE,
-            ]);
+            if ($response && $response['status'] == 'COMPLETED') {
+                $order->payments()->create([
+                    'payment_number' => Payment::generatePaymentNumber(),
+                    'reference' =>  $response['id'],
+                    'amount' =>  $order->grand_total,
+                    'method' =>  'Paypal',
+                ]);
 
-            $order->increment('paid_amount', $order->grand_total);
-            $order->payment_status = PaymentStatus::PAID;
+                $order->increment('paid_amount', $order->grand_total);
+                $order->payment_status = PaymentStatus::PAID;
 
-            $order->save();
+                $order->save();
 
-            return redirect()->route('account.orders.show', $order)
-                ->with('success', 'Payment completed successfully.');
+                return redirect()->route('account.orders.show', $order)
+                    ->with('success', 'Payment completed successfully.');
+            }
+        }
+
+        if ($order->payment_method == 'Phonepe') {
+            $response = $phonePe->checkStatus($order->order_number);
+
+            if ($response && $response['state'] == 'COMPLETED') {
+                $order->payments()->create([
+                    'payment_number' => Payment::generatePaymentNumber(),
+                    'reference' =>  $response['orderId'],
+                    'amount' =>  $order->grand_total,
+                    'method' =>  'Phonepe',
+                ]);
+
+                $order->increment('paid_amount', $order->grand_total);
+                $order->payment_status = PaymentStatus::PAID;
+
+                $order->save();
+
+                return redirect()->route('account.orders.show', $order)
+                    ->with('success', 'Payment completed successfully.');
+            }
         }
 
         return redirect()->route('account.orders.show', $order)

@@ -21,10 +21,10 @@
         <x-admin.breadcrumb :links=$breadcrumbLinks :title=$title />
 
 
-        <form method="post" action="{{ route('admin.settings.saveGeneralSettings') }}" enctype="multipart/form-data">
-
+        <form method="post" action="{{ route('admin.settings.store') }}" enctype="multipart/form-data">
             @csrf
 
+            <input type="hidden" name="group_name" value="general" />
             <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
                 <div class="p-6">
                     <div class="grid grid-cols-3 gap-4">
@@ -195,7 +195,7 @@
                             <div class="mt-2 grid grid-cols-1">
                                 <select id="is_captcha" name="is_captcha"
                                     class="col-start-1 row-start-1 form-select">
-                                    <option value="0" @selected(old('is_captcha', $settings->is_captcha) == '0')>Deactive</option>
+                                    <option value="0" @selected(old('is_captcha', $settings->is_captcha) == '0')>De-Active</option>
                                     <option value="1" @selected(old('is_captcha', $settings->is_captcha) == '1')>Active</option>
                                 </select>
                                 <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
@@ -290,8 +290,7 @@
             </div>
 
             <div class="mt-6 space-x-2">
-                <button type="submit" class="btn-primary">Submit</button>
-                <a href="{{ route('admin.settings.general') }}" class="btn-secondary">Cancel</a>
+                <button type="submit" class="btn-primary">Save Changes</button>
             </div>
         </form>
     </div>

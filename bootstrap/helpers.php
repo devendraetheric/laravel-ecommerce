@@ -13,7 +13,7 @@ if (!function_exists('cart')) {
 
         if ($cart === null) {
             if (Auth::check()) {
-                $cart = Cart::FirstOrCreate(['user_id' => auth()->id()]);
+                $cart = Cart::FirstOrCreate(['user_id' => Auth::id()]);
             } else {
                 $cart = Cart::FirstOrCreate(['session_id' => session()->getId()]);
             }
@@ -43,10 +43,12 @@ function setting(string $classOrKey)
 
         // Map section to class (adjust these according to your setup)
         $map = [
-            'general'   => \App\Settings\GeneralSetting::class,
-            'prefix'    => \App\Settings\PrefixSetting::class,
-            'company'   => \App\Settings\CompanySetting::class,
-            'social'    => \App\Settings\SocialMediaSetting::class,
+            'general'           => \App\Settings\GeneralSetting::class,
+            'prefix'            => \App\Settings\PrefixSetting::class,
+            'company'           => \App\Settings\CompanySetting::class,
+            'social'            => \App\Settings\SocialMediaSetting::class,
+            'payment_paypal'    => \App\Settings\PaypalSetting::class,
+            'payment_phonepe'   => \App\Settings\PhonePeSetting::class,
         ];
 
         $class = $map[$section] ?? null;
@@ -97,5 +99,25 @@ if (! function_exists('get_currency_symbol')) {
         static $symbol = null;
 
         return $symbol ??= app_country()->currency_symbol;
+    }
+}
+
+if (!function_exists('paymentGateways')) {
+    function paymentGateways()
+    {
+        $settingClasses = [
+            \App\Settings\PaypalSetting::class,
+            \App\Settings\PhonePeSetting::class,
+        ];
+
+        return collect($settingClasses)
+            ->filter(function ($class) {
+                $instance = app($class);
+                return $instance->is_active ?? false; // if `is_active` is a property
+            })
+            ->mapWithKeys(function ($class) {
+                $instance = app($class);
+                return [$class::group() => $instance->toArray()];
+            });
     }
 }

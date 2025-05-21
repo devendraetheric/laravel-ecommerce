@@ -1,4 +1,3 @@
-@inject('settings', 'App\Settings\GeneralSetting')
 @php
     $navigation = [
         [
@@ -152,6 +151,17 @@
             'name' => 'Prefix Settings',
             'route' => route('admin.settings.prefix'),
             'active' => ($active = request()->routeIs('admin.settings.prefix')),
+            'icon' =>
+                '<svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 shrink-0 ' .
+                ($active ? 'text-primary-600' : 'text-gray-400') .
+                ' group-hover:text-primary-600">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8.689c0-.864.933-1.406 1.683-.977l7.108 4.061a1.125 1.125 0 0 1 0 1.954l-7.108 4.061A1.125 1.125 0 0 1 3 16.811V8.69ZM12.75 8.689c0-.864.933-1.406 1.683-.977l7.108 4.061a1.125 1.125 0 0 1 0 1.954l-7.108 4.061a1.125 1.125 0 0 1-1.683-.977V8.69Z" />
+                </svg>',
+        ],
+        [
+            'name' => 'Payment Gateway',
+            'route' => route('admin.settings.paymentGateway'),
+            'active' => ($active = request()->routeIs('admin.settings.paymentGateway')),
             'icon' =>
                 '<svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 shrink-0 ' .
                 ($active ? 'text-primary-600' : 'text-gray-400') .
