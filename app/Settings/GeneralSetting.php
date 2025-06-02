@@ -20,6 +20,8 @@ class GeneralSetting extends Settings
 
     public string $timezone;
 
+    public ?string $admin_emails;
+
     public bool $is_captcha;
 
     public ?string $captcha_secret_key;

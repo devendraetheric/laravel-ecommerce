@@ -19,14 +19,14 @@ class CartController extends Controller
     {
         $cart = cart();
 
-        $product = $cart?->items()
+        $cartItem = $cart?->items()
             ->where('product_id', $request->product_id)
             ->first();
 
-        if ($product) {
-            $product->increment('quantity', $request->quantity);
+        if ($cartItem) {
+            $cartItem->increment('quantity', $request->quantity);
         } else {
-            $cart?->items()
+            $cartItem = $cart?->items()
                 ->create(
                     [
                         'product_id' => $request->product_id,
@@ -35,13 +35,22 @@ class CartController extends Controller
                 );
         }
 
+        $itemTotal = $cartItem->product->selling_price * $cartItem->quantity;
+
+        applyTaxesToObject($cartItem, $itemTotal);
+
         return redirect()->back()
             ->with('success', 'Product added to cart successfully!!!');
     }
 
     public function removeFromCart($product_id): RedirectResponse
     {
-        cart()->items()->where('product_id', $product_id)->delete();
+        $cartItem = cart()->items()->where('product_id', $product_id)
+            ->first();
+
+        $cartItem->taxes()->delete();
+
+        $cartItem->delete();
 
         return redirect()->back()
             ->with('success', 'Product removed from Wishlist!!!');
@@ -52,9 +61,16 @@ class CartController extends Controller
         $cart = cart();
 
         foreach ($request->quantity as $product_id => $quantity) {
-            $cart?->items()
+            $cartItem = $cart?->items()
                 ->where('product_id', $product_id)
-                ->update(['quantity' => $quantity]);
+                ->first();
+
+            $cartItem->quantity = $quantity;
+            $cartItem->save();
+
+            $itemTotal = $cartItem->product->selling_price * $cartItem->quantity;
+
+            applyTaxesToObject($cartItem, $itemTotal);
         }
 
         return redirect()->back()

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -66,8 +67,25 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->morphMany(Address::class, "addressable");
     }
 
+    public function defaultAddress(): MorphOne
+    {
+        return $this->morphOne(Address::class, "addressable")->where('is_default', true);
+    }
+
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function scopeSearch($query, $term)
+    {
+        if (! $term) return $query;
+
+        return $query->where(function ($q) use ($term) {
+            $q->where('first_name', 'like', "%{$term}%")
+                ->orWhere('last_name', 'like', "%{$term}%")
+                ->orWhere('email', 'like', "%{$term}%")
+                ->orWhere('phone', 'like', "%{$term}%");
+        });
     }
 }

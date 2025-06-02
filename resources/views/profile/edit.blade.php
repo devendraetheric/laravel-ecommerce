@@ -28,9 +28,9 @@
                             @csrf
                             @method('patch')
 
-                            <div class="grid md:grid-cols-2 gap-4">
+                            <div class="grid md:grid-cols-2 gap-6">
 
-                                <div class="space-y-2">
+                                <div class="space-y-2.5">
                                     <label for="first_name" class="control-label">
                                         First Name
                                     </label>
@@ -38,11 +38,11 @@
                                         value="{{ old('first_name', $user->first_name) }}"
                                         class="form-control @error('first_name') is-invalid @enderror" />
                                     @error('first_name')
-                                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                        <p class="text-sm text-red-600">{{ $message }}</p>
                                     @enderror
                                 </div>
 
-                                <div class="space-y-2">
+                                <div class="space-y-2.5">
                                     <label for="last_name" class="control-label">
                                         Last Name
                                     </label>
@@ -50,14 +50,14 @@
                                         value="{{ old('last_name', $user->last_name) }}"
                                         class="form-control @error('last_name') is-invalid @enderror" />
                                     @error('last_name')
-                                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                        <p class="text-sm text-red-600">{{ $message }}</p>
                                     @enderror
                                 </div>
 
                             </div>
 
                             <div class="grid md:grid-cols-2 gap-4 py-5">
-                                <div class="space-y-2">
+                                <div class="space-y-2.5">
                                     <label for="email" class="control-label">
                                         Email
                                     </label>
@@ -65,11 +65,11 @@
                                         value="{{ old('email', $user->email) }}"
                                         class="form-control @error('email') is-invalid @enderror" />
                                     @error('email')
-                                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                        <p class="text-sm text-red-600">{{ $message }}</p>
                                     @enderror
                                 </div>
 
-                                <div class="space-y-2">
+                                <div class="space-y-2.5">
                                     <label for="phone" class="control-label">
                                         Phone
                                     </label>
@@ -77,7 +77,7 @@
                                         value="{{ old('phone', $user->phone) }}"
                                         class="form-control @error('phone') is-invalid @enderror" />
                                     @error('phone')
-                                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                        <p class="text-sm text-red-600">{{ $message }}</p>
                                     @enderror
                                 </div>
                             </div>

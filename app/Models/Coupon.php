@@ -29,4 +29,19 @@ class Coupon extends Model
         'start_date'   => 'date:Y-m-d',
         'end_date'     => 'date:Y-m-d',
     ];
+
+
+    public function scopeSearch($query, $term)
+    {
+        if (! $term) return $query;
+
+        return $query->where(function ($q) use ($term) {
+            $q->where('code', 'like', "%{$term}%")
+                ->orWhere('type', 'like', "%{$term}%")
+                ->orWhere('value', 'like', "%{$term}%")
+                ->orWhere('total_quantity', 'like', "%{$term}%")
+                ->orWhere('start_date', 'like', "%{$term}%")
+                ->orWhere('end_date', 'like', "%{$term}%");
+        });
+    }
 }

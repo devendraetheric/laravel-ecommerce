@@ -27,6 +27,7 @@ class OrderController extends Controller
 
         $orders = Order::latest()
             ->with(['user'])
+            ->search(request('query'))
             ->paginate()
             ->withQueryString();
 

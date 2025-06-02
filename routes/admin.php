@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Blog\CategoryController as BlogCategoryController
 use App\Http\Controllers\Admin\Blog\PostController as BlogPostController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ContactQueryController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\OrderController;
@@ -12,6 +13,8 @@ use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\SubscriberController;
+use App\Http\Controllers\Admin\TaxController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -45,6 +48,8 @@ Route::get('migrate-fresh', function () {
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest:admin');
 Route::post('/login', [LoginController::class, 'login'])->name('login.post')->middleware('guest:admin');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+
 
 Route::get('/', function () {
     return view('admin.dashboard');
@@ -81,6 +86,9 @@ Route::group(['middleware' => 'auth:admin'], function () {
      */
     Route::resource('coupons', CouponController::class)->except(['show']);
 
+    Route::resource('contactQueries', ContactQueryController::class)->except(['store']);
+
+    Route::resource('subscribers', SubscriberController::class);
 
     /**
      * Routes For Blog Categories
@@ -92,7 +100,6 @@ Route::group(['middleware' => 'auth:admin'], function () {
         Route::resource('posts', BlogPostController::class)->parameters(['posts' => 'blog_post'])->except(['show']);
     });
 
-
     /**
      * Settings
      */
@@ -103,6 +110,12 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::get('settings/payment-gateway', [SettingController::class, 'paymentGateway'])->name('settings.paymentGateway');
 
     Route::post('settings/store', [SettingController::class, 'store'])->name('settings.store');
+
+    /**
+     * Route for Tax
+     */
+    Route::resource('taxes', TaxController::class)->except(['show']);
+
 
 
     /**

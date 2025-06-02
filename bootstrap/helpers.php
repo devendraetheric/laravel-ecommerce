@@ -1,7 +1,12 @@
 <?php
 
+use App\Enums\TaxType;
 use App\Models\Cart;
+use App\Models\CartItem;
 use App\Models\Country;
+use App\Models\State;
+use App\Models\Tax;
+use App\Models\Taxable;
 use Illuminate\Support\Facades\Auth;
 
 if (!function_exists('cart')) {
@@ -49,6 +54,7 @@ function setting(string $classOrKey)
             'social'            => \App\Settings\SocialMediaSetting::class,
             'payment_paypal'    => \App\Settings\PaypalSetting::class,
             'payment_phonepe'   => \App\Settings\PhonePeSetting::class,
+            'payment_razorpay'  => \App\Settings\RazorpaySetting::class,
         ];
 
         $class = $map[$section] ?? null;
@@ -93,6 +99,15 @@ if (! function_exists('app_country')) {
     }
 }
 
+if (! function_exists('app_state')) {
+    function app_state(): State
+    {
+        static $state = null;
+
+        return $state ??= State::find(setting('company.state'));
+    }
+}
+
 if (! function_exists('get_currency_symbol')) {
     function get_currency_symbol(): string
     {
@@ -108,6 +123,7 @@ if (!function_exists('paymentGateways')) {
         $settingClasses = [
             \App\Settings\PaypalSetting::class,
             \App\Settings\PhonePeSetting::class,
+            \App\Settings\RazorpaySetting::class,
         ];
 
         return collect($settingClasses)
@@ -119,5 +135,72 @@ if (!function_exists('paymentGateways')) {
                 $instance = app($class);
                 return [$class::group() => $instance->toArray()];
             });
+    }
+}
+
+if (!function_exists('getDeliveryCharge')) {
+    function getDeliveryCharge(): float
+    {
+        $charge = 0;
+        return is_numeric($charge) ? (float)$charge : 0.0;
+    }
+}
+
+if (!function_exists(' applyTaxesToObject')) {
+    function applyTaxesToObject(object $item, float $baseAmount, $customerState = null, $sellerState = null)
+    {
+        $sellerState = app_state()?->id;
+
+        if (!isset($customerState))
+            if (Auth::check()) {
+                $customerState = Auth::user()?->defaultAddress?->state;
+            }
+
+        /* $isInterState = $sellerState !== $customerState;
+
+         if ($isInterState) {
+            $taxComponents = Tax::where('type', TaxType::IGST)->get();
+        } else {
+            $taxComponents = Tax::whereIn('type', [TaxType::CGST, TaxType::SGST])->get();
+        } */
+
+        $taxRate = config('usa_tax')[$customerState?->iso2] ?? 0.0;
+        $item->taxes()->delete(); // Clear existing taxes for the item
+
+        // return if no tax rate is found
+        if (!$taxRate) {
+            return;
+        }
+
+        $tax = Tax::where('rate', $taxRate)
+            ->where('type', TaxType::VAT)
+            ->first();
+
+        if (!$tax) {
+            $tax = Tax::create(
+                [
+                    'name' => "VAT " . $taxRate . "%",
+                    'type' => TaxType::VAT,
+                    'rate' => $taxRate,
+                ]
+            );
+        }
+
+        // foreach ($taxComponents as $tax) {
+        $taxAmount = $baseAmount * ($taxRate / 100);
+
+        $item->taxes()->updateOrCreate(
+            [
+                'taxable_type' => get_class($item),
+                'taxable_id'   => $item->id,
+                'tax_id' => $tax->id,
+            ],
+            [
+                'tax_rate' => $taxRate,
+                'base_amount' => round($baseAmount, 2),
+                'tax_amount' => round($taxAmount, 2),
+            ]
+        );
+        // }
     }
 }

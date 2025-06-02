@@ -14,6 +14,8 @@ class BrandController extends Controller
     public function index()
     {
         $brands = Brand::latest()
+            ->withCount('products')
+            ->search(request('query'))
             ->paginate()
             ->withQueryString();
 
@@ -40,17 +42,15 @@ class BrandController extends Controller
             'slug'              => ['required', 'string', 'unique:' . Brand::class],
             'description'       => ['nullable', 'string'],
             'is_active'         => ['boolean', 'default(true)'],
+            'featured-image'    => ['nullable', 'image', 'max:1024'],
             'seo_title'         => ['nullable', 'string'],
             'seo_description'   => ['nullable', 'string'],
         ]);
 
         $brand = Brand::create($validated);
 
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $path = $file->store('uploads', 'public');
-
-            $brand->addMedia(storage_path("app/public/$path"))
+        if ($request->hasFile('featured-image')) {
+            $brand->addMediaFromRequest('featured-image')
                 ->preservingOriginal()
                 ->toMediaCollection();
         }
@@ -86,6 +86,7 @@ class BrandController extends Controller
             'slug'              => ['required', 'string', 'unique:' . Brand::class . ',slug,' . $brand->id],
             'description'       => ['nullable', 'string'],
             'is_active'         => ['boolean', 'default(true)'],
+            'featured-image'    => ['nullable', 'image', 'max:1024'],
             'seo_title'         => ['nullable', 'string'],
             'seo_description'   => ['nullable', 'string'],
         ]);
@@ -93,13 +94,10 @@ class BrandController extends Controller
         $brand->fill($validated);
         $brand->save();
 
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $path = $file->store('uploads', 'public');
-
+        if ($request->hasFile('featured-image')) {
             $brand->clearMediaCollection();
 
-            $brand->addMedia(storage_path("app/public/$path"))
+            $brand->addMediaFromRequest('featured-image')
                 ->preservingOriginal()
                 ->toMediaCollection();
         }

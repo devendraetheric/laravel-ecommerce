@@ -15,6 +15,7 @@ class PostController extends Controller
     public function index()
     {
         $blog_posts = BlogPost::latest()
+            ->search(request('query'))
             ->paginate()
             ->withQueryString();
 

@@ -1,5 +1,5 @@
 @if ($paginator->hasPages())
-    <div class="flex items-center justify-between ">
+    <div class="flex items-center justify-between mt-4">
 
         <div class="flex justify-between flex-1 lg:hidden">
             @if ($paginator->onFirstPage())

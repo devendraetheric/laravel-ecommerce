@@ -16,7 +16,7 @@
         <div class="container px-3 md:px-5 xl:px-0">
             <form action="{{ route('account.checkout.store') }}" method="POST">
                 @csrf
-                <div class="mt-6 lg:grid lg:grid-cols-12 gap-6">
+                <div class="mt-6 lg:grid lg:grid-cols-12 gap-6" x-data="checkoutTax()" x-init="fetchTaxes()">
                     <div class="lg:col-span-8">
                         <div class="overflow-hidden rounded-xl bg-white shadow-xs border border-gray-200">
                             <div class="p-6 space-y-6">
@@ -29,7 +29,8 @@
                                                 class="relative flex cursor-pointer rounded-lg border border-gray-300 bg-white p-4 shadow-xs focus-within:ring-1 focus-within:ring-primary-500">
                                                 <input type="radio" id="address-{{ $address->id }}" name="address_id"
                                                     value="{{ $address->id }}" class="sr-only" required
-                                                    @checked($address->is_default) />
+                                                    @checked($address->is_default) x-model="addressId"
+                                                    @change="fetchTaxes" />
                                                 <span class="flex flex-1 flex-col">
                                                     <span
                                                         class="block text-base/6 font-medium text-gray-900">{{ $address->name }}</span>
@@ -71,7 +72,7 @@
                                         <div class="space-y-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-10">
                                             <input type="hidden" name="payment_method" value="cod" />
 
-                                            @foreach (paymentGateways() as $paymentGateway)
+                                            @forelse (paymentGateways() as $paymentGateway)
                                                 <div class="flex items-center">
                                                     <input id="{{ $paymentGateway['name'] }}" name="payment_method"
                                                         type="radio" class="form-radio"
@@ -80,7 +81,15 @@
                                                     <label for="{{ $paymentGateway['name'] }}"
                                                         class="ml-3 block text-base/6 font-medium text-gray-700">{{ $paymentGateway['description'] }}</label>
                                                 </div>
-                                            @endforeach
+                                            @empty
+                                                <div class="flex items-center">
+                                                    <input id="cod" name="payment_method" type="radio"
+                                                        class="form-radio" value="cod" checked />
+                                                    <label for="cod"
+                                                        class="ml-3 block text-base/6 font-medium text-gray-700">Cash on
+                                                        Delivery</label>
+                                                </div>
+                                            @endforelse
                                         </div>
                                     </fieldset>
                                 </div>
@@ -131,11 +140,20 @@
                                     </div>
                                     <div class="flex items-center justify-between">
                                         <dt class="text-base/6 text-gray-600">Delivery Charge</dt>
-                                        <dd class="text-base/6 font-bold text-gray-900">@money(50)</dd>
+                                        <dd class="text-base/6 font-bold text-gray-900"
+                                            x-text="formatCurrency(deliveryCharge)"></dd>
                                     </div>
+                                    <template x-for="tax in taxes" :key="tax.name">
+                                        <div class="flex items-center justify-between">
+                                            <dt class="text-base/6 text-gray-600" x-text="tax.name"></dt>
+                                            <dd class="text-base/6 font-medium text-gray-900"
+                                                x-text="tax.amount_display"></dd>
+                                        </div>
+                                    </template>
                                     <div class="flex items-center justify-between">
                                         <dt class="text-base/6 text-gray-600">Grand Total</dt>
-                                        <dd class="text-base/6 font-bold text-gray-900">@money(cart()->total + 50)</dd>
+                                        <dd class="text-base/6 font-bold text-gray-900"
+                                            x-text="formatCurrency(grandTotal)"></dd>
                                     </div>
                                 </dl>
 
@@ -187,6 +205,41 @@
                     });
                 });
             });
+
+            function checkoutTax() {
+                return {
+                    addressId: "{{ auth()->user()?->defaultAddress?->id }}",
+                    taxes: [],
+                    subTotal: {{ cart()->total }},
+                    deliveryCharge: {{ getDeliveryCharge() }},
+                    totalTax: 0,
+                    grandTotal() {
+                        return this.subTotal + this.deliveryCharge + this.totalTax;
+                    },
+                    fetchTaxes() {
+                        axios.get("{{ route('account.checkout.taxes') }}", {
+                                params: {
+                                    address_id: this.addressId
+                                }
+                            })
+                            .then(response => {
+                                this.taxes = response.data.taxes;
+                                this.totalTax = response.data.total_tax;
+
+                                this.grandTotal = this.subTotal + this.totalTax + this.deliveryCharge;
+                            })
+                            .catch(error => {
+                                console.error("Tax fetch error:", error);
+                            });
+                    },
+                    formatCurrency(value) {
+                        return value.toLocaleString('en-US', {
+                            style: 'currency',
+                            currency: '{{ app_country()->currency }}'
+                        });
+                    }
+                }
+            }
         </script>
     @endpush
 </x-layouts.front>

@@ -32,4 +32,9 @@ class OrderItem extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function taxes()
+    {
+        return $this->morphMany(Taxable::class, 'taxable');
+    }
 }

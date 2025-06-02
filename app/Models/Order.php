@@ -59,4 +59,63 @@ class Order extends Model
     {
         return $this->hasMany(Payment::class);
     }
+
+    public function taxes()
+    {
+        return $this->morphMany(Taxable::class, 'taxable');
+    }
+
+    public function scopeSearch($query, $term)
+    {
+        if (! $term) return $query;
+
+        return $query->where(function ($q) use ($term) {
+            $q->where('order_number', 'like', "%{$term}%")
+                ->orWhere('order_date', 'like', "%{$term}%")
+                ->orWhere('sub_total', 'like', "%{$term}%")
+                ->orWhere('grand_total', 'like', "%{$term}%");
+        });
+    }
+
+
+    /**
+     * Get the total tax amount for the cart.
+     */
+    public function getTaxBreakdownAttribute()
+    {
+        return $this->getTaxBreakdown();
+    }
+
+    public function getTotalTaxAmountAttribute(): float
+    {
+        return $this->getTaxBreakdown()->sum('total_amount');
+    }
+
+    /**
+     * Get total tax amounts grouped by tax type (CGST, SGST, etc.)
+     */
+    public function getTaxBreakdown(): \Illuminate\Support\Collection
+    {
+        // Collect all OrderItem IDs for this Order
+        $itemIds = $this->items()->pluck('id');
+
+        // Fetch related taxables for these items
+        $taxGroups = Taxable::with('tax')
+            ->where('taxable_type', OrderItem::class)
+            ->whereIn('taxable_id', $itemIds)
+            ->get()
+            ->groupBy('tax_id');
+
+        // Map result with tax name, rate, type, and total amount
+        return $taxGroups->map(function ($group) {
+            $tax = $group->first()->tax;
+
+            return [
+                'name' => $tax->name,
+                'type' => $tax->type, // e.g. 'cgst', 'sgst', 'igst'
+                'rate' => $tax->rate,
+                'total_amount' => $group->sum('tax_amount'),
+            ];
+        });
+    }
 }

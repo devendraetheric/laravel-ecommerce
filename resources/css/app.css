@@ -1,6 +1,10 @@
 @import 'tailwindcss';
 @plugin "@tailwindcss/typography";
 
+@plugin 'tailwind-scrollbar' {
+    preferredStrategy: 'pseudoelements';
+}
+
 
 @theme {
     --font-display: 'Inter', sans-serif;
@@ -42,7 +46,11 @@
 }
 
 .form-control {
-    @apply block w-full rounded-lg bg-gray-50 py-4 px-6 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 sm:pr-9 sm:text-sm/6;
+    @apply block w-full rounded-lg py-4 px-6 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 sm:pr-9 sm:text-sm/6;
+}
+
+.form-select {
+    @apply col-start-1 row-start-1 w-full appearance-none rounded-lg py-4 pr-10 pl-4 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 sm:text-sm/6;
 }
 
 .is-invalid {
@@ -100,10 +108,10 @@
         @apply !block m-0 p-0;
 
         .swiper-slide {
-            @apply opacity-50 inline-flex !w-20 !aspect-square !overflow-hidden rounded-lg;
+            @apply !mx-auto opacity-50 inline-flex !w-20 !aspect-square !overflow-hidden rounded-lg p-0.5;
 
             img {
-                @apply object-contain aspect-square w-18 rounded-lg;
+                @apply object-contain aspect-square w-fit rounded-lg;
             }
         }
 

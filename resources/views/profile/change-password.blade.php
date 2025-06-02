@@ -28,39 +28,37 @@
                             @csrf
                             @method('put')
 
-                            <div class="space-y-2">
+                            <div class="space-y-2.5">
                                 <label for="update_password_current_password" class="control-label">
                                     Current Password
                                 </label>
                                 <input type="password" id="update_password_current_password" name="current_password"
-                                    value="{{ old('current_password') }}"
                                     class="form-control  @error('current_password', 'updatePassword') is-invalid @enderror" />
                                 @error('current_password', 'updatePassword')
-                                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
 
-                            <div class="space-y-2">
+                            <div class="space-y-2.5">
                                 <label for="update_password_password" class="control-label">
                                     New Password
                                 </label>
                                 <input type="password" id="update_password_password" name="password"
-                                    value="{{ old('password') }}"
                                     class="form-control @error('password', 'updatePassword') is-invalid @enderror" />
                                 @error('password', 'updatePassword')
-                                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
 
-                            <div class="space-y-2">
+                            <div class="space-y-2.5">
                                 <label for="update_password_password_confirmation" class="control-label">
                                     Confirm Password
                                 </label>
                                 <input type="password" id="update_password_password_confirmation"
-                                    name="password_confirmation" value="{{ old('password_confirmation') }}"
+                                    name="password_confirmation"
                                     class="form-control @error('password_confirmation', 'updatePassword') is-invalid @enderror" />
                                 @error('password_confirmation', 'updatePassword')
-                                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
 

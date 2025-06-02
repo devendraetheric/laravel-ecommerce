@@ -3,10 +3,12 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ContactQueryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SubscriberController;
 use App\Jobs\Demo;
 use App\Mail\JobFailedMail;
 use App\Models\State;
@@ -29,9 +31,9 @@ Route::post('/fetch-states', function (Request $request) {
     Demo::dispatch();
 }); */
 
-
 Route::get('/', [FrontController::class, 'home'])->name('home');
 Route::get('/import', [FrontController::class, 'import'])->name('import');
+Route::post('/subscribe', [SubscriberController::class, 'store'])->name('subscribers.store');
 
 /**
  * Product Routes
@@ -90,6 +92,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::resource('/account/orders', OrderController::class)->except(['store', 'show'])->names('account.orders');
     Route::get('/account/checkout', [OrderController::class, 'checkout'])->name('account.checkout');
     Route::post('/account/checkout/store', [OrderController::class, 'store'])->name('account.checkout.store');
+
+    Route::get('account/checkout/tax', [OrderController::class, 'getTaxes'])->name('account.checkout.taxes');
 
     Route::get('/account/orders/{order:order_number}/pay', [OrderController::class, 'pay'])->name('account.orders.pay');
     Route::get('/account/orders/{order}/verify-payment', [OrderController::class, 'verifyPayment'])->name('account.orders.verifyPayment');

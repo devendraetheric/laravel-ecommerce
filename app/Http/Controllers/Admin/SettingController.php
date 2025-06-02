@@ -9,6 +9,7 @@ use App\Settings\GeneralSetting;
 use App\Settings\PaypalSetting;
 use App\Settings\PhonepeSetting;
 use App\Settings\PrefixSetting;
+use App\Settings\RazorpaySetting;
 use App\Settings\SocialMediaSetting;
 use DateTimeZone;
 use Illuminate\Http\Request;
@@ -24,6 +25,7 @@ class SettingController extends Controller
         'date_format'        => ['required', 'string'],
         'time_format'        => ['required', 'string'],
         'timezone'           => ['required', 'string'],
+        'admin_emails'       => ['required', 'string'],
         'is_captcha'         => ['required'],
         'captcha_secret_key' => ['nullable', 'string'],
         'captcha_site_key'   => ['nullable', 'string'],
@@ -77,6 +79,13 @@ class SettingController extends Controller
         'client_secret'     => ['required', 'string'],
         'client_version'    => ['required']
     ];
+
+    private array $rozapaySettingValidation = [
+        'is_active'         => ['required', 'bool'],
+        'client_id'         => ['required', 'string'],
+        'client_secret'     => ['required', 'string'],
+    ];
+
 
     public function general()
     {
@@ -172,6 +181,12 @@ class SettingController extends Controller
             case 'payment_phonepe':
                 $validationRule = $this->phonepeSettingValidation;
                 $settings = new PhonepeSetting();
+
+                break;
+
+            case 'payment_razorpay':
+                $validationRule = $this->rozapaySettingValidation;
+                $settings = new RazorpaySetting();
 
                 break;
 

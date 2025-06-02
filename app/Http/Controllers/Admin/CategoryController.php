@@ -14,6 +14,8 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::latest()
+            ->withCount('products')
+            ->search(request('query'))
             ->paginate()
             ->withQueryString();
 
@@ -40,17 +42,15 @@ class CategoryController extends Controller
             'slug'              => ['required', 'string', 'unique:' . Category::class],
             'description'       => ['nullable', 'string'],
             'is_active'         => ['boolean', 'default(true)'],
+            'featured-image'    => ['nullable', 'image', 'max:1024'],
             'seo_title'         => ['nullable', 'string'],
             'seo_description'   => ['nullable', 'string'],
         ]);
 
         $category = Category::create($validated);
 
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $path = $file->store('uploads', 'public');
-
-            $category->addMedia(storage_path("app/public/$path"))
+        if ($request->hasFile('featured-image')) {
+            $category->addMediaFromRequest('featured-image')
                 ->preservingOriginal()
                 ->toMediaCollection();
         }
@@ -86,6 +86,7 @@ class CategoryController extends Controller
             'slug'              => ['required', 'string', 'unique:' . Category::class . ',slug,' . $category->id],
             'description'       => ['nullable', 'string'],
             'is_active'         => ['boolean', 'default(true)'],
+            'featured-image'    => ['nullable', 'image', 'max:1024'],
             'seo_title'         => ['nullable', 'string'],
             'seo_description'   => ['nullable', 'string'],
         ]);
@@ -93,13 +94,10 @@ class CategoryController extends Controller
         $category->fill($validated);
         $category->save();
 
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $path = $file->store('uploads', 'public');
+        if ($request->hasFile('featured-image')) {
 
             $category->clearMediaCollection();
-
-            $category->addMedia(storage_path("app/public/$path"))
+            $category->addMediaFromRequest('featured-image')
                 ->preservingOriginal()
                 ->toMediaCollection();
         }

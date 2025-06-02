@@ -33,8 +33,8 @@
                     <h3 class="text-base font-semibold text-gray-800">Order Information</h3>
                 </div>
                 <div class="p-6">
-                    <div class="grid grid-cols-3 gap-4">
-                        <div class="space-y-2 col-span-3 md:col-span-1">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                        <div class="space-y-2">
                             <label for="order_number" class="control-label">Order #</label>
                             <input type="text" name="order_number" id="order_number"
                                 class="form-control @error('order_number') is-invalid @enderror"
@@ -45,7 +45,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-3 md:col-span-1">
+                        <div class="space-y-2">
                             <label for="order_date" class="control-label">Order Date</label>
                             <input type="date" name="order_date" id="order_date"
                                 class="form-control @error('order_date') is-invalid @enderror"
@@ -63,7 +63,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-3 md:col-span-1">
+                        <div class="space-y-2">
                             <label for="status" class="control-label">Status</label>
                             <div class="sm:grid sm:grid-cols-6 sm:items-start sm:gap-4">
                                 <div class="mt-2 sm:col-span-6 sm:mt-0 grid grid-cols-1">

@@ -62,6 +62,7 @@ class PaypalService
         $accessToken = $this->getAccessToken();
 
         $response = Http::withToken($accessToken)
+
             ->post("{$this->baseUrl}/v2/checkout/orders/{$orderId}/capture", [
                 'order_id' => $orderId
             ]);

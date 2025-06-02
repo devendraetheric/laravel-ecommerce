@@ -19,6 +19,7 @@ class ProductController extends Controller
     {
         $products = Product::latest()
             ->with(['brand', 'category', 'media'])
+            ->search(request('query'))
             ->paginate()
             ->withQueryString();
 

@@ -72,6 +72,9 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
+
+        $product->increment('view_count');
+
         $product->with('media');
 
         return view('products.show', compact('product'));

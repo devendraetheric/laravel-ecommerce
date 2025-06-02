@@ -15,6 +15,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::latest()
+            ->search(request('query'))
             ->paginate()
             ->withQueryString();
 

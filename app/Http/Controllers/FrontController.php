@@ -8,6 +8,9 @@ use App\Models\Banner;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Tax;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class FrontController extends Controller
 {

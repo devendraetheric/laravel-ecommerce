@@ -1,6 +1,10 @@
 @import 'tailwindcss';
 @plugin "@tailwindcss/typography";
 
+@plugin 'tailwind-scrollbar' {
+    preferredStrategy: 'pseudoelements';
+}
+
 @theme {
     --font-display: 'Inter', sans-serif;
 
@@ -74,7 +78,7 @@
 
 
 .control-label {
-    @apply block text-sm/6 font-medium text-gray-600;
+    @apply inline-block text-sm/6 font-medium text-gray-600;
 }
 
 .form-control {

@@ -17,11 +17,12 @@
             <form method="POST" action="{{ route('password.email') }}" class="space-y-6">
                 @csrf
 
-                <div>
+                <div class="space-y-2.5">
+                    <label for="email" class="control-label">Email</label>
                     <input type="text" id="email" name="email" value="{{ old('email') }}" placeholder="Email"
                         class="form-control @error('email') is-invalid @enderror" />
                     @error('email')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        <p class="text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
 

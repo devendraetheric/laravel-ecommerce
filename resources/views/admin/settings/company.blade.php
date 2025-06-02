@@ -19,17 +19,17 @@
         <x-admin.breadcrumb :links=$breadcrumbLinks :title=$title />
 
 
-        <form method="post" action="{{ route('admin.settings.store') }}" x-data="companyAddressInfo()">
+        <form method="post" action="{{ route('admin.settings.store') }}">
             @csrf
 
             <input type="hidden" name="group_name" value="company" />
             <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
-                <div class="p-6">
+                <div class="p-6" x-data="companyAddressInfo()">
                     <div class="grid md:grid-cols-2 gap-4">
 
                         <div class="space-y-2">
                             <div class="flex justify-between">
-                                <label for="app_name" class="control-label">Name</label>
+                                <label for="name" class="control-label">Name</label>
                                 <span class="text-sm/6 text-gray-500" id="name-optional">setting('company.name')</span>
                             </div>
                             <input type="text" name="name" id="name"
@@ -82,7 +82,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2">
+                        <div class="space-y-2 col-span-full">
                             <div class="flex justify-between">
                                 <label for="address" class="control-label">Address</label>
                                 <span class="text-sm/6 text-gray-500"

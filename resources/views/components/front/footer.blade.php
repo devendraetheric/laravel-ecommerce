@@ -139,8 +139,10 @@
                 <div class="col-span-1">
                     <h4 class="text-gray-700 text-2xl font-semibold mb-6">
                         Newsletter</h4>
-                    <form action="" method="POST" class="space-y-4">
-                        <input type="text" name="email" class="form-control" placeholder="Your email">
+                    <form action="{{ route('subscribers.store') }}" method="POST" class="space-y-4">
+                        @csrf
+                        <input type="email" name="email" class="form-control" placeholder="Your email"
+                            required />
                         <button type="submit" class="btn-primary">Subscribe</button>
                     </form>
                 </div>

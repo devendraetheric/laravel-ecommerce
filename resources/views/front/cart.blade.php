@@ -121,15 +121,24 @@
                         <div class="p-6 border-b border-gray-200">
                             <h3 class="text-xl/6 font-semibold text-gray-800">Cart Summary</h3>
                         </div>
+                        @php
+                            // $breakdown = getCartTaxBreakdown($cart);
+                        @endphp
                         <div class="p-6">
                             <dl class="space-y-6">
                                 <div class="flex items-center justify-between">
                                     <dt class="text-base/6 text-gray-600">Sub Total</dt>
                                     <dd class="text-base/6 font-medium text-gray-900">@money($cart->total)</dd>
                                 </div>
+                                @foreach ($cart->tax_breakdown as $tax)
+                                    <div class="flex items-center justify-between">
+                                        <dt class="text-base/6 text-gray-600">{{ $tax['name'] }}</dt>
+                                        <dd class="text-base/6 font-medium text-gray-900">@money($tax['total_amount'])</dd>
+                                    </div>
+                                @endforeach
                                 <div class="flex items-center justify-between">
                                     <dt class="text-base/6 text-gray-600">Grand Total</dt>
-                                    <dd class="text-base/6 font-bold text-gray-900">@money($cart->total)</dd>
+                                    <dd class="text-base/6 font-bold text-gray-900">@money($cart->total + $cart->total_tax_amount)</dd>
                                 </div>
                             </dl>
 

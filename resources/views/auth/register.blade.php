@@ -17,54 +17,60 @@
             <form method="POST" action="{{ route('register') }}" class="space-y-6">
                 @csrf
 
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div class="space-y-2">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-2.5">
+                        <label for="first_name" class="control-label">First Name</label>
                         <input type="text" id="first_name" name="first_name" value="{{ old('first_name') }}"
                             placeholder="First Name" class="form-control @error('first_name') is-invalid @enderror" />
                         @error('first_name')
-                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            <p class="text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
 
-                    <div class="space-y-2">
+                    <div class="space-y-2.5">
+                        <label for="last_name" class="control-label">Last Name</label>
                         <input type="text" id="last_name" name="last_name" value="{{ old('last_name') }}"
                             placeholder="Last Name" class="form-control @error('last_name') is-invalid @enderror" />
                         @error('last_name')
-                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            <p class="text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
                 </div>
 
-                <div>
+                <div class="space-y-2.5">
+                    <label for="email" class="control-label">Email</label>
                     <input type="text" id="email" name="email" value="{{ old('email') }}" placeholder="Email"
                         class="form-control @error('email') is-invalid @enderror" />
                     @error('email')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        <p class="text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
 
-                <div>
+                <div class="space-y-2.5">
+                    <label for="phone" class="control-label">Phone Number</label>
                     <input type="text" id="phone" name="phone" value="{{ old('phone') }}"
                         placeholder="Phone Number" class="form-control @error('phone') is-invalid @enderror" />
                     @error('phone')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        <p class="text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
 
-                <div>
+                <div class="space-y-2.5">
+                    <label for="password" class="control-label">Password</label>
                     <input type="password" id="password" name="password" placeholder="Password"
                         class="form-control @error('password') is-invalid @enderror" />
                     @error('password')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        <p class="text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
 
-                <div>
+                <div class="space-y-2.5">
+                    <label for="password_confirmation" class="control-label">Confirm Password</label>
                     <input type="password" id="password_confirmation" name="password_confirmation"
                         placeholder="Confirm Password"
                         class="form-control @error('password_confirmation') is-invalid @enderror" />
                     @error('password_confirmation')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        <p class="text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
 

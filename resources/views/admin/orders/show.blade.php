@@ -62,6 +62,13 @@
                                                 Subtotal</th>
                                             <td class="text-right">@money($order->sub_total)</td>
                                         </tr>
+                                        @foreach ($order->tax_breakdown as $tax)
+                                            <tr>
+                                                <th scope="row" colspan="3" class="!text-right !font-semibold">
+                                                    {{ $tax['name'] }}</th>
+                                                <td class="text-right">@money($tax['total_amount'])</td>
+                                            </tr>
+                                        @endforeach
                                         <tr>
                                             <th scope="row" colspan="3" class="!text-right !font-semibold">
                                                 Delivery Charge</th>

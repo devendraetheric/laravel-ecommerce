@@ -15,11 +15,10 @@
                     'text' => $blog_post->id ? 'Edit' : 'Create',
                 ],
             ];
-            $title = $blog_post->id ? 'Edit ' . $blog_post->name : 'Create Blog Post';
+            $title = $blog_post->id ? 'Edit ' . $blog_post->title : 'Create Blog Post';
         @endphp
 
         <x-admin.breadcrumb :links=$breadcrumbLinks :title=$title :goBackAction="route('admin.blogs.posts.index')" />
-
 
         <form method="post"
             action="{{ $blog_post->id ? route('admin.blogs.posts.update', $blog_post) : route('admin.blogs.posts.store') }}"
@@ -113,7 +112,6 @@
                                         clip-rule="evenodd" />
                                 </svg>
                             </div>
-
 
                         </div>
                     </div>

@@ -12,7 +12,7 @@ return new class extends SettingsMigration
         $this->migrator->add('company.website', '');
         $this->migrator->add('company.address', '');
         $this->migrator->add('company.country', '233');
-        $this->migrator->add('company.state', '');
+        $this->migrator->add('company.state', '1407');
         $this->migrator->add('company.city', '');
         $this->migrator->add('company.zipcode', '');
     }

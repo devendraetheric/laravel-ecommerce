@@ -28,4 +28,9 @@ class CartItem extends Model
     {
         return ($this->price * $this->quantity);
     }
+
+    public function taxes()
+    {
+        return $this->morphMany(Taxable::class, 'taxable');
+    }
 }

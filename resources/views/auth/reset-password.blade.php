@@ -19,28 +19,31 @@
 
                 <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
-                <div>
+                <div class="space-y-2.5">
+                    <label for="email" class="control-label">Email</label>
                     <input type="text" id="email" name="email" value="{{ old('email', $request->email) }}"
                         placeholder="Email" class="form-control @error('email') is-invalid @enderror" />
                     @error('email')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        <p class="text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
 
-                <div>
+                <div class="space-y-2.5">
+                    <label for="password" class="control-label">Password</label>
                     <input type="password" id="password" name="password" placeholder="Password"
                         class="form-control @error('password') is-invalid @enderror" />
                     @error('password')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        <p class="text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
 
-                <div>
+                <div class="space-y-2.5">
+                    <label for="password_confirmation" class="control-label">Confirm Password</label>
                     <input type="password" id="password_confirmation" name="password_confirmation"
                         placeholder="Confirm Password"
                         class="form-control @error('password_confirmation') is-invalid @enderror" />
                     @error('password_confirmation')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        <p class="text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
 
