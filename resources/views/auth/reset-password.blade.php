@@ -11,7 +11,7 @@
     <!-- Reset Password Form Start -->
     <div class="container py-20">
 
-        <div class="w-full lg:w-1/2 bg-white shadow-lg rounded-xl mx-auto p-8">
+        <div class="w-full lg:w-1/2 bg-white shadow-xs rounded-xl border border-gray-200 mx-auto p-8">
             <h2 class="text-center text-gray-800 xl:text-4xl text-xl font-bold mb-10">Reset Password</h2>
 
             <form method="POST" action="{{ route('password.store') }}" class="space-y-6">
@@ -19,39 +19,40 @@
 
                 <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
-                <div>
+                <div class="space-y-2.5">
+                    <label for="email" class="control-label">Email</label>
                     <input type="text" id="email" name="email" value="{{ old('email', $request->email) }}"
                         placeholder="Email" class="form-control @error('email') is-invalid @enderror" />
                     @error('email')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        <p class="text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
 
-                <div>
+                <div class="space-y-2.5">
+                    <label for="password" class="control-label">Password</label>
                     <input type="password" id="password" name="password" placeholder="Password"
                         class="form-control @error('password') is-invalid @enderror" />
                     @error('password')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        <p class="text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
 
-                <div>
+                <div class="space-y-2.5">
+                    <label for="password_confirmation" class="control-label">Confirm Password</label>
                     <input type="password" id="password_confirmation" name="password_confirmation"
                         placeholder="Confirm Password"
                         class="form-control @error('password_confirmation') is-invalid @enderror" />
                     @error('password_confirmation')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        <p class="text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
 
+                <x-common.captcha />
+
                 <button type="submit" class="btn-primary w-full gap-x-2">
                     {{ __('Reset Password') }}
-                    <svg width="25" height="24" viewBox="0 0 25 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path d="M16 7.5L20.5 12M20.5 12L16 16.5M20.5 12H4.5" stroke="white" stroke-width="1.5"
-                            stroke-linecap="round" stroke-linejoin="round" />
-                    </svg></button>
-
+                    <i data-lucide="move-right" class="size-6"></i>
+                </button>
             </form>
 
 

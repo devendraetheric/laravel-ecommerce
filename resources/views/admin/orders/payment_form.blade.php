@@ -41,25 +41,15 @@
 
                 <div class="space-y-2 col-span-3 md:col-span-1">
                     <label for="method" class="control-label">Method</label>
-                    <div class="sm:grid sm:grid-cols-6 sm:items-start sm:gap-4">
-                        <div class="mt-2 sm:col-span-6 sm:mt-0 grid grid-cols-1">
-                            <select name="method" id="method"
-                                class="col-start-1 row-start-1 form-select @error('method') is-invalid @enderror">
-                                <option value="">Select method</option>
-                                @foreach (\App\Enums\PaymentType::cases() as $method)
-                                    <option value="{{ $method->value }}" @selected(old('method', $order->method->value ?? 'cash') == $method->value)>
-                                        {{ $method->label() }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-                                viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
-                                <path fill-rule="evenodd"
-                                    d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                    </div>
+                    <select name="method" id="method" class="form-select @error('method') is-invalid @enderror">
+                        <option value="">Select method</option>
+                        @foreach (\App\Enums\PaymentType::cases() as $method)
+                            <option value="{{ $method->value }}" @selected(old('method', $order->method->value ?? 'cash') == $method->value)>
+                                {{ $method->label() }}
+                            </option>
+                        @endforeach
+                    </select>
+
                     @error('method')
                         <p class="text-sm text-red-600">{{ $message }}</p>
                     @enderror

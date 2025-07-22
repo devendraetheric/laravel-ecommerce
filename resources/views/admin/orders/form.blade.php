@@ -21,7 +21,8 @@
 
         <form method="post"
             action="{{ $order->id ? route('admin.orders.update', $order) : route('admin.orders.store') }}"
-            x-data="orderItems">
+            x-data="orderItems" @state-changed.window="selectedState = $event.detail; calculateTaxBreakdown()"
+            @product-selected.window="calculateTaxBreakdown()">
             @csrf
 
             @isset($order->id)
@@ -33,8 +34,8 @@
                     <h3 class="text-base font-semibold text-gray-800">Order Information</h3>
                 </div>
                 <div class="p-6">
-                    <div class="grid grid-cols-3 gap-4">
-                        <div class="space-y-2 col-span-3 md:col-span-1">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                        <div class="space-y-2">
                             <label for="order_number" class="control-label">Order #</label>
                             <input type="text" name="order_number" id="order_number"
                                 class="form-control @error('order_number') is-invalid @enderror"
@@ -45,7 +46,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-3 md:col-span-1">
+                        <div class="space-y-2">
                             <label for="order_date" class="control-label">Order Date</label>
                             <input type="date" name="order_date" id="order_date"
                                 class="form-control @error('order_date') is-invalid @enderror"
@@ -57,85 +58,23 @@
 
                         <div class="space-y-2">
                             <label for="user_name" class="control-label">User</label>
-                            <div class="relative" x-data="userCombobox()">
-                                <input x-model="query" @input="searchUsers" @focus="open = !open"
-                                    @keydown.arrow-down.prevent="highlightNext()"
-                                    @keydown.arrow-up.prevent="highlightPrev()"
-                                    @keydown.enter.prevent="selectHighlighted()" id="user_combobox" type="text"
-                                    name="user_name" id="user_name"
-                                    class="form-control @error('user_id') is-invalid @enderror" role="combobox"
-                                    :aria-expanded="open" autocomplete="off">
-                                <input type="hidden" name="user_id" id="user_id" x-model="selectedId" />
-                                <button type="button"
-                                    class="absolute inset-y-0 right-0 flex items-center rounded-r-lg px-2 focus:outline-hidden"
-                                    @click="open = !open">
-                                    <svg class="size-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor"
-                                        aria-hidden="true" data-slot="icon">
-                                        <path fill-rule="evenodd"
-                                            d="M10.53 3.47a.75.75 0 0 0-1.06 0L6.22 6.72a.75.75 0 0 0 1.06 1.06L10 5.06l2.72 2.72a.75.75 0 1 0 1.06-1.06l-3.25-3.25Zm-4.31 9.81 3.25 3.25a.75.75 0 0 0 1.06 0l3.25-3.25a.75.75 0 1 0-1.06-1.06L10 14.94l-2.72-2.72a.75.75 0 0 0-1.06 1.06Z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                </button>
-
-                                <ul class="absolute z-100 mt-1 max-h-60 w-full overflow-auto rounded-lg bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-hidden sm:text-sm"
-                                    role="listbox" x-show="open && results.length" @click.away="open = !open">
-                                    <template x-for="(item, i) in results" :key="item.id">
-                                        <li class="relative cursor-default py-2 pr-9 pl-3 text-gray-900 select-none"
-                                            id="option-0" role="option" tabindex="-1"
-                                            :class="{
-                                                'text-white bg-primary-600 outline-hidden': selectedId == item
-                                                    .id,
-                                                'text-white bg-primary-600 outline-hidden': highlighted == i,
-                                            }"
-                                            @click="selectUser(item)" @mouseenter="highlighted = i">
-                                            <span class="block truncate"
-                                                :class="{
-                                                    'font-semibold': selectedId == item.id
-                                                }"
-                                                x-text="item.name"></span>
-                                            <span
-                                                class="absolute inset-y-0 right-0 flex items-center pr-4 text-primary-600"
-                                                :class="{
-                                                    'text-white': selectedId == item.id,
-                                                    'text-white': highlighted == i,
-                                                }">
-                                                <svg class="size-5" viewBox="0 0 20 20" fill="currentColor"
-                                                    aria-hidden="true" data-slot="icon">
-                                                    <path fill-rule="evenodd"
-                                                        d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
-                                                        clip-rule="evenodd" />
-                                                </svg>
-                                            </span>
-                                        </li>
-                                    </template>
-                                </ul>
-                            </div>
+                            @include('admin.orders.user-combobox')
                             @error('user_id')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-3 md:col-span-1">
+                        <div class="space-y-2">
                             <label for="status" class="control-label">Status</label>
-                            <div class="sm:grid sm:grid-cols-6 sm:items-start sm:gap-4">
-                                <div class="mt-2 sm:col-span-6 sm:mt-0 grid grid-cols-1">
-                                    <select name="status" id="status"
-                                        class="col-start-1 row-start-1 form-select @error('status') is-invalid @enderror">
-                                        <option value="">Select Status</option>
-                                        @foreach (\App\Enums\OrderStatus::cases() as $status)
-                                            <option value="{{ $status->value }}" @selected(old('status', $order->status->value ?? 'new') == $status->value)>
-                                                {{ $status->label() }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-                                        viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
-                                        <path fill-rule="evenodd"
-                                            d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                </div>
-                            </div>
+                            <select name="status" id="status"
+                                class="form-select @error('status') is-invalid @enderror">
+                                <option value="">Select Status</option>
+                                @foreach (\App\Enums\OrderStatus::cases() as $status)
+                                    <option value="{{ $status->value }}" @selected(old('status', $order->status->value ?? 'new') == $status->value)>
+                                        {{ $status->label() }}
+                                    </option>
+                                @endforeach
+                            </select>
                             @error('status')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -160,90 +99,20 @@
                                         <th scope="col">Quantity</th>
                                         <th scope="col">Unit Price</th>
                                         <th scope="col">Total Amount</th>
+                                        <th scope="col">Tax</th>
                                         <th scope="col">
                                             <span class="sr-only">Action</span>
                                         </th>
                                     </tr>
                                 </thead>
+                                @php
+                                    $taxPercentages = [5.0, 12.0, 18.0, 28.0];
+                                @endphp
                                 <tbody>
                                     <template x-for="(item, index) in items" :key="index">
                                         <tr>
                                             <td width="50%">
-                                                <div class="sm:grid sm:grid-cols-6 sm:items-start sm:gap-4">
-                                                    <div class="mt-2 sm:col-span-6 sm:mt-0 grid grid-cols-1">
-
-                                                        <div class="relative" x-data="productCombobox(index)">
-                                                            <input x-model="query" @input="searchProducts"
-                                                                @focus="open = !open"
-                                                                @keydown.arrow-down.prevent="highlightNext()"
-                                                                @keydown.arrow-up.prevent="highlightPrev()"
-                                                                @keydown.enter.prevent="selectHighlighted()"
-                                                                id="product_combobox" type="text"
-                                                                name="product_name" id="product_name"
-                                                                class="form-control @error('product_id') is-invalid @enderror"
-                                                                role="combobox" :aria-expanded="open"
-                                                                autocomplete="off">
-
-                                                            <input type="hidden"
-                                                                :name="'items[' + index + '][product_id]'"
-                                                                id="product_id" x-model="selectedId" />
-
-                                                            <input type="hidden" :name="'items[' + index + '][name]'"
-                                                                x-model="query" />
-
-                                                            <button type="button"
-                                                                class="absolute inset-y-0 right-0 flex items-center rounded-r-lg px-2 focus:outline-hidden"
-                                                                @click="open = !open">
-                                                                <svg class="size-5 text-gray-400" viewBox="0 0 20 20"
-                                                                    fill="currentColor" aria-hidden="true"
-                                                                    data-slot="icon">
-                                                                    <path fill-rule="evenodd"
-                                                                        d="M10.53 3.47a.75.75 0 0 0-1.06 0L6.22 6.72a.75.75 0 0 0 1.06 1.06L10 5.06l2.72 2.72a.75.75 0 1 0 1.06-1.06l-3.25-3.25Zm-4.31 9.81 3.25 3.25a.75.75 0 0 0 1.06 0l3.25-3.25a.75.75 0 1 0-1.06-1.06L10 14.94l-2.72-2.72a.75.75 0 0 0-1.06 1.06Z"
-                                                                        clip-rule="evenodd" />
-                                                                </svg>
-                                                            </button>
-
-                                                            <ul class="absolute z-100 mt-1 max-h-60 w-full overflow-auto rounded-lg bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-hidden sm:text-sm"
-                                                                role="listbox" x-show="open && results.length"
-                                                                @click.away="open = !open">
-                                                                <template x-for="(item, i) in results"
-                                                                    :key="item.id">
-                                                                    <li class="relative cursor-default py-2 pr-9 pl-3 text-gray-900 select-none"
-                                                                        id="option-0" role="option" tabindex="-1"
-                                                                        :class="{
-                                                                            'text-white bg-primary-600 outline-hidden': selectedId ==
-                                                                                item
-                                                                                .id,
-                                                                            'text-white bg-primary-600 outline-hidden': highlighted ==
-                                                                                i,
-                                                                        }"
-                                                                        @click="selectProduct(item)"
-                                                                        @mouseenter="highlighted = i">
-                                                                        <span class="block truncate"
-                                                                            :class="{
-                                                                                'font-semibold': selectedId == item.id
-                                                                            }"
-                                                                            x-text="item.name"></span>
-                                                                        <span
-                                                                            class="absolute inset-y-0 right-0 flex items-center pr-4 text-primary-600"
-                                                                            :class="{
-                                                                                'text-white': selectedId == item.id,
-                                                                                'text-white': highlighted == i,
-                                                                            }">
-                                                                            <svg class="size-5" viewBox="0 0 20 20"
-                                                                                fill="currentColor" aria-hidden="true"
-                                                                                data-slot="icon">
-                                                                                <path fill-rule="evenodd"
-                                                                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
-                                                                                    clip-rule="evenodd" />
-                                                                            </svg>
-                                                                        </span>
-                                                                    </li>
-                                                                </template>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                @include('admin.orders.product-combobox')
                                                 <p class="text-sm text-red-600"
                                                     x-text="getValidationError(index, 'product_id')">
                                                 </p>
@@ -259,7 +128,6 @@
                                                     class="form-control @error('price') is-invalid @enderror"
                                                     :name="'items[' + index + '][price]'" x-model="item.price"
                                                     @input="updateTotal(index)" step="any" />
-
                                             </td>
                                             <td>
                                                 <input type="number" name="total" id="total"
@@ -268,8 +136,20 @@
                                                     readonly />
                                             </td>
                                             <td>
+                                                <select :name="'items[' + index + '][tax_rate]'" x-model="item.tax_rate"
+                                                    class="form-select"
+                                                    @change="updateTotal(index); calculateTaxBreakdown();">
+                                                    <option value="0">No Tax</option>
+                                                    <option value="5">5%</option>
+                                                    <option value="12">12%</option>
+                                                    <option value="18" selected>18%</option>
+                                                    <option value="28">28%</option>
+                                                </select>
+                                            </td>
+                                            <td>
                                                 <a href="javascript:;" class="link-danger" @click="removeItem(index)"
                                                     x-show="items.length > 1">
+
                                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
                                                         fill="currentColor" class="size-4">
                                                         <path fill-rule="evenodd"
@@ -296,8 +176,8 @@
                     <h3 class="text-base font-semibold text-gray-800">Order Summary</h3>
                 </div>
                 <div class="p-6">
-                    <div class="grid grid-cols-3 gap-4">
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                    <div class="grid md:grid-cols-4 gap-4">
+                        <div class="space-y-2">
                             <label for="sub_total" class="control-label">Sub Total</label>
                             <input type="text" name="sub_total" id="sub_total"
                                 class="form-control @error('sub_total') is-invalid @enderror"
@@ -307,7 +187,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
                             <label for="delivery_charge" class="control-label">Delivery Charge</label>
                             <input type="text" name="delivery_charge" id="delivery_charge"
                                 class="form-control @error('delivery_charge') is-invalid @enderror"
@@ -317,7 +197,13 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2 md:col-span-1">
+                        <div class="space-y-2">
+                            <label for="tax_amount" class="control-label">Tax Amount</label>
+                            <input type="text" name="tax_amount" id="tax_amount" class="form-control"
+                                :value="taxAmount.toFixed(2)" readonly />
+                        </div>
+
+                        <div class="space-y-2">
                             <label for="grand_total" class="control-label">Grand Total</label>
                             <input type="text" name="grand_total" id="grand_total"
                                 class="form-control @error('grand_total') is-invalid @enderror"
@@ -327,7 +213,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2">
+                        <div class="space-y-2 md:col-span-4">
                             <label for="notes" class="control-label">Notes</label>
                             <textarea class="form-control @error('notes') is-invalid @enderror" id="notes" name="notes" rows="2">{{ old('notes', $order->notes) }}</textarea>
                             @error('notes')
@@ -335,6 +221,51 @@
                             @enderror
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- Tax Breakdown Section -->
+            <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm" x-show="taxBreakdown.length > 0">
+                <div class="p-6 border-b border-gray-200">
+                    <h3 class="text-base font-semibold text-gray-800">Tax Breakdown</h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Tax Type</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Taxable Amount</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Tax Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <template x-for="(tax, index) in taxBreakdown" :key="index">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+                                        x-text="tax.type + ' ' + tax.rate + '%'"></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                                        x-text="'{{ get_currency_symbol() }} ' + (tax.amount / (tax.rate / 100)).toFixed(2)">
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                                        x-text="'{{ get_currency_symbol() }} ' + tax.amount.toFixed(2)"></td>
+                                </tr>
+                            </template>
+                        </tbody>
+                        <tfoot class="bg-gray-50">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900"
+                                    colspan="2">Total Tax</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900"
+                                    x-text="'₹' + taxAmount.toFixed(2)"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
             </div>
 
@@ -359,8 +290,9 @@
             @php
                 $formItems = $order->items->map(function ($item) {
                     $item->name = $item->product->name;
+                    $item->tax_rate = (float) $item->tax_rate ?? 18; // Default tax rate
 
-                    return $item->only(['product_id', 'name', 'quantity', 'price', 'total']);
+                    return $item->only(['product_id', 'name', 'quantity', 'price', 'tax_rate', 'total']);
                 });
             @endphp
 
@@ -374,6 +306,7 @@
                         product_id: '',
                         quantity: 1,
                         price: 0,
+                        tax_rate: 18,
                         total: 0,
                     })
                 }
@@ -381,6 +314,12 @@
                 return {
                     items: formItems, // Array to hold order items
                     deliveryCharge: '{{ old('delivery_charge', $order->delivery_charge ?? 0) }}',
+                    selectedState: {{ old('address.state_id', $order->address?->state_id ?? 'null') }},
+                    init() {
+                        if (this.selectedState) {
+                            this.calculateTaxBreakdown();
+                        }
+                    },
 
 
                     // Method to add a new item
@@ -389,116 +328,68 @@
                             product_id: '',
                             quantity: 1,
                             price: 0,
+                            tax_rate: 18,
                             total: 0,
                         });
+
+                        this.calculateTaxBreakdown();
                     },
 
                     // Method to remove an item
                     removeItem(index) {
                         this.items.splice(index, 1);
+
+                        this.calculateTaxBreakdown();
+                    },
+
+                    // Method to update selected state
+                    updateSelectedState(stateId) {
+                        this.selectedState = stateId;
+                        this.calculateTaxBreakdown();
                     },
 
                     updateTotal(index) {
                         const item = this.items[index];
-                        item.total = parseFloat(item.quantity * item.price).toFixed(2);
+                        const baseAmount = item.quantity * item.price;
+                        item.total = parseFloat(baseAmount).toFixed(2);
+
+                        this.calculateTaxBreakdown();
                     },
 
                     get subTotal() {
-                        return this.items.reduce((sum, item) => sum + parseFloat(item.total), 0);
+                        return this.items.reduce((sum, item) => sum + parseFloat(item.total || 0), 0);
+                    },
+
+                    get taxAmount() {
+                        return this.taxBreakdown.reduce((sum, tax) => sum + tax.amount, 0);
+                    },
+
+                    taxBreakdown: [],
+
+                    async calculateTaxBreakdown() {
+                        if (!this.selectedState || this.subTotal <= 0) {
+                            this.taxBreakdown = [];
+                            return;
+                        }
+
+                        try {
+                            const response = await axios.post('{{ route('admin.orders.getTaxes') }}', {
+                                state_id: this.selectedState,
+                                items: this.items,
+                                _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            });
+
+                            this.taxBreakdown = response.data.taxes || [];
+                        } catch (error) {
+                            console.error('Error calculating taxes:', error);
+                            this.taxBreakdown = [];
+                        }
                     },
 
                     get grandTotal() {
-                        return this.subTotal + parseFloat(this.deliveryCharge || 0);
+                        return this.subTotal + parseFloat(this.deliveryCharge || 0) + this.taxAmount;
                     },
                 };
-            }
-
-            function userCombobox() {
-                return {
-                    open: false,
-                    query: "{{ old('user_name', $order->user->name ?? '') }}",
-                    results: [],
-                    highlighted: -1,
-                    selectedId: "{{ old('user_id', $order->user_id) }}",
-                    searchUsers() {
-                        if (this.query.length < 1) {
-                            this.results = [];
-                            return;
-                        }
-                        fetch(`{{ route('admin.users.search') }}?q=${encodeURIComponent(this.query)}`)
-                            .then(res => res.json())
-                            .then(data => {
-                                this.results = data;
-                                this.highlighted = -1;
-                                this.selectedId = "";
-                            });
-                    },
-                    highlightNext() {
-                        if (this.results.length === 0) return;
-                        this.highlighted = (this.highlighted + 1) % this.results.length;
-                    },
-                    highlightPrev() {
-                        if (this.results.length === 0) return;
-                        this.highlighted = (this.highlighted - 1 + this.results.length) % this.results.length;
-                    },
-                    selectHighlighted() {
-                        if (this.highlighted >= 0 && this.results[this.highlighted]) {
-                            this.selectUser(this.results[this.highlighted]);
-                        }
-                    },
-                    selectUser(item) {
-                        this.query = item.name;
-                        this.selectedId = item.id;
-                        this.open = false;
-                    }
-                }
-            }
-
-
-            function productCombobox(index) {
-
-                return {
-                    open: false,
-                    query: formItems[index]['name'] ?? '',
-                    results: [],
-                    highlighted: -1,
-                    selectedId: formItems[index]['product_id'] ?? '',
-
-                    searchProducts() {
-
-                        if (this.query.length < 1) {
-                            this.results = [];
-                            return;
-                        }
-                        fetch(`{{ route('admin.products.search') }}?q=${encodeURIComponent(this.query)}`)
-                            .then(res => res.json())
-                            .then(data => {
-                                this.results = data;
-                                this.highlighted = -1;
-                                this.selectedId = "";
-                            });
-                    },
-
-
-                    highlightNext() {
-                        if (this.results.length === 0) return;
-                        this.highlighted = (this.highlighted + 1) % this.results.length;
-                    },
-                    highlightPrev() {
-                        if (this.results.length === 0) return;
-                        this.highlighted = (this.highlighted - 1 + this.results.length) % this.results.length;
-                    },
-                    selectHighlighted() {
-                        if (this.highlighted >= 0 && this.results[this.highlighted]) {
-                            this.selectProduct(this.results[this.highlighted]);
-                        }
-                    },
-                    selectProduct(item) {
-                        this.query = item.name;
-                        this.selectedId = item.id;
-                        this.open = false;
-                    }
-                }
             }
         </script>
     @endpush

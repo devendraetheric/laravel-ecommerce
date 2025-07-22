@@ -10,7 +10,7 @@
 
     <div class="container py-20">
 
-        <div class="w-full lg:w-1/2 bg-white shadow-lg rounded-xl mx-auto p-8">
+        <div class="w-full lg:w-1/2 bg-white shadow-xs rounded-xl border border-gray-200 mx-auto p-8">
             <h2 class="text-center text-gray-800 xl:text-4xl text-xl font-bold mb-10">{{ __('Email Verification') }}</h2>
 
             <div class="mx-12">
@@ -28,13 +28,11 @@
             <form method="POST" action="{{ route('verification.send') }}" class="space-y-6">
                 @csrf
 
+                <x-common.captcha />
+
                 <button type="submit" class="btn-primary w-full gap-x-2">
                     {{ __('Resend Verification Email') }}
-                    <svg width="25" height="24" viewBox="0 0 25 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path d="M16 7.5L20.5 12M20.5 12L16 16.5M20.5 12H4.5" stroke="white" stroke-width="1.5"
-                            stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
+                    <i data-lucide="move-right" class="size-6"></i>
                 </button>
             </form>
 
@@ -42,11 +40,7 @@
                 @csrf
                 <button type="submit" class="text-primary-600 font-medium text-base leading-tight cursor-pointer">
                     {{ __('Back to login') }}
-                    <svg width="25" height="24" viewBox="0 0 25 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9 7.5L4.5 12M4.5 12L9 16.5M4.5 12H20.5" stroke="white" stroke-width="1.5"
-                            stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
+                    <i data-lucide="move-left" class="size-6"></i>
                 </button>
             </form>
         </div>

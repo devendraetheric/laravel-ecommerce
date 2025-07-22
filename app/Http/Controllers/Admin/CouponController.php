@@ -15,6 +15,7 @@ class CouponController extends Controller
     public function index()
     {
         $coupons = Coupon::latest()
+            ->search(request('query'))
             ->paginate()
             ->withQueryString();
 
@@ -36,7 +37,6 @@ class CouponController extends Controller
      */
     public function store(Request $request)
     {
-
         $validated = $request->validate([
             'code'               => ['required', 'string'],
             'description'        => ['nullable'],
@@ -46,7 +46,6 @@ class CouponController extends Controller
             'end_date'           => ['required'],
             'total_quantity'     => ['required', 'numeric'],
             'use_per_user'       => ['required', 'numeric'],
-            'used_quantity'      => ['required', 'numeric'],
             'max_discount_value' => ['required', 'numeric'],
             'min_cart_value'     => ['required', 'numeric'],
             'max_cart_value'     => ['required', 'numeric'],
@@ -90,7 +89,6 @@ class CouponController extends Controller
             'end_date'           => ['required'],
             'total_quantity'     => ['required', 'numeric'],
             'use_per_user'       => ['required', 'numeric'],
-            'used_quantity'      => ['required', 'numeric'],
             'max_discount_value' => ['required', 'numeric'],
             'min_cart_value'     => ['required', 'numeric'],
             'max_cart_value'     => ['required', 'numeric'],

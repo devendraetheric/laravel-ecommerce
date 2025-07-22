@@ -1,14 +1,14 @@
-<figure class="relative rounded-xl bg-white p-6 shadow-lg ring-1 ring-gray-900/5">
-    <blockquote class="text-gray-900">
+<figure class="relative rounded-2xl bg-white p-8 shadow-card border border-accent-100 hover:border-primary-200 transition-all duration-300">
+    <div class="text-primary-600 mb-4">
+        <i data-lucide="quote" class="size-8 opacity-50"></i>
+    </div>
+    <blockquote class="text-accent-700 text-lg">
         <p>{{ $review['review'] }}</p>
     </blockquote>
     <figcaption class="mt-6 flex items-center gap-x-4">
-        <span class="inline-block size-10 overflow-hidden rounded-full bg-gray-100">
-            <svg class="size-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
-                <path
-                    d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-            </svg>
+        <span class="inline-flex size-12 overflow-hidden rounded-full bg-primary-100 items-center justify-center">
+            <i data-lucide="user" class="size-6 text-primary-600"></i>
         </span>
-        <div class="font-semibold">{{ $review['name'] }}</div>
+        <div class="font-bold text-accent-900">{{ $review['name'] }}</div>
     </figcaption>
 </figure>

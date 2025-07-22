@@ -91,4 +91,19 @@ class Product extends Model implements HasMedia
             ->take($limit)
             ->get();
     }
+
+
+    public function scopeSearch($query, $term)
+    {
+        if (! $term) return $query;
+
+        return $query->where(function ($q) use ($term) {
+            $q->where('name', 'like', "%{$term}%")
+                ->orWhere('slug', 'like', "%{$term}%")
+                ->orWhere('sku', 'like', "%{$term}%")
+                ->orWhere('barcode', 'like', "%{$term}%")
+                ->orWhere('regular_price', 'like', "%{$term}%")
+                ->orWhere('selling_price', 'like', "%{$term}%");
+        });
+    }
 }

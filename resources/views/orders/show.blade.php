@@ -3,11 +3,11 @@
         $breadcrumbs = [
             'links' => [
                 ['url' => route('home'), 'text' => 'Home'],
-                ['url' => route('account.dashboard'), 'text' => 'Account'],
+                ['url' => route('account.dashboard'), 'text' => 'Your Account'],
                 ['url' => route('account.orders.index'), 'text' => 'Your Orders'],
                 ['url' => '#', 'text' => $order->order_number],
             ],
-            'title' => 'Order # ' . $order->order_number,
+            'title' => 'Order # : ' . $order->order_number,
         ];
     @endphp
 
@@ -19,9 +19,9 @@
             <x-account.nav />
 
             <div class="w-full">
-                <div class="mt-6 lg:grid lg:grid-cols-12 gap-6">
+                <div class="my-10 lg:grid lg:grid-cols-12 gap-6">
                     <div class="lg:col-span-8">
-                        <div class="overflow-hidden rounded-xl bg-white shadow-sm">
+                        <div class="overflow-hidden rounded-xl bg-white shadow-xs border border-gray-200">
                             <div class="p-6 border-b border-gray-200">
                                 <h3 class="text-xl/6 font-semibold text-gray-800">Order Detail</h3>
                             </div>
@@ -73,7 +73,7 @@
                     </div>
 
                     <div class="lg:col-span-4 mt-6 lg:mt-0 space-y-6">
-                        <div class="overflow-hidden rounded-xl bg-white shadow-sm">
+                        <div class="overflow-hidden rounded-xl bg-white shadow-xs border border-gray-200">
                             <div class="p-6 border-b border-gray-200">
                                 <h3 class="text-xl/6 font-semibold text-gray-800">Shipping Address</h3>
                             </div>
@@ -82,15 +82,15 @@
                                     {{ $order->address?->contact_name }}<br>
                                     {{ $order->address?->address_line_1 }} , {{ $order->address?->address_line_2 }}
                                     {{ $order->address?->city }}
-                                    <br>{{ $order->address?->state?->name }},
+                                    <br>{{ $order->address?->state?->iso2 }},
                                     {{ $order->address?->country?->iso2 }} -
                                     {{ $order->address?->zip_code }}<br>
-                                    Phone Number : {{ $order->address?->phone }}
+                                    Phone # : {{ $order->address?->phone }}
                                 </p>
                             </div>
                         </div>
 
-                        <div class="overflow-hidden rounded-xl bg-white shadow-sm">
+                        <div class="overflow-hidden rounded-xl bg-white shadow-xs border border-gray-200">
                             <div class="p-6 border-b border-gray-200">
                                 <h3 class="text-xl/6 font-semibold text-gray-800">Order Summary</h3>
                             </div>
@@ -100,6 +100,12 @@
                                         <dt class="text-base/6 text-gray-600">Sub Total</dt>
                                         <dd class="text-base/6 font-medium text-gray-900">@money($order->sub_total)</dd>
                                     </div>
+                                    @foreach ($order->tax_breakdown as $tax)
+                                        <div class="flex items-center justify-between">
+                                            <dt class="text-base/6 text-gray-600">{{ $tax['name'] }}</dt>
+                                            <dd class="text-base/6 font-medium text-gray-900">@money($tax['total_amount'])</dd>
+                                        </div>
+                                    @endforeach
                                     <div class="flex items-center justify-between">
                                         <dt class="text-base/6 text-gray-600">Delivery Charge</dt>
                                         <dd class="text-base/6 font-bold text-gray-900">@money($order->delivery_charge)</dd>

@@ -14,6 +14,8 @@ class CategoryController extends Controller
     public function index()
     {
         $blog_categories = BlogCategory::latest()
+            ->withCount('posts')
+            ->search(request('query'))
             ->paginate()
             ->withQueryString();
 
@@ -35,6 +37,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+
         $validated = $request->validate([
             'name'              => ['required', 'string', 'unique:' . BlogCategory::class],
             'slug'              => ['required', 'string', 'unique:' . BlogCategory::class],
@@ -97,8 +100,6 @@ class CategoryController extends Controller
      */
     public function destroy(BlogCategory $blog_category)
     {
-        $blog_category->clearMediaCollection();
-
         $blog_category->delete();
 
         return redirect()

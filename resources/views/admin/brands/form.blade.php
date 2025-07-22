@@ -63,9 +63,9 @@
                         </div>
 
                         <div class="space-y-2">
-                            <label for="image" class="block text-sm/6 font-medium text-gray-900">Featured
+                            <label for="featured-image" class="block text-sm/6 font-medium text-gray-900">Featured
                                 Image</label>
-                            <input id="image" name="image" type="file" class="form-control">
+                            <input id="featured-image" name="featured-image" type="file" class="form-control">
                         </div>
                     </div>
                 </div>

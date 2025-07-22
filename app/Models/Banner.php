@@ -32,4 +32,14 @@ class Banner extends Model implements HasMedia
     {
         return $query->where('is_active', true);
     }
+
+    public function scopeSearch($query, $term)
+    {
+        if (! $term) return $query;
+
+        return $query->where(function ($q) use ($term) {
+            $q->where('name', 'like', "%{$term}%")
+                ->orWhere('link', 'like', "%{$term}%");
+        });
+    }
 }

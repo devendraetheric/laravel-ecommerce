@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\Cart;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,14 +25,17 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $oldCart = cart();
+        $oldCart = Cart::FirstOrCreate(['session_id' => session()->getId()]);
 
         $request->authenticate();
 
+        $newCart = Cart::FirstOrCreate(['user_id' => Auth::id()]);
+
         $request->session()->regenerate();
 
-        $newCart = cart();
-
+        /**
+         * Merge Cart Items
+         */
         foreach ($oldCart->items as $item) {
             $existingItem = $newCart->items()->where('product_id', $item->product_id)->first();
 

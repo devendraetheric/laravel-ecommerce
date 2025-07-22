@@ -1,20 +1,15 @@
-@inject('settings', 'App\Settings\GeneralSetting')
 <x-layouts.front>
     <x-slot name="title">
-        {{ $settings->site_name }} - {{ $settings->site_description }}
+        {{ setting('general.site_name') }} - {{ setting('general.tagline') }}
     </x-slot>
     <x-slot name="description">
-        {{ $settings->site_description }}
+        {{ setting('general.site_description') }}
     </x-slot>
-
-    @push('styles')
-        <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet" />
-    @endpush
 
     @if ($sliders->isNotEmpty())
         <!-- banner section start -->
-        <section class="container px-3 md:px-5 xl:px-0 mt-6 mb-10 bg-gray-200 rounded-xl relative z-10">
-            <div class="swiper bannerSwiper relative z-50">
+        <section class="container px-3 md:px-5 xl:px-0 mt-8 mb-16">
+            <div class="swiper bannerSwiper relative z-10">
                 <div class="swiper-wrapper">
                     @foreach ($sliders as $slider)
                         <div class="swiper-slide">
@@ -35,19 +30,11 @@
                 <div class="absolute top-1/2 items-center gap-8 w-full px-3 flex justify-between">
                     <button
                         class="banner-prev cursor-pointer group !p-2 flex justify-center items-center border border-solid border-primary-600 !w-12 !h-12 transition-all duration-500 rounded-full !top-2/4 !-translate-y-8 !left-5 hover:bg-primary-600 z-100">
-                        <svg class="h-5 w-5 text-primary-600 group-hover:text-white" xmlns="http://www.w3.org/2000/svg"
-                            width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <path d="M10.0002 11.9999L6 7.99971L10.0025 3.99719" stroke="currentColor"
-                                stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
+                        <i data-lucide="chevron-left" class="size-5 text-primary-600 group-hover:text-white"></i>
                     </button>
                     <button
                         class="banner-next cursor-pointer group !p-2 flex justify-center items-center border border-solid border-primary-600 !w-12 !h-12 transition-all duration-500 rounded-full !top-2/4 !-translate-y-8 !right-5 hover:bg-primary-600 z-100">
-                        <svg class="h-5 w-5 text-primary-600 group-hover:text-white" xmlns="http://www.w3.org/2000/svg"
-                            width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <path d="M5.99984 4.00012L10 8.00029L5.99748 12.0028" stroke="currentColor"
-                                stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
+                        <i data-lucide="chevron-right" class="size-5 text-primary-600 group-hover:text-white"></i>
                     </button>
                 </div>
                 <div class="banner-pagination absolute -bottom-3 flex justify-center z-20"></div>
@@ -57,18 +44,39 @@
     @endif
 
     @if ($brands->count() > 0)
-        <!-- feature and brand area start -->
-        <section class="xl:pb-20 pb-8 md:pb-12">
+        <!-- Brand showcase section start -->
+        <section class="py-8 bg-accent-50 border-y border-accent-100">
             <div class="container px-3 md:px-5 xl:px-0">
-                <h2 class="text-gray-800 xl:text-4xl xl:leading-tight text-xl md:text-2xl font-bold mb-10">
-                    Shop By Brand</h2>
-                <div class="swiper brandSwiper overflow-hidden mb-6">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+                    <div>
+                        <h2 class="text-accent-900 text-3xl md:text-4xl xl:text-5xl font-bold mb-1">
+                            Shop By <span class="text-gradient">Brands</span>
+                        </h2>
+                        <p class="text-accent-600 text-lg">Premium quality from trusted partners</p>
+                    </div>
+                    <div class="flex gap-3">
+                        <button class="brandSwiper-button-prev slider-nav p-2">
+                            <i data-lucide="chevron-left" class="size-4"></i>
+                        </button>
+                        <button class="brandSwiper-button-next slider-nav p-2">
+                            <i data-lucide="chevron-right" class="size-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="swiper brandSwiper overflow-hidden py-2">
                     <div class="swiper-wrapper items-center">
                         @foreach ($brands as $brand)
-                            <div class="swiper-slide inline-flex items-center justify-center">
-                                <a href="{{ route('products.byBrand', $brand) }}">
-                                    <img class="rounded-lg" src="{{ $brand->thumbnailURL('thumb') }}"
-                                        alt="{{ $brand->name }}" loading="lazy" />
+                            <div class="swiper-slide">
+                                <a href="{{ route('products.byBrand', $brand) }}" class="block">
+                                    <div
+                                        class="bg-white border border-accent-100 rounded-lg p-3  hover:border-primary-200 hover:shadow-sm transition-all duration-300 text-center">
+                                        <img class="aspect-square size-32 object-contain inline-flex justify-center"
+                                            src="{{ $brand->thumbnailURL('thumb') }}" alt="{{ $brand->name }}"
+                                            loading="lazy" />
+
+                                        <p>{{ $brand->name }}</p>
+                                    </div>
                                 </a>
                             </div>
                         @endforeach
@@ -76,58 +84,54 @@
                 </div>
             </div>
         </section>
-        <!-- feature and brand area end -->
+        <!-- Brand showcase section end -->
     @endif
 
     <!-- feature products section start -->
-    <section class="xl:pb-20 pb-8 md:pb-12">
+    <section class="section-padding">
         <div class="container px-3 md:px-5 xl:px-0">
-            <div class="flex justify-between items-center mb-10">
-                <h2 class="text-gray-800 xl:text-4xl xl:leading-tight text-xl md:text-2xl font-bold">
-                    Featured Products</h2>
-                <a href="{{ route('products.index') }}"
-                    class="text-base/6 text-primary-600 hover:text-primary-700">View
-                    All</a>
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-16 gap-4">
+                <div>
+                    <h2 class="text-accent-900 text-3xl md:text-4xl xl:text-5xl font-bold mb-3">
+                        Featured <span class="text-gradient">Products</span>
+                    </h2>
+                    <p class="text-accent-600 text-lg">Handpicked favorites just for you</p>
+                </div>
+                <a href="{{ route('products.index') }}" class="btn-secondary text-sm gap-2">
+                    <span>View All</span>
+                    <i data-lucide="arrow-right" class="size-4"></i>
+                </a>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-center mx-auto gap-6">
-                @foreach ($featuredProducts as $product)
-                    <x-products.card :product="$product" />
-                @endforeach
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                @each('components.products.card', $featuredProducts, 'product')
             </div>
         </div>
     </section>
     <!-- feature products section end -->
 
     <!-- top categories product section start -->
-    <section class="overflow-hidden relative lg:pb-20 md:pb-6 pb-3">
-        <div class="container px-3 md:px-5 xl:px-0">
-            <div class="flex justify-between items-center mb-10">
-                <h2 class="text-gray-800 xl:text-4xl xl:leading-tight text-xl md:text-2xl font-bold">
-                    Our Top Categories</h2>
+    <section class="section-padding bg-gradient-to-br from-primary-50 to-accent-50 relative overflow-hidden">
+        <!-- Background decoration -->
+        <div
+            class="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-primary-100/50 to-transparent rounded-full -translate-y-48 translate-x-48">
+        </div>
+        <div
+            class="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-accent-100/50 to-transparent rounded-full translate-y-48 -translate-x-48">
+        </div>
+
+        <div class="container px-3 md:px-5 xl:px-0 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-accent-900 text-3xl md:text-4xl xl:text-5xl font-bold mb-4">
+                    Our Top <span class="text-gradient">Categories</span>
+                </h2>
+                <p class="text-accent-600 text-lg max-w-2xl mx-auto">
+                    Explore our carefully curated product categories
+                </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-center mx-auto gap-6">
-                @foreach ($topCategories as $category)
-                    <div class="swiper-slide border border-gray-100 rounded-xl">
-                        <div class="group overflow-hidden rounded-lg">
-                            <div class="w-full">
-                                <a href="{{ route('products.byCategory', $category) }}">
-                                    <img class="w-full object-cover transition duration-500 ease-out delay-0 group-hover:scale-110"
-                                        src="{{ $category?->thumbnailURL('thumb') }}" alt="{{ $category->name }}"
-                                        loading="lazy" fetchpriority="low" />
-                                </a>
-                            </div>
-
-                            <div class="bg-gray-900 opacity-70 p-5 absolute bottom-0 w-full rounded-b-lg text-white">
-                                <h3 class="font-normal text-xl leading-tight mb-2 line-clamp-1">
-                                    <a href="{{ route('products.byCategory', $category) }}">{{ $category->name }}</a>
-                                </h3>
-                                <p class="text-sm leading-tight">{{ $category->products_count }} Products</p>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                @each('components.common.category-card', $topCategories, 'category')
             </div>
         </div>
     </section>
@@ -135,43 +139,53 @@
 
 
     <!-- Our Product section start  -->
-    <section class="xl:pb-20 pb-8 md:pb-12">
+    <section class="section-padding">
         <div class="container px-3 md:px-5 xl:px-0">
-            <div class="flex justify-between items-center mb-10">
-                <h2 class="text-gray-800 xl:text-4xl xl:leading-tight text-xl md:text-2xl font-bold">
-                    Our Products</h2>
-                <a href="{{ route('products.index') }}"
-                    class="text-base/6 text-primary-600 hover:text-primary-700">View
-                    All</a>
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-16 gap-4">
+                <div>
+                    <h2 class="text-accent-900 text-3xl md:text-4xl xl:text-5xl font-bold mb-3">
+                        Our <span class="text-gradient">Products</span>
+                    </h2>
+                    <p class="text-accent-600 text-lg">Quality products for every need</p>
+                </div>
+                <a href="{{ route('products.index') }}" class="btn-secondary text-sm gap-2">
+                    <span>View All</span>
+                    <i data-lucide="arrow-right" class="size-4"></i>
+                </a>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-center mx-auto gap-6">
-                @foreach ($latestProducts as $product)
-                    <x-products.card :product="$product" />
-                @endforeach
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                @each('components.products.card', $latestProducts, 'product')
             </div>
         </div>
     </section>
     <!-- Our Product section end  -->
 
     <!-- Testimonials section start -->
-    <section class="overflow-hidden lg:py-20 sm:py-8 py-5 bg-gray-100">
-        <div class="container px-3 md:px-5 xl:px-0">
-            <div class="flex flex-wrap justify-between items-center mb-10">
-                <h2 class="text-gray-800 xl:text-4xl xl:leading-tight text-xl md:text-2xl font-bold">
-                    What our client says about us</h2>
-                <div class="flex gap-6">
+    <section class="section-padding bg-gradient-to-br from-accent-50 to-primary-50 relative overflow-hidden">
+        <!-- Background pattern -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-10 left-10 w-32 h-32 border border-primary-200 rounded-full"></div>
+            <div class="absolute top-32 right-20 w-24 h-24 border border-primary-200 rounded-full"></div>
+            <div class="absolute bottom-20 left-1/4 w-16 h-16 border border-primary-200 rounded-full"></div>
+        </div>
+
+        <div class="container px-3 md:px-5 xl:px-0 relative z-10">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-16 gap-6">
+                <div>
+                    <h2 class="text-accent-900 text-3xl md:text-4xl xl:text-5xl font-bold mb-4">
+                        What Our <span class="text-gradient">Clients</span> Say
+                    </h2>
+                    <p class="text-accent-600 text-lg max-w-2xl">
+                        Real stories from our satisfied customers
+                    </p>
+                </div>
+                <div class="flex gap-4">
                     <button class="testimonials-button-prev slider-nav">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-                        </svg>
+                        <i data-lucide="chevron-left" class="size-5"></i>
                     </button>
                     <button class="testimonials-button-next slider-nav">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                        </svg>
+                        <i data-lucide="chevron-right" class="size-5"></i>
                     </button>
                 </div>
             </div>
@@ -190,23 +204,21 @@
     <!-- Testimonials section end -->
 
     <!-- recent products section start -->
-    <section class="lg:py-20 py-6 sm:py-12">
+    <section class="section-padding">
         <div class="container px-3 md:px-5 xl:px-0">
-            <div class="flex justify-between items-center mb-10">
-                <h2 class="text-gray-800 xl:text-4xl xl:leading-tight text-xl md:text-2xl font-bold">
-                    Recently Added</h2>
-                <div class="flex gap-6">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-16 gap-6">
+                <div>
+                    <h2 class="text-accent-900 text-3xl md:text-4xl xl:text-5xl font-bold mb-3">
+                        Recently <span class="text-gradient">Added</span>
+                    </h2>
+                    <p class="text-accent-600 text-lg">Fresh arrivals you don't want to miss</p>
+                </div>
+                <div class="flex gap-4">
                     <button class="recentSwiper-button-prev slider-nav">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-                        </svg>
+                        <i data-lucide="chevron-left" class="size-5"></i>
                     </button>
                     <button class="recentSwiper-button-next slider-nav">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                        </svg>
+                        <i data-lucide="chevron-right" class="size-5"></i>
                     </button>
                 </div>
             </div>
@@ -224,98 +236,7 @@
     <!-- recent products section end -->
 
     @push('scripts')
-        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-        <script>
-            new Swiper(".bannerSwiper", {
-                loop: true,
-                speed: 1000,
-                autoplay: {
-                    delay: 5000,
-                    disableOnInteraction: false,
-                },
-                pagination: {
-                    el: ".banner-pagination",
-                    clickable: false,
-                },
-                navigation: {
-                    nextEl: ".banner-next",
-                    prevEl: ".banner-prev",
-                },
-            });
-
-            new Swiper(".brandSwiper", {
-                slidesPerView: 2,
-                spaceBetween: 12,
-                loop: true,
-                mousewheel: true,
-                breakpoints: {
-                    375: {
-                        slidesPerView: 3,
-                        spaceBetween: 12,
-                    },
-                    640: {
-                        slidesPerView: 4,
-                        spaceBetween: 12,
-                    },
-                    768: {
-                        slidesPerView: 5,
-                        spaceBetween: 18,
-                    },
-                    1024: {
-                        slidesPerView: 6,
-                        spaceBetween: 24,
-                    },
-                    1500: {
-                        slidesPerView: 6,
-                        spaceBetween: 24,
-                    }
-                },
-            });
-
-            new Swiper(".recentSwiper", {
-                slidesPerView: 1,
-                spaceBetween: 24,
-                loop: true,
-                navigation: {
-                    nextEl: ".recentSwiper-button-next",
-                    prevEl: ".recentSwiper-button-prev",
-                },
-                breakpoints: {
-                    480: {
-                        slidesPerView: 2,
-                        spaceBetween: 12,
-                    },
-                    600: {
-                        slidesPerView: 2,
-                        spaceBetween: 12,
-                    },
-                    900: {
-                        slidesPerView: 3,
-                        spaceBetween: 18,
-                    },
-                    1024: {
-                        slidesPerView: 4,
-                        spaceBetween: 24,
-                    },
-                },
-            });
-
-            new Swiper(".testimonialSwiper", {
-                slidesPerView: 1,
-                spaceBetween: 0,
-                loop: true,
-                navigation: {
-                    nextEl: ".testimonials-button-next",
-                    prevEl: ".testimonials-button-prev",
-                },
-                breakpoints: {
-                    1024: {
-                        slidesPerView: 3,
-                        spaceBetween: 24,
-                    },
-                },
-            });
-        </script>
+        @vite('resources/js/home.js')
     @endpush
+
 </x-layouts.front>

@@ -20,6 +20,8 @@ class GeneralSetting extends Settings
 
     public string $timezone;
 
+    public ?string $admin_emails;
+
     public bool $is_captcha;
 
     public ?string $captcha_secret_key;
@@ -29,6 +31,14 @@ class GeneralSetting extends Settings
     public ?string $logo;
 
     public ?string $favicon;
+
+    public ?string $analytics_code;
+
+    public bool $is_tax_inclusive = false;
+
+    public int $delivery_charge;
+
+    public ?string $free_delivery_zipcode;
 
     public static function group(): string
     {

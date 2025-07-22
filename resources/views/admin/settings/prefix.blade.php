@@ -19,13 +19,12 @@
 
         <x-admin.breadcrumb :links=$breadcrumbLinks :title=$title />
 
-        <form method="post" action="{{ route('admin.settings.savePrefix') }}">
-
+        <form method="post" action="{{ route('admin.settings.store') }}">
             @csrf
 
+            <input type="hidden" name="group_name" value="prefix" />
             <div class="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
-
-                <div class=" overflow-hidden rounded-xl bg-white shadow-sm">
+                <div class="overflow-hidden rounded-xl bg-white shadow-sm">
                     <div class="p-6 border-b border-gray-200">
                         <h3 class="text-base font-semibold text-gray-800">Order Prefix</h3>
                     </div>
@@ -127,12 +126,10 @@
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <div class="mt-6 space-x-2">
-                <button type="submit" class="btn-primary">Submit</button>
-                <a href="{{ route('admin.settings.socialMedia') }}" class="btn-secondary">Cancel</a>
+                <button type="submit" class="btn-primary">Save Changes</button>
             </div>
         </form>
     </div>

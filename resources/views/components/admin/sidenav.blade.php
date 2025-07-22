@@ -19,15 +19,13 @@
             <div class="absolute top-0 left-full flex w-16 justify-center pt-5">
                 <button type="button" class="-m-2.5 p-2.5" @click="showSideNav = false">
                     <span class="sr-only">Close sidebar</span>
-                    <svg class="size-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" aria-hidden="true" data-slot="icon">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                    </svg>
+                    <i data-lucide="x" class="size-6 text-white"></i>
                 </button>
             </div>
 
             <!-- Sidebar component, swap this element with another sidebar if you like -->
-            <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-4">
+            <div
+                class="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-4  scrollbar-thin scrollbar-thumb-primary-600 scrollbar-track-primary-100">
                 <x-admin.navigation />
             </div>
         </div>
@@ -37,7 +35,8 @@
 <!-- Static sidebar for desktop -->
 <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
     <!-- Sidebar component, swap this element with another sidebar if you like -->
-    <div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4">
+    <div
+        class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4 scrollbar-thin scrollbar-thumb-primary-600 scrollbar-track-primary-100">
         <x-admin.navigation />
     </div>
 </div>

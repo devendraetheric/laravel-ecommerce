@@ -8,6 +8,9 @@ use App\Models\Banner;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Tax;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class FrontController extends Controller
 {
@@ -24,13 +27,13 @@ class FrontController extends Controller
 
         $data['topCategories'] = Category::withCount('products')
             ->with('media')
-            ->latest()
+            ->latest('products_count')
             ->take(8)
             ->get();
 
         $data['brands'] = Brand::withCount('products')
             ->with('media')
-            ->latest()
+            ->latest('products_count')
             ->take(12)
             ->get();
 

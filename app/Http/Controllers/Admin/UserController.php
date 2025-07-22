@@ -15,6 +15,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::latest()
+            ->search(request('query'))
             ->paginate()
             ->withQueryString();
 
@@ -38,7 +39,7 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
-            'last_name'  => ['required', 'string', 'max:255'],
+            'last_name'  => ['nullable', 'string', 'max:255'],
             'email'      => ['required', 'email', 'string', 'unique:users', 'max:255'],
             'phone'      => ['required', 'string', 'max:20'],
             'password'   => ['required'],
@@ -74,8 +75,8 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
-            'last_name'  => ['required', 'string', 'max:255'],
-            'email'      => ['required', 'email', 'string', 'unique:users', 'max:255'],
+            'last_name'  => ['nullable', 'string', 'max:255'],
+            'email'      => ['required', 'email', 'string', 'unique:users,id,' . $user->id, 'max:255'],
             'phone'      => ['required', 'string', 'max:20'],
         ]);
 

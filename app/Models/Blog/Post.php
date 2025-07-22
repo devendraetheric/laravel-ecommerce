@@ -35,8 +35,6 @@ class Post extends Model implements HasMedia
         'published_at' => 'date',
     ];
 
-
-
     public function registerMediaConversions(?Media $media = null): void
     {
         $this
@@ -50,10 +48,18 @@ class Post extends Model implements HasMedia
         return $this?->getMedia('featured-image')->first()?->getUrl($size) ?? placeholderURL();
     }
 
-
-
     public function blogCategory(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'blog_category_id');
+    }
+
+    public function scopeSearch($query, $term)
+    {
+        if (! $term) return $query;
+
+        return $query->where(function ($q) use ($term) {
+            $q->where('title', 'like', "%{$term}%")
+                ->orWhere('slug', 'like', "%{$term}%");
+        });
     }
 }

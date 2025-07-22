@@ -3,7 +3,7 @@
         $breadcrumbs = [
             'links' => [
                 ['url' => route('home'), 'text' => 'Home'],
-                ['url' => route('account.dashboard'), 'text' => 'Account'],
+                ['url' => route('account.dashboard'), 'text' => 'Your Account'],
                 ['url' => '#', 'text' => 'Your Cart'],
             ],
             'title' => 'Your Cart',
@@ -15,12 +15,12 @@
     <section class="xl:pb-20 pb-8 md:pb-12">
         <div class="container px-3 md:px-5 xl:px-0">
 
-            <div class="mt-6 lg:grid lg:grid-cols-12 gap-6">
+            <div class="my-10 lg:grid lg:grid-cols-12 gap-6">
                 <div class="lg:col-span-8">
                     <form action="{{ route('account.updateCart') }}" method="POST">
                         @csrf
 
-                        <div class="overflow-hidden rounded-xl bg-white shadow-sm">
+                        <div class="overflow-hidden rounded-xl bg-white shadow-xs border border-gray-200">
                             <div class="p-6 border-b border-gray-200">
                                 <h3 class="text-xl/6 font-semibold text-gray-800">Your Cart</h3>
                             </div>
@@ -43,13 +43,7 @@
                                                         <td width="1%">
                                                             <a href="{{ route('account.removeFromCart', $product->product_id) }}"
                                                                 class="!text-red-600 hover:text-red-900">
-                                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                                    viewBox="0 0 16 16" fill="currentColor"
-                                                                    class="size-4">
-                                                                    <path fill-rule="evenodd"
-                                                                        d="M5 3.25V4H2.75a.75.75 0 0 0 0 1.5h.3l.815 8.15A1.5 1.5 0 0 0 5.357 15h5.285a1.5 1.5 0 0 0 1.493-1.35l.815-8.15h.3a.75.75 0 0 0 0-1.5H11v-.75A2.25 2.25 0 0 0 8.75 1h-1.5A2.25 2.25 0 0 0 5 3.25Zm2.25-.75a.75.75 0 0 0-.75.75V4h3v-.75a.75.75 0 0 0-.75-.75h-1.5ZM6.05 6a.75.75 0 0 1 .787.713l.275 5.5a.75.75 0 0 1-1.498.075l-.275-5.5A.75.75 0 0 1 6.05 6Zm3.9 0a.75.75 0 0 1 .712.787l-.275 5.5a.75.75 0 0 1-1.498-.075l.275-5.5a.75.75 0 0 1 .786-.711Z"
-                                                                        clip-rule="evenodd" />
-                                                                </svg>
+                                                                <i data-lucide="trash-2" class="size-4"></i>
                                                             </a>
                                                         </td>
                                                         <td width="50%">
@@ -117,19 +111,28 @@
                     </form>
                 </div>
                 <div class="lg:col-span-4 mt-6 lg:mt-0">
-                    <div class="overflow-hidden rounded-xl bg-white shadow-sm">
+                    <div class="overflow-hidden rounded-xl bg-white shadow-xs border border-gray-200">
                         <div class="p-6 border-b border-gray-200">
                             <h3 class="text-xl/6 font-semibold text-gray-800">Cart Summary</h3>
                         </div>
+                        @php
+                            // $breakdown = getCartTaxBreakdown($cart);
+                        @endphp
                         <div class="p-6">
                             <dl class="space-y-6">
                                 <div class="flex items-center justify-between">
                                     <dt class="text-base/6 text-gray-600">Sub Total</dt>
                                     <dd class="text-base/6 font-medium text-gray-900">@money($cart->total)</dd>
                                 </div>
+                                @foreach ($cart->tax_breakdown as $tax)
+                                    <div class="flex items-center justify-between">
+                                        <dt class="text-base/6 text-gray-600">{{ $tax['name'] }}</dt>
+                                        <dd class="text-base/6 font-medium text-gray-900">@money($tax['total_amount'])</dd>
+                                    </div>
+                                @endforeach
                                 <div class="flex items-center justify-between">
                                     <dt class="text-base/6 text-gray-600">Grand Total</dt>
-                                    <dd class="text-base/6 font-bold text-gray-900">@money($cart->total)</dd>
+                                    <dd class="text-base/6 font-bold text-gray-900">@money($cart->total + $cart->total_tax_amount)</dd>
                                 </div>
                             </dl>
 

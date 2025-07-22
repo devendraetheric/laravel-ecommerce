@@ -2,14 +2,12 @@
 
 namespace App\Notifications;
 
-use App\Models\Order;
-use App\Settings\GeneralSetting;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class OrderPlaced extends Notification
+class OrderPlaced extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -42,7 +40,7 @@ class OrderPlaced extends Notification
             ->greeting('Hello ' . $this->order->user->name . '!')
             ->line('Thank you for your order.')
             ->line('Order #: ' . $this->order->order_number)
-            ->line('Total: $' . $this->order->grand_total)
+            ->line('Total: ' . get_currency_symbol() . $this->order->grand_total)
             ->action('View Order', route('account.orders.show', $this->order))
             ->line('Thank you for shopping with us!')
             ->salutation("Best Regards, \n " . setting('general.app_name'));

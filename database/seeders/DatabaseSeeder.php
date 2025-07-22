@@ -38,14 +38,13 @@ class DatabaseSeeder extends Seeder
         // Delete media folders and files
         \File::deleteDirectory(public_path('media'));
 
-
-        // Brand::factory(14)->create();
-        // Category::factory(21)->create();
-
-        // Product::factory(150)->create();
-
         $this->call(CountrySeeder::class);
         $this->call(StateSeeder::class);
         $this->call(BannerSeeder::class);
+
+        Brand::factory(8)->create();
+        Category::factory(4)->create();
+
+        Product::factory(60)->create();
     }
 }

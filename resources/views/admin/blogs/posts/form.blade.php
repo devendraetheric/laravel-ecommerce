@@ -15,11 +15,10 @@
                     'text' => $blog_post->id ? 'Edit' : 'Create',
                 ],
             ];
-            $title = $blog_post->id ? 'Edit ' . $blog_post->name : 'Create Blog Post';
+            $title = $blog_post->id ? 'Edit ' . $blog_post->title : 'Create Blog Post';
         @endphp
 
         <x-admin.breadcrumb :links=$breadcrumbLinks :title=$title :goBackAction="route('admin.blogs.posts.index')" />
-
 
         <form method="post"
             action="{{ $blog_post->id ? route('admin.blogs.posts.update', $blog_post) : route('admin.blogs.posts.store') }}"
@@ -96,25 +95,15 @@
                             <h3 class="text-base font-semibold text-gray-800">Status</h3>
                         </div>
                         <div class="p-6">
-                            <div class="mt-2 sm:col-span-6 sm:mt-0 grid grid-cols-1">
-                                <select name="status" id="status"
-                                    class="col-start-1 row-start-1 form-select @error('status') is-invalid @enderror">
-                                    <option value="published" @selected(old('status', $blog_post->published) == 'published')>
-                                        Published
-                                    </option>
-                                    <option value="draft" @selected(old('status', $blog_post->draft) == 'flat')>
-                                        Draft
-                                    </option>
-                                </select>
-                                <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-                                    viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
-                                    <path fill-rule="evenodd"
-                                        d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </div>
-
-
+                            <select name="status" id="status"
+                                class="form-select @error('status') is-invalid @enderror">
+                                <option value="published" @selected(old('status', $blog_post->published) == 'published')>
+                                    Published
+                                </option>
+                                <option value="draft" @selected(old('status', $blog_post->draft) == 'draft')>
+                                    Draft
+                                </option>
+                            </select>
                         </div>
                     </div>
                     <div class="mt-6 rounded-xl bg-white shadow-sm">
@@ -125,13 +114,13 @@
                             <div class="space-y-4">
 
                                 <div class="space-y-2">
-                                    <label for="category_name" class="control-label">Category</label>
+                                    <label for="category_combobox" class="control-label">Category</label>
                                     <div class="relative" x-data="categoryCombobox()">
                                         <input x-model="query" @input="searchCategories" @focus="open = !open"
                                             @keydown.arrow-down.prevent="highlightNext()"
                                             @keydown.arrow-up.prevent="highlightPrev()"
                                             @keydown.enter.prevent="selectHighlighted()" id="category_combobox"
-                                            type="text" name="category_name" id="category_name"
+                                            type="text" name="category_name"
                                             class="form-control @error('blog_category_id') is-invalid @enderror"
                                             role="combobox" :aria-expanded="open" autocomplete="off">
                                         <input type="hidden" name="blog_category_id" id="blog_category_id"
@@ -139,17 +128,11 @@
                                         <button type="button"
                                             class="absolute inset-y-0 right-0 flex items-center rounded-r-lg px-2 focus:outline-hidden"
                                             @click="open = !open">
-                                            <svg class="size-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor"
-                                                aria-hidden="true" data-slot="icon">
-                                                <path fill-rule="evenodd"
-                                                    d="M10.53 3.47a.75.75 0 0 0-1.06 0L6.22 6.72a.75.75 0 0 0 1.06 1.06L10 5.06l2.72 2.72a.75.75 0 1 0 1.06-1.06l-3.25-3.25Zm-4.31 9.81 3.25 3.25a.75.75 0 0 0 1.06 0l3.25-3.25a.75.75 0 1 0-1.06-1.06L10 14.94l-2.72-2.72a.75.75 0 0 0-1.06 1.06Z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
+                                            <i data-lucide="chevrons-up-down" class="size-5 text-gray-400"></i>
                                         </button>
 
                                         <ul class="absolute z-100 mt-1 max-h-60 w-full overflow-auto rounded-lg bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-hidden sm:text-sm"
-                                            role="listbox" x-show="open && results.length"
-                                            @click.away="open = !open">
+                                            role="listbox" x-show="open && results.length" @click.away="open = !open">
                                             <template x-for="(item, i) in results" :key="item.id">
                                                 <li class="relative cursor-default py-2 pr-9 pl-3 text-gray-900 select-none"
                                                     id="option-0" role="option" tabindex="-1"
@@ -164,19 +147,6 @@
                                                             'font-semibold': selectedId == item.id
                                                         }"
                                                         x-text="item.name"></span>
-                                                    <span
-                                                        class="absolute inset-y-0 right-0 flex items-center pr-4 text-primary-600"
-                                                        :class="{
-                                                            'text-white': selectedId == item.id,
-                                                            'text-white': highlighted == i,
-                                                        }">
-                                                        <svg class="size-5" viewBox="0 0 20 20" fill="currentColor"
-                                                            aria-hidden="true" data-slot="icon">
-                                                            <path fill-rule="evenodd"
-                                                                d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
-                                                                clip-rule="evenodd" />
-                                                        </svg>
-                                                    </span>
                                                 </li>
                                             </template>
                                         </ul>
@@ -208,12 +178,7 @@
                                 <div
                                     class="flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                                     <div class="text-center">
-                                        <svg class="mx-auto size-12 text-gray-300" viewBox="0 0 24 24"
-                                            fill="currentColor" aria-hidden="true" data-slot="icon">
-                                            <path fill-rule="evenodd"
-                                                d="M1.5 6a2.25 2.25 0 0 1 2.25-2.25h16.5A2.25 2.25 0 0 1 22.5 6v12a2.25 2.25 0 0 1-2.25 2.25H3.75A2.25 2.25 0 0 1 1.5 18V6ZM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0 0 21 18v-1.94l-2.69-2.689a1.5 1.5 0 0 0-2.12 0l-.88.879.97.97a.75.75 0 1 1-1.06 1.06l-5.16-5.159a1.5 1.5 0 0 0-2.12 0L3 16.061Zm10.125-7.81a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Z"
-                                                clip-rule="evenodd" />
-                                        </svg>
+                                        <i data-lucide="image" class="mx-auto size-12 text-gray-300"></i>
                                         <div class="mt-4 flex text-sm/6 text-gray-600">
                                             <label for="image"
                                                 class="relative cursor-pointer rounded-md bg-white font-semibold text-primary-600 focus-within:ring-2 focus-within:ring-primary-600 focus-within:ring-offset-2 focus-within:outline-hidden hover:text-primary-500">

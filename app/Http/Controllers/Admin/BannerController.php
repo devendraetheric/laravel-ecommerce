@@ -14,6 +14,7 @@ class BannerController extends Controller
     public function index()
     {
         $banners = Banner::latest()
+            ->search(request('query'))
             ->paginate()
             ->withQueryString();
 
@@ -47,10 +48,7 @@ class BannerController extends Controller
         $banner = Banner::create($validated);
 
         if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $path = $file->store('uploads', 'public');
-
-            $banner->addMedia(storage_path("app/public/$path"))
+            $banner->addMediaFromRequest('image')
                 ->preservingOriginal()
                 ->toMediaCollection($banner->location);
         }
@@ -93,12 +91,10 @@ class BannerController extends Controller
         $banner->save();
 
         if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $path = $file->store('uploads', 'public');
 
             $banner->clearMediaCollection($banner->location);
 
-            $banner->addMedia(storage_path("app/public/$path"))
+            $banner->addMediaFromRequest('image')
                 ->preservingOriginal()
                 ->toMediaCollection($banner->location);
         }

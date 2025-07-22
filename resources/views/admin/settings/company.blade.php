@@ -1,6 +1,4 @@
 <x-layouts.admin>
-
-
     <div class="max-w-7xl mx-auto">
         @php
             $breadcrumbLinks = [
@@ -21,17 +19,17 @@
         <x-admin.breadcrumb :links=$breadcrumbLinks :title=$title />
 
 
-        <form method="post" action="{{ route('admin.settings.saveCompany') }}" x-data="companyAddressInfo()">
-
+        <form method="post" action="{{ route('admin.settings.store') }}">
             @csrf
 
+            <input type="hidden" name="group_name" value="company" />
             <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
-                <div class="p-6">
+                <div class="p-6" x-data="companyAddressInfo()">
                     <div class="grid md:grid-cols-2 gap-4">
 
                         <div class="space-y-2">
                             <div class="flex justify-between">
-                                <label for="app_name" class="control-label">Name</label>
+                                <label for="name" class="control-label">Name</label>
                                 <span class="text-sm/6 text-gray-500" id="name-optional">setting('company.name')</span>
                             </div>
                             <input type="text" name="name" id="name"
@@ -84,7 +82,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-2">
+                        <div class="space-y-2 col-span-full">
                             <div class="flex justify-between">
                                 <label for="address" class="control-label">Address</label>
                                 <span class="text-sm/6 text-gray-500"
@@ -96,55 +94,41 @@
                             @enderror
                         </div>
 
-                        <div>
+                        <div class="space-y-2">
                             <div class="flex justify-between">
                                 <label for="country" class="control-label">Country</label>
                                 <span class="text-sm/6 text-gray-500"
                                     id="country-optional">setting('company.country')</span>
                             </div>
-                            <div class="mt-2 grid grid-cols-1">
-                                <select id="country" name="country" class="col-start-1 row-start-1 form-select"
-                                    x-model="country" x-init="countryChange()" @change="countryChange()">
-                                    <option value="">Select Country</option>
-                                    @foreach ($countries as $key => $country)
-                                        <option value="{{ $key }}" @selected(old('country', $address->country_id ?? 233) == $key)>
-                                            {{ $country }}</option>
-                                    @endforeach
-                                </select>
-                                <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-                                    viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
-                                    <path fill-rule="evenodd"
-                                        d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </div>
+                            <select id="country" name="country"
+                                class="form-select @error('country') is-invalid @enderror" x-model="country"
+                                x-init="countryChange()" @change="countryChange()">
+                                <option value="">Select Country</option>
+                                @foreach ($countries as $key => $country)
+                                    <option value="{{ $key }}" @selected(old('country', $address->country_id ?? 233) == $key)>
+                                        {{ $country }}</option>
+                                @endforeach
+                            </select>
                             @error('country')
-                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
 
-                        <div>
+                        <div class="space-y-2">
                             <div class="flex justify-between">
                                 <label for="state" class="control-label">State</label>
                                 <span class="text-sm/6 text-gray-500"
                                     id="state-optional">setting('company.state')</span>
                             </div>
-                            <div class="mt-2 grid grid-cols-1">
-                                <select id="state" name="state" class="col-start-1 row-start-1 form-select">
-                                    <option value="">Select State</option>
-                                    <template x-for="(state,key) in states" :key="state">
-                                        <option :value="state" x-text="key"></option>
-                                    </template>
-                                </select>
-                                <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-                                    viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
-                                    <path fill-rule="evenodd"
-                                        d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </div>
+                            <select x-model="state" id="state" name="state"
+                                class="form-select @error('state') is-invalid @enderror">
+                                <option value="">Select State</option>
+                                <template x-for="(state,key) in states" :key="state">
+                                    <option :value="state" x-text="key"></option>
+                                </template>
+                            </select>
                             @error('state')
-                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
 
@@ -180,21 +164,18 @@
                 </div>
             </div>
 
-            <div class="mt-6 space-x-2">
-                <button type="submit" class="btn-primary">Submit</button>
-                <a href="{{ route('admin.settings.company') }}" class="btn-secondary">Cancel</a>
-            </div>
+            <button type="submit" class="btn-primary mt-6">Save Changes</button>
         </form>
     </div>
 
 
     @push('scripts')
         <script>
-            var stateId = "{{ old('state', $settings->state ?? 1460) }}";
+            var stateId = "{{ old('state', $settings->state) }}";
 
             function companyAddressInfo() {
                 return {
-                    country: "{{ old('country', $settings->country ?? 233) }}",
+                    country: "{{ old('country', $settings->country) }}",
                     state: "",
                     states: [],
 

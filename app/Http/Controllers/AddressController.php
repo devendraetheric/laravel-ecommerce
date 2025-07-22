@@ -106,15 +106,17 @@ class AddressController extends Controller
             'city' => ['required', 'string', 'max:50'],
             'zip_code' => ['required', 'string', 'max:10'],
             'state_id' => ['required'],
-            'is_default' => ['required', 'boolean'],
+            'is_default' => ['required'],
         ]);
 
 
         if ($validated['is_default']) {
             auth()->user()->addresses()->update(['is_default' => false]);
+            $validated['is_default'] = true;
         }
 
-        $address->update($validated);
+        $address->fill($validated);
+        $address->save();
 
         return redirect()->route('account.addresses.index')
             ->with('success', 'Address updated Successfully!!!');

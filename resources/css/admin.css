@@ -1,8 +1,14 @@
 @import 'tailwindcss';
 @plugin "@tailwindcss/typography";
 
+@plugin "@tailwindcss/forms";
+
+@plugin 'tailwind-scrollbar' {
+    preferredStrategy: 'pseudoelements';
+}
+
 @theme {
-    --font-display: 'Inter', sans-serif;
+    --font-display: 'Roboto', sans-serif;
 
     --breakpoint-sm: 600px;
     --breakpoint-md: 728px;
@@ -72,29 +78,28 @@
     @apply text-red-600 hover:text-red-900;
 }
 
-
 .control-label {
-    @apply block text-sm/6 font-medium text-gray-600;
+    @apply inline-block text-sm/6 font-medium text-gray-600;
 }
 
 .form-control {
-    @apply block w-full rounded-lg bg-white px-3 py-2 text-base text-gray-900 outline -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600;
+    @apply w-full rounded-lg border-gray-300 focus:border-primary-600 focus:ring-primary-600;
 }
 
 .is-invalid {
-    @apply !outline-red-600;
+    @apply !border-red-600;
 }
 
 .form-select {
-    @apply w-full appearance-none rounded-lg bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 sm:text-sm/6;
+    @apply w-full rounded-lg border-gray-300 focus:border-primary-600 focus:ring-primary-600;
 }
 
 .form-radio {
-    @apply relative size-4 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white checked:border-primary-600 checked:bg-primary-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden [&:not(:checked)]:before:hidden;
+    @apply border-gray-300 text-primary-600 focus:ring-primary-600;
 }
 
 .form-checkbox {
-    @apply col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-primary-600 checked:bg-primary-600 indeterminate:border-primary-600 indeterminate:bg-primary-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto;
+    @apply rounded border-gray-300 text-primary-600 focus:ring-primary-600;
 }
 
 

@@ -19,6 +19,7 @@ class ProductController extends Controller
     {
         $products = Product::latest()
             ->with(['brand', 'category', 'media'])
+            ->search(request('query'))
             ->paginate()
             ->withQueryString();
 
@@ -173,7 +174,7 @@ class ProductController extends Controller
     public function search(Request $request)
     {
         $products = Product::where('name', 'like', '%' . $request->q . '%')
-            ->select(['id', 'name'])
+            ->select(['id', 'name', 'selling_price'])
             ->latest()
             ->take(10)
             ->get();

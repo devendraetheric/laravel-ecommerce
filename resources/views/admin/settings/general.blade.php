@@ -21,15 +21,17 @@
         <x-admin.breadcrumb :links=$breadcrumbLinks :title=$title />
 
 
-        <form method="post" action="{{ route('admin.settings.saveGeneralSettings') }}" enctype="multipart/form-data">
-
+        <form method="post" action="{{ route('admin.settings.store') }}" enctype="multipart/form-data">
             @csrf
 
+            <input type="hidden" name="group_name" value="general" />
             <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
+                <div class="p-6 border-b border-gray-200">
+                    <h3 class="text-base font-semibold text-gray-800">App Settings</h3>
+                </div>
                 <div class="p-6">
-                    <div class="grid grid-cols-3 gap-4">
-
-                        <div class="space-y-2 col-span-1 md:col-span-1">
+                    <div class="grid lg:grid-cols-3 gap-4">
+                        <div class="space-y-2">
                             <div class="flex justify-between">
                                 <label for="app_name" class="control-label">App Name</label>
                                 <span class="text-sm/6 text-gray-500"
@@ -44,7 +46,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-1 md:col-span-1">
+                        <div class="space-y-2">
                             <div class="flex justify-between">
                                 <label for="site_name" class="control-label">Site Name</label>
                                 <span class="text-sm/6 text-gray-500"
@@ -58,7 +60,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-1 md:col-span-1">
+                        <div class="space-y-2">
                             <div class="flex justify-between">
                                 <label for="tagline" class="control-label">Tagline</label>
                                 <span class="text-sm/6 text-gray-500"
@@ -72,7 +74,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 col-span-3">
+                        <div class="space-y-2 col-span-full">
                             <div class="flex justify-between">
                                 <label for="site_description" class="control-label">Site Description</label>
                                 <span class="text-sm/6 text-gray-500"
@@ -85,7 +87,7 @@
                             @enderror
                         </div>
 
-                        <div>
+                        <div class="space-y-2">
                             <div class="flex justify-between">
                                 <label for="date_format" class="control-label">
                                     Date Format
@@ -93,59 +95,45 @@
                                 <span class="text-sm/6 text-gray-500"
                                     id="date-format-optional">setting('general.date_format')</span>
                             </div>
-                            <div class="mt-2 grid grid-cols-1">
-                                <select id="date_format" name="date_format" class="col-start-1 row-start-1 form-select">
-                                    <option value="">Select Date Format</option>
-                                    @foreach ($dateFormats as $key => $dateFormat)
-                                        <option value="{{ $key }}" @selected(old('date_format', $settings->date_format) == $key)>
-                                            ({{ $key }})
-                                            {{ $dateFormat }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-                                    viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
-                                    <path fill-rule="evenodd"
-                                        d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </div>
+                            <select id="date_format" name="date_format"
+                                class="form-select @error('date_format') is-invalid @enderror">
+                                <option value="">Select Date Format</option>
+                                @foreach ($dateFormats as $key => $dateFormat)
+                                    <option value="{{ $key }}" @selected(old('date_format', $settings->date_format) == $key)>
+                                        ({{ $key }})
+                                        {{ $dateFormat }}
+                                    </option>
+                                @endforeach
+                            </select>
                             @error('date_format')
-                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
 
-                        <div>
+                        <div class="space-y-2">
                             <div class="flex justify-between">
-                                <label for="date_format" class="control-label">
+                                <label for="time_format" class="control-label">
                                     Time Format
                                 </label>
                                 <span class="text-sm/6 text-gray-500"
                                     id="time-format-optional">setting('general.time_format')</span>
                             </div>
-                            <div class="mt-2 grid grid-cols-1">
-                                <select id="time_format" name="time_format" class="col-start-1 row-start-1 form-select">
-                                    <option value="">Select Time Format</option>
-                                    @foreach ($timeFormats as $key => $timeFormat)
-                                        <option value="{{ $key }}" @selected(old('time_format', $settings->time_format) == $key)>
-                                            ({{ $key }})
-                                            {{ $timeFormat }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-                                    viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
-                                    <path fill-rule="evenodd"
-                                        d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </div>
+                            <select id="time_format" name="time_format"
+                                class="form-select @error('time_format') is-invalid @enderror">
+                                <option value="">Select Time Format</option>
+                                @foreach ($timeFormats as $key => $timeFormat)
+                                    <option value="{{ $key }}" @selected(old('time_format', $settings->time_format) == $key)>
+                                        ({{ $key }})
+                                        {{ $timeFormat }}
+                                    </option>
+                                @endforeach
+                            </select>
                             @error('time_format')
-                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
 
-                        <div>
+                        <div class="space-y-2">
                             <div class="flex justify-between">
                                 <label for="timezone" class="control-label">
                                     Time Zone
@@ -153,82 +141,125 @@
                                 <span class="text-sm/6 text-gray-500"
                                     id="time-zone-optional">setting('general.timezone')</span>
                             </div>
-
-                            <div class="mt-2 grid grid-cols-1">
-                                <select id="timezone" name="timezone" class="col-start-1 row-start-1 form-select">
-                                    <option value="">Select Time Zone</option>
-                                    @foreach ($timezones as $key => $timezone)
-                                        <option value="{{ $timezone }}" @selected(old('timezone', $settings->timezone) == $timezone)>
-                                            {{ $timezone }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-                                    viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
-                                    <path fill-rule="evenodd"
-                                        d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </div>
+                            <select id="timezone" name="timezone"
+                                class="form-select @error('timezone') is-invalid @enderror">
+                                <option value="">Select Time Zone</option>
+                                @foreach ($timezones as $key => $timezone)
+                                    <option value="{{ $timezone }}" @selected(old('timezone', $settings->timezone) == $timezone)>
+                                        {{ $timezone }}
+                                    </option>
+                                @endforeach
+                            </select>
                             @error('timezone')
-                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
 
+                        <div class="space-y-2">
+                            <div class="flex justify-between">
+                                <label for="analytics_code" class="control-label">Google Analytics Code</label>
+                                <span class="text-sm/6 text-gray-500"
+                                    id="analytics_code-optional">setting('general.analytics_code')</span>
+                            </div>
+                            <input type="text" name="analytics_code" id="analytics_code"
+                                class="form-control @error('analytics_code') is-invalid @enderror"
+                                value="{{ old('analytics_code', $settings->analytics_code) }}" />
+                            @error('analytics_code')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        {{-- is_tax_inclusive --}}
+                        <div class="space-y-2">
+                            <div class="flex justify-between">
+                                <label for="is_tax_inclusive" class="control-label">
+                                    Is Tax Inclusive
+                                </label>
+                                <span class="text-sm/6 text-gray-500"
+                                    id="is-tax-inclusive-optional">setting('general.is_tax_inclusive')</span>
+                            </div>
+                            <select id="is_tax_inclusive" name="is_tax_inclusive" class="form-select">
+                                <option value="0" @selected(old('is_tax_inclusive', $settings->is_tax_inclusive) == '0')>Exclusive</option>
+                                <option value="1" @selected(old('is_tax_inclusive', $settings->is_tax_inclusive) == '1')>Inclusive</option>
+                            </select>
+                            @error('is_tax_inclusive')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="space-y-2">
+                            <div class="flex justify-between">
+                                <label for="delivery_charge" class="control-label">Delivery Charge</label>
+                                <span class="text-sm/6 text-gray-500"
+                                    id="delivery_charge-optional">setting('general.delivery_charge')</span>
+                            </div>
+                            <input type="number" name="delivery_charge" id="delivery_charge"
+                                class="form-control @error('delivery_charge') is-invalid @enderror"
+                                value="{{ old('delivery_charge', $settings->delivery_charge) }}" />
+                            @error('delivery_charge')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="space-y-2 col-span-full">
+                            <div class="flex justify-between">
+                                <label for="free_delivery_zipcode" class="control-label">Free Delivery
+                                    Zipcode</label>
+                                <span class="text-sm/6 text-gray-500"
+                                    id="site-description-optional">setting('general.free_delivery_zipcode')</span>
+                            </div>
+                            <textarea class="form-control @error('free_delivery_zipcode') is-invalid @enderror" id="free_delivery_zipcode"
+                                name="free_delivery_zipcode" rows="2">{{ old('free_delivery_zipcode', $settings->free_delivery_zipcode) }}</textarea>
+                            @error('free_delivery_zipcode')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="space-y-2 col-span-full">
+                            <div class="flex justify-between">
+                                <label for="admin_emails" class="control-label">
+                                    Admin Emails (use , for multiple)
+                                </label>
+                                <span class="text-sm/6 text-gray-500"
+                                    id="site-description-optional">setting('general.admin_emails')</span>
+                            </div>
+                            <input type="text" name="admin_emails" id="admin_emails"
+                                class="form-control @error('admin_emails') is-invalid @enderror"
+                                value="{{ old('admin_emails', $settings->admin_emails) }}" />
+                            @error('admin_emails')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
+                <div class="p-6 border-b border-gray-200">
+                    <h3 class="text-base font-semibold text-gray-800">Cloudflare Captcha</h3>
+                </div>
                 <div class="p-6">
-                    <div class="grid grid-cols-3 gap-4">
+                    <div class="grid lg:grid-cols-3 gap-4">
 
                         <!----- Re-captcha -------------->
-                        <div>
+                        <div class="space-y-2">
                             <div class="flex justify-between">
                                 <label for="is_captcha" class="control-label">
-                                    Is Captcha
+                                    Captcha Active / De-Active
                                 </label>
                                 <span class="text-sm/6 text-gray-500"
                                     id="is-captcha-optional">setting('general.is_captcha')</span>
                             </div>
-                            <div class="mt-2 grid grid-cols-1">
-                                <select id="is_captcha" name="is_captcha"
-                                    class="col-start-1 row-start-1 form-select">
-                                    <option value="0" @selected(old('is_captcha', $settings->is_captcha) == '0')>Deactive</option>
-                                    <option value="1" @selected(old('is_captcha', $settings->is_captcha) == '1')>Active</option>
-                                </select>
-                                <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-                                    viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
-                                    <path fill-rule="evenodd"
-                                        d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </div>
+                            <select id="is_captcha" name="is_captcha" class="form-select">
+                                <option value="0" @selected(old('is_captcha', $settings->is_captcha) == '0')>De-Active</option>
+                                <option value="1" @selected(old('is_captcha', $settings->is_captcha) == '1')>Active</option>
+                            </select>
                             @error('is_captcha')
-                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
 
-                        <div>
-                            <div class="flex justify-between">
-                                <label for="captcha_secret_key" class="control-label">
-                                    Captcha Secret Key
-                                </label>
-                                <span class="text-sm/6 text-gray-500"
-                                    id="captcha-secret-key-optional">setting('general.captcha_secret_key')</span>
-                            </div>
-                            <div class="mt-2 grid grid-cols-1">
-                                <input type="text" name="captcha_secret_key" id="captcha_secret_key"
-                                    class="form-control @error('captcha_secret_key') is-invalid @enderror"
-                                    value="{{ old('captcha_secret_key', $settings->captcha_secret_key) }}" />
-                            </div>
-                            @error('captcha_secret_key')
-                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div>
+                        <div class="space-y-2">
                             <div class="flex justify-between">
                                 <label for="captcha_site_key" class="control-label">
                                     Captcha Site Key
@@ -236,13 +267,28 @@
                                 <span class="text-sm/6 text-gray-500"
                                     id="captcha-site-key-optional">setting('general.captcha_site_key')</span>
                             </div>
-                            <div class="mt-2 grid grid-cols-1">
-                                <input type="text" name="captcha_site_key" id="captcha_site_key"
-                                    class="form-control @error('captcha_site_key') is-invalid @enderror"
-                                    value="{{ old('captcha_site_key', $settings->captcha_site_key) }}" />
-                            </div>
+                            <input type="text" name="captcha_site_key" id="captcha_site_key"
+                                class="form-control @error('captcha_site_key') is-invalid @enderror"
+                                value="{{ old('captcha_site_key', $settings->captcha_site_key) }}" />
                             @error('captcha_site_key')
-                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+
+                        <div class="space-y-2">
+                            <div class="flex justify-between">
+                                <label for="captcha_secret_key" class="control-label">
+                                    Captcha Secret Key
+                                </label>
+                                <span class="text-sm/6 text-gray-500"
+                                    id="captcha-secret-key-optional">setting('general.captcha_secret_key')</span>
+                            </div>
+                            <input type="text" name="captcha_secret_key" id="captcha_secret_key"
+                                class="form-control @error('captcha_secret_key') is-invalid @enderror"
+                                value="{{ old('captcha_secret_key', $settings->captcha_secret_key) }}" />
+                            @error('captcha_secret_key')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -250,39 +296,36 @@
             </div>
 
             <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm">
+                <div class="p-6 border-b border-gray-200">
+                    <h3 class="text-base font-semibold text-gray-800">Logo & Favicon</h3>
+                </div>
                 <div class="p-6">
                     <div class="grid md:grid-cols-2 gap-4">
 
                         <!----- Logo And Favicon -------------->
-                        <div>
+                        <div class="space-y-2">
                             <div class="flex justify-between">
                                 <label for="logo" class="control-label">
                                     Logo
                                 </label>
                                 <span class="text-sm/6 text-gray-500" id="logo-optional">getLogoURL()</span>
                             </div>
-                            <div class="mt-2 grid grid-cols-1">
-                                <input type="file" id="logo" name="logo" class="form-control">
-
-                            </div>
+                            <input type="file" id="logo" name="logo" class="form-control">
                             @error('logo')
-                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
 
-                        <div>
+                        <div class="space-y-2">
                             <div class="flex justify-between">
                                 <label for="favicon" class="control-label">
                                     Favicon
                                 </label>
                                 <span class="text-sm/6 text-gray-500" id="favicon-optional">getFaviconURL()</span>
                             </div>
-                            <div class="mt-2 grid grid-cols-1">
-                                <input type="file" id="favicon" name="favicon" class="form-control">
-
-                            </div>
+                            <input type="file" id="favicon" name="favicon" class="form-control">
                             @error('favicon')
-                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -290,8 +333,7 @@
             </div>
 
             <div class="mt-6 space-x-2">
-                <button type="submit" class="btn-primary">Submit</button>
-                <a href="{{ route('admin.settings.general') }}" class="btn-secondary">Cancel</a>
+                <button type="submit" class="btn-primary">Save Changes</button>
             </div>
         </form>
     </div>
