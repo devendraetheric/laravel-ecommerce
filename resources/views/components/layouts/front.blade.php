@@ -29,6 +29,21 @@
     @vite('resources/css/app.css')
 
     @stack('styles')
+
+    @if (setting('general.analytics_code'))
+        <!-- Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ setting('general.analytics_code') }}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+
+            gtag('config', '{{ setting('general.analytics_code') }}');
+        </script>
+    @endif
 </head>
 
 <body class="font-display bg-white" x-data="{
@@ -52,7 +67,7 @@
     <x-front.footer />
 
     <!-- script file here -->
-    @vite(['resources/js/app.js'])
+    @vite('resources/js/app.js')
     @stack('scripts')
 
     @if (setting('general.is_captcha'))

@@ -78,11 +78,7 @@
 
                 <button type="submit" class="btn-primary w-full gap-x-2">
                     Sign Up
-                    <svg width="25" height="24" viewBox="0 0 25 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path d="M16 7.5L20.5 12M20.5 12L16 16.5M20.5 12H4.5" stroke="white" stroke-width="1.5"
-                            stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
+                    <i data-lucide="move-right" class="size-6"></i>
                 </button>
             </form>
             <p class="mt-4 text-sm/6 text-gray-800 opacity-70">By Clicking I am agree with Terms & Conditions</p>

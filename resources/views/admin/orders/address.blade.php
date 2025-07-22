@@ -17,22 +17,16 @@
 
             <div class="space-y-2">
                 <label for="country_id" class="control-label">Country</label>
-                <div class="grid grid-cols-1">
-                    <select id="country_id" name="address[country_id]" class="col-start-1 row-start-1 form-select"
-                        x-model="country_id" x-init="countryChange()" @change="countryChange()">
-                        <option value="">Select Country</option>
-                        @foreach ($countries as $key => $country)
-                            <option value="{{ $key }}" @selected(old('country_id', $address->country_id ?? setting('company.country')) == $key)>
-                                {{ $country }}</option>
-                        @endforeach
-                    </select>
-                    <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-                        viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
-                        <path fill-rule="evenodd"
-                            d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
-                            clip-rule="evenodd" />
-                    </svg>
-                </div>
+
+                <select id="country_id" name="address[country_id]"
+                    class="form-select @error('address.country_id') is-invalid @enderror" x-model="country_id"
+                    x-init="countryChange()" @change="countryChange()">
+                    <option value="">Select Country</option>
+                    @foreach ($countries as $key => $country)
+                        <option value="{{ $key }}" @selected(old('country_id', $address->country_id ?? setting('company.country')) == $key)>
+                            {{ $country }}</option>
+                    @endforeach
+                </select>
                 @error('address.country_id')
                     <p class="text-sm text-red-600">{{ $message }}</p>
                 @enderror
@@ -101,21 +95,14 @@
 
             <div class="space-y-2">
                 <label for="state_id" class="control-label">State</label>
-                <div class="grid grid-cols-1">
-                    <select x-model="state_id" id="state_id" name="address[state_id]"
-                        class="col-start-1 row-start-1 form-select">
-                        <option value="">Select State</option>
-                        <template x-for="(state,key) in states" :key="state">
-                            <option :value="state" x-text="key"></option>
-                        </template>
-                    </select>
-                    <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-                        viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
-                        <path fill-rule="evenodd"
-                            d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
-                            clip-rule="evenodd" />
-                    </svg>
-                </div>
+                <select x-model="state_id" id="state_id" name="address[state_id]"
+                    class="form-select @error('address.state_id') is-invalid @enderror"
+                    @change="$dispatch('state-changed', state_id)">
+                    <option value="">Select State</option>
+                    <template x-for="(state,key) in states" :key="state">
+                        <option :value="state" x-text="key"></option>
+                    </template>
+                </select>
                 @error('address.state_id')
                     <p class="text-sm text-red-600">{{ $message }}</p>
                 @enderror
@@ -160,6 +147,7 @@
 
                             if (stateId) {
                                 this.state_id = stateId;
+                                this.$dispatch('state-changed', stateId);
                             }
 
                         } catch (error) {

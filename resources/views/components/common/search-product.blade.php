@@ -14,15 +14,12 @@
             x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
             x-transition:leave-end="opacity-0 scale-95">
             <div class="grid grid-cols-1">
-                <input type="text" x-ref="searchInput" x-model="query" @input.debounce.300ms="fetchResults"
-                    class="col-start-1 row-start-1 h-12 w-full pr-4 pl-11 text-base text-gray-900 outline-hidden placeholder:text-gray-400 sm:text-sm"
-                    placeholder="Search here..." role="combobox" aria-expanded="false" aria-controls="options">
-                <svg class="pointer-events-none col-start-1 row-start-1 ml-4 size-5 self-center text-gray-400"
-                    viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                    <path fill-rule="evenodd"
-                        d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z"
-                        clip-rule="evenodd" />
-                </svg>
+                <input type="text" x-ref="searchInput" x-model="query" id="searchInput"
+                    @input.debounce.300ms="fetchResults"
+                    class="col-start-1 row-start-1 h-12 w-full pr-4 pl-11 outline-hidden border-0 focus:ring-0"
+                    placeholder="Search here..." role="combobox" aria-expanded="false" aria-controls="options" />
+                <i data-lucide="search"
+                    class="pointer-events-none col-start-1 row-start-1 ml-4 size-5 self-center text-gray-400"></i>
             </div>
 
             <!-- Skeleton Loader -->
@@ -60,11 +57,7 @@
             <!-- Empty state -->
             <div class="px-6 py-14 text-center text-sm sm:px-14"
                 x-show="query.length>2 && results.length==0 && !loading">
-                <svg class="mx-auto size-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" aria-hidden="true" data-slot="icon">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
-                </svg>
+                <i data-lucide="info" class="mx-auto size-12 text-gray-400"></i>
                 <p class="mt-4 font-semibold text-gray-900">No results found</p>
                 <p class="mt-2 text-gray-500">No components found for this search term. Please try again.</p>
             </div>

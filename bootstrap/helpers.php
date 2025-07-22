@@ -4,10 +4,14 @@ use App\Enums\TaxType;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Country;
+use App\Models\OrderItem;
 use App\Models\State;
 use App\Models\Tax;
 use App\Models\Taxable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Str;
 
 if (!function_exists('cart')) {
     function cart(): Cart
@@ -141,12 +145,12 @@ if (!function_exists('paymentGateways')) {
 if (!function_exists('getDeliveryCharge')) {
     function getDeliveryCharge(): float
     {
-        $charge = 0;
+        $charge = setting('general.delivery_charge');
         return is_numeric($charge) ? (float)$charge : 0.0;
     }
 }
 
-if (!function_exists(' applyTaxesToObject')) {
+if (!function_exists('applyTaxesToObject')) {
     function applyTaxesToObject(object $item, float $baseAmount, $customerState = null, $sellerState = null)
     {
         $sellerState = app_state()?->id;
@@ -202,5 +206,87 @@ if (!function_exists(' applyTaxesToObject')) {
             ]
         );
         // }
+    }
+}
+
+if (!function_exists('getTaxes')) {
+    function getTaxes($customerStateId = null, $sellerStateId = null): array
+    {
+        $sellerStateId = $sellerStateId ?? app_state()?->id;
+        $isInterState = $sellerStateId != $customerStateId;
+
+        if ($isInterState) {
+            return Tax::where('type', TaxType::IGST)
+                ->where('rate', 18)
+                ->get(['id', 'name', 'type', 'rate'])
+                ->toArray();
+        } else {
+            return Tax::whereIn('type', [TaxType::CGST, TaxType::SGST])
+                ->where('rate', 9)
+                ->get(['id', 'name', 'type', 'rate'])
+                ->toArray();
+        }
+    }
+}
+
+if (!function_exists('calculateTaxAmount')) {
+    function calculateTaxAmount(float $baseAmount, $customerStateId = null, $sellerStateId = null): float
+    {
+        $taxes = getTaxes($customerStateId, $sellerStateId);
+        $totalTax = 0;
+
+        foreach ($taxes as $tax) {
+            $totalTax += $baseAmount * ($tax['rate'] / 100);
+        }
+
+        return round($totalTax, 2);
+    }
+}
+
+if (!function_exists('getTaxBreakdown')) {
+    function getTaxBreakdown(float $baseAmount, $customerStateId = null, $sellerStateId = null): array
+    {
+        $taxes = getTaxes($customerStateId, $sellerStateId);
+        $breakdown = [];
+
+        foreach ($taxes as $tax) {
+            $taxAmount = $baseAmount * ($tax['rate'] / 100);
+            $breakdown[] = [
+                'type' => $tax['type'],
+                'rate' => $tax['rate'],
+                'amount' => round($taxAmount, 2)
+            ];
+        }
+
+        return $breakdown;
+    }
+}
+
+if (!function_exists('lucide_icon')) {
+    function lucide_icon(string $name, bool $active = false, string $size = 'size-6'): string
+    {
+        $color = $active ? 'text-primary-600' : 'text-gray-400';
+
+        return sprintf(
+            '<i data-lucide="%s" class="%s shrink-0 %s group-hover:text-primary-600"></i>',
+            $name,
+            $size,
+            $color
+        );
+    }
+}
+
+if (!function_exists('generateOrderAccessToken')) {
+    /**
+     * Generate a unique access token for an order.
+     */
+    function generateOrderAccessToken($orderNumber)
+    {
+        $token = Str::random(10);
+
+        // Store order number in cache with token key for 30 minutes
+        Cache::put("order_link_token:{$token}", $orderNumber, now()->addMinutes(30));
+
+        return $token;
     }
 }

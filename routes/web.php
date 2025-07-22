@@ -33,7 +33,53 @@ Route::post('/fetch-states', function (Request $request) {
 
 Route::get('/', [FrontController::class, 'home'])->name('home');
 Route::get('/import', [FrontController::class, 'import'])->name('import');
+
+Route::view('/white-labelling', 'front.white-label')->name('whiteLabel');
+Route::view('/about-us', 'front.about')->name('about');
+Route::view('/contact-us', 'front.contact')->name('contact');
+Route::post('/contact-us', [ContactQueryController::class, 'store'])->name('contactQueries.store');
 Route::post('/subscribe', [SubscriberController::class, 'store'])->name('subscribers.store');
+
+/**
+ * Policies
+ */
+Route::get('/privacy-policy', function () {
+    $path = resource_path("policies/privacy.md");
+    $content = File::get($path);
+
+    $pageName = "Privacy Policy";
+
+    return view('policies.show', compact('content', 'pageName'));
+})->name('privacyPolicy');
+
+Route::get('/terms-and-conditions', function () {
+    $path = resource_path("policies/terms.md");
+    $content = File::get($path);
+
+    $pageName = "Terms And Conditions";
+
+    return view('policies.show', compact('content', 'pageName'));
+})->name('terms');
+
+Route::get('/cancellation-refund-and-return-policy', function () {
+    $path = resource_path("policies/refund.md");
+    $content = File::get($path);
+
+    $pageName = "Cancellation, Refund And Return Policy";
+
+    return view('policies.show', compact('content', 'pageName'));
+})->name('refundPolicy');
+
+Route::get('/shipping-policy', function () {
+    $path = resource_path("policies/shipping.md");
+    $content = File::get($path);
+
+    $pageName = "Shipping Policy";
+
+    return view('policies.show', compact('content', 'pageName'));
+})->name('shippingPolicy');
+
+
 
 /**
  * Product Routes
@@ -90,6 +136,12 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
      * Order Routes
      */
     Route::resource('/account/orders', OrderController::class)->except(['store', 'show'])->names('account.orders');
+
+    Route::get('/account/orders/{order:order_number}', [OrderController::class, 'show'])->name('account.orders.show');
+
+    /**
+     * Checkout Routes
+     */
     Route::get('/account/checkout', [OrderController::class, 'checkout'])->name('account.checkout');
     Route::post('/account/checkout/store', [OrderController::class, 'store'])->name('account.checkout.store');
 
@@ -98,7 +150,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/account/orders/{order:order_number}/pay', [OrderController::class, 'pay'])->name('account.orders.pay');
     Route::get('/account/orders/{order}/verify-payment', [OrderController::class, 'verifyPayment'])->name('account.orders.verifyPayment');
 
-    Route::get('/account/orders/{order:order_number}', [OrderController::class, 'show'])->name('account.orders.show');
+    Route::get('/account/orders/thank-you/{token}', [OrderController::class, 'thankYou'])->name('account.orders.thankYou');
 });
 
 /**

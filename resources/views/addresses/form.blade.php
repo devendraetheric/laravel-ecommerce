@@ -3,7 +3,7 @@
         $breadcrumbs = [
             'links' => [
                 ['url' => route('home'), 'text' => 'Home'],
-                ['url' => route('account.dashboard'), 'text' => 'Account'],
+                ['url' => route('account.dashboard'), 'text' => 'Your Account'],
                 ['url' => route('account.addresses.index'), 'text' => 'Your Addresses'],
                 ['url' => '#', 'text' => $address->id ? 'Edit ' . $address->name : 'Add new Address'],
             ],
@@ -48,23 +48,15 @@
 
                                 <div class="space-y-2.5">
                                     <label for="country_id" class="control-label">Country</label>
-                                    <div class="grid grid-cols-1">
-                                        <select id="country_id" name="country_id"
-                                            class="form-select @error('country_id') is-invalid @enderror"
-                                            x-model="country_id" x-init="countryChange()" @change="countryChange()">
-                                            <option value="">Select Country</option>
-                                            @foreach ($countries as $key => $country)
-                                                <option value="{{ $key }}" @selected(old('country_id', $address->country_id ?? 233) == $key)>
-                                                    {{ $country }}</option>
-                                            @endforeach
-                                        </select>
-                                        <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-                                            viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
-                                            <path fill-rule="evenodd"
-                                                d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </div>
+                                    <select id="country_id" name="country_id"
+                                        class="form-select @error('country_id') is-invalid @enderror"
+                                        x-model="country_id" x-init="countryChange()" @change="countryChange()">
+                                        <option value="">Select Country</option>
+                                        @foreach ($countries as $key => $country)
+                                            <option value="{{ $key }}" @selected(old('country_id', $address->country_id ?? 233) == $key)>
+                                                {{ $country }}</option>
+                                        @endforeach
+                                    </select>
                                     @error('country_id')
                                         <p class="text-sm text-red-600">{{ $message }}</p>
                                     @enderror
@@ -133,22 +125,13 @@
 
                                 <div class="space-y-2.5">
                                     <label for="state_id" class="control-label">State</label>
-                                    <div class="grid grid-cols-1">
-                                        <select x-model="state_id" id="state_id" name="state_id"
-                                            class="form-select @error('state_id') is-invalid @enderror">
-                                            <option value="">Select State</option>
-                                            <template x-for="(state,key) in states" :key="state">
-                                                <option :value="state" x-text="key"></option>
-                                            </template>
-                                        </select>
-                                        <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-                                            viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"
-                                            data-slot="icon">
-                                            <path fill-rule="evenodd"
-                                                d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </div>
+                                    <select x-model="state_id" id="state_id" name="state_id"
+                                        class="form-select @error('state_id') is-invalid @enderror">
+                                        <option value="">Select State</option>
+                                        <template x-for="(state,key) in states" :key="state">
+                                            <option :value="state" x-text="key"></option>
+                                        </template>
+                                    </select>
                                     @error('state_id')
                                         <p class="text-sm text-red-600">{{ $message }}</p>
                                     @enderror
@@ -168,21 +151,9 @@
 
                             <input type="hidden" name="is_default" value="0" />
                             <div class="flex gap-3 items-center">
-                                <div class="flex h-5 shrink-0 items-center">
-                                    <div class="group grid size-5 grid-cols-1">
-                                        <input id="is_default" name="is_default" type="checkbox"
-                                            class="col-start-1 row-start-1 form-checkbox" value="1"
-                                            @checked(old('is_default', $address->is_default)) />
-                                        <svg class="pointer-events-none col-start-1 row-start-1 size-5 self-center justify-self-center stroke-white group-has-disabled:stroke-gray-950/25"
-                                            viewBox="0 0 14 14" fill="none">
-                                            <path class="opacity-0 group-has-checked:opacity-100" d="M3 8L6 11L11 3.5"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                            <path class="opacity-0 group-has-indeterminate:opacity-100" d="M3 7H11"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                        </svg>
-                                    </div>
-                                </div>
-                                <label for="is_default" class="block text-base/6 text-gray-900">Default
+                                <input id="is_default" name="is_default" type="checkbox" class="form-checkbox"
+                                    value="1" @checked(old('is_default', $address->is_default)) />
+                                <label for="is_default" class="control-label">Default
                                     Address</label>
                             </div>
 

@@ -114,6 +114,7 @@ class Order extends Model
                 'name' => $tax->name,
                 'type' => $tax->type, // e.g. 'cgst', 'sgst', 'igst'
                 'rate' => $tax->rate,
+                'total_taxable_amount' => $group->sum('base_amount'),
                 'total_amount' => $group->sum('tax_amount'),
             ];
         });

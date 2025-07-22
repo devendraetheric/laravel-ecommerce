@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Enums\TaxType;
 use App\Models\Country;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Product;
 use App\Models\State;
+use App\Models\Tax;
 use App\Models\User;
 use App\Settings\CompanySetting;
 use App\Settings\GeneralSetting;
-use App\Settings\PrefixSetting;
-use App\Settings\SocialMediaSetting;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
@@ -48,7 +48,9 @@ class OrderController extends Controller
         $countries = Country::all('id', 'name')
             ->pluck('name', 'id');
 
-        return view('admin.orders.form', compact('order', 'users', 'products', 'countries'));
+        $taxes = Tax::all(['id', 'name', 'type', 'rate']);
+
+        return view('admin.orders.form', compact('order', 'users', 'products', 'countries', 'taxes'));
     }
 
     /**
@@ -78,6 +80,7 @@ class OrderController extends Controller
             'items.*.product_id' => ['required', 'exists:products,id'],
             'items.*.quantity'   => ['required', 'integer', 'min:1'],
             'items.*.price'      => ['required', 'numeric', 'min:0'],
+            'items.*.tax_rate'   => ['required', 'numeric', 'min:0', 'max:100'],
             'items.*.total'      => ['required', 'numeric', 'min:0'],
 
             'sub_total'       => ['required', 'numeric', 'min:0'],
@@ -91,6 +94,16 @@ class OrderController extends Controller
         $order->address()->create($validated['address']);
 
         $order->items()->createMany($validated['items']);
+
+        // Apply taxes to order items
+        $customerState = State::find($validated['address']['state_id']);
+        $order->items->each(function ($item) use ($customerState) {
+            applyTaxesToObject($item, $item->total, $customerState);
+        });
+
+        // Recalculate grand total with taxes
+        $order->grand_total = $order->sub_total + $order->delivery_charge + $order->total_tax_amount;
+        $order->save();
 
         return redirect()
             ->route('admin.orders.index')
@@ -114,7 +127,6 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-
         $users = User::all()->pluck('name', 'id');
 
         $products = Product::all(['id', 'name', 'regular_price']);
@@ -122,7 +134,10 @@ class OrderController extends Controller
         $countries = Country::all('id', 'name')
             ->pluck('name', 'id');
 
-        return view('admin.orders.form', compact('order', 'users', 'products', 'countries'));
+        $taxes = Tax::all(['id', 'name', 'type', 'rate']);
+        $existingTaxes = $order->tax_breakdown ?? [];
+
+        return view('admin.orders.form', compact('order', 'users', 'products', 'countries', 'taxes', 'existingTaxes'));
     }
 
     /**
@@ -150,6 +165,7 @@ class OrderController extends Controller
             'items.*.product_id' => ['required', 'exists:products,id'],
             'items.*.quantity'   => ['required', 'integer', 'min:1'],
             'items.*.price'      => ['required', 'numeric', 'min:0'],
+            'items.*.tax_rate'   => ['required', 'numeric', 'min:0', 'max:100'],
             'items.*.total'      => ['required', 'numeric', 'min:0'],
 
             'sub_total'          => ['required', 'numeric', 'min:0'],
@@ -165,6 +181,24 @@ class OrderController extends Controller
 
         $order->items()->delete();
         $order->items()->createMany($validated['items']);
+
+        // Apply taxes to order items
+        $customerState = State::find($validated['address']['state_id']);
+        $order->items->each(function ($item) use ($customerState) {
+            if ($item->tax_rate > 0) {
+                applyTaxesToObject($item, $item->quantity * $item->price, $customerState);
+            }
+        });
+
+        // Apply taxes to order items
+        $customerState = State::find($validated['address']['state_id']);
+        $order->items->each(function ($item) use ($customerState) {
+            applyTaxesToObject($item, $item->total, $customerState);
+        });
+
+        // Recalculate grand total with taxes
+        $order->grand_total = $order->sub_total + $order->delivery_charge + $order->total_tax_amount;
+        $order->save();
 
         return redirect()
             ->route('admin.orders.index')
@@ -183,6 +217,81 @@ class OrderController extends Controller
             ->with('success', __('Order deleted successfully.'));
     }
 
+
+    /**
+     * Get taxes for given state
+     */
+    public function getTaxes(Request $request)
+    {
+        $customerStateId = $request->input('state_id');
+        $items = $request->input('items', []);
+
+        $sellerStateId = app_state()?->id;
+        $isInterState = $sellerStateId != $customerStateId;
+
+        $taxBreakdown = [];
+        $totalTax = 0;
+
+        foreach ($items as $item) {
+            if (isset($item['tax_rate']) && $item['tax_rate'] > 0) {
+                $baseAmount = $item['quantity'] * $item['price'];
+                $taxRate = $item['tax_rate'];
+
+                if ($baseAmount <= 0 || $taxRate <= 0) {
+                    continue;
+                }
+
+                if ($isInterState) {
+                    $taxAmount = $baseAmount * ($taxRate / 100);
+                    $key = 'IGST_' . $taxRate;
+
+                    if (isset($taxBreakdown[$key])) {
+                        $taxBreakdown[$key]['amount'] += $taxAmount;
+                    } else {
+                        $taxBreakdown[$key] = [
+                            'type' => 'IGST',
+                            'rate' => $taxRate,
+                            'amount' => $taxAmount
+                        ];
+                    }
+                    $totalTax += $taxAmount;
+                } else {
+                    $halfRate = $taxRate / 2;
+                    $halfAmount = $baseAmount * ($halfRate / 100);
+
+                    $cgstKey = 'CGST_' . $halfRate;
+                    $sgstKey = 'SGST_' . $halfRate;
+
+                    if (isset($taxBreakdown[$cgstKey])) {
+                        $taxBreakdown[$cgstKey]['amount'] += $halfAmount;
+                    } else {
+                        $taxBreakdown[$cgstKey] = [
+                            'type' => 'CGST',
+                            'rate' => $halfRate,
+                            'amount' => $halfAmount
+                        ];
+                    }
+
+                    if (isset($taxBreakdown[$sgstKey])) {
+                        $taxBreakdown[$sgstKey]['amount'] += $halfAmount;
+                    } else {
+                        $taxBreakdown[$sgstKey] = [
+                            'type' => 'SGST',
+                            'rate' => $halfRate,
+                            'amount' => $halfAmount
+                        ];
+                    }
+
+                    $totalTax += ($halfAmount * 2);
+                }
+            }
+        }
+
+        return response()->json([
+            'taxes' => array_values($taxBreakdown),
+            'total_tax' => $totalTax
+        ]);
+    }
 
     /**
      * generate PDF

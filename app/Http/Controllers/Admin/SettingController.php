@@ -26,9 +26,16 @@ class SettingController extends Controller
         'time_format'        => ['required', 'string'],
         'timezone'           => ['required', 'string'],
         'admin_emails'       => ['required', 'string'],
-        'is_captcha'         => ['required'],
+        'is_captcha'         => ['required', 'bool'],
         'captcha_secret_key' => ['nullable', 'string'],
         'captcha_site_key'   => ['nullable', 'string'],
+
+        'analytics_code'     => ['nullable', 'string'],
+
+        'is_tax_inclusive'   => ['required', 'bool'],
+
+        'delivery_charge'    => ['required', 'integer', 'min:0'],
+        'free_delivery_zipcode' => ['nullable', 'string'],
 
         'logo'               => ['nullable', 'image', 'max:2000'],
         'favicon'            => ['nullable', 'image', 'mimes:png'],

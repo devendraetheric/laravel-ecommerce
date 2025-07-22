@@ -70,6 +70,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::post('products/import', [ProductController::class, 'importStore'])->name('products.import.store');
 
     Route::resource('orders', OrderController::class);
+    Route::post('orders/get-taxes', [OrderController::class, 'getTaxes'])->name('orders.getTaxes');
 
     Route::post('payments/store/{order}', [PaymentController::class, 'store'])->name('payments.store');
 
@@ -128,3 +129,4 @@ Route::group(['middleware' => 'auth:admin'], function () {
 });
 
 Route::get('orders/pdf/{order}', [OrderController::class, 'pdf'])->name('orders.pdf');
+Route::post('orders/get-taxes', [OrderController::class, 'getTaxes'])->name('orders.getTaxes');

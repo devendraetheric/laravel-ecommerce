@@ -4,10 +4,10 @@
             'links' => [
                 ['url' => route('home'), 'text' => 'Home'],
                 ['url' => route('account.dashboard'), 'text' => 'Your Account'],
-                ['url' => route('account.orders.index'), 'text' => 'Your Orders'],
-                ['url' => '#', 'text' => $order->order_number],
+                ['url' => route('account.orders.index'), 'text' => 'Orders'],
+                ['url' => '#', 'text' => 'Thank you'],
             ],
-            'title' => 'Order # : ' . $order->order_number,
+            'title' => 'Thank you',
         ];
     @endphp
 
@@ -15,9 +15,6 @@
 
     <section class="xl:pb-20 pb-8 md:pb-12">
         <div class="container lg:flex px-3 md:px-5 xl:px-0 gap-6">
-
-            <x-account.nav />
-
             <div class="w-full">
                 <div class="my-10 lg:grid lg:grid-cols-12 gap-6">
                     <div class="lg:col-span-8">
@@ -123,5 +120,4 @@
             </div>
         </div>
     </section>
-
 </x-layouts.front>

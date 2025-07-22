@@ -87,7 +87,6 @@
                     });
             },
 
-
             highlightNext() {
                 if (this.results.length === 0) return;
                 this.highlighted = (this.highlighted + 1) % this.results.length;
@@ -107,7 +106,11 @@
                 this.open = false;
 
                 itemRef.price = item.selling_price;
-                itemRef.total = item.selling_price * itemRef.quantity;
+                // float to 2 decimal places
+                itemRef.total = parseFloat(item.selling_price * itemRef.quantity).toFixed(2);
+
+                // Trigger tax breakdown calculation
+                this.$dispatch('product-selected');
             }
         }
     }

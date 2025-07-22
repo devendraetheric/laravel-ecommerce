@@ -51,12 +51,8 @@
 
                 <button type="submit" class="btn-primary w-full gap-x-2">
                     {{ __('Reset Password') }}
-                    <svg width="25" height="24" viewBox="0 0 25 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path d="M16 7.5L20.5 12M20.5 12L16 16.5M20.5 12H4.5" stroke="white" stroke-width="1.5"
-                            stroke-linecap="round" stroke-linejoin="round" />
-                    </svg></button>
-
+                    <i data-lucide="move-right" class="size-6"></i>
+                </button>
             </form>
 
 

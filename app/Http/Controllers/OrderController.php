@@ -8,13 +8,18 @@ use App\Enums\TaxType;
 use App\Models\Address;
 use App\Models\Order;
 use App\Models\Payment;
+use App\Models\State;
 use App\Models\Tax;
+use App\Models\User;
 use App\Notifications\OrderPlaced;
 use App\Services\PaypalService;
 use App\Services\PhonePeService;
 use App\Services\RazorpayService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
 class OrderController extends Controller
@@ -89,18 +94,57 @@ class OrderController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'address_id' => ['required'],
+        $addressValidation = [
+            'address.contact_name'      => ['required', 'string', 'max:255'],
+            'address.email'          => ['required', 'email', 'max:255'],
+            'address.phone'          => ['required', 'string', 'max:20'],
+            'address.country_id'        => ['required', 'exists:countries,id'],
+            'address.address_line_1' => ['required', 'string', 'max:255'],
+            'address.address_line_2' => ['nullable', 'string', 'max:255'],
+            'address.city'           => ['required', 'string', 'max:100'],
+            'address.state_id'          => ['required', 'exists:states,id'],
+            'address.zip_code'       => ['required', 'numeric', 'digits_between:4,10'],
+        ];
+
+        $validation = [
             'payment_method' => ['required'],
             'notes' => ['nullable', 'string']
-        ]);
+        ];
+
+        if (Auth::check()) {
+            $validation['address_id'] = ['required'];
+        } else {
+            $validation = array_merge($validation, $addressValidation);
+        }
+
+        $validated = $request->validate($validation);
 
         $cart = cart();
+
+        $user_id = Auth::check() ? auth()->id() : null;
+
+        $address = Auth::check() ? auth()->user()->addresses()->find($validated['address_id']) : null;
+        // User Create or find by email from address
+        if (!Auth::check()) {
+            $user = User::where('email', $validated['address']['email'])->first();
+            if (!$user) {
+                $user = User::create([
+                    'first_name' => $validated['address']['contact_name'],
+                    'email' => $validated['address']['email'],
+                    'phone' => $validated['address']['phone'],
+                    'password' => bcrypt(str()->random(10)),
+                ]);
+            }
+            $address = $user->addresses()->create($validated['address']);
+
+            $user_id = $user->id;
+        }
+
 
         $order = Order::create([
             'order_number' => Order::generateOrderNumber(),
             'order_date' => now()->format('Y-m-d'),
-            'user_id' => auth()->id(),
+            'user_id' => $user_id,
             'payment_method' => $validated['payment_method'],
             'sub_total' => $cart->total,
             'delivery_charge' => getDeliveryCharge(),
@@ -109,12 +153,16 @@ class OrderController extends Controller
         ]);
 
         $cartItems = $cart->items->map(function ($item) {
-            return $item->only(['product_id', 'quantity', 'price', 'total']);
+            return [
+                'product_id' => $item->product_id,
+                'quantity'   => $item->quantity,
+                'price'      => $item->price,
+                'total'      => $item->total,
+                'tax_rate'   =>  18,
+            ];
         });
 
         $order->items()->createMany($cartItems->toArray());
-
-        $address = auth()->user()->addresses()->find($validated['address_id']);
 
         $order->address()->create($address->replicate()->makeHidden(['id', 'addressable_id', 'addressable_type', 'is_default', 'created_at', 'updated_at'])->toArray());
 
@@ -136,7 +184,7 @@ class OrderController extends Controller
         $cart->delete();
 
         if ($order->payment_method == 'cod') {
-            return redirect()->route('account.orders.show', $order)
+            return redirect()->route('account.orders.thankYou', generateOrderAccessToken($order->order_number))
                 ->with('success', 'Order placed successfully. Please pay cash on delivery.');
         }
 
@@ -171,79 +219,87 @@ class OrderController extends Controller
                 'redirect_url' => route('account.orders.verifyPayment', $order),
             ]);
 
-
-
         return redirect($redirectURL);
     }
 
     public function verifyPayment(Request $request, Order $order, PhonePeService $phonePe, PaypalService $paypal, RazorpayService $razorpay)
     {
-        if ($order->payment_method == 'Paypal') {
-            $response = $paypal->captureOrder($request->token);
+        try {
+            if ($order->payment_method == 'Paypal') {
+                $response = $paypal->captureOrder($request->token);
 
-            if ($response && $response['status'] == 'COMPLETED') {
-                $order->payments()->create([
-                    'payment_number' => Payment::generatePaymentNumber(),
-                    'reference' =>  $response['id'],
-                    'amount' =>  $order->grand_total,
-                    'method' =>  'Paypal',
-                ]);
+                if ($response && $response['status'] == 'COMPLETED') {
+                    $order->payments()->create([
+                        'payment_number' => Payment::generatePaymentNumber(),
+                        'reference' =>  $response['id'],
+                        'amount' =>  $order->grand_total,
+                        'method' =>  'Paypal',
+                    ]);
 
-                $order->increment('paid_amount', $order->grand_total);
-                $order->payment_status = PaymentStatus::PAID;
+                    $order->increment('paid_amount', $order->grand_total);
+                    $order->payment_status = PaymentStatus::PAID;
 
-                $order->save();
-
-                return redirect()->route('account.orders.show', $order)
-                    ->with('success', 'Payment completed successfully.');
+                    $order->save();
+                }
             }
+
+            if ($order->payment_method == 'Phonepe') {
+                $response = $phonePe->checkStatus($order->order_number);
+
+                if ($response && $response['state'] == 'COMPLETED') {
+                    $order->payments()->create([
+                        'payment_number' => Payment::generatePaymentNumber(),
+                        'reference' =>  $response['orderId'],
+                        'amount' =>  $order->grand_total,
+                        'method' =>  'Phonepe',
+                    ]);
+
+                    $order->increment('paid_amount', $order->grand_total);
+                    $order->payment_status = PaymentStatus::PAID;
+
+                    $order->save();
+                }
+            }
+
+            if ($order->payment_method == 'Razorpay') {
+
+                $response = $razorpay->checkStatus($request->razorpay_payment_id);
+
+                if ($response && $response['status'] == 'captured') {
+                    $order->payments()->create([
+                        'payment_number' => Payment::generatePaymentNumber(),
+                        'reference' =>  $request->razorpay_payment_id,
+                        'amount' =>  $order->grand_total,
+                        'method' =>  'Razorpay',
+                    ]);
+
+                    $order->increment('paid_amount', $order->grand_total);
+                    $order->payment_status = PaymentStatus::PAID;
+
+                    $order->save();
+                }
+            }
+            if ($order->payment_status == PaymentStatus::PAID) {
+                return redirect()->route('account.orders.thankYou', generateOrderAccessToken($order->order_number))
+                    ->with('success', 'Payment successful. Thank you for your order!');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('account.orders.thankYou', generateOrderAccessToken($order->order_number))
+                ->with('error', 'Payment failed.');
+        }
+    }
+
+    public function thankYou($token): View
+    {
+        $orderNumber = Cache::get("order_link_token:{$token}");
+
+        if (!$orderNumber) {
+            abort(403, 'Invalid or expired link');
         }
 
-        if ($order->payment_method == 'Phonepe') {
-            $response = $phonePe->checkStatus($order->order_number);
+        $order = Order::where('order_number', $orderNumber)->firstOrFail();
 
-            if ($response && $response['state'] == 'COMPLETED') {
-                $order->payments()->create([
-                    'payment_number' => Payment::generatePaymentNumber(),
-                    'reference' =>  $response['orderId'],
-                    'amount' =>  $order->grand_total,
-                    'method' =>  'Phonepe',
-                ]);
-
-                $order->increment('paid_amount', $order->grand_total);
-                $order->payment_status = PaymentStatus::PAID;
-
-                $order->save();
-
-                return redirect()->route('account.orders.show', $order)
-                    ->with('success', 'Payment completed successfully.');
-            }
-        }
-
-        if ($order->payment_method == 'Razorpay') {
-
-            $response = $razorpay->checkStatus($request->razorpay_payment_id);
-
-            if ($response && $response['status'] == 'captured') {
-                $order->payments()->create([
-                    'payment_number' => Payment::generatePaymentNumber(),
-                    'reference' =>  $request->razorpay_payment_id,
-                    'amount' =>  $order->grand_total,
-                    'method' =>  'Razorpay',
-                ]);
-
-                $order->increment('paid_amount', $order->grand_total);
-                $order->payment_status = PaymentStatus::PAID;
-
-                $order->save();
-
-                return redirect()->route('account.orders.show', $order)
-                    ->with('success', 'Payment completed successfully.');
-            }
-        }
-
-        return redirect()->route('account.orders.show', $order)
-            ->with('error', 'Payment failed.');
+        return view('orders.thank_you', compact('order'));
     }
 
     public function index(): View

@@ -21,7 +21,8 @@
 
         <form method="post"
             action="{{ $order->id ? route('admin.orders.update', $order) : route('admin.orders.store') }}"
-            x-data="orderItems">
+            x-data="orderItems" @state-changed.window="selectedState = $event.detail; calculateTaxBreakdown()"
+            @product-selected.window="calculateTaxBreakdown()">
             @csrf
 
             @isset($order->id)
@@ -65,25 +66,15 @@
 
                         <div class="space-y-2">
                             <label for="status" class="control-label">Status</label>
-                            <div class="sm:grid sm:grid-cols-6 sm:items-start sm:gap-4">
-                                <div class="mt-2 sm:col-span-6 sm:mt-0 grid grid-cols-1">
-                                    <select name="status" id="status"
-                                        class="col-start-1 row-start-1 form-select @error('status') is-invalid @enderror">
-                                        <option value="">Select Status</option>
-                                        @foreach (\App\Enums\OrderStatus::cases() as $status)
-                                            <option value="{{ $status->value }}" @selected(old('status', $order->status->value ?? 'new') == $status->value)>
-                                                {{ $status->label() }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-                                        viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
-                                        <path fill-rule="evenodd"
-                                            d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                </div>
-                            </div>
+                            <select name="status" id="status"
+                                class="form-select @error('status') is-invalid @enderror">
+                                <option value="">Select Status</option>
+                                @foreach (\App\Enums\OrderStatus::cases() as $status)
+                                    <option value="{{ $status->value }}" @selected(old('status', $order->status->value ?? 'new') == $status->value)>
+                                        {{ $status->label() }}
+                                    </option>
+                                @endforeach
+                            </select>
                             @error('status')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -108,11 +99,15 @@
                                         <th scope="col">Quantity</th>
                                         <th scope="col">Unit Price</th>
                                         <th scope="col">Total Amount</th>
+                                        <th scope="col">Tax</th>
                                         <th scope="col">
                                             <span class="sr-only">Action</span>
                                         </th>
                                     </tr>
                                 </thead>
+                                @php
+                                    $taxPercentages = [5.0, 12.0, 18.0, 28.0];
+                                @endphp
                                 <tbody>
                                     <template x-for="(item, index) in items" :key="index">
                                         <tr>
@@ -133,7 +128,6 @@
                                                     class="form-control @error('price') is-invalid @enderror"
                                                     :name="'items[' + index + '][price]'" x-model="item.price"
                                                     @input="updateTotal(index)" step="any" />
-
                                             </td>
                                             <td>
                                                 <input type="number" name="total" id="total"
@@ -142,8 +136,20 @@
                                                     readonly />
                                             </td>
                                             <td>
+                                                <select :name="'items[' + index + '][tax_rate]'" x-model="item.tax_rate"
+                                                    class="form-select"
+                                                    @change="updateTotal(index); calculateTaxBreakdown();">
+                                                    <option value="0">No Tax</option>
+                                                    <option value="5">5%</option>
+                                                    <option value="12">12%</option>
+                                                    <option value="18" selected>18%</option>
+                                                    <option value="28">28%</option>
+                                                </select>
+                                            </td>
+                                            <td>
                                                 <a href="javascript:;" class="link-danger" @click="removeItem(index)"
                                                     x-show="items.length > 1">
+
                                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
                                                         fill="currentColor" class="size-4">
                                                         <path fill-rule="evenodd"
@@ -170,7 +176,7 @@
                     <h3 class="text-base font-semibold text-gray-800">Order Summary</h3>
                 </div>
                 <div class="p-6">
-                    <div class="grid md:grid-cols-3 gap-4">
+                    <div class="grid md:grid-cols-4 gap-4">
                         <div class="space-y-2">
                             <label for="sub_total" class="control-label">Sub Total</label>
                             <input type="text" name="sub_total" id="sub_total"
@@ -192,6 +198,12 @@
                         </div>
 
                         <div class="space-y-2">
+                            <label for="tax_amount" class="control-label">Tax Amount</label>
+                            <input type="text" name="tax_amount" id="tax_amount" class="form-control"
+                                :value="taxAmount.toFixed(2)" readonly />
+                        </div>
+
+                        <div class="space-y-2">
                             <label for="grand_total" class="control-label">Grand Total</label>
                             <input type="text" name="grand_total" id="grand_total"
                                 class="form-control @error('grand_total') is-invalid @enderror"
@@ -201,7 +213,7 @@
                             @enderror
                         </div>
 
-                        <div class="space-y-2 md:col-span-3">
+                        <div class="space-y-2 md:col-span-4">
                             <label for="notes" class="control-label">Notes</label>
                             <textarea class="form-control @error('notes') is-invalid @enderror" id="notes" name="notes" rows="2">{{ old('notes', $order->notes) }}</textarea>
                             @error('notes')
@@ -209,6 +221,51 @@
                             @enderror
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- Tax Breakdown Section -->
+            <div class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm" x-show="taxBreakdown.length > 0">
+                <div class="p-6 border-b border-gray-200">
+                    <h3 class="text-base font-semibold text-gray-800">Tax Breakdown</h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Tax Type</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Taxable Amount</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Tax Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <template x-for="(tax, index) in taxBreakdown" :key="index">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+                                        x-text="tax.type + ' ' + tax.rate + '%'"></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                                        x-text="'{{ get_currency_symbol() }} ' + (tax.amount / (tax.rate / 100)).toFixed(2)">
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                                        x-text="'{{ get_currency_symbol() }} ' + tax.amount.toFixed(2)"></td>
+                                </tr>
+                            </template>
+                        </tbody>
+                        <tfoot class="bg-gray-50">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900"
+                                    colspan="2">Total Tax</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900"
+                                    x-text="'₹' + taxAmount.toFixed(2)"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
             </div>
 
@@ -233,8 +290,9 @@
             @php
                 $formItems = $order->items->map(function ($item) {
                     $item->name = $item->product->name;
+                    $item->tax_rate = (float) $item->tax_rate ?? 18; // Default tax rate
 
-                    return $item->only(['product_id', 'name', 'quantity', 'price', 'total']);
+                    return $item->only(['product_id', 'name', 'quantity', 'price', 'tax_rate', 'total']);
                 });
             @endphp
 
@@ -248,6 +306,7 @@
                         product_id: '',
                         quantity: 1,
                         price: 0,
+                        tax_rate: 18,
                         total: 0,
                     })
                 }
@@ -255,6 +314,12 @@
                 return {
                     items: formItems, // Array to hold order items
                     deliveryCharge: '{{ old('delivery_charge', $order->delivery_charge ?? 0) }}',
+                    selectedState: {{ old('address.state_id', $order->address?->state_id ?? 'null') }},
+                    init() {
+                        if (this.selectedState) {
+                            this.calculateTaxBreakdown();
+                        }
+                    },
 
 
                     // Method to add a new item
@@ -263,26 +328,66 @@
                             product_id: '',
                             quantity: 1,
                             price: 0,
+                            tax_rate: 18,
                             total: 0,
                         });
+
+                        this.calculateTaxBreakdown();
                     },
 
                     // Method to remove an item
                     removeItem(index) {
                         this.items.splice(index, 1);
+
+                        this.calculateTaxBreakdown();
+                    },
+
+                    // Method to update selected state
+                    updateSelectedState(stateId) {
+                        this.selectedState = stateId;
+                        this.calculateTaxBreakdown();
                     },
 
                     updateTotal(index) {
                         const item = this.items[index];
-                        item.total = parseFloat(item.quantity * item.price).toFixed(2);
+                        const baseAmount = item.quantity * item.price;
+                        item.total = parseFloat(baseAmount).toFixed(2);
+
+                        this.calculateTaxBreakdown();
                     },
 
                     get subTotal() {
-                        return this.items.reduce((sum, item) => sum + parseFloat(item.total), 0);
+                        return this.items.reduce((sum, item) => sum + parseFloat(item.total || 0), 0);
+                    },
+
+                    get taxAmount() {
+                        return this.taxBreakdown.reduce((sum, tax) => sum + tax.amount, 0);
+                    },
+
+                    taxBreakdown: [],
+
+                    async calculateTaxBreakdown() {
+                        if (!this.selectedState || this.subTotal <= 0) {
+                            this.taxBreakdown = [];
+                            return;
+                        }
+
+                        try {
+                            const response = await axios.post('{{ route('admin.orders.getTaxes') }}', {
+                                state_id: this.selectedState,
+                                items: this.items,
+                                _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            });
+
+                            this.taxBreakdown = response.data.taxes || [];
+                        } catch (error) {
+                            console.error('Error calculating taxes:', error);
+                            this.taxBreakdown = [];
+                        }
                     },
 
                     get grandTotal() {
-                        return this.subTotal + parseFloat(this.deliveryCharge || 0);
+                        return this.subTotal + parseFloat(this.deliveryCharge || 0) + this.taxAmount;
                     },
                 };
             }

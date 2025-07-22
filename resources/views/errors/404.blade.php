@@ -2,8 +2,8 @@
     <!-- 404 Start -->
     <div class="container py-[150px]">
         <div class="text-center">
-            <h2 class="text-9xl leading-tight font-bold text-gray-black">404</h2>
-            <p class="text-3xl leading-tight font-bold text-gray-black pb-5 capitalize">
+            <h2 class="text-9xl leading-tight font-bold text-primary-500">404</h2>
+            <p class="text-3xl leading-tight font-bold text-primary-500 pb-5 capitalize">
                 Oops! Page not
                 found</p>
             <p class="text-lg leading-tight font-normal text-gray-500 ">The page

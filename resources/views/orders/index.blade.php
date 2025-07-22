@@ -4,7 +4,7 @@
         $breadcrumbs = [
             'links' => [
                 ['url' => route('home'), 'text' => 'Home'],
-                ['url' => route('account.dashboard'), 'text' => 'Account'],
+                ['url' => route('account.dashboard'), 'text' => 'Your Account'],
                 ['url' => '#', 'text' => 'Your Orders'],
             ],
             'title' => 'Your Orders',

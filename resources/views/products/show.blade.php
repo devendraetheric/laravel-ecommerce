@@ -58,14 +58,19 @@
 
                 {{-- Right Side --}}
                 <div class="mt-6 md:mt-0">
-                    <h2 class="text-gray-800 text-2xl font-semibold mb-3">{{ $product->name }}</h2>
+                    <h1 class="text-2xl lg:text-4xl font-semibold text-gray-800 mb-3">{{ $product->name }}</h1>
+                    {{-- <h2 class="text-gray-800 text-2xl font-semibold mb-3">{{ $product->name }}</h2> --}}
                     <div class="flex items-center gap-2.5 mb-6">
                         <p class="flex gap-4 items-center">
                             <span class="text-gray-800 text-3xl">@money($product->selling_price)</span>
-                            {{-- <span
-                                class="text-red-600 opacity-70 text-3xl line-through">${{ $product->regular_price }}</span> --}}
+                            @if ($product->regular_price > $product->selling_price)
+                                <span class="text-2xl text-accent-500 line-through">@money($product->regular_price)</span>
+                                <span class="text-xl bg-red-100 text-red-600 px-2 py-1 rounded-full font-medium">
+                                    {{ round((($product->regular_price - $product->selling_price) / $product->regular_price) * 100) }}%
+                                    OFF
+                                </span>
+                            @endif
                         </p>
-                        {{-- <span class="bg-[#F5813F] px-2.5 py-1.5 rounded-[4px] text-white text-sm">50% Off</span> --}}
                     </div>
 
                     <div class="mb-6 prose max-w-none">
@@ -94,23 +99,14 @@
                             <button
                                 class="inline-flex items-center gap-2 bg-primary-600 border rounded-md leading-tight text-white font-bold px-4 py-3.5 hover:bg-primary-500 outline-none cursor-pointer">
                                 <span class="text-white text-base">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="size-5">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-                                    </svg>
+                                    <i data-lucide="shopping-cart" class="size-5"></i>
                                 </span>
                                 <span class="text-white text-base">Add To Cart</span>
                             </button>
 
                             <a href="{{ route('account.addToWishlist', $product->id) }}"
                                 class="inline-flex items-center rounded-md bg-white px-4 py-3.5 text-sm font-bold text-primary-600 border border-primary-300 hover:bg-primary-50 gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="size-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                                </svg>
-
+                                <i data-lucide="heart" class="size-5"></i>
                                 <span>Add to Wishlist</span>
                             </a>
                         </div>
@@ -128,11 +124,15 @@
                     @endif
                     @if ($product->category_id)
                         <p class="text-base/6 text-gray-700"><span class="text-gray-800 font-semibold">Category</span> :
-                            {{ $product?->category?->name }}</p>
+                            <a class="text-primary-600 hover:underline"
+                                href="{{ route('products.byCategory', $product?->category) }}">{{ $product?->category?->name }}</a>
+                        </p>
                     @endif
                     @if ($product->brand_id)
                         <p class="text-base/6 text-gray-700"><span class="text-gray-800 font-semibold">Brand</span> :
-                            {{ $product?->brand?->name }}</p>
+                            <a class="text-primary-600 hover:underline"
+                                href="{{ route('products.byBrand', $product?->brand) }}">{{ $product?->brand?->name }}</a>
+                        </p>
                     @endif
                 </div>
             </div>
@@ -152,19 +152,13 @@
         <div class="container px-3 md:px-5 xl:px-0">
             <div class="flex justify-between items-center mb-10">
                 <h2 class="text-gray-800 xl:text-4xl xl:leading-tight text-xl md:text-2xl font-bold">
-                    Related Products</h2>
+                    Related <span class="text-gradient">Products</span></h2>
                 <div class="flex gap-6">
                     <button class="recentSwiper-button-prev slider-nav">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-                        </svg>
+                        <i data-lucide="chevron-left" class="size-6"></i>
                     </button>
                     <button class="recentSwiper-button-next slider-nav">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                        </svg>
+                        <i data-lucide="chevron-right" class="size-6"></i>
                     </button>
                 </div>
             </div>
@@ -180,48 +174,8 @@
         </div>
     </section>
     <!-- recent products section end -->
-    @push('styles')
-        <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet" />
-    @endpush
 
     @push('scripts')
-        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-        <script>
-            const thumbSwiper = new Swiper('.gallery-thumb', {
-                slidesPerView: 5,
-            });
-
-            const mainSwiper = new Swiper('.gallery-main', {
-                thumbs: {
-                    swiper: thumbSwiper,
-                },
-                loop: true,
-                mousewheel: true,
-            });
-
-            new Swiper(".recentSwiper", {
-                slidesPerView: 1,
-                // spaceBetween: 24,
-                loop: true,
-                navigation: {
-                    nextEl: ".recentSwiper-button-next",
-                    prevEl: ".recentSwiper-button-prev",
-                },
-                breakpoints: {
-                    480: {
-                        slidesPerView: 2,
-                        spaceBetween: 12,
-                    },
-                    768: {
-                        slidesPerView: 3,
-                        spaceBetween: 18,
-                    },
-                    1024: {
-                        slidesPerView: 4,
-                        spaceBetween: 24,
-                    },
-                },
-            });
-        </script>
+        @vite('resources/js/single-product.js')
     @endpush
 </x-layouts.front>

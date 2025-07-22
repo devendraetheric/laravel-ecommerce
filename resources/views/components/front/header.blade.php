@@ -1,139 +1,119 @@
 @php
 
+    $categories = App\Models\Category::take(6)->get(['id', 'slug', 'name']);
+
+    $categoryLink = [];
+
+    foreach ($categories as $key => $category) {
+        array_push($categoryLink, ['link' => route('products.byCategory', $category), 'title' => $category->name]);
+    }
+
     $links = [
-        ['link' => route('home'), 'title' => 'Home'],
-        ['link' => route('products.index'), 'title' => 'Products'],
-        ['link' => '#', 'title' => 'About Us'],
-        ['link' => '#', 'title' => 'Contact Us'],
+        // ['link' => route('home'), 'title' => 'Home'],
+        // ['link' => route('about'), 'title' => 'About Us'],
+        ...$categoryLink,
+        // ['link' => route('whiteLabel'), 'title' => 'White Labelling'],
+        // ['link' => route('contact'), 'title' => 'Contact Us'],
     ];
 @endphp
 
 <!-- header area start -->
 <header class="sticky top-0 z-40">
-    <div class="bg-white border-b border-gray-300 lg:border-gray-100">
+    <div class="bg-white/95 backdrop-blur-sm border-b border-accent-200/50 shadow-md">
         <div class="container px-3 md:px-5 xl:px-0">
-            <div class="flex justify-between items-center gap-2 py-4">
-                <div>
-                    <a href="{{ route('home') }}">
-                        <img class="h-12" src="{{ getLogoURL() }}" alt="{{ setting('general.app_name') }}"
+            <div class="flex justify-between items-center gap-4 py-4">
+                <div class="flex-shrink-0">
+                    <a href="{{ route('home') }}" class="block">
+                        <img class="h-14" src="{{ getLogoURL() }}" alt="{{ setting('general.app_name') }}"
                             loading="lazy" />
                     </a>
                 </div>
-                <div class="lg:max-w-64 lg:block hidden w-full" @click="openSearch = true">
-                    <div class="grid grid-cols-1">
+                <div class="lg:max-w-80 lg:block hidden w-full" @click="openSearch = true">
+                    <div class="relative group">
                         <input type="text" x-ref="searchInput"
-                            class="col-start-1 row-start-1 h-12 w-full pr-4 pl-11 rounded-xl text-base bg-gray-50 border border-gray-300 text-gray-900 outline-hidden placeholder:text-gray-400 sm:text-sm"
-                            placeholder="Search here..." role="combobox" aria-expanded="false" aria-controls="options"
-                            readonly>
-                        <svg class="pointer-events-none col-start-1 row-start-1 ml-4 size-5 self-center text-gray-400"
-                            viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                            <path fill-rule="evenodd"
-                                d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z"
-                                clip-rule="evenodd" />
-                        </svg>
+                            class="w-full h-11 pr-4 pl-12 rounded-xl border border-accent-200 bg-accent-50/30 focus:border-primary-400 focus:ring-2 focus:ring-primary-200 focus:bg-white transition-all duration-300 placeholder:text-accent-400"
+                            placeholder="Search products..." role="combobox" aria-expanded="false"
+                            aria-controls="options" readonly>
+                        <i data-lucide="search"
+                            class="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-accent-400 group-hover:text-primary-400 transition-colors duration-300"></i>
                     </div>
                 </div>
                 <div class="lg:block hidden">
-                    <div class="flex items-center gap-x-4 lg:gap-x-6">
-                        <a href="{{ route('account.cart') }}" class="relative text-gray-700">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-                            </svg>
-                            <span
-                                class="absolute -top-2 -right-3 bg-red-400 text-white text-xs rounded-full px-1.5 py-0.5">
-                                {{ cartCount() }}
-                            </span>
+                    <div class="flex items-center gap-x-3">
+                        <a href="{{ route('account.cart') }}"
+                            class="relative p-2 rounded-xl text-accent-700 hover:bg-accent-100 hover:text-primary-500 transition-all duration-300 group">
+                            <i data-lucide="shopping-cart" class="size-6"></i>
+                            @if (cartCount() > 0)
+                                <span
+                                    class="absolute -top-1 -right-1 bg-primary-500 text-white text-xs rounded-full px-2 py-0.5 font-medium min-w-[20px] text-center group-hover:scale-110 transition-transform duration-300">
+                                    {{ cartCount() }}
+                                </span>
+                            @endif
                         </a>
 
-                        <a href="{{ route('account.wishlist') }}" class="text-gray-700" aria-label="Wishlist">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                            </svg>
+                        <a href="{{ route('account.wishlist') }}"
+                            class="p-2 rounded-xl text-accent-700 hover:bg-accent-100 hover:text-primary-500 transition-all duration-300"
+                            aria-label="Wishlist">
+                            <i data-lucide="heart" class="size-6"></i>
                         </a>
+
                         @auth
-                            <a href="{{ route('account.dashboard') }}" class="text-gray-700" aria-label="Your Account">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="size-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                                </svg>
+                            <a href="{{ route('account.dashboard') }}"
+                                class="p-2 rounded-xl text-accent-700 hover:bg-accent-100 hover:text-primary-500 transition-all duration-300"
+                                aria-label="Your Account">
+                                <i data-lucide="user-circle" class="size-6"></i>
                             </a>
                         @else
                             <a href="{{ route('login') }}"
-                                class="text-primary-600 flex items-center gap-2 border border-primary-600 rounded-lg px-3 py-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="size-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                                </svg>
-                                <span class="text-sm">Login</span>
+                                class="btn-secondary text-sm gap-2 px-5 py-2.5 rounded-xl shadow-sm hover:shadow">
+                                <i data-lucide="user-circle" class="size-5"></i>
+                                <span>Login</span>
                             </a>
                         @endauth
                     </div>
                 </div>
                 <div class="lg:hidden inline-flex space-x-4">
-                    <button type="button" class="cursor-pointer text-gray-800 hover:text-primary-600"
+                    <button type="button" class="cursor-pointer text-gray-800 hover:text-primary-500"
                         @click="openSearch=true" aria-label="Open search box">
-
-                        <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                            <path fill-rule="evenodd"
-                                d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z"
-                                clip-rule="evenodd" />
-                        </svg>
+                        <i data-lucide="search" class="size-6"></i>
                     </button>
 
-
-                    <a href="{{ route('account.cart') }}" class="relative text-gray-700">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-                        </svg>
+                    <a href="{{ route('account.cart') }}" class="relative text-gray-700" aria-label="Shopping Cart">
+                        <i data-lucide="shopping-cart" class="size-6"></i>
                         <span class="absolute -top-2 -right-3 bg-red-400 text-white text-xs rounded-full px-1.5 py-0.5">
                             {{ cartCount() }}
                         </span>
                     </a>
 
                     <a href="{{ route('account.wishlist') }}" class="text-gray-700" aria-label="Wishlist">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                        </svg>
+                        <i data-lucide="heart" class="size-6"></i>
                     </a>
 
-                    <button type="button" class="cursor-pointer text-gray-800 hover:text-primary-600"
+                    <button type="button" class="cursor-pointer text-gray-800 hover:text-primary-500"
                         @click="showMenu=true" aria-label="Show Menu">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" class="size-5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                        </svg>
+                        <i data-lucide="menu" class="size-6"></i>
                     </button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="bottom-header bg-white shadow-xs relative z-30 hidden lg:block">
+    <div
+        class="bottom-header bg-gradient-to-r from-accent-50 to-white border-b border-accent-100 shadow-md relative z-30 hidden lg:block">
         <div class="container px-3 md:px-5 xl:px-0">
-            <div class="py-3.5 flex justify-between items-center">
-                <ul class="lg:flex gap-8 items-center hidden">
+            <div class="py-4 items-center">
+                <nav class="inline-block space-6 items-center w-full">
                     @foreach ($links as $link)
-                        <li>
-                            <a class="relative font-medium text-gray-800 leading-tight hover:text-primary-600"
-                                href="{{ $link['link'] }}">{{ $link['title'] }}</a>
-                        </li>
+                        <a class="font-medium {{ request()->url() == $link['link'] ? 'text-primary-500 bg-primary-100' : 'text-accent-700' }} leading-tight hover:text-primary-500 transition-all duration-300 px-4 py-2 rounded-lg hover:bg-primary-100 text-nowrap"
+                            href="{{ $link['link'] }}">
+                            {{ $link['title'] }}
+                        </a>
                     @endforeach
-                </ul>
+                </nav>
             </div>
         </div>
     </div>
-    <div class="relative z-500" aria-labelledby="slide-over-title" role="dialog" aria-modal="true"
-        x-show="showMenu" x-cloak>
+    <div class="relative z-500" aria-labelledby="slide-over-title" role="dialog" aria-modal="true" x-show="showMenu"
+        x-cloak>
         <!-- Background backdrop, show/hide based on slide-over state. -->
         <div class="fixed inset-0 bg-gray-900/80" aria-hidden="true"></div>
 
@@ -143,32 +123,27 @@
                     x-transition:enter="transform transition ease-in-out duration-500 sm:duration-700"
                     x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
                     x-transition:leave="transform transition ease-in-out duration-500 sm:duration-700"
-                    x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full"
-                    x-show="showMenu" x-cloak>
+                    x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full" x-show="showMenu"
+                    x-cloak>
 
                     <div class="pointer-events-auto w-screen max-w-md">
                         <div class="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
                             <div class="flex justify-between items-center px-3 py-4 mb-4">
                                 <a href="{{ route('home') }}">
-                                    <img src="{{ getLogoURL() }}" alt="{{ asset('otc-logo.png') }}"
-                                        loading="lazy" />
+                                    <img src="{{ getLogoURL() }}" alt="{{ asset('otc-logo.png') }}" loading="lazy" />
                                 </a>
 
                                 <button
                                     class="bg-white text-gray-black flex hover:text-orange-600 focus:text-orange-600 rounded-lg p-2 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:outline-hidden"
                                     @click="showMenu = false">
-                                    <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                        stroke="currentColor" aria-hidden="true" data-slot="icon">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M6 18 18 6M6 6l12 12" />
-                                    </svg>
+                                    <i data-lucide="x" class="size-6"></i>
                                 </button>
                             </div>
 
                             <ul class="flex flex-col items-center px-3">
                                 @foreach ($links as $link)
                                     <li class="w-full block">
-                                        <a class="block px-3 py-2 rounded-md text-gray-800 hover:text-primary-600 hover:bg-gray-50"
+                                        <a class="block px-3 py-2 rounded-md {{ request()->url() == $link['link'] ? 'bg-primary-50 text-primary-500 font-medium' : 'text-gray-800' }} hover:text-primary-500 hover:bg-gray-50"
                                             href="{{ $link['link'] }}">{{ $link['title'] }}</a>
                                     </li>
                                 @endforeach

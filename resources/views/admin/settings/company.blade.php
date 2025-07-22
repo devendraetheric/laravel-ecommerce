@@ -94,56 +94,41 @@
                             @enderror
                         </div>
 
-                        <div>
+                        <div class="space-y-2">
                             <div class="flex justify-between">
                                 <label for="country" class="control-label">Country</label>
                                 <span class="text-sm/6 text-gray-500"
                                     id="country-optional">setting('company.country')</span>
                             </div>
-                            <div class="mt-2 grid grid-cols-1">
-                                <select id="country" name="country" class="col-start-1 row-start-1 form-select"
-                                    x-model="country" x-init="countryChange()" @change="countryChange()">
-                                    <option value="">Select Country</option>
-                                    @foreach ($countries as $key => $country)
-                                        <option value="{{ $key }}" @selected(old('country', $address->country_id ?? 233) == $key)>
-                                            {{ $country }}</option>
-                                    @endforeach
-                                </select>
-                                <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-                                    viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
-                                    <path fill-rule="evenodd"
-                                        d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </div>
+                            <select id="country" name="country"
+                                class="form-select @error('country') is-invalid @enderror" x-model="country"
+                                x-init="countryChange()" @change="countryChange()">
+                                <option value="">Select Country</option>
+                                @foreach ($countries as $key => $country)
+                                    <option value="{{ $key }}" @selected(old('country', $address->country_id ?? 233) == $key)>
+                                        {{ $country }}</option>
+                                @endforeach
+                            </select>
                             @error('country')
-                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
 
-                        <div>
+                        <div class="space-y-2">
                             <div class="flex justify-between">
                                 <label for="state" class="control-label">State</label>
                                 <span class="text-sm/6 text-gray-500"
                                     id="state-optional">setting('company.state')</span>
                             </div>
-                            <div class="mt-2 grid grid-cols-1">
-                                <select x-model="state" id="state" name="state"
-                                    class="col-start-1 row-start-1 form-select">
-                                    <option value="">Select State</option>
-                                    <template x-for="(state,key) in states" :key="state">
-                                        <option :value="state" x-text="key"></option>
-                                    </template>
-                                </select>
-                                <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-                                    viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
-                                    <path fill-rule="evenodd"
-                                        d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </div>
+                            <select x-model="state" id="state" name="state"
+                                class="form-select @error('state') is-invalid @enderror">
+                                <option value="">Select State</option>
+                                <template x-for="(state,key) in states" :key="state">
+                                    <option :value="state" x-text="key"></option>
+                                </template>
+                            </select>
                             @error('state')
-                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
 

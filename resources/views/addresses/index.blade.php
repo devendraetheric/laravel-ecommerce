@@ -3,7 +3,7 @@
         $breadcrumbs = [
             'links' => [
                 ['url' => route('home'), 'text' => 'Home'],
-                ['url' => route('account.dashboard'), 'text' => 'Account'],
+                ['url' => route('account.dashboard'), 'text' => 'Your Account'],
                 ['url' => '#', 'text' => 'Your Addresses'],
             ],
             'title' => 'Your Addresses',
@@ -24,11 +24,7 @@
                         <a href="{{ route('account.addresses.create') }}"
                             class="relative w-full h-full inline-grid items-center rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:outline-hidden">
                             <div class="text-center">
-                                <svg viewBox="0 0 24 24" fill="currentColor" class="mx-auto size-12 text-gray-400">
-                                    <path fill-rule="evenodd"
-                                        d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z"
-                                        clip-rule="evenodd" />
-                                </svg>
+                                <i data-lucide="plus" class="mx-auto size-12 text-gray-400"></i>
                                 <span class="mt-4 block text-2xl/tight font-bold text-gray-800">Add Address</span>
                             </div>
                         </a>

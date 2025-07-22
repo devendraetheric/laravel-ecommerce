@@ -32,6 +32,14 @@ class GeneralSetting extends Settings
 
     public ?string $favicon;
 
+    public ?string $analytics_code;
+
+    public bool $is_tax_inclusive = false;
+
+    public int $delivery_charge;
+
+    public ?string $free_delivery_zipcode;
+
     public static function group(): string
     {
         return 'general';

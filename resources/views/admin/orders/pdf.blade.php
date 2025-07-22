@@ -11,7 +11,8 @@
     <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet" />
 
     <link rel="stylesheet" href="{{ public_path('css/print.css') }}">
 
@@ -79,18 +80,16 @@
 
         <tfoot>
             <tr>
-                <td colspan="2" rowspan="{{ count($order->tax_breakdown) + 3 }}" class="text-left">
+                <td colspan="2" rowspan="4" class="text-left" style="vertical-align: top">
                     {{ $order->notes }}
                 </td>
                 <th colspan="2" class="text-right">Sub Total</th>
                 <td class="text-right">@money($order->sub_total)</td>
             </tr>
-            @foreach ($order->tax_breakdown as $tax)
-                <tr>
-                    <th colspan="2" class="text-right">{{ $tax['name'] }}</th>
-                    <td class="text-right">@money($tax['total_amount'])</td>
-                </tr>
-            @endforeach
+            <tr>
+                <th colspan="2" class="text-right">Total Tax</th>
+                <td class="text-right">@money($order->total_tax_amount)</td>
+            </tr>
             <tr>
                 <th colspan="2" class="text-right">Delivery Charge</th>
                 <td class="text-right"><b>@money($order->delivery_charge)</b></td>
@@ -103,6 +102,26 @@
         </tfoot>
     </table>
 
+    <table class="table-bordered" style="margin-top: 20px;">
+        <thead>
+            <tr>
+                <th>Tax Type</th>
+                <th class="text-right">Tax Rate</th>
+                <th class="text-right">Taxable Amount</th>
+                <th class="text-right">Tax Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($order->getTaxBreakdown() as $tax)
+                <tr>
+                    <td>{{ $tax['type'] }}</td>
+                    <td class="text-right">{{ $tax['rate'] }} %</td>
+                    <td class="text-right">@money($tax['total_taxable_amount'])</td>
+                    <td class="text-right">@money($tax['total_amount'])</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 </body>
 
 </html>
