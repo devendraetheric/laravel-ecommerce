@@ -11,15 +11,18 @@ use App\Models\Payment;
 use App\Models\State;
 use App\Models\Tax;
 use App\Models\User;
+use App\Notifications\OrderCreatedNotification;
 use App\Notifications\OrderPlaced;
 use App\Services\PaypalService;
 use App\Services\PhonePeService;
 use App\Services\RazorpayService;
+use App\Settings\GeneralSetting;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\View\View;
 
 class OrderController extends Controller
@@ -182,6 +185,24 @@ class OrderController extends Controller
          */
         $cart->items()->delete();
         $cart->delete();
+
+        /**
+         * Notify Admins and User
+         */
+        $admin_emails = collect(explode(',', app(GeneralSetting::class)->admin_emails))
+            ->map(fn($admin_emails) => trim($admin_emails))
+            ->filter(fn($admin_emails) => filter_var($admin_emails, FILTER_VALIDATE_EMAIL));
+
+
+        foreach ($admin_emails as $admin_email) {
+            Notification::route('mail', $admin_email)
+                ->notify(new OrderCreatedNotification($order));
+        }
+
+        /**
+         * Notify User
+         */
+        $order->user->notify(new OrderPlaced($order));
 
         if ($order->payment_method == 'cod') {
             return redirect()->route('account.orders.thankYou', generateOrderAccessToken($order->order_number))

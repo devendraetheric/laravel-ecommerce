@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin\Blog;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Blog\Post\StoreRequest as BlogPostStoreRequest;
+use App\Http\Requests\Admin\Blog\Post\UpdateRequest as BlogPostUpdateRequest;
 use App\Models\Blog\Category as BlogCategory;
 use App\Models\Blog\Post as BlogPost;
 use Illuminate\Http\Request;
@@ -37,20 +39,10 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BlogPostStoreRequest $request)
     {
-        $validated = $request->validate([
-            'title'             => ['required', 'string', 'max:255'],
-            'slug'              => ['required', 'string', 'max:255', 'unique:blog_posts,slug'],
-            'content'           => ['nullable', 'string'],
-            'blog_category_id'  => ['nullable', 'exists:blog_categories,id'],
-            'published_at'      => ['required'],
-            'seo_title'         => ['nullable', 'string'],
-            'seo_description'   => ['nullable', 'string'],
-            'status'            => ['required']
-        ]);
 
-        $blog_post = BlogPost::create($validated);
+        $blog_post = BlogPost::create($request->validated());
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
@@ -69,7 +61,7 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(BlogPost $blog_post)
     {
         //
     }
@@ -88,20 +80,10 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, BlogPost $blog_post)
+    public function update(BlogPostUpdateRequest $request, BlogPost $blog_post)
     {
-        $validated = $request->validate([
-            'title'             => ['required', 'string', 'max:255'],
-            'slug'              => ['required', 'string', 'max:255', 'unique:blog_posts,slug,' . $blog_post->id],
-            'content'           => ['nullable', 'string'],
-            'blog_category_id'  => ['nullable', 'exists:blog_categories,id'],
-            'published_at'      => ['required'],
-            'seo_title'         => ['nullable', 'string'],
-            'seo_description'   => ['nullable', 'string'],
-            'status'            => ['required']
-        ]);
 
-        $blog_post->fill($validated);
+        $blog_post->fill($request->validated());
         $blog_post->save();
 
         if ($request->hasFile('image')) {

@@ -16,7 +16,7 @@
             ];
         @endphp
 
-        <x-admin.breadcrumb :links=$breadcrumbLinks title="Orders" :addNewAction="route('admin.orders.create')" />
+        <x-admin.breadcrumb :links=$breadcrumbLinks title="Orders" {{-- :addNewAction="route('admin.orders.create')" --}} />
 
         <div class="mt-8 flow-root">
             <x-admin.table.search />
@@ -74,7 +74,7 @@
                                                     <i data-lucide="file-text" class="size-5"></i>
                                                 </a>
 
-                                                <x-admin.links.edit :href="route('admin.orders.edit', $order)" />
+                                                {{-- <x-admin.links.edit :href="route('admin.orders.edit', $order)" /> --}}
 
                                                 <x-admin.links.delete :action="route('admin.orders.destroy', $order)" />
                                             </td>
