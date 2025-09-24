@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $title ?? config('app.name') }}</title>
+    <title>{{ $title ?? setting('general.site_name') }}</title>
 
     <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,6 +42,13 @@
                 <div class="px-4 sm:px-6 lg:px-8">
                     <div class="border-t border-gray-200 py-4 text-center text-sm text-gray-500">
                         &copy; {{ date('Y') }} {{ setting('general.app_name') }}. All rights reserved.
+                        <span class="block md:inline mt-1 md:mt-0">
+                            Developed by
+                            <a href="https://ethericsolution.com/" target="_blank"
+                                class="text-primary-600 hover:text-primary-700 transition-colors duration-300 font-semibold">
+                                Etheric Solution
+                            </a>
+                        </span>
                     </div>
                 </div>
             </footer>

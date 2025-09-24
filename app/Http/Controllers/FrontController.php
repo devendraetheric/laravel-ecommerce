@@ -21,9 +21,9 @@ class FrontController extends Controller
             ->with('media')
             ->get();
 
-        $data['featuredProducts'] = Product::featured()->with('media')->take(8)->get();
-        $data['latestProducts'] = Product::latest()->with('media')->take(8)->get();
-        $data['bestSellingProducts'] = Product::active()->with('media')->take(8)->get();
+        $data['featuredProducts'] = Product::featured()->active()->with('media')->take(8)->get();
+        $data['latestProducts'] = Product::latest()->active()->with('media')->take(8)->get();
+        $data['bestSellingProducts'] = Product::latest('view_count')->active()->with('media')->take(8)->get();
 
         $data['topCategories'] = Category::withCount('products')
             ->with('media')
