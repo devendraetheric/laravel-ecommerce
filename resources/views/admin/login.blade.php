@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login | {{ config('app.name') }}</title>
+    <title>Login | {{ setting('general.site_name') }}</title>
 
 
     <!-- google fonts -->
@@ -23,7 +23,7 @@
 
 <body class="h-full font-display">
     <x-admin.alert />
-    <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+    <main class="flex min-h-[calc(100vh-4rem)] flex-col justify-center px-6 py-12 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
             <img class="mx-auto h-10 w-auto" src="{{ getLogoURL() }}" alt="{{ asset('otc-logo.png') }}"
                 loading="lazy" />
@@ -62,8 +62,21 @@
                 </div>
             </form>
         </div>
-    </div>
-
+    </main>
+    <footer>
+        <div class="px-4 sm:px-6 lg:px-8">
+            <div class="py-4 text-center text-sm text-gray-500">
+                &copy; {{ date('Y') }} {{ setting('general.app_name') }}. All rights reserved.
+                <span class="block md:inline mt-1 md:mt-0">
+                    Developed by
+                    <a href="https://ethericsolution.com/" target="_blank"
+                        class="text-primary-600 hover:text-primary-700 transition-colors duration-300 font-semibold">
+                        Etheric Solution
+                    </a>
+                </span>
+            </div>
+        </div>
+    </footer>
 </body>
 
 </html>
