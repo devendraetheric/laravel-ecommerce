@@ -25,7 +25,7 @@ class SettingController extends Controller
         'date_format'        => ['required', 'string'],
         'time_format'        => ['required', 'string'],
         'timezone'           => ['required', 'string'],
-        'admin_emails'       => ['required', 'string'],
+        'admin_emails'       => ['nullable', 'string'],
         'is_captcha'         => ['required', 'bool'],
         'captcha_secret_key' => ['nullable', 'string'],
         'captcha_site_key'   => ['nullable', 'string'],

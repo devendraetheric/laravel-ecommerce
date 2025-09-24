@@ -161,7 +161,7 @@
                 <p class="text-accent-400 text-center md:text-left">
                     &copy; {{ date('Y') }} {{ setting('general.app_name') }}. All rights reserved.
                     <span class="block md:inline mt-1 md:mt-0">
-                        Crafted with ❤️ by
+                        Developed by
                         <a href="https://ethericsolution.com/" target="_blank"
                             class="text-primary-400 hover:text-primary-300 transition-colors duration-300 font-semibold">
                             Etheric Solution

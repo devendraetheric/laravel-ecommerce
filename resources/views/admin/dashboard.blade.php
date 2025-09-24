@@ -1,7 +1,5 @@
 <x-layouts.admin>
 
-    <x-slot name="title">Dashboard | {{ config('app.name') }}</x-slot>
-
     <div class="rounded-md bg-green-50 p-4">
         <div class="flex">
             <div class="shrink-0">
