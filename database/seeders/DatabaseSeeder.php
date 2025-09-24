@@ -42,9 +42,9 @@ class DatabaseSeeder extends Seeder
         $this->call(StateSeeder::class);
         $this->call(BannerSeeder::class);
 
-        Brand::factory(8)->create();
-        Category::factory(4)->create();
+        // Brand::factory(8)->create();
+        // Category::factory(4)->create();
 
-        Product::factory(60)->create();
+        // Product::factory(60)->create();
     }
 }
