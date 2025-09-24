@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContactQuery\StoreRequest as ContactQueryStoreRequest;
 use App\Models\ContactQuery;
 use App\Notifications\ContactCreatedNotification;
 use App\Rules\Captcha;
@@ -10,17 +11,10 @@ use Illuminate\Support\Facades\Notification;
 
 class ContactQueryController extends Controller
 {
-    public function store(Request $request)
+    public function store(ContactQueryStoreRequest $request)
     {
 
-        $validations = [
-            'name'    => ['required', 'string'],
-            'email'   => ['required', 'email'],
-            'phone'   => ['nullable'],
-            'subject' => ['required'],
-            'message' => ['required'],
-
-        ];
+        $validations = $request->validated();
 
         if (setting('general.is_captcha')) {
             $validations = array_merge($validations, ['cf-turnstile-response' => ['required', new Captcha()]]);

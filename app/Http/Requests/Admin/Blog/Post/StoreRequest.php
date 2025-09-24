@@ -23,6 +23,8 @@ class StoreRequest extends FormRequest
      */
     public function rules(): array
     {
+
+
         return [
             'title'             => ['required', 'string', 'max:255'],
             'slug'              => ['required', 'string', 'max:255', Rule::unique(BlogPost::class)],

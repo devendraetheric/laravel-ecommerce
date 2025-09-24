@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Profile\UpdateRequest as ProfileUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -20,7 +21,7 @@ class ProfileController extends Controller
     }
 
 
-    public function update(Request $request)
+    public function update(ProfileUpdateRequest $request)
     {
 
         $validated = $request->validate([
@@ -49,6 +50,4 @@ class ProfileController extends Controller
             'user' => $request->user(),
         ]);
     }
-
-
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Order\StoreRequest as OrderStoreRequest;
+use App\Http\Requests\Order\UpdateRequest as OrderUpdateRequest;
 use App\Enums\PaymentStatus;
 use App\Enums\PaymentType;
 use App\Enums\TaxType;
@@ -95,32 +97,10 @@ class OrderController extends Controller
         ]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(OrderStoreRequest $request): RedirectResponse
     {
-        $addressValidation = [
-            'address.contact_name'      => ['required', 'string', 'max:255'],
-            'address.email'          => ['required', 'email', 'max:255'],
-            'address.phone'          => ['required', 'string', 'max:20'],
-            'address.country_id'        => ['required', 'exists:countries,id'],
-            'address.address_line_1' => ['required', 'string', 'max:255'],
-            'address.address_line_2' => ['nullable', 'string', 'max:255'],
-            'address.city'           => ['required', 'string', 'max:100'],
-            'address.state_id'          => ['required', 'exists:states,id'],
-            'address.zip_code'       => ['required', 'numeric', 'digits_between:4,10'],
-        ];
 
-        $validation = [
-            'payment_method' => ['required'],
-            'notes' => ['nullable', 'string']
-        ];
-
-        if (Auth::check()) {
-            $validation['address_id'] = ['required'];
-        } else {
-            $validation = array_merge($validation, $addressValidation);
-        }
-
-        $validated = $request->validate($validation);
+        $validated = $request->validated();
 
         $cart = cart();
 
