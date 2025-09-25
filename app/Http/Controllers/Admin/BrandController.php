@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Brand\StoreRequest as BrandStoreRequest;
+use App\Http\Requests\Admin\Brand\UpdateRequest as BrandUpdateRequest;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 
@@ -35,8 +37,9 @@ class BrandController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BrandStoreRequest $request)
     {
+
         $validated = $request->validate([
             'name'              => ['required', 'string', 'unique:' . Brand::class],
             'slug'              => ['required', 'string', 'unique:' . Brand::class],
@@ -47,7 +50,11 @@ class BrandController extends Controller
             'seo_description'   => ['nullable', 'string'],
         ]);
 
-        $brand = Brand::create($validated);
+
+
+
+
+        $brand = Brand::create($request->validated());
 
         if ($request->hasFile('featured-image')) {
             $brand->addMediaFromRequest('featured-image')
@@ -79,19 +86,10 @@ class BrandController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Brand $brand)
+    public function update(BrandUpdateRequest $request, Brand $brand)
     {
-        $validated = $request->validate([
-            'name'              => ['required', 'string', 'unique:' . Brand::class . ',name,' . $brand->id],
-            'slug'              => ['required', 'string', 'unique:' . Brand::class . ',slug,' . $brand->id],
-            'description'       => ['nullable', 'string'],
-            'is_active'         => ['boolean', 'default(true)'],
-            'featured-image'    => ['nullable', 'image', 'max:1024'],
-            'seo_title'         => ['nullable', 'string'],
-            'seo_description'   => ['nullable', 'string'],
-        ]);
 
-        $brand->fill($validated);
+        $brand->fill($request->validated());
         $brand->save();
 
         if ($request->hasFile('featured-image')) {

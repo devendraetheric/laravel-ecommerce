@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Banner\StoreRequest as BannerStoreRequest;
+use App\Http\Requests\Admin\Banner\UpdateRequest as BannerUpdateRequest;
 use App\Models\Banner;
 use Illuminate\Http\Request;
 
@@ -34,18 +36,10 @@ class BannerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BannerStoreRequest $request)
     {
 
-        $validated = $request->validate([
-            'name'          => ['required', 'string', 'max:255'],
-            'link'          => ['nullable', 'url', 'max:255'],
-            'location'      => ['required', 'string', 'max:255'],
-            'is_active'     => ['required'],
-            'is_new_tab'    => ['required'],
-        ]);
-
-        $banner = Banner::create($validated);
+        $banner = Banner::create($request->validated());
 
         if ($request->hasFile('image')) {
             $banner->addMediaFromRequest('image')
@@ -77,17 +71,10 @@ class BannerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Banner $banner)
+    public function update(BannerUpdateRequest $request, Banner $banner)
     {
-        $validated = $request->validate([
-            'name'          => ['required', 'string', 'max:255'],
-            'link'          => ['nullable', 'url', 'max:255'],
-            'location'      => ['required', 'string', 'max:255'],
-            'is_active'     => ['required'],
-            'is_new_tab'    => ['required'],
-        ]);
 
-        $banner->fill($validated);
+        $banner->fill($request->validated());
         $banner->save();
 
         if ($request->hasFile('image')) {

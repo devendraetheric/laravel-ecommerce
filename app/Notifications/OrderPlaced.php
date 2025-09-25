@@ -43,7 +43,8 @@ class OrderPlaced extends Notification implements ShouldQueue
             ->line('Total: ' . get_currency_symbol() . $this->order->grand_total)
             ->action('View Order', route('account.orders.show', $this->order))
             ->line('Thank you for shopping with us!')
-            ->salutation("Best Regards, \n " . setting('general.app_name'));
+            ->line('')
+            ->salutation("Best Regards, \n\n **" . setting('general.app_name') . "**");
     }
 
     /**

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Subscriber\StoreRequest as SubscriberStoreRequest;
+use App\Http\Requests\Admin\Subscriber\UpdateRequest as SubscriberUpdateRequest;
 use App\Models\Subscriber;
 use Illuminate\Http\Request;
 
@@ -32,14 +34,9 @@ class SubscriberController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SubscriberStoreRequest $request)
     {
-        $validated = $request->validate([
-            'name'  => ['nullable', 'string'],
-            'email' => ['required', 'email'],
-        ]);
-
-        $subscriber = Subscriber::updateOrCreate($validated);
+        $subscriber = Subscriber::updateOrCreate($request->validated());
 
         return redirect()
             ->route('admin.subscribers.index')
@@ -59,14 +56,9 @@ class SubscriberController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Subscriber $subscriber)
+    public function update(SubscriberUpdateRequest $request, Subscriber $subscriber)
     {
-        $validated = $request->validate([
-            'name'  => ['nullable', 'string'],
-            'email' => ['required', 'email'],
-        ]);
-
-        $subscriber->fill($validated);
+        $subscriber->fill($request->validated());
         $subscriber->save();
 
         return redirect()

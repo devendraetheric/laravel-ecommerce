@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Coupon\StoreRequest as CouponStoreRequest;
+use App\Http\Requests\Admin\Coupon\UpdateRequest as CouponUpdateRequest;
 use App\Models\Coupon;
 use App\Settings\GeneralSetting;
 use Illuminate\Http\Request;
@@ -35,24 +37,10 @@ class CouponController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CouponStoreRequest $request)
     {
-        $validated = $request->validate([
-            'code'               => ['required', 'string'],
-            'description'        => ['nullable'],
-            'type'               => ['required'],
-            'value'              => ['required', 'numeric'],
-            'start_date'         => ['required'],
-            'end_date'           => ['required'],
-            'total_quantity'     => ['required', 'numeric'],
-            'use_per_user'       => ['required', 'numeric'],
-            'max_discount_value' => ['required', 'numeric'],
-            'min_cart_value'     => ['required', 'numeric'],
-            'max_cart_value'     => ['required', 'numeric'],
-            'is_for_new_user'    => ['required'],
-        ]);
 
-        $coupon = Coupon::create($validated);
+        $coupon = Coupon::create($request->validated());
 
         return redirect()
             ->route('admin.coupons.index')
@@ -62,7 +50,7 @@ class CouponController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Coupon $coupon)
     {
         //
     }
@@ -78,25 +66,10 @@ class CouponController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Coupon $coupon)
+    public function update(CouponUpdateRequest $request, Coupon $coupon)
     {
-        $validated = $request->validate([
-            'code'               => ['required', 'string'],
-            'description'        => ['nullable'],
-            'type'               => ['required'],
-            'value'              => ['required', 'numeric'],
-            'start_date'         => ['required'],
-            'end_date'           => ['required'],
-            'total_quantity'     => ['required', 'numeric'],
-            'use_per_user'       => ['required', 'numeric'],
-            'max_discount_value' => ['required', 'numeric'],
-            'min_cart_value'     => ['required', 'numeric'],
-            'max_cart_value'     => ['required', 'numeric'],
-            'is_for_new_user'    => ['required'],
-        ]);
 
-
-        $coupon->fill($validated);
+        $coupon->fill($request->validated());
         $coupon->save();
 
         return redirect()

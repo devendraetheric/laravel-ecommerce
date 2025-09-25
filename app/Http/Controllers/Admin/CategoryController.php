@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Category\StoreRequest as CategoryStoreRequest;
+use App\Http\Requests\Admin\Category\UpdateRequest as CategoryUpdateRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -35,19 +37,10 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CategoryStoreRequest $request)
     {
-        $validated = $request->validate([
-            'name'              => ['required', 'string', 'unique:' . Category::class],
-            'slug'              => ['required', 'string', 'unique:' . Category::class],
-            'description'       => ['nullable', 'string'],
-            'is_active'         => ['boolean', 'default(true)'],
-            'featured-image'    => ['nullable', 'image', 'max:1024'],
-            'seo_title'         => ['nullable', 'string'],
-            'seo_description'   => ['nullable', 'string'],
-        ]);
 
-        $category = Category::create($validated);
+        $category = Category::create($request->validated());
 
         if ($request->hasFile('featured-image')) {
             $category->addMediaFromRequest('featured-image')
@@ -79,19 +72,10 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryUpdateRequest $request, Category $category)
     {
-        $validated = $request->validate([
-            'name'              => ['required', 'string', 'unique:' . Category::class . ',name,' . $category->id],
-            'slug'              => ['required', 'string', 'unique:' . Category::class . ',slug,' . $category->id],
-            'description'       => ['nullable', 'string'],
-            'is_active'         => ['boolean', 'default(true)'],
-            'featured-image'    => ['nullable', 'image', 'max:1024'],
-            'seo_title'         => ['nullable', 'string'],
-            'seo_description'   => ['nullable', 'string'],
-        ]);
 
-        $category->fill($validated);
+        $category->fill($request->validated());
         $category->save();
 
         if ($request->hasFile('featured-image')) {

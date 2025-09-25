@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Address\StoreRequest as AddressStoreRequest;
+use App\Http\Requests\Address\UpdateRequest as AddressUpdateRequest;
 use App\Models\Address;
 use App\Models\Country;
 use Illuminate\Http\Request;
@@ -35,20 +37,10 @@ class AddressController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AddressStoreRequest $request)
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:50'],
-            'country_id' => ['required'],
-            'contact_name' => ['required', 'string', 'max:60'],
-            'phone' => ['required'],
-            'address_line_1' => ['required', 'string', 'max:50'],
-            'address_line_2' => ['nullable', 'string', 'max:50'],
-            'city' => ['required', 'string', 'max:50'],
-            'zip_code' => ['required', 'string', 'max:10'],
-            'state_id' => ['required'],
-            'is_default' => ['required', 'boolean'],
-        ]);
+
+        $validated = $request->validated();
 
         if ($validated['is_default']) {
             auth()->user()->addresses()->update(['is_default' => false]);
@@ -88,27 +80,16 @@ class AddressController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Address $address)
+    public function update(AddressUpdateRequest $request, Address $address)
     {
+
+        $validated = $request->validated();
+
         $userAddress = auth()->user()->addresses()->where('id', $address->id)->first();
 
         if (is_null($userAddress)) {
             abort(404);
         }
-
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:50'],
-            'country_id' => ['required'],
-            'contact_name' => ['required', 'string', 'max:60'],
-            'phone' => ['required'],
-            'address_line_1' => ['required', 'string', 'max:50'],
-            'address_line_2' => ['nullable', 'string', 'max:50'],
-            'city' => ['required', 'string', 'max:50'],
-            'zip_code' => ['required', 'string', 'max:10'],
-            'state_id' => ['required'],
-            'is_default' => ['required'],
-        ]);
-
 
         if ($validated['is_default']) {
             auth()->user()->addresses()->update(['is_default' => false]);

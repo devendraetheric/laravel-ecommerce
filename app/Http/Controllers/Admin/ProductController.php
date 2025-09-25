@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Product\StoreRequest as ProductStoreRequest;
+use App\Http\Requests\Admin\Product\UpdateRequest as ProductUpdateRequest;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
@@ -42,29 +44,10 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductStoreRequest $request)
     {
-        $validated = $request->validate([
-            'name'              => ['required', 'string', 'max:255'],
-            'slug'              => ['required', 'string', 'max:255', 'unique:products,slug'],
-            'short_description' => ['nullable', 'string'],
-            'long_description'  => ['nullable', 'string'],
-            'regular_price'     => ['required', 'numeric', 'min:0'],
-            'selling_price'     => ['required', 'numeric', 'min:0'],
-            'sku'               => ['nullable', 'string'],
-            'barcode'           => ['nullable', 'string'],
-            'is_active'         => ['boolean'],
-            'is_featured'       => ['boolean'],
-            'category_id'       => ['nullable', 'exists:categories,id'],
-            'brand_id'          => ['nullable', 'exists:brands,id'],
-            'seo_title'         => ['nullable', 'string'],
-            'seo_description'   => ['nullable', 'string'],
-            'featured-image'    => ['nullable', 'image', 'max:1024'],
-            'product-images'    => ['nullable', 'array'],
-            'product-images.*'  => ['image', 'max:1024'],
-        ]);
 
-        $product = Product::create($validated);
+        $product = Product::create($request->validated());
 
         if ($request->hasFile('featured-image')) {
             $product->addMediaFromRequest('featured-image')
@@ -107,29 +90,10 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductUpdateRequest $request, Product $product)
     {
-        $validated = $request->validate([
-            'name'              => ['required', 'string', 'max:255'],
-            'slug'              => ['required', 'string', 'max:255', 'unique:products,slug,' . $product->id],
-            'short_description' => ['nullable', 'string'],
-            'long_description'  => ['nullable', 'string'],
-            'regular_price'     => ['required', 'numeric', 'min:0'],
-            'selling_price'     => ['required', 'numeric', 'min:0'],
-            'sku'               => ['nullable', 'string'],
-            'barcode'           => ['nullable', 'string'],
-            'is_active'         => ['boolean'],
-            'is_featured'       => ['boolean'],
-            'category_id'       => ['nullable', 'exists:categories,id'],
-            'brand_id'          => ['nullable', 'exists:brands,id'],
-            'seo_title'         => ['nullable', 'string'],
-            'seo_description'   => ['nullable', 'string'],
-            'featured-image'    => ['nullable', 'image', 'max:1024'],
-            'product-images'    => ['nullable', 'array'],
-            'product-images.*'  => ['image', 'max:1024'],
-        ]);
 
-        $product->fill($validated);
+        $product->fill($request->validated());
         $product->save();
 
         if ($request->hasFile('featured-image')) {
