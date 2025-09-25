@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin\Blog;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Blog\Category\StoreRequest as BlogCategoryStoreRequest;
+use App\Http\Requests\Admin\Blog\Category\UpdateRequest as BlogCategoryUpdateRequest;
 use App\Models\Blog\Category as BlogCategory;
 use Illuminate\Http\Request;
 
@@ -35,19 +37,10 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BlogCategoryStoreRequest $request)
     {
 
-        $validated = $request->validate([
-            'name'              => ['required', 'string', 'unique:' . BlogCategory::class],
-            'slug'              => ['required', 'string', 'unique:' . BlogCategory::class],
-            'description'       => ['nullable', 'string'],
-            'is_active'         => ['boolean', 'default(true)'],
-            'seo_title'         => ['nullable', 'string'],
-            'seo_description'   => ['nullable', 'string'],
-        ]);
-
-        $blog_category = BlogCategory::create($validated);
+        $blog_category = BlogCategory::create($request->validated());
 
         return redirect()
             ->route('admin.blogs.categories.index')
@@ -57,7 +50,7 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(BlogCategory $blog_category)
     {
         //
     }
@@ -74,20 +67,10 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, BlogCategory $blog_category)
+    public function update(BlogCategoryUpdateRequest $request, BlogCategory $blog_category)
     {
-        /* dd($request->all()); */
 
-        $validated = $request->validate([
-            'name'              => ['required', 'string', 'unique:' . BlogCategory::class],
-            'slug'              => ['required', 'string', 'unique:' . BlogCategory::class],
-            'description'       => ['nullable', 'string'],
-            'is_active'         => ['boolean', 'default(true)'],
-            'seo_title'         => ['nullable', 'string'],
-            'seo_description'   => ['nullable', 'string'],
-        ]);
-
-        $blog_category->fill($validated);
+        $blog_category->fill($request->validated());
         $blog_category->save();
 
         return redirect()

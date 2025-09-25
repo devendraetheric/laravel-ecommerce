@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Tax\StoreRequest as TaxStoreRequest;
+use App\Http\Requests\Admin\Tax\UpdateRequest as TaxUpdateRequest;
 use App\Models\Tax;
 use Illuminate\Http\Request;
 
@@ -34,15 +36,10 @@ class TaxController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TaxStoreRequest $request)
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string'],
-            'type' => ['required', 'string'],
-            'rate' => ['required', 'numeric'],
-        ]);
 
-        $tax = Tax::create($validated);
+        $tax = Tax::create($request->validated());
 
         return redirect()
             ->route('admin.taxes.index')
@@ -68,15 +65,9 @@ class TaxController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Tax $tax)
+    public function update(TaxUpdateRequest $request, Tax $tax)
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string'],
-            'type' => ['required', 'string'],
-            'rate' => ['required', 'numeric'],
-        ]);
-
-        $tax->fill($validated);
+        $tax->fill($request->validated());
         $tax->save();
 
         return redirect()

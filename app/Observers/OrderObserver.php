@@ -16,8 +16,6 @@ class OrderObserver
         $prefix = app(PrefixSetting::class);
         $prefix->order_sequence++;
         $prefix->save();
-
-        $order->user->notify(new OrderPlaced($order));
     }
 
 

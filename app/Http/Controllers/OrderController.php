@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Order\StoreRequest as OrderStoreRequest;
+use App\Http\Requests\Order\UpdateRequest as OrderUpdateRequest;
 use App\Enums\PaymentStatus;
 use App\Enums\PaymentType;
 use App\Enums\TaxType;
@@ -11,15 +13,18 @@ use App\Models\Payment;
 use App\Models\State;
 use App\Models\Tax;
 use App\Models\User;
+use App\Notifications\OrderCreatedNotification;
 use App\Notifications\OrderPlaced;
 use App\Services\PaypalService;
 use App\Services\PhonePeService;
 use App\Services\RazorpayService;
+use App\Settings\GeneralSetting;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\View\View;
 
 class OrderController extends Controller
@@ -92,32 +97,10 @@ class OrderController extends Controller
         ]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(OrderStoreRequest $request): RedirectResponse
     {
-        $addressValidation = [
-            'address.contact_name'      => ['required', 'string', 'max:255'],
-            'address.email'          => ['required', 'email', 'max:255'],
-            'address.phone'          => ['required', 'string', 'max:20'],
-            'address.country_id'        => ['required', 'exists:countries,id'],
-            'address.address_line_1' => ['required', 'string', 'max:255'],
-            'address.address_line_2' => ['nullable', 'string', 'max:255'],
-            'address.city'           => ['required', 'string', 'max:100'],
-            'address.state_id'          => ['required', 'exists:states,id'],
-            'address.zip_code'       => ['required', 'numeric', 'digits_between:4,10'],
-        ];
 
-        $validation = [
-            'payment_method' => ['required'],
-            'notes' => ['nullable', 'string']
-        ];
-
-        if (Auth::check()) {
-            $validation['address_id'] = ['required'];
-        } else {
-            $validation = array_merge($validation, $addressValidation);
-        }
-
-        $validated = $request->validate($validation);
+        $validated = $request->validated();
 
         $cart = cart();
 
@@ -182,6 +165,24 @@ class OrderController extends Controller
          */
         $cart->items()->delete();
         $cart->delete();
+
+        /**
+         * Notify Admins and User
+         */
+        $admin_emails = collect(explode(',', app(GeneralSetting::class)->admin_emails))
+            ->map(fn($admin_emails) => trim($admin_emails))
+            ->filter(fn($admin_emails) => filter_var($admin_emails, FILTER_VALIDATE_EMAIL));
+
+
+        foreach ($admin_emails as $admin_email) {
+            Notification::route('mail', $admin_email)
+                ->notify(new OrderCreatedNotification($order));
+        }
+
+        /**
+         * Notify User
+         */
+        $order->user->notify(new OrderPlaced($order));
 
         if ($order->payment_method == 'cod') {
             return redirect()->route('account.orders.thankYou', generateOrderAccessToken($order->order_number))
