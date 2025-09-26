@@ -1,11 +1,22 @@
 <?php
 
+use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-
+use Illuminate\Support\Facades\Hash;
 
 uses(RefreshDatabase::class);
 
+beforeEach(function () {
+    $this->admin = Admin::create([
+        'name' => 'Admin',
+        'email' => 'admin@admin.com',
+        'password' => Hash::make('123456'),
+    ]);
+    $this->actingAs($this->admin, 'admin');
+});
+
+/** user list */
 test('can list users', function () {
 
     $users = User::factory()->count(3)->create();
@@ -18,4 +29,100 @@ test('can list users', function () {
         $response->assertSee($user->first_name);
         $response->assertSee($user->email);
     }
+});
+
+
+/** user create */
+test('can create user', function () {
+
+    $data = [
+        'first_name'    => 'Test',
+        'last_name'     => 'User',
+        'email'         => 'test@example.com',
+        'phone'         => '9856123450',
+        'password'      => '123456',
+    ];
+
+    $response = $this->post(route('admin.users.store'), $data);
+
+    $response->assertRedirect(route('admin.users.index'));
+    $response->assertStatus(302);
+
+    $this->assertDatabaseHas('users', [
+        'email' => 'test@example.com',
+    ]);
+});
+
+
+/** email already exists */
+test('shows validation error when email already exists', function () {
+    $existing = User::factory()->create([
+        'email' => 'test@example.com',
+    ]);
+
+    $response = $this->post(route('admin.users.store'), [
+        'first_name'    => 'Test',
+        'last_name'     => 'Another',
+        'email'         => 'test@example.com',
+        'phone'         => '9856123450',
+        'password'      => '123456',
+    ]);
+
+    $response->assertSessionHasErrors(['email']);
+    $response->assertStatus(302);
+});
+
+
+
+/** user update */
+test('can update a user', function () {
+    $user = User::factory()->create();
+
+    $updatedData = [
+        'first_name' => fake()->firstName(),
+        'last_name'  => fake()->lastName(),
+        'email'      => fake()->unique()->safeEmail(),
+        'phone'      => '123456',
+        'password'   => 'secret123',
+    ];
+
+    $response = $this->put(route('admin.users.update', $user), $updatedData);
+
+    $response->assertRedirect(route('admin.users.index'));
+    $response->assertStatus(302);
+
+    $this->assertDatabaseHas('users', [
+        'id'         => $user->id,
+        'first_name' => $updatedData['first_name'],
+        'last_name'  => $updatedData['last_name'],
+        'email'      => $updatedData['email'],
+        'phone'      => $updatedData['phone'],
+    ]);
+
+
+    $this->assertTrue(Hash::check($updatedData['password'], $user->fresh()->password));
+});
+
+
+
+/** shows validation error when updating with an existing email */
+test('shows validation error when updating with an existing email', function () {
+
+    $existing = User::factory()->create([
+        'email' => 'first@example.com',
+    ]);
+
+    $user = User::factory()->create([
+        'email' => 'second@example.com',
+    ]);
+
+    $response = $this->put(route('admin.users.update', $user), [
+        'first_name' => 'Test',
+        'email'      => 'first@example.com',
+        'phone'      => '1234567890',
+    ]);
+
+
+    $response->assertSessionHasErrors('email');
+    $response->assertStatus(302);
 });
