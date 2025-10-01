@@ -16,6 +16,7 @@ class TaxFactory extends Factory
      */
     public function definition(): array
     {
+
         return [
             'name' => $this->faker->word(),
             'type' => $this->faker->randomElement(['VAT', 'IGST', 'CGST', 'SGST']),

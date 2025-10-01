@@ -80,19 +80,29 @@ test('shows validation error when email already exists', function () {
 
 /** user update */
 test('can update a user', function () {
+
     $user = User::factory()->create();
 
-    $response = $this->put(route('admin.users.update', $user), [
-        'name' => 'Updated User',
-        'email' => $user->email,
-    ]);
+    $updatedData = [
+        'first_name' => fake()->firstName(),
+        'last_name' => fake()->lastName(),
+        'email' => fake()->unique()->safeEmail(),
+        'phone' => fake()->phoneNumber(),
+        'password' => Hash::make('123456'),
+    ];
+
+    $response = $this->put(route('admin.users.update', $user), $updatedData);
 
     $response->assertRedirect(route('admin.users.index'));
     $response->assertStatus(302);
 
     $this->assertDatabaseHas('users', [
-        'id'   => $user->id,
-        'name' => 'Updated User',
+        'id'            => $user->id,
+        'first_name'    =>  $updatedData['first_name'],
+        'last_name'     =>  $updatedData['last_name'],
+        'email'         =>  $updatedData['email'],
+        'phone'         =>  $updatedData['phone'],
+        'password'      =>  $updatedData['password'],
     ]);
 });
 
@@ -118,4 +128,31 @@ test('can update a user', function () {
 
     $response->assertSessionHasErrors(['email']);
     $response->assertStatus(302);
-}); */
+});
+ */
+
+test('shows validation error when updating with an existing email', function () {
+
+    $existing = User::factory()->create([
+        'email' => 'first@example.com',
+    ]);
+
+    $user = User::factory()->create([
+        'email' => 'second@example.com',
+    ]);
+
+    $response = $this->put(route('admin.users.update', $user), [
+        'first_name' => 'Test User',
+        'email'      => 'first@example.com',
+        'phone'      => '1234567890',
+
+    ]);
+
+    $response->assertSessionHasErrors('email');
+    $response->assertStatus(302);
+
+    $this->assertDatabaseHas('users', [
+        'id'    => $user->id,
+        'email' => 'second@example.com',
+    ]);
+});
