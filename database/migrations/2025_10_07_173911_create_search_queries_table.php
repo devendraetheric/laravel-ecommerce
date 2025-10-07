@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('carts', function (Blueprint $table) {
-            $table->boolean('is_checked_out')->default(false)->after('session_id');
+        Schema::create('search_queries', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('query');
+            $table->unsignedBigInteger('count')->default(0);
         });
     }
 
@@ -21,8 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('carts', function (Blueprint $table) {
-            $table->dropColumn('is_checked_out');
-        });
+        Schema::dropIfExists('search_queries');
     }
 };

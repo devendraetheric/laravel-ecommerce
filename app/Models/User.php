@@ -81,6 +81,15 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Cart::class);
     }
 
+
+    public function searchQueries()
+    {
+        return $this->belongsToMany(SearchQuery::class, 'user_search_queries')
+            ->withPivot('count');
+    }
+
+
+
     public function scopeSearch($query, $term)
     {
         if (! $term) return $query;
