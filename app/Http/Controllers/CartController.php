@@ -14,7 +14,7 @@ class CartController extends Controller
     {
         $cart = cart();
 
-        $bestSellingProducts = Product::latest('view_count')->active()->with('media')->take(8)->get();
+        $bestSellingProducts = Product::latest('view_count')->active()->with('media')->take(4)->get();
 
         return view('front.cart', compact('cart', 'bestSellingProducts'));
     }

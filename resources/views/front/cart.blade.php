@@ -162,7 +162,7 @@
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-16 gap-4">
                 <div>
                     <h2 class="text-accent-900 text-3xl md:text-4xl xl:text-5xl font-bold mb-3">
-                        Our <span class="text-gradient">Best Salling Products</span>
+                        Our <span class="text-gradient">Best Selling Products</span>
                     </h2>
                 </div>
                 <a href="{{ route('products.index') }}" class="btn-secondary text-sm gap-2">
